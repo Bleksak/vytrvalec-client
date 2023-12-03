@@ -1,0 +1,16 @@
+rescript = 1
+rule astj
+  command = /home/bleksak/dev/vytrvalec-client/node_modules/rescript/linux/bsc.exe  -warn-error +101 -bs-v 10.1.4  -absname -bs-ast -o $out $i
+o src/lib/API.ast : astj ../../src/lib/API.res
+rule deps
+  command = /home/bleksak/dev/vytrvalec-client/node_modules/rescript/linux/bsb_helper.exe -hash 3a953eddbedb47ddfe621143c65f8a96 $in
+  restat = 1
+o src/lib/API.d : deps src/lib/API.ast
+rule mij
+  command = /home/bleksak/dev/vytrvalec-client/node_modules/rescript/linux/bsc.exe -I src/routes -I src/lib/components/forms -I src/lib/components -I src/lib/actions -I src/lib -I src   -warn-error +101 -bs-package-name resvelte -bs-package-output es6:lib/es6/$in_d:.mjs $i
+  dyndep = 1
+  restat = 1
+o src/lib/API.cmj src/lib/API.cmi ../es6/src/lib/API.mjs : mij src/lib/API.ast
+o src/lib/actions/auth.ast : astj ../../src/lib/actions/auth.res
+o src/lib/actions/auth.d : deps src/lib/actions/auth.ast
+o src/lib/actions/auth.cmj src/lib/actions/auth.cmi ../es6/src/lib/actions/auth.mjs : mij src/lib/actions/auth.ast

@@ -1,0 +1,211 @@
+:where(:not(iframe, canvas, input[type=checkbox], img, svg, video):not(svg, symbol)) {
+    all: unset;
+    display: revert;
+}
+
+*,
+*::before,
+::after {
+    box-sizing: border-box;
+}
+
+a {
+    cursor: revert;
+}
+
+ol, ul, menu {
+    list-style-type: none;
+}
+
+img {
+    max-width: 100%;
+    display: block;
+}
+
+table {
+    border-collapse: collapse;
+}
+
+/*textarea {
+white-space: revert;
+}*/
+:where([hidden]) {
+    display: none;
+}
+
+:where([contenteditable]) {
+    -moz-user-modify: read-write;
+    -webkit-user-modify: read-write;
+    overflow-wrap: break-word;
+    -webkit-line-break: after-white-space;
+    line-break: after-white-space;
+}
+
+/* apply back the draggable feature - exist only in Chromium and Safari */
+:where([draggable=true]) {
+    -webkit-user-drag: element;
+}
+
+* {
+    padding: 0;
+    margin: 0;
+}
+
+body {
+    width: 100%;
+    height: 100vh;
+    font-size: 16px;
+
+    font-family: Roboto Condensed, sans-serif;
+    line-height: 1.5;
+}
+
+body, h1, h2, h3, h4, h5, h6, p, ol, ul {
+    font-weight: normal;
+}
+
+h1, h2, h3, h4, h5, h6, p, ol, ul {
+    line-height: 1.5;
+    user-select: none;
+    -webkit-user-select: none;
+}
+
+a, a:active, a:hover, a:visited {
+    color: inherit;
+    text-decoration: none;
+}
+
+@font-face {
+    font-family: Roboto Condensed;
+    src: url(../fonts/RobotoCondensed-Regular.ttf);
+    font-weight: normal;
+}
+@font-face {
+    font-family: Roboto Condensed;
+    src: url(../fonts/RobotoCondensed-Light.ttf);
+    font-weight: lighter;
+}
+@font-face {
+    font-family: Roboto Condensed;
+    src: url(../fonts/RobotoCondensed-Bold.ttf);
+    font-weight: bold;
+}
+@font-face {
+    font-family: Roboto Condensed;
+    src: url(../fonts/RobotoCondensed-Medium.ttf);
+    font-weight: 500;
+}
+
+button {
+    user-select: none;
+    -webkit-user-select: none;
+}
+
+h1 {
+    font-size: 60px;
+    text-transform: uppercase;
+    font-weight: bold;
+    color: #005CAB;
+}
+
+h2 {
+    font-size: 48px;
+    text-transform: uppercase;
+    font-weight: bold;
+    color: #005CAB;
+}
+
+.no-transform {
+    text-transform: none;
+}
+
+h3 {
+    font-size: 32px;
+    text-transform: uppercase;
+    font-weight: bold;
+    color: #005CAB;
+}
+
+h4 {
+    font-size: 25px;
+    font-weight: bold;
+    color: #005CAB;
+}
+
+h5 {
+    font-size: 24px;
+    font-weight: 500;
+    color: #005CAB;
+}
+
+h6 {
+    font-size: 24px;
+    font-weight: 500;
+    color: white;
+}
+
+p {
+    text-align: justify;
+    font-size: 1.4rem;
+    font-weight: 100;
+}
+
+input[type=text], input[type=email], input[type=password], select {
+    width: 100%;
+    padding: 12px 20px;
+    margin: 8px 0;
+    display: inline-block;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+}
+
+form {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+
+    align-items: center;
+    justify-content: center;
+
+    gap: 10px;
+}
+
+label {
+    width: 100%;
+}
+
+.list-style {
+    font-size: 24px;
+    padding-left: 40px;
+    counter-reset: item;
+}
+
+ul.list-style {
+    list-style-type: disc;
+}
+
+ol.list-style {
+    list-style-type: decimal;
+}
+
+ul > li {
+    counter-increment: item;
+}
+
+ol > li {
+    counter-increment: item;
+}
+
+main {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+}
+
+.row {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+}
