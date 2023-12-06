@@ -87,7 +87,7 @@
 					>
 				{/each}
 			</label>
-			<Button on:click={open} class="full-width">{$LL.registration.submit()}</Button>
+			<Button class="full-width">{$LL.registration.submit()}</Button>
 		</form>
 	</div>
 </Dialog>
