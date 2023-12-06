@@ -15,7 +15,7 @@
 	<div>
 		<h5>Přihlášení</h5>
 
-		<form method="POST" action="/?/login" use:enhance>
+		<form method="POST" action="?/login" use:enhance>
 			<label for="email">
 				E-mail:
 				<input type="email" name="email" id="email" />
@@ -26,7 +26,7 @@
 				<input type="password" name="password" id="password" />
 			</label>
 
-			<Button fullWidth>Přihlásit</Button>
+			<Button class="full-width">Přihlásit</Button>
 		</form>
 	</div>
 </Dialog>

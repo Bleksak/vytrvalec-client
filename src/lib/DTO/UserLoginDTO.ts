@@ -1,9 +1,11 @@
+import type { LoginErrorMap } from "./UserLoginResponse";
+
 export type UserLoginDTO = {
     email: string,
     password: string,
 };
 
-export type UserLoginErrors = Map<string, string>;
+export type UserLoginErrors = LoginErrorMap;
 
 export type UserLoginReturn = {
     type: 'dto',
@@ -17,17 +19,17 @@ export const formDataToUserLoginDTO = (formData: FormData): UserLoginReturn => {
     const email = formData.get('email')?.toString();
     const password = formData.get('password')?.toString();
 
-    const errors = new Map<string, string>();
+    let errors: LoginErrorMap = {};
 
     if (email === undefined) {
-        errors.set('email', 'blank');
+        errors.email = ['blank'];
     }
 
     if (password === undefined) {
-        errors.set('password', 'blank');
+        errors.password = ['blank'];
     }
 
-    if (errors.size !== 0) {
+    if (Object.keys(errors).length !== 0) {
         return {
             type: 'error',
             value: errors
