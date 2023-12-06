@@ -1,4 +1,4 @@
-import { login, register } from "$lib/API";
+import { login, register } from "$actions/Auth";
 import { formDataToUserLoginDTO } from "$lib/DTO/UserLoginDTO";
 import { formDataToUserRegisterDTO } from "$lib/DTO/UserRegisterDTO";
 import { fail, type RequestHandler } from "@sveltejs/kit";
