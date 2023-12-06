@@ -46,6 +46,20 @@ const cs = {
                 blank: 'Prosím potvrďte souhlas se zpracováním osobních údajů.',
             },
         }
+    },
+    login: {
+        title: "Přihlášení",
+        email: "E-mail",
+        password: "Heslo",
+        errors: {
+            email: {
+                blank: 'Vyplňte prosím svou e-mailovou adresu.',
+            },
+            password: {
+                blank: 'Vyplňte prosím své heslo.',
+            },
+        },
+        submit: "Přihlásit",
     }
 } satisfies BaseTranslation;
 

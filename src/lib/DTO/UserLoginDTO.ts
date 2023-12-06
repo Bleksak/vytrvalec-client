@@ -21,11 +21,11 @@ export const formDataToUserLoginDTO = (formData: FormData): UserLoginReturn => {
 
     let errors: LoginErrorMap = {};
 
-    if (email === undefined) {
+    if (email === undefined || email === '') {
         errors.email = ['blank'];
     }
 
-    if (password === undefined) {
+    if (password === undefined || password === '') {
         errors.password = ['blank'];
     }
 

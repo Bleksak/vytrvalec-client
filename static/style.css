@@ -209,3 +209,7 @@ main {
     flex-direction: row;
     justify-content: space-around;
 }
+
+.error {
+    color: #D32F2F;
+}
