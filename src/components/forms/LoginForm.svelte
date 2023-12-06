@@ -10,12 +10,23 @@
 	export function open() {
 		dialog.showModal();
 	}
+
+	const enhancer = ({form}) => {
+		return async ({result, update}) => {
+			if(result.type === 'redirect') {
+				dialog.close();
+				form.reset();
+			}
+			update();
+		}
+	}
+
 </script>
 
 <Dialog bind:dialog>
 	<div>
 		<h5>{$LL.login.title()}</h5>
-		<form method="POST" action="?/login" use:enhance>
+		<form method="POST" action="?/login" use:enhance={enhancer}>
 			{#each $page?.form ?? [] as error}
 				<span class="error">
 						{error}
