@@ -6,6 +6,7 @@ const en = {
         results: 'Results',
         login: 'Login',
         register: 'Register',
+        logout: 'Logout',
     },
 
     homepage: {

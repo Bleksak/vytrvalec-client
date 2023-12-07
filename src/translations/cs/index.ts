@@ -6,6 +6,7 @@ const cs = {
         results: 'Výsledky',
         login: 'Přihlásit se',
         register: 'Registrovat',
+        logout: 'Odhlásit se',
     },
 
     homepage: {

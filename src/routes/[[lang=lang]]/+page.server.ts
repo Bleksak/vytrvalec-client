@@ -1,8 +1,8 @@
 import { login, register } from "$actions/Auth";
-import { goto } from "$app/navigation";
 import { formDataToUserLoginDTO } from "$lib/DTO/UserLoginDTO";
 import { formDataToUserRegisterDTO } from "$lib/DTO/UserRegisterDTO";
 import { fail, redirect, type RequestHandler } from "@sveltejs/kit";
+import axios from "axios";
 
 const loginAction: RequestHandler = async ({ cookies, request }): Promise<any> => {
     const loginDTO = formDataToUserLoginDTO(await request.formData());
@@ -19,9 +19,17 @@ const loginAction: RequestHandler = async ({ cookies, request }): Promise<any> =
 
     const token = result.response.token;
     cookies.set('jwt', token, { path: '/' });
+    axios.defaults.headers.common.Authorization = `Bearer ${token}`;
+
+    return { success: true };
+};
+
+const logoutAction: RequestHandler = ({ cookies }): Promise<any> => {
+    cookies.delete('jwt', { path: '/' });
+    axios.defaults.headers.common.Authorization = null;
 
     throw redirect(307, '/');
-};
+}
 
 const registerAction: RequestHandler = async ({ request }): Promise<any> => {
     const registerDTO = formDataToUserRegisterDTO(await request.formData());
@@ -42,4 +50,5 @@ const registerAction: RequestHandler = async ({ request }): Promise<any> => {
 export const actions = {
     login: loginAction,
     register: registerAction,
+    logout: logoutAction,
 };
