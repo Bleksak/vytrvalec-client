@@ -11,11 +11,11 @@
         dialog.showModal();
     }
 
-    const enhancer = ({form}) => {
+    const enhancer = ({formElement}) => {
         return async ({result, update}) => {
             if (result.type === 'success') {
                 dialog.close();
-                form.reset(); //Asi neni nutný reset když při logoutu proběhne redirect
+                formElement.reset(); //Asi neni nutný reset když při logoutu proběhne redirect
             }
             update();
         }
@@ -29,16 +29,16 @@
         <!--Navbar je definovaný v +layout.svelte ale akce má na +page.server.ts, nemůžu dát akce do +layout.server.ts,
         nechám to používat akce odtamtud. Pokud bych se takhle snažila přihlásit z rules tak to padne na tom, že to
         akci nezná. Jinde používat ?/action. note: asi to jde udělat lépe-->
-        <form method="POST" action="/?/login" use:enhance={enhancer}>
-            {#each $page?.form ?? [] as error}
+        <form method="POST" action="/?/login" use:enhance={enhancer} name="login">
+            {#each $page?.form?.login ?? [] as error}
 				<span class="error">
 						{error}
 				</span>
-            {/each  }
+            {/each}
             <label for="email">
                 {$LL.login.email()}:
                 <input type="email" name="email" id="email"/>
-                {#each $page?.form?.email ?? [] as error}
+                {#each $page?.form?.login?.email ?? [] as error}
 					<span class="error">
 						{$LL.login.errors.email[error]()}
 					</span>
@@ -49,7 +49,7 @@
             <label for="password">
                 {$LL.login.password()}:
                 <input type="password" name="password" id="password"/>
-                {#each $page?.form?.password ?? [] as error}
+                {#each $page?.form?.login?.password ?? [] as error}
 					<span class="error">
 						{$LL.login.errors.password[error]()}
 					</span>

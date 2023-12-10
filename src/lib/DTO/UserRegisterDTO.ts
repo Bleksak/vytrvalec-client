@@ -20,25 +20,25 @@ export const formDataToUserRegisterDTO = (formData: FormData): UserRegisterRetur
     const email = formData.get('email')?.toString();
     let errors: RegistrationErrorMap = {};
 
-    if (email === undefined) {
+    if (email === undefined || email === '') {
         errors['email'] = ['blank'];
     }
 
     const password = formData.get('password')?.toString();
 
-    if (password === undefined) {
+    if (password === undefined || password === '') {
         errors['password'] = ['blank'];
     }
 
     const firstName = formData.get('first_name')?.toString();
 
-    if (firstName === undefined) {
+    if (firstName === undefined || firstName === '') {
         errors['first_name'] = ['blank'];
     }
 
     const lastName = formData.get('last_name')?.toString();
 
-    if (lastName === undefined) {
+    if (lastName === undefined || lastName === '') {
         errors['last_name'] = ['blank'];
     }
 

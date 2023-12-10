@@ -8,13 +8,13 @@ const loginAction: RequestHandler = async ({ cookies, request }): Promise<any> =
     const loginDTO = formDataToUserLoginDTO(await request.formData());
 
     if (loginDTO.type === 'error') {
-        return fail(400, loginDTO.value);
+        return fail(400, {login: loginDTO.value});
     }
 
     const result = await login(loginDTO.value);
 
     if (result.type === 'error') {
-        return fail(400, result.errors);
+        return fail(400, {login: result.errors});
     }
 
     const token = result.response.token;
@@ -35,13 +35,13 @@ const registerAction: RequestHandler = async ({ request }): Promise<any> => {
     const registerDTO = formDataToUserRegisterDTO(await request.formData());
 
     if (registerDTO.type === 'error') {
-        return fail(400, registerDTO.value);
+        return fail(400, {register:registerDTO.value});
     }
 
     const result = await register(registerDTO.value);
 
     if (result.type === 'error') {
-        return fail(400, result.errors);
+        return fail(400, {register: result.errors});
     }
 
     return { status: 201 }
