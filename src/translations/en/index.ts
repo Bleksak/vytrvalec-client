@@ -7,6 +7,7 @@ const en = {
         login: 'Login',
         register: 'Register',
         logout: 'Logout',
+        administration: 'Administration',
     },
 
     homepage: {

@@ -34,6 +34,11 @@
                 <Button on:click={registrationForm.open} class="secondary">{$LL.navbar.register()}</Button>
             </li>
         {:else}
+            {#if $page.data.user.roles.includes('ROLE_STAFF')}
+                <li>
+                    <a href="/{$page.data.lang}/administration">{$LL.navbar.administration()}</a>
+                </li>
+            {/if}
             <li>
                 <form method="POST" action="/?/logout" use:enhance>
                     <Button>{$LL.navbar.logout()}</Button>

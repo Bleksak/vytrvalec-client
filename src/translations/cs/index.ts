@@ -7,6 +7,7 @@ const cs = {
         login: 'Přihlásit se',
         register: 'Registrovat',
         logout: 'Odhlásit se',
+        administration: 'Administrace',
     },
 
     homepage: {

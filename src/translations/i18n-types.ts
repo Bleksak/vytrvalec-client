@@ -35,6 +35,10 @@ type RootTranslation = {
 		 * O​d​h​l​á​s​i​t​ ​s​e
 		 */
 		logout: string
+		/**
+		 * A​d​m​i​n​i​s​t​r​a​c​e
+		 */
+		administration: string
 	}
 	homepage: {
 		/**
@@ -184,6 +188,10 @@ export type TranslationFunctions = {
 		 * Odhlásit se
 		 */
 		logout: () => LocalizedString
+		/**
+		 * Administrace
+		 */
+		administration: () => LocalizedString
 	}
 	homepage: {
 		/**
