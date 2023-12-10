@@ -31,6 +31,14 @@ type RootTranslation = {
 		 * R​e​g​i​s​t​r​o​v​a​t
 		 */
 		register: string
+		/**
+		 * O​d​h​l​á​s​i​t​ ​s​e
+		 */
+		logout: string
+		/**
+		 * A​d​m​i​n​i​s​t​r​a​c​e
+		 */
+		administration: string
 	}
 	homepage: {
 		/**
@@ -124,6 +132,38 @@ type RootTranslation = {
 			}
 		}
 	}
+	login: {
+		/**
+		 * P​ř​i​h​l​á​š​e​n​í
+		 */
+		title: string
+		/**
+		 * E​-​m​a​i​l
+		 */
+		email: string
+		/**
+		 * H​e​s​l​o
+		 */
+		password: string
+		errors: {
+			email: {
+				/**
+				 * V​y​p​l​ň​t​e​ ​p​r​o​s​i​́​m​ ​s​v​o​u​ ​e​-​m​a​i​l​o​v​o​u​ ​a​d​r​e​s​u​.
+				 */
+				blank: string
+			}
+			password: {
+				/**
+				 * V​y​p​l​ň​t​e​ ​p​r​o​s​i​́​m​ ​s​v​e​́​ ​h​e​s​l​o​.
+				 */
+				blank: string
+			}
+		}
+		/**
+		 * P​ř​i​h​l​á​s​i​t
+		 */
+		submit: string
+	}
 }
 
 export type TranslationFunctions = {
@@ -144,6 +184,14 @@ export type TranslationFunctions = {
 		 * Registrovat
 		 */
 		register: () => LocalizedString
+		/**
+		 * Odhlásit se
+		 */
+		logout: () => LocalizedString
+		/**
+		 * Administrace
+		 */
+		administration: () => LocalizedString
 	}
 	homepage: {
 		/**
@@ -236,6 +284,38 @@ export type TranslationFunctions = {
 				blank: () => LocalizedString
 			}
 		}
+	}
+	login: {
+		/**
+		 * Přihlášení
+		 */
+		title: () => LocalizedString
+		/**
+		 * E-mail
+		 */
+		email: () => LocalizedString
+		/**
+		 * Heslo
+		 */
+		password: () => LocalizedString
+		errors: {
+			email: {
+				/**
+				 * Vyplňte prosím svou e-mailovou adresu.
+				 */
+				blank: () => LocalizedString
+			}
+			password: {
+				/**
+				 * Vyplňte prosím své heslo.
+				 */
+				blank: () => LocalizedString
+			}
+		}
+		/**
+		 * Přihlásit
+		 */
+		submit: () => LocalizedString
 	}
 }
 

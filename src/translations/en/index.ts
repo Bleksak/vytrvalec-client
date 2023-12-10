@@ -6,6 +6,8 @@ const en = {
         results: 'Results',
         login: 'Login',
         register: 'Register',
+        logout: 'Logout',
+        administration: 'Administration',
     },
 
     homepage: {
@@ -46,7 +48,22 @@ const en = {
                 blank: 'Please confirm that you agree to our data processing policy.',
             },
         }
+    },
+    login: {
+        title: "Login",
+        email: "E-mail",
+        password: "Password",
+        errors: {
+            email: {
+                blank: 'Please enter your email address.',
+            },
+            password: {
+                blank: 'Please enter your password.',
+            },
+        },
+        submit: "Login",
     }
+
 } satisfies BaseTranslation;
 
 export default en;

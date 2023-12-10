@@ -1,10 +1,6 @@
 <script lang="ts">
 	export let dialog: HTMLDialogElement;
 
-	export function open() {
-		dialog.showModal();
-	}
-
 	export function close(e: Event) {
 		if (e.target != dialog) return;
 		dialog.close();

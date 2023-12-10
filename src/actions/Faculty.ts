@@ -1,4 +1,5 @@
 import axios, { type AxiosResponse } from "axios";
+import type { Faculty } from "$lib/DTO/Faculty";
 import { baseUrl } from "$lib/API";
 
 

@@ -6,6 +6,8 @@ const cs = {
         results: 'Výsledky',
         login: 'Přihlásit se',
         register: 'Registrovat',
+        logout: 'Odhlásit se',
+        administration: 'Administrace',
     },
 
     homepage: {
@@ -46,6 +48,20 @@ const cs = {
                 blank: 'Prosím potvrďte souhlas se zpracováním osobních údajů.',
             },
         }
+    },
+    login: {
+        title: "Přihlášení",
+        email: "E-mail",
+        password: "Heslo",
+        errors: {
+            email: {
+                blank: 'Vyplňte prosím svou e-mailovou adresu.',
+            },
+            password: {
+                blank: 'Vyplňte prosím své heslo.',
+            },
+        },
+        submit: "Přihlásit",
     }
 } satisfies BaseTranslation;
 
