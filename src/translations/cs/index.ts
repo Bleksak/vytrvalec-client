@@ -1,6 +1,7 @@
 import type { BaseTranslation } from '../i18n-types'
 
 const cs = {
+    cookies: 'Tyto webové stránky používají soubory cookie k zajištění základních funkcí webových stránek. Používáním těchto webových stránek souhlasíte se zásadami používání souborů cookie.',
     navbar: {
         rules: 'Pravidla',
         results: 'Výsledky',

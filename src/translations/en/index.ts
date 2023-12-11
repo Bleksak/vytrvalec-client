@@ -1,6 +1,7 @@
 import type { BaseTranslation } from '../i18n-types'
 
 const en = {
+    cookies: 'This website uses cookies to provide essential website functionality. By using this website you agree to the cookie policy.',
     navbar: {
         rules: 'Rules',
         results: 'Results',
