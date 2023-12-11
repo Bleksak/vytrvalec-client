@@ -17,6 +17,7 @@
 		color: white;
 		font-size: 1.3rem;
 		transition: all 0.3s ease-out;
+		padding: 0.5rem;
 	}
 
 	.secondary {
