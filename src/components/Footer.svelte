@@ -1,13 +1,21 @@
+<script>
+import { page } from "$app/stores";
+</script>
+
 <footer>
 	<div class="socials">
-		<a href="#"><img src="/images/facebook.svg" alt="Facebook" /></a>
-		<a href="#"><img src="/images/instagram.svg" alt="Instagram" /></a>
+		<a href="https://www.facebook.com/KatedraTelesneVychovyASportuZcuVPlzni">
+			<img src="/images/facebook.svg" alt="Facebook" />
+		</a>
+		<a href="https://www.instagram.com/kts.zcu/">
+			<img src="/images/instagram.svg" alt="Instagram" />
+		</a>
 	</div>
 	<div class="about">
 		<span>Katedra tělesné výchovy a sportu</span>
 	</div>
 	<div class="special-links">
-		<a href="#">Cookies</a>
+		<a href="/{$page.data.lang}/cookies">Cookies</a>
 	</div>
 </footer>
 
