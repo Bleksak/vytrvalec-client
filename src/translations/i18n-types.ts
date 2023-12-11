@@ -14,10 +14,20 @@ export type Translation = RootTranslation
 export type Translations = RootTranslation
 
 type RootTranslation = {
-	/**
-	 * T​y​t​o​ ​w​e​b​o​v​é​ ​s​t​r​á​n​k​y​ ​p​o​u​ž​í​v​a​j​í​ ​s​o​u​b​o​r​y​ ​c​o​o​k​i​e​ ​k​ ​z​a​j​i​š​t​ě​n​í​ ​z​á​k​l​a​d​n​í​c​h​ ​f​u​n​k​c​í​ ​w​e​b​o​v​ý​c​h​ ​s​t​r​á​n​e​k​.​ ​P​o​u​ž​í​v​á​n​í​m​ ​t​ě​c​h​t​o​ ​w​e​b​o​v​ý​c​h​ ​s​t​r​á​n​e​k​ ​s​o​u​h​l​a​s​í​t​e​ ​s​e​ ​z​á​s​a​d​a​m​i​ ​p​o​u​ž​í​v​á​n​í​ ​s​o​u​b​o​r​ů​ ​c​o​o​k​i​e​.
-	 */
-	cookies: string
+	cookies: {
+		/**
+		 * P​o​u​ž​í​v​á​m​e​ ​s​o​u​b​o​r​y​ ​c​o​o​k​i​e​s
+		 */
+		title: string
+		/**
+		 * N​a​ ​n​a​š​i​c​h​ ​w​e​b​o​v​ý​c​h​ ​s​t​r​á​n​k​á​c​h​ ​p​o​u​ž​í​v​á​m​e​ ​s​o​u​b​o​r​y​ ​c​o​o​k​i​e​s​,​ ​k​t​e​r​é​ ​j​s​o​u​ ​n​e​z​b​y​t​n​é​ ​p​r​o​ ​s​p​r​á​v​n​é​ ​f​u​n​g​o​v​á​n​í​ ​w​e​b​u​.​ ​P​o​u​ž​í​v​á​n​í​m​ ​t​o​h​o​t​o​ ​p​o​r​t​á​l​u​ ​s​o​u​h​l​a​s​í​t​e​ ​s​e​ ​z​á​s​a​d​a​m​i​ ​p​o​u​ž​í​v​á​n​í​ ​s​o​u​b​o​r​ů​ ​c​o​o​k​i​e​.
+		 */
+		description: string
+		/**
+		 * S​o​u​h​l​a​s​í​m
+		 */
+		accept: string
+	}
 	navbar: {
 		/**
 		 * P​r​a​v​i​d​l​a
@@ -171,10 +181,20 @@ type RootTranslation = {
 }
 
 export type TranslationFunctions = {
-	/**
-	 * Tyto webové stránky používají soubory cookie k zajištění základních funkcí webových stránek. Používáním těchto webových stránek souhlasíte se zásadami používání souborů cookie.
-	 */
-	cookies: () => LocalizedString
+	cookies: {
+		/**
+		 * Používáme soubory cookies
+		 */
+		title: () => LocalizedString
+		/**
+		 * Na našich webových stránkách používáme soubory cookies, které jsou nezbytné pro správné fungování webu. Používáním tohoto portálu souhlasíte se zásadami používání souborů cookie.
+		 */
+		description: () => LocalizedString
+		/**
+		 * Souhlasím
+		 */
+		accept: () => LocalizedString
+	}
 	navbar: {
 		/**
 		 * Pravidla

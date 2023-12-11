@@ -1,7 +1,12 @@
 import type { BaseTranslation } from '../i18n-types'
 
 const en = {
-    cookies: 'This website uses cookies to provide essential website functionality. By using this website you agree to the cookie policy.',
+    cookies: {
+        title: 'We use cookies',
+        description: 'This website uses essential cookies to ensure its proper operation. By using this site you agree to the cookie policy.',
+        accept: 'Accept',
+    },
+
     navbar: {
         rules: 'Rules',
         results: 'Results',
