@@ -1,13 +1,13 @@
 <script>
-import { page } from "$app/stores";
+	import { page } from '$app/stores';
 </script>
 
 <footer>
 	<div class="socials">
-		<a href="https://www.facebook.com/KatedraTelesneVychovyASportuZcuVPlzni">
+		<a href={import.meta.env.VITE_FACEBOOK_URL}>
 			<img src="/images/facebook.svg" alt="Facebook" />
 		</a>
-		<a href="https://www.instagram.com/kts.zcu/">
+		<a href={import.meta.env.VITE_INSTAGRAM_URL}>
 			<img src="/images/instagram.svg" alt="Instagram" />
 		</a>
 	</div>
