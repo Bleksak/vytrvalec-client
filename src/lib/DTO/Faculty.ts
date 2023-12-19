@@ -1,4 +1,4 @@
-interface Faculty {
+export type Faculty = {
     id: number;
     name: string;
     shortcut: string;

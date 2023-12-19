@@ -17,12 +17,13 @@
 		color: white;
 		font-size: 1.3rem;
 		transition: all 0.3s ease-out;
+		padding: 0.5rem;
 	}
 
 	.secondary {
 		background-color: white;
 		color: #005cab;
-		border: 2px solid #005cab;
+		outline: 2px solid #005cab;
 	}
 
 	.full-width {
@@ -32,13 +33,13 @@
 	button:hover {
 		background-color: white;
 		color: #005cab;
-		border: 2px solid #005cab;
+		outline: 2px solid #005cab;
 		/* transition: all 0.3s ease-in; */
 	}
 
 	button.secondary:hover {
 		background-color: #005cab;
-		border: none;
+		outline: none;
 		color: white;
 	}
 </style>

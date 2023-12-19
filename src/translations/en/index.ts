@@ -1,11 +1,19 @@
 import type { BaseTranslation } from '../i18n-types'
 
 const en = {
+    cookies: {
+        title: 'We use cookies',
+        description: 'This website uses essential cookies to ensure its proper operation. By using this site you agree to the cookie policy.',
+        accept: 'Accept',
+    },
+
     navbar: {
         rules: 'Rules',
         results: 'Results',
         login: 'Login',
         register: 'Register',
+        logout: 'Logout',
+        administration: 'Administration',
     },
 
     homepage: {
@@ -46,7 +54,22 @@ const en = {
                 blank: 'Please confirm that you agree to our data processing policy.',
             },
         }
+    },
+    login: {
+        title: "Login",
+        email: "E-mail",
+        password: "Password",
+        errors: {
+            email: {
+                blank: 'Please enter your email address.',
+            },
+            password: {
+                blank: 'Please enter your password.',
+            },
+        },
+        submit: "Login",
     }
+
 } satisfies BaseTranslation;
 
 export default en;
