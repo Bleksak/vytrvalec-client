@@ -5,8 +5,10 @@
 
 	let statistics: TotalStatisticsDTO | any = $state(null);
 
-	$effect(async () => {
-		statistics = await fetchTotalStatistics();
+	$effect(() => {
+		fetchTotalStatistics().then((result) => {
+			statistics = result;
+		});
 	});
 </script>
 

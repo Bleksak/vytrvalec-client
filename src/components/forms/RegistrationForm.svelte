@@ -1,10 +1,11 @@
 <script lang="ts">
 	import Button from '../Button.svelte';
 	import Dialog from '../Dialog.svelte';
-	import { fetchFaculties } from '../../actions/Faculty';
 	import { page } from '$app/stores';
 	import { enhance } from '$app/forms';
 	import LL from '../../translations/i18n-svelte';
+	import type { Faculty } from '$lib/DTO/Faculty';
+	import { fetchFaculties } from '$actions/Faculty';
 
 	let dialog: Dialog | any = $state();
 	export function open() {
@@ -13,8 +14,10 @@
 
 	let faculties: Array<Faculty> = $state([]);
 
-	$effect(async () => {
-		faculties = (await fetchFaculties()).data;
+	$effect(() => {
+		fetchFaculties().then((data) => {
+			faculties = data;
+		});
 	});
 </script>
 
