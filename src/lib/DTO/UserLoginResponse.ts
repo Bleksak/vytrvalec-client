@@ -1,4 +1,4 @@
-import type { ResponseErrorMap } from "$lib/ResponseErrors";
+import type { ResponseError, ResponseErrorMap } from "$lib/ResponseErrors";
 import type { UserLoginDTO } from "./UserLoginDTO";
 import type { UserResponse } from "./UserResponse";
 
@@ -7,12 +7,14 @@ export type LoginResponseSuccess = {
     user: UserResponse
 };
 
-export type LoginErrorMap = ResponseErrorMap<UserLoginDTO>;
+export type LoginError = ResponseErrorMap<UserLoginDTO> & {
+    auth: Array<ResponseError>
+};
 
 export type UserLoginResponse = {
     type: 'success'
     response: LoginResponseSuccess
 } | {
     type: 'error',
-    errors: LoginErrorMap
+    errors: LoginError
 };
