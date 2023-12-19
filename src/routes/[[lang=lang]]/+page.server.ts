@@ -28,7 +28,7 @@ const logoutAction: RequestHandler = ({ cookies }): Promise<any> => {
     cookies.delete('jwt', { path: '/' });
     axios.defaults.headers.common.Authorization = null;
 
-    throw redirect(307, '/');
+    redirect(307, '/');
 }
 
 const registerAction: RequestHandler = async ({ request }): Promise<any> => {
