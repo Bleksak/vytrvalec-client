@@ -1,75 +1,106 @@
-import type { BaseTranslation } from '../i18n-types'
+import type { BaseTranslation } from '../i18n-types';
 
 const en = {
-    cookies: {
-        title: 'We use cookies',
-        description: 'This website uses essential cookies to ensure its proper operation. By using this site you agree to the cookie policy.',
-        accept: 'Accept',
-    },
+	cookies: {
+		title: 'We use cookies',
+		description:
+			'This website uses essential cookies to ensure its proper operation. By using this site you agree to the cookie policy.',
+		accept: 'Accept'
+	},
 
-    navbar: {
-        rules: 'Rules',
-        results: 'Results',
-        login: 'Login',
-        register: 'Register',
-        logout: 'Logout',
-        administration: 'Administration',
-    },
+	navbar: {
+		rules: 'Rules',
+		results: 'Results',
+		login: 'Login',
+		register: 'Register',
+		logout: 'Logout',
+		administration: 'Administration'
+	},
 
-    homepage: {
-        title: 'Monthly Runner',
-        statistics: {
-            users: "TOTAL PARTICIPANTS"
-        },
-    },
+	homepage: {
+		title: 'Monthly Runner',
+		statistics: {
+			users: 'TOTAL PARTICIPANTS'
+		}
+	},
 
-    registration: {
-        title: "Registration",
-        email: "E-mail",
-        password: "Password",
-        first_name: "First name",
-        last_name: "Last name",
-        faculty: "Faculty",
-        gdpr: "I consent to the processing of my personal data in accordance with GDPR.",
-        submit: "Register",
-        errors: {
-            email: {
-                blank: 'Please enter your email address.',
-                not_unique: 'This email address is already registered.',
-            },
-            password: {
-                blank: 'Please enter your password.',
-                weak: 'Your password must be at least 8 characters long and contain at least one number and one special character.',
-            },
-            first_name: {
-                blank: 'Please enter your first name.',
-            },
-            last_name: {
-                blank: 'Please enter your last name.',
-            },
-            faculty: {
-                invalid: 'Please select a valid faculty.',
-            },
-            gdpr: {
-                blank: 'Please confirm that you agree to our data processing policy.',
-            },
-        }
-    },
-    login: {
-        title: "Login",
-        email: "E-mail",
-        password: "Password",
-        errors: {
-            email: {
-                blank: 'Please enter your email address.',
-            },
-            password: {
-                blank: 'Please enter your password.',
-            },
-        },
-        submit: "Login",
-    }
+	registration: {
+		title: 'Registration',
+		email: 'E-mail',
+		password: 'Password',
+		first_name: 'First name',
+		last_name: 'Last name',
+		faculty: 'Faculty',
+		gdpr: 'I consent to the processing of my personal data in accordance with GDPR.',
+		submit: 'Register',
+		errors: {
+			email: {
+				blank: 'Please enter your email address.',
+				not_unique: 'This email address is already registered.'
+			},
+			password: {
+				blank: 'Please enter your password.',
+				weak: 'Your password must be at least 8 characters long and contain at least one number and one special character.'
+			},
+			first_name: {
+				blank: 'Please enter your first name.'
+			},
+			last_name: {
+				blank: 'Please enter your last name.'
+			},
+			faculty: {
+				invalid: 'Please select a valid faculty.'
+			},
+			gdpr: {
+				blank: 'Please confirm that you agree to our data processing policy.'
+			}
+		}
+	},
+	login: {
+		title: 'Login',
+		email: 'E-mail',
+		password: 'Password',
+		errors: {
+			email: {
+				blank: 'Please enter your email address.'
+			},
+			password: {
+				blank: 'Please enter your password.'
+			}
+		},
+		submit: 'Login'
+	},
 
+	submission: {
+		title: 'Submission',
+		form: {
+			image: 'Image',
+			distance: 'Distance',
+			elevation: 'Elevation',
+			activity: 'Activity',
+			submit: 'Submit',
+			errors: {
+				image: {
+					blank: 'Please upload an image.',
+					invalid: 'Please upload a valid image.',
+					too_large: 'The image is too large. Please upload an image with a size less than 4MB.'
+				},
+				distance: {
+					blank: 'Please enter a distance.',
+					invalid: 'Distance must be a positive integer.',
+					negative: 'Distance must be a positive integer.'
+				},
+				elevation: {
+					invalid: 'Elevation must be a positive integer.',
+					negative: 'Elevation must be a positive integer.'
+				},
+				activity: {
+					blank: 'Please select an activity.',
+					invalid: 'The selected activity is not valid.'
+				}
+			}
+		}
+	}
 } satisfies BaseTranslation;
 
 export default en;
