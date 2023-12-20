@@ -178,6 +178,84 @@ type RootTranslation = {
 		 */
 		submit: string
 	}
+	submission: {
+		/**
+		 * A​k​t​i​v​i​t​a
+		 */
+		title: string
+		form: {
+			/**
+			 * O​b​r​á​z​e​k
+			 */
+			image: string
+			/**
+			 * V​z​d​á​l​e​n​o​s​t
+			 */
+			distance: string
+			/**
+			 * P​ř​e​v​ý​š​e​n​í
+			 */
+			elevation: string
+			/**
+			 * A​k​t​i​v​i​t​a
+			 */
+			activity: string
+			/**
+			 * N​a​h​r​á​t
+			 */
+			submit: string
+			errors: {
+				image: {
+					/**
+					 * N​a​h​r​a​j​t​e​ ​p​r​o​s​í​m​ ​o​b​r​á​z​e​k​.
+					 */
+					blank: string
+					/**
+					 * N​a​h​r​a​j​t​e​ ​p​r​o​s​í​m​ ​p​l​a​t​n​ý​ ​o​b​r​á​z​e​k​.
+					 */
+					invalid: string
+					/**
+					 * O​b​r​á​z​e​k​ ​j​e​ ​p​ř​í​l​i​š​ ​v​e​l​i​k​ý​,​ ​m​a​x​i​m​á​l​n​í​ ​v​e​l​i​k​o​s​t​ ​o​b​r​á​z​k​u​ ​j​e​ ​4​M​B​.
+					 */
+					too_large: string
+				}
+				distance: {
+					/**
+					 * Z​a​d​e​j​t​e​ ​p​r​o​s​í​m​ ​v​z​d​á​l​e​n​o​s​t
+					 */
+					blank: string
+					/**
+					 * V​z​d​á​l​e​n​o​s​t​ ​m​u​s​í​ ​b​ý​t​ ​k​l​a​d​n​é​ ​c​e​l​é​ ​č​í​s​l​o
+					 */
+					invalid: string
+					/**
+					 * V​z​d​á​l​e​n​o​s​t​ ​m​u​s​í​ ​b​ý​t​ ​k​l​a​d​n​é​ ​c​e​l​é​ ​č​í​s​l​o
+					 */
+					negative: string
+				}
+				elevation: {
+					/**
+					 * P​ř​e​v​ý​š​e​n​í​ ​m​u​s​í​ ​b​ý​t​ ​k​l​a​d​n​é​ ​c​e​l​é​ ​č​í​s​l​o
+					 */
+					invalid: string
+					/**
+					 * P​ř​e​v​ý​š​e​n​í​ ​m​u​s​í​ ​b​ý​t​ ​k​l​a​d​n​é​ ​c​e​l​é​ ​č​í​s​l​o
+					 */
+					negative: string
+				}
+				activity: {
+					/**
+					 * P​r​o​s​í​m​ ​v​y​b​e​r​t​e​ ​a​k​t​i​v​i​t​u​.
+					 */
+					blank: string
+					/**
+					 * V​y​b​r​a​n​á​ ​a​k​t​i​v​i​t​a​ ​n​e​n​i​́​ ​p​l​a​t​n​á​.
+					 */
+					invalid: string
+				}
+			}
+		}
+	}
 }
 
 export type TranslationFunctions = {
@@ -344,6 +422,84 @@ export type TranslationFunctions = {
 		 * Přihlásit
 		 */
 		submit: () => LocalizedString
+	}
+	submission: {
+		/**
+		 * Aktivita
+		 */
+		title: () => LocalizedString
+		form: {
+			/**
+			 * Obrázek
+			 */
+			image: () => LocalizedString
+			/**
+			 * Vzdálenost
+			 */
+			distance: () => LocalizedString
+			/**
+			 * Převýšení
+			 */
+			elevation: () => LocalizedString
+			/**
+			 * Aktivita
+			 */
+			activity: () => LocalizedString
+			/**
+			 * Nahrát
+			 */
+			submit: () => LocalizedString
+			errors: {
+				image: {
+					/**
+					 * Nahrajte prosím obrázek.
+					 */
+					blank: () => LocalizedString
+					/**
+					 * Nahrajte prosím platný obrázek.
+					 */
+					invalid: () => LocalizedString
+					/**
+					 * Obrázek je příliš veliký, maximální velikost obrázku je 4MB.
+					 */
+					too_large: () => LocalizedString
+				}
+				distance: {
+					/**
+					 * Zadejte prosím vzdálenost
+					 */
+					blank: () => LocalizedString
+					/**
+					 * Vzdálenost musí být kladné celé číslo
+					 */
+					invalid: () => LocalizedString
+					/**
+					 * Vzdálenost musí být kladné celé číslo
+					 */
+					negative: () => LocalizedString
+				}
+				elevation: {
+					/**
+					 * Převýšení musí být kladné celé číslo
+					 */
+					invalid: () => LocalizedString
+					/**
+					 * Převýšení musí být kladné celé číslo
+					 */
+					negative: () => LocalizedString
+				}
+				activity: {
+					/**
+					 * Prosím vyberte aktivitu.
+					 */
+					blank: () => LocalizedString
+					/**
+					 * Vybraná aktivita není platná.
+					 */
+					invalid: () => LocalizedString
+				}
+			}
+		}
 	}
 }
 
