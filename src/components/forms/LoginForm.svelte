@@ -29,9 +29,10 @@
 		<!--Navbar je definovaný v +layout.svelte ale akce má na +page.server.ts, nemůžu dát akce do +layout.server.ts,
         nechám to používat akce odtamtud. Pokud bych se takhle snažila přihlásit z rules tak to padne na tom, že to
         akci nezná. Jinde používat ?/action. note: asi to jde udělat lépe-->
-		<form method="POST" action="/?/login" use:enhance={enhancer} name="login">
+		<form method="POST" action="/auth/?/login" use:enhance={enhancer} name="login">
 			{#each $page?.form?.login ?? [] as error}
 				<span class="error">
+					{error}
 					<!-- TODO: tady musime vyresit jak vypisovat errory typu spatnej login -->
 					<!-- {$LL.login.errors.email[error as keyof typeof $LL.login.errors.email]()} -->
 				</span>

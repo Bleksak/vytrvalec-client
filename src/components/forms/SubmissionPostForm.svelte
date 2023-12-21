@@ -10,49 +10,49 @@
 
 <Dialog bind:dialog>
 	<div>
-		<h5>{$LL.registration.title()}</h5>
+		<h5>{$LL.submission.title()}</h5>
 
-		<form method="POST" action="?/submission" use:enhance>
-			<label for="email">
-				{$LL.registration.email()}:
-				<input type="email" name="email" id="email" />
+		<form method="POST" action="/submission/?/create" enctype="multipart/form-data" use:enhance>
+			<label for="image">
+				{$LL.submission.form.image()}:
+				<input type="file" name="image" id="image" />
 				{#each $page?.form?.email ?? [] as error}
-					<span class="error"
-						>{$LL.registration.errors.email[error as keyof typeof $LL.registration.errors.email]()}</span
-					>
+					<span class="error">
+						{$LL.submission.form.errors.image[error as keyof typeof $LL.submission.form.errors.image]()}
+					</span>
 				{/each}
 			</label>
 
-			<label for="password">
-				{$LL.registration.password()}:
-				<input type="password" name="password" id="password" />
-				{#each $page?.form?.password ?? [] as error}
-					<span class="error"
-						>{$LL.registration.errors.password[error as keyof typeof $LL.registration.errors.password]()}</span
-					>
+			<label for="distance">
+				{$LL.submission.form.distance()}:
+				<input type="distance" name="distance" id="distance" />
+				{#each $page?.form?.distance ?? [] as error}
+					<span class="error">
+						{$LL.submission.form.errors.distance[error as keyof typeof $LL.submission.form.errors.distance]()}
+					</span>
 				{/each}
 			</label>
 
-			<label for="first_name">
-				{$LL.registration.first_name()}:
-				<input type="text" name="first_name" id="first_name" />
+			<label for="elevation">
+				{$LL.submission.form.elevation()}:
+				<input type="text" name="elevation" id="elevation" />
 				{#each $page?.form?.first_name ?? [] as error}
-					<span class="error"
-						>{$LL.registration.errors.first_name[error as keyof typeof $LL.registration.errors.first_name]()}</span
-					>
+					<span class="error">
+						{$LL.submission.form.errors.elevation[error as keyof typeof $LL.submission.form.errors.elevation]()}
+					</span>
 				{/each}
 			</label>
-			<label for="last_name">
-				{$LL.registration.last_name()}:
-				<input type="text" name="last_name" id="last_name" />
-				{#each $page?.form?.last_name ?? [] as error}
-					<span class="error"
-						>{$LL.registration.errors.last_name[error as keyof typeof $LL.registration.errors.last_name]()}</span
-					>
+			<label for="activity">
+				{$LL.submission.form.activity()}:
+				<input type="text" name="activity" id="activity" />
+				{#each $page?.form?.activity ?? [] as error}
+					<span class="error">
+						{$LL.submission.form.errors.activity[error as keyof typeof $LL.submission.form.errors.activity]()}
+					</span>
 				{/each}
 			</label>
 
-			<Button class="full-width">{$LL.registration.submit()}</Button>
+			<Button class="full-width">{$LL.submission.form.submit()}</Button>
 		</form>
 	</div>
 </Dialog>
