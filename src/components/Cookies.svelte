@@ -16,7 +16,7 @@
 		<h6>{$LL.cookies.title()}</h6>
 		<p>{$LL.cookies.description()}</p>
 	</div>
-	<Button on:click={acceptCookies}>{$LL.cookies.accept()}</Button>
+	<Button on:click={acceptCookies} class="rounded">{$LL.cookies.accept()}</Button>
 </div>
 
 <style>
@@ -24,12 +24,13 @@
 		position: sticky;
 		bottom: 2em;
 		background-color: #fff;
-		padding: 2rem;
+		padding: 1.2rem;
 		display: flex;
 		align-items: center;
 		max-width: 50em;
 		margin: 0 auto;
 		box-shadow: 5px 5px 10px #757575;
+        border-radius: 10px;
 	}
 	.cookies {
 		text-align: justify;
