@@ -87,8 +87,6 @@ p,
 ol,
 ul {
 	line-height: 1.5;
-	user-select: none;
-	-webkit-user-select: none;
 }
 
 a,
