@@ -29,6 +29,11 @@
 		transform: translateX(-50%) translateY(-50%);
 	}
 
+	dialog::backdrop {
+		transition: backdrop-filter 0.5s ease;
+		background: rgba(0, 0, 0, 0.8);
+	}
+
 	div.wrapper {
 		width: 500px;
 		background-color: white;
@@ -47,6 +52,6 @@
 	}
 
 	div.inner {
-		padding: 50px;
+		padding: 30px 50px 50px;
 	}
 </style>
