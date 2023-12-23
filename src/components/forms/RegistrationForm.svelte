@@ -6,6 +6,7 @@
 	import LL from '../../translations/i18n-svelte';
 	import type { Faculty } from '$lib/DTO/Faculty';
 	import { fetchFaculties } from '$actions/Faculty';
+	import type { SubmitFunction } from '@sveltejs/kit';
 
 	let dialog: Dialog | any = $state();
 	export function open() {
@@ -19,13 +20,23 @@
 			faculties = data;
 		});
 	});
+
+	const enhancer: SubmitFunction = ({ formElement }) => {
+		return async ({ result, update }) => {
+			if (result.type === 'success') {
+				dialog.close();
+				formElement.reset();
+			}
+			update();
+		};
+	};
 </script>
 
 <Dialog bind:dialog>
 	<div>
 		<h5>{$LL.registration.title()}</h5>
 
-		<form method="POST" action="/auth/?/register" use:enhance>
+		<form method="POST" action="/auth/?/register" use:enhance={enhancer}>
 			<label for="email">
 				{$LL.registration.email()}:
 				<input type="email" name="email" id="email" />
