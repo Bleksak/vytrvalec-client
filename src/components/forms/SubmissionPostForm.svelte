@@ -4,8 +4,67 @@
 	import LL from '$translations/i18n-svelte';
 	import { page } from '$app/stores';
 	import { enhance } from '$app/forms';
+	import type { ChangeEventHandler } from 'svelte/elements';
 
 	let dialog: Dialog | any = $state();
+	let dropzone: HTMLElement | any = $state();
+	let dropzoneImage: HTMLImageElement | any = $state();
+	let dropzoneText: HTMLElement | any = $state();
+
+	let uploadedFiles: FileList | any = $state();
+
+	export function open() {
+		dialog.showModal();
+	}
+
+	const preventDefault = (e: Event) => {
+		e.preventDefault();
+	};
+
+	const updateImagePreview = (file: File) => {
+		let reader = new FileReader();
+		reader.readAsDataURL(file);
+		reader.onloadend = () => {
+			dropzoneImage.src = reader.result as string;
+			dropzoneImage.style.display = 'block';
+			dropzoneText.style.display = 'none';
+		};
+	};
+
+	const fileInputChange: ChangeEventHandler<HTMLInputElement> = (e) => {
+		if (e.currentTarget.files?.length !== undefined) {
+			updateImagePreview(e.currentTarget.files[0]);
+		}
+	};
+
+	const handleDrop = (e: DragEvent) => {
+		e.preventDefault();
+
+		const dt = e.dataTransfer;
+		if (dt === null) {
+			return;
+		}
+
+		const files = dt.files;
+		if (files.length === 0) {
+			return;
+		}
+
+		const file = files[0];
+
+		let fileList = new DataTransfer();
+		fileList.items.add(file);
+		uploadedFiles = fileList.files;
+
+		updateImagePreview(file);
+	};
+
+	$effect(() => {
+		dropzone.addEventListener('dragenter', preventDefault, false);
+		dropzone.addEventListener('dragleave', preventDefault, false);
+		dropzone.addEventListener('dragover', preventDefault, false);
+		dropzone.addEventListener('drop', handleDrop, false);
+	});
 </script>
 
 <Dialog bind:dialog>
@@ -14,8 +73,20 @@
 
 		<form method="POST" action="/submission/?/create" enctype="multipart/form-data" use:enhance>
 			<label for="image">
-				{$LL.submission.form.image()}:
-				<input type="file" name="image" id="image" />
+				<div class="dropzone" bind:this={dropzone}>
+					<img bind:this={dropzoneImage} alt="Activity" class="dropzone-image" />
+					<div bind:this={dropzoneText} class="dropzone-text">
+						{$LL.submission.form.image()}
+					</div>
+				</div>
+				<input
+					bind:files={uploadedFiles}
+					on:change={fileInputChange}
+					type="file"
+					name="image"
+					id="image"
+					accept="image/*"
+				/>
 				{#each $page?.form?.email ?? [] as error}
 					<span class="error">
 						{$LL.submission.form.errors.image[error as keyof typeof $LL.submission.form.errors.image]()}
@@ -25,7 +96,7 @@
 
 			<label for="distance">
 				{$LL.submission.form.distance()}:
-				<input type="distance" name="distance" id="distance" />
+				<input type="text" name="distance" id="distance" />
 				{#each $page?.form?.distance ?? [] as error}
 					<span class="error">
 						{$LL.submission.form.errors.distance[error as keyof typeof $LL.submission.form.errors.distance]()}
@@ -56,3 +127,32 @@
 		</form>
 	</div>
 </Dialog>
+
+<style>
+	.dropzone {
+		display: flex;
+		justify-content: center;
+		align-items: center;
+
+		width: 300px;
+		height: 400px;
+		border: 1px solid gray;
+		border-radius: 10px;
+		margin: 15px auto;
+	}
+
+	.dropzone-image {
+		display: none;
+		width: 100%;
+		height: 100%;
+	}
+
+	.dropzone-text {
+		width: 60%;
+		text-align: center;
+	}
+
+	input[type='file'] {
+		display: none;
+	}
+</style>

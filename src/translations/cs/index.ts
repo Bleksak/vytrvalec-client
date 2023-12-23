@@ -14,7 +14,8 @@ const cs = {
 		login: 'Přihlásit se',
 		register: 'Registrovat',
 		logout: 'Odhlásit se',
-		administration: 'Administrace'
+		administration: 'Administrace',
+		submission: 'Nahrát aktivitu'
 	},
 
 	homepage: {
@@ -74,7 +75,7 @@ const cs = {
 	submission: {
 		title: 'Aktivita',
 		form: {
-			image: 'Obrázek',
+			image: 'Sem přetáhněte obrázek, nebo klikněte pro výběr',
 			distance: 'Vzdálenost',
 			elevation: 'Převýšení',
 			activity: 'Aktivita',

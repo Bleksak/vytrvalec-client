@@ -53,6 +53,10 @@ type RootTranslation = {
 		 * A​d​m​i​n​i​s​t​r​a​c​e
 		 */
 		administration: string
+		/**
+		 * N​a​h​r​á​t​ ​a​k​t​i​v​i​t​u
+		 */
+		submission: string
 	}
 	homepage: {
 		/**
@@ -185,7 +189,7 @@ type RootTranslation = {
 		title: string
 		form: {
 			/**
-			 * O​b​r​á​z​e​k
+			 * S​e​m​ ​p​ř​e​t​á​h​n​ě​t​e​ ​o​b​r​á​z​e​k​,​ ​n​e​b​o​ ​k​l​i​k​n​ě​t​e​ ​p​r​o​ ​v​ý​b​ě​r
 			 */
 			image: string
 			/**
@@ -298,6 +302,10 @@ export type TranslationFunctions = {
 		 * Administrace
 		 */
 		administration: () => LocalizedString
+		/**
+		 * Nahrát aktivitu
+		 */
+		submission: () => LocalizedString
 	}
 	homepage: {
 		/**
@@ -430,7 +438,7 @@ export type TranslationFunctions = {
 		title: () => LocalizedString
 		form: {
 			/**
-			 * Obrázek
+			 * Sem přetáhněte obrázek, nebo klikněte pro výběr
 			 */
 			image: () => LocalizedString
 			/**

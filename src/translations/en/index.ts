@@ -14,7 +14,8 @@ const en = {
 		login: 'Login',
 		register: 'Register',
 		logout: 'Logout',
-		administration: 'Administration'
+		administration: 'Administration',
+		submission: 'Upload submission'
 	},
 
 	homepage: {
@@ -74,7 +75,7 @@ const en = {
 	submission: {
 		title: 'Submission',
 		form: {
-			image: 'Image',
+			image: 'Drop image here or click to upload',
 			distance: 'Distance',
 			elevation: 'Elevation',
 			activity: 'Activity',
