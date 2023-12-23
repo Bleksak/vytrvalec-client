@@ -189,7 +189,7 @@ type RootTranslation = {
 		title: string
 		form: {
 			/**
-			 * S​e​m​ ​p​ř​e​t​á​h​n​ě​t​e​ ​o​b​r​á​z​e​k​,​ ​n​e​b​o​ ​k​l​i​k​n​ě​t​e​ ​p​r​o​ ​v​ý​b​ě​r
+			 * S​e​m​ ​p​ř​e​t​á​h​n​ě​t​e​ ​o​b​r​á​z​e​k
 			 */
 			image: string
 			/**
@@ -438,7 +438,7 @@ export type TranslationFunctions = {
 		title: () => LocalizedString
 		form: {
 			/**
-			 * Sem přetáhněte obrázek, nebo klikněte pro výběr
+			 * Sem přetáhněte obrázek
 			 */
 			image: () => LocalizedString
 			/**

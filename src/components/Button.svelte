@@ -30,6 +30,15 @@
 		width: 100%;
 	}
 
+	.rounded {
+		border-radius: 10px;
+	}
+
+	.small {
+        height: 35px;
+        font-size: 0.8rem;
+	}
+
 	button:hover {
 		background-color: white;
 		color: #005cab;

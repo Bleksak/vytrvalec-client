@@ -56,8 +56,12 @@
 		fileList.items.add(file);
 		uploadedFiles = fileList.files;
 
-		updateImagePreview(file);
-	};
+        updateImagePreview(file);
+    };
+
+    const openFileInput = () => {
+        document.getElementById("image").click();
+    };
 
 	$effect(() => {
 		dropzone.addEventListener('dragenter', preventDefault, false);
@@ -72,27 +76,36 @@
 		<h5>{$LL.submission.title()}</h5>
 
 		<form method="POST" action="/submission/?/create" enctype="multipart/form-data" use:enhance>
-			<label for="image">
-				<div class="dropzone" bind:this={dropzone}>
-					<img bind:this={dropzoneImage} alt="Activity" class="dropzone-image" />
+			<div class="dropzone" bind:this={dropzone}>
+				<div class="inner" class:no-image={!uploadedFiles}>
+					<img
+						bind:this={dropzoneImage}
+						src="/images/icons/file-input-icon.svg"
+						alt="File input"
+						class="image"
+						class:preview={!uploadedFiles}
+					/>
 					<div bind:this={dropzoneText} class="dropzone-text">
 						{$LL.submission.form.image()}
 					</div>
+
+					<Button class="rounded small" on:click={openFileInput}>Vybrat obrázek</Button>
+					<input
+						bind:files={uploadedFiles}
+						on:change={fileInputChange}
+						type="file"
+						name="image"
+						id="image"
+						accept="image/*"
+					/>
 				</div>
-				<input
-					bind:files={uploadedFiles}
-					on:change={fileInputChange}
-					type="file"
-					name="image"
-					id="image"
-					accept="image/*"
-				/>
-				{#each $page?.form?.email ?? [] as error}
-					<span class="error">
-						{$LL.submission.form.errors.image[error as keyof typeof $LL.submission.form.errors.image]()}
-					</span>
-				{/each}
-			</label>
+			</div>
+
+			{#each $page?.form?.email ?? [] as error}
+				<span class="error">
+					{$LL.submission.form.errors.image[error as keyof typeof $LL.submission.form.errors.image]()}
+				</span>
+			{/each}
 
 			<label for="distance">
 				{$LL.submission.form.distance()}:
@@ -123,36 +136,56 @@
 				{/each}
 			</label>
 
-			<Button class="full-width">{$LL.submission.form.submit()}</Button>
+			<Button class="full-width rounded">{$LL.submission.form.submit()}</Button>
 		</form>
 	</div>
 </Dialog>
 
 <style>
-	.dropzone {
-		display: flex;
-		justify-content: center;
-		align-items: center;
+    div {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
 
-		width: 300px;
-		height: 400px;
-		border: 1px solid gray;
-		border-radius: 10px;
-		margin: 15px auto;
-	}
+    .dropzone {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 100%;
+        margin: 15px auto;
 
-	.dropzone-image {
-		display: none;
-		width: 100%;
-		height: 100%;
-	}
+    }
+
+    .no-image {
+        padding: 1rem;
+        border: 2px solid #8099b44d;
+        border-radius: 10px;
+    }
+
+    .preview {
+        height: 50px;
+        width: 50px;
+    }
 
 	.dropzone-text {
 		width: 60%;
 		text-align: center;
 	}
 
-	input[type='file'] {
-		display: none;
-	}
+    .image {
+        max-height: 300px;
+    }
+
+    .inner {
+        display: flex;
+        align-items: center;
+        width: 90%;
+        justify-content: space-between;
+        row-gap: 20px;
+    }
+
+    input[type='file'] {
+        display: none;
+    }
 </style>

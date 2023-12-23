@@ -8,14 +8,10 @@
 
 <dialog bind:this={dialog}>
 	<div class="wrapper">
-		<div class="controls">
-			<button on:click={close} type="button">
-				<img src="/images/icons/close.svg" alt="Close" />
-			</button>
-		</div>
-		<div class="inner">
-			<slot />
-		</div>
+		<button on:click={close} type="button">
+			<img src="/images/icons/close.svg" alt="Close" />
+		</button>
+		<slot />
 	</div>
 </dialog>
 
@@ -33,11 +29,15 @@
 		transition: backdrop-filter 0.5s ease;
 		background: rgba(0, 0, 0, 0.8);
 	}
+	div button {
+        float: right;
+	}
 
 	div.wrapper {
 		width: 500px;
 		background-color: white;
 		border-radius: 10px;
+		padding: 2rem;
 	}
 
 	.controls {

@@ -75,7 +75,7 @@ const cs = {
 	submission: {
 		title: 'Aktivita',
 		form: {
-			image: 'Sem přetáhněte obrázek, nebo klikněte pro výběr',
+			image: 'Sem přetáhněte obrázek',
 			distance: 'Vzdálenost',
 			elevation: 'Převýšení',
 			activity: 'Aktivita',
