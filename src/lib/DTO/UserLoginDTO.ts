@@ -1,46 +1,48 @@
-import type { LoginErrorMap } from "./UserLoginResponse";
+import type { LoginError } from './UserLoginResponse';
 
 export type UserLoginDTO = {
-    email: string,
-    password: string,
+	email: string;
+	password: string;
 };
 
-export type UserLoginErrors = LoginErrorMap;
+export type UserLoginErrors = LoginError;
 
-export type UserLoginReturn = {
-    type: 'dto',
-    value: UserLoginDTO,
-} | {
-    type: 'error',
-    value: UserLoginErrors,
-};
+export type UserLoginReturn =
+	| {
+			type: 'dto';
+			value: UserLoginDTO;
+	  }
+	| {
+			type: 'error';
+			value: UserLoginErrors;
+	  };
 
 export const formDataToUserLoginDTO = (formData: FormData): UserLoginReturn => {
-    const email = formData.get('email')?.toString();
-    const password = formData.get('password')?.toString();
+	const email = formData.get('email')?.toString();
+	const password = formData.get('password')?.toString();
 
-    let errors: LoginErrorMap = {};
+	let errors: LoginError = {};
 
-    if (email === undefined || email === '') {
-        errors.email = ['blank'];
-    }
+	if (email === undefined || email === '') {
+		errors.email = ['blank'];
+	}
 
-    if (password === undefined || password === '') {
-        errors.password = ['blank'];
-    }
+	if (password === undefined || password === '') {
+		errors.password = ['blank'];
+	}
 
-    if (Object.keys(errors).length !== 0) {
-        return {
-            type: 'error',
-            value: errors
-        };
-    }
+	if (Object.keys(errors).length !== 0) {
+		return {
+			type: 'error',
+			value: errors
+		};
+	}
 
-    return {
-        type: 'dto',
-        value: {
-            email: email!,
-            password: password!
-        }
-    };
-}
+	return {
+		type: 'dto',
+		value: {
+			email: email!,
+			password: password!
+		}
+	};
+};

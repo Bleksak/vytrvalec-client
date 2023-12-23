@@ -5,6 +5,7 @@ export type ResponseError =
 	| 'not_unique'
 	| 'logged_in'
 	| 'too_large'
+	| 'negative'
 	| 'server_down';
 
 export type ResponseErrorMap<T> = {
