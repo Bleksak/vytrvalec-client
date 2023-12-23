@@ -11,7 +11,7 @@
 		cursor: pointer;
 		display: block;
 		text-align: center;
-		width: 150px;
+		min-width: 150px;
 		height: 50px;
 		background-color: #005cab;
 		color: white;
