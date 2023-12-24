@@ -2,9 +2,9 @@ import type { BaseTranslation } from '../i18n-types';
 
 const en = {
 	cookies: {
-		title: 'We use cookies',
+		title: 'This website uses cookies',
 		description:
-			'This website uses essential cookies to ensure its proper operation. By using this site you agree to the cookie policy.',
+			'This website uses cookies to ensure it can work properly. By using this website you agree to the use of cookies.',
 		accept: 'Accept'
 	},
 
@@ -75,7 +75,7 @@ const en = {
 	submission: {
 		title: 'Submission',
 		form: {
-			image: 'Drop image here or click to upload',
+			image: 'Drag image here',
 			distance: 'Distance',
 			elevation: 'Elevation',
 			activity: 'Activity',

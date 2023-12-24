@@ -6,10 +6,11 @@
 	import { enhance } from '$app/forms';
 	import type { ChangeEventHandler } from 'svelte/elements';
 
-	let dialog: Dialog | any = $state();
-	let dropzone: HTMLElement | any = $state();
-	let dropzoneImage: HTMLImageElement | any = $state();
-	let dropzoneText: HTMLElement | any = $state();
+	let dialog: Dialog | any = $state<Dialog>();
+	let fileInput: HTMLElement | any = $state<HTMLElement>();
+	let dropzone: HTMLElement | any = $state<HTMLElement>();
+	let dropzoneImage: HTMLImageElement | any = $state<HTMLImageElement>();
+	let dropzoneText: HTMLElement | any = $state<HTMLElement>();
 
 	let uploadedFiles: FileList | any = $state();
 
@@ -56,12 +57,8 @@
 		fileList.items.add(file);
 		uploadedFiles = fileList.files;
 
-        updateImagePreview(file);
-    };
-
-    const openFileInput = () => {
-        document.getElementById("image").click();
-    };
+		updateImagePreview(file);
+	};
 
 	$effect(() => {
 		dropzone.addEventListener('dragenter', preventDefault, false);
@@ -78,29 +75,27 @@
 		<form method="POST" action="/submission/?/create" enctype="multipart/form-data" use:enhance>
 			<div class="dropzone" bind:this={dropzone}>
 				<div class="inner" class:no-image={!uploadedFiles}>
-					<img
-						bind:this={dropzoneImage}
-						src="/images/icons/file-input-icon.svg"
-						alt="File input"
-						class="image"
-						class:preview={!uploadedFiles}
-					/>
+					<img bind:this={dropzoneImage} src="/images/icons/file-input-icon.svg" alt="File input" />
 					<div bind:this={dropzoneText} class="dropzone-text">
 						{$LL.submission.form.image()}
 					</div>
 
-					<Button class="rounded small" on:click={openFileInput}>Vybrat obrázek</Button>
-					<input
-						bind:files={uploadedFiles}
-						on:change={fileInputChange}
-						type="file"
-						name="image"
-						id="image"
-						accept="image/*"
-					/>
+					<Button class="rounded small" type="button" on:click={() => fileInput.click()}>
+						<!-- TODO: translations -->
+						Vybrat obrázek
+					</Button>
 				</div>
 			</div>
 
+			<input
+				bind:this={fileInput}
+				bind:files={uploadedFiles}
+				on:change={fileInputChange}
+				type="file"
+				name="image"
+				id="image"
+				accept="image/*"
+			/>
 			{#each $page?.form?.email ?? [] as error}
 				<span class="error">
 					{$LL.submission.form.errors.image[error as keyof typeof $LL.submission.form.errors.image]()}
@@ -142,50 +137,44 @@
 </Dialog>
 
 <style>
-    div {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-    }
+	.dropzone {
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		width: 100%;
+		margin: 15px auto;
+	}
 
-    .dropzone {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        width: 100%;
-        margin: 15px auto;
+	.no-image {
+		padding: 15px;
+		border: 2px solid #8099b44d;
+		border-radius: 10px;
+	}
 
-    }
-
-    .no-image {
-        padding: 1rem;
-        border: 2px solid #8099b44d;
-        border-radius: 10px;
-    }
-
-    .preview {
-        height: 50px;
-        width: 50px;
-    }
+	.no-image > img {
+		height: 50px;
+		width: 50px;
+	}
 
 	.dropzone-text {
 		width: 60%;
 		text-align: center;
 	}
 
-    .image {
-        max-height: 300px;
-    }
+	.inner {
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		width: 90%;
+		justify-content: space-between;
+		gap: 15px;
+	}
 
-    .inner {
-        display: flex;
-        align-items: center;
-        width: 90%;
-        justify-content: space-between;
-        row-gap: 20px;
-    }
+	img {
+		max-height: 300px;
+	}
 
-    input[type='file'] {
-        display: none;
-    }
+	input[type='file'] {
+		display: none;
+	}
 </style>

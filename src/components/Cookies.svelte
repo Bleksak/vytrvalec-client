@@ -12,39 +12,38 @@
 </script>
 
 <div class="container" class:hidden={cookiesAccepted}>
-	<div class="cookies">
-		<h6>{$LL.cookies.title()}</h6>
-		<p>{$LL.cookies.description()}</p>
-	</div>
+	<h4>{$LL.cookies.title()}</h4>
+	<p>{$LL.cookies.description()}</p>
 	<Button on:click={acceptCookies} class="rounded">{$LL.cookies.accept()}</Button>
 </div>
 
 <style>
 	.container {
 		position: sticky;
-		bottom: 2em;
+		bottom: 5vh;
 		background-color: #fff;
-		padding: 1.2rem;
+		padding: 25px;
 		display: flex;
-		align-items: center;
-		max-width: 50em;
-		margin: 0 auto;
 		box-shadow: 5px 5px 10px #757575;
-        border-radius: 10px;
+		border-radius: 10px;
+
+		left: 50%;
+		transform: translateX(-50%);
+
+		max-width: 850px;
+
+		flex-direction: column;
+		justify-content: center;
+
+		align-items: center;
+		gap: 20px;
 	}
-	.cookies {
-		text-align: justify;
-		margin-right: 2em;
-	}
-	h6 {
+
+	h4 {
 		color: #000;
 	}
+
 	.hidden {
 		display: none;
 	}
-
-	span {
-		margin-right: 2rem;
-	}
 </style>
-

@@ -1,9 +1,9 @@
 <script lang="ts">
-	import Button from '../Button.svelte';
-	import Dialog from '../Dialog.svelte';
+	import Button from '$components/Button.svelte';
+	import Dialog from '$components/Dialog.svelte';
 	import { page } from '$app/stores';
 	import { enhance } from '$app/forms';
-	import LL from '../../translations/i18n-svelte';
+	import LL from '$translations/i18n-svelte';
 	import type { Faculty } from '$lib/DTO/Faculty';
 	import { fetchFaculties } from '$actions/Faculty';
 	import type { SubmitFunction } from '@sveltejs/kit';
