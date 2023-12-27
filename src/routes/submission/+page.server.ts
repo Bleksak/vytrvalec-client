@@ -1,9 +1,19 @@
+import { createSubmission } from '$actions/Submission';
 import { formDataToSubmissionDTO } from '$lib/DTO/SubmissionDTO';
-import type { RequestHandler } from '@sveltejs/kit';
+import { fail, type RequestHandler } from '@sveltejs/kit';
 
 const createAction: RequestHandler = async ({ request }): Promise<any> => {
 	let dto = formDataToSubmissionDTO(await request.formData());
-	console.log(dto);
+	if (dto.type === 'error') {
+		return fail(400, { submission: dto.value });
+	}
+
+	const result = await createSubmission(dto.value);
+	if (result.type === 'error') {
+		return fail(400, { submission: result.errors });
+	}
+
+	return { success: true };
 };
 
 export const actions = {

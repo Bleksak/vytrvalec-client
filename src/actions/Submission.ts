@@ -1,8 +1,9 @@
 import { baseUrl } from '$lib/API';
+import type { SubmissionCreateResponse } from '$lib/DTO/SubmissionCreateResponse';
 import type { SubmissionDTO } from '$lib/DTO/SubmissionDTO';
 import axios from 'axios';
 
-export const createSubmission = async (dto: SubmissionDTO) => {
+export const createSubmission = async (dto: SubmissionDTO): Promise<SubmissionCreateResponse> => {
 	const response = await axios.post(`${baseUrl}/submission`, dto).catch((error) => {
 		if (error.response) {
 			return error.response;
@@ -14,7 +15,7 @@ export const createSubmission = async (dto: SubmissionDTO) => {
 	if (response === null) {
 		return {
 			type: 'error',
-			errors: ['server_down']
+			errors: { server: ['server_down'] }
 		};
 	}
 
@@ -26,7 +27,6 @@ export const createSubmission = async (dto: SubmissionDTO) => {
 	}
 
 	return {
-		type: 'success',
-		data: response.data
+		type: 'success'
 	};
 };
