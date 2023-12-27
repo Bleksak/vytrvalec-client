@@ -193,6 +193,10 @@ type RootTranslation = {
 			 */
 			image: string
 			/**
+			 * V​y​b​r​a​t​ ​o​b​r​á​z​e​k
+			 */
+			chooseImage: string
+			/**
 			 * V​z​d​á​l​e​n​o​s​t
 			 */
 			distance: string
@@ -441,6 +445,10 @@ export type TranslationFunctions = {
 			 * Sem přetáhněte obrázek
 			 */
 			image: () => LocalizedString
+			/**
+			 * Vybrat obrázek
+			 */
+			chooseImage: () => LocalizedString
 			/**
 			 * Vzdálenost
 			 */

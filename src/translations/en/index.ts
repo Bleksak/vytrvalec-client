@@ -76,6 +76,7 @@ const en = {
 		title: 'Submission',
 		form: {
 			image: 'Drag image here',
+			chooseImage: 'Choose image',
 			distance: 'Distance',
 			elevation: 'Elevation',
 			activity: 'Activity',

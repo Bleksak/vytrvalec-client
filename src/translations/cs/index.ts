@@ -76,6 +76,7 @@ const cs = {
 		title: 'Aktivita',
 		form: {
 			image: 'Sem přetáhněte obrázek',
+			chooseImage: 'Vybrat obrázek',
 			distance: 'Vzdálenost',
 			elevation: 'Převýšení',
 			activity: 'Aktivita',

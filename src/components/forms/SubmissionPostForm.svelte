@@ -81,8 +81,7 @@
 					</div>
 
 					<Button class="rounded small" type="button" on:click={() => fileInput.click()}>
-						<!-- TODO: translations -->
-						Vybrat obrázek
+						{$LL.submission.form.chooseImage()}
 					</Button>
 				</div>
 			</div>
