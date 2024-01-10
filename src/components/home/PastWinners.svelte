@@ -1,6 +1,3 @@
-<script lang="ts">
-</script>
-
 <div class="past-winners">
 	<div class="row">
 		<h2>Uplynulé ročníky</h2>
