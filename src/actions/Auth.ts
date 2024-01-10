@@ -86,6 +86,6 @@ export const getCurrentUser = async (): Promise<CurrentUserResponse> => {
 
 	return {
 		type: 'success',
-		response: response.data
+		data: response.data
 	};
 };
