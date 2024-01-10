@@ -1,22 +1,30 @@
 <script lang="ts">
-	export let dialog: HTMLDialogElement;
+	import type { HTMLDialogAttributes } from 'svelte/elements';
+
+	let { dialog, header, ...props } = $props<
+		HTMLDialogAttributes & { dialog?: HTMLDialogElement; header: string }
+	>();
 
 	export function close() {
-		dialog.close();
+		dialog?.close();
 	}
+
+	$effect(() => {
+		dialog?.showModal();
+	});
 </script>
 
-<dialog bind:this={dialog}>
-	<div class="wrapper">
-		<div class="controls">
-			<button on:click={close} type="button">
-				<img src="/images/icons/close.svg" alt="Close" />
-			</button>
-		</div>
-		<div class="inner">
-			<slot />
-		</div>
-	</div>
+<dialog bind:this={dialog} {...props} on:close>
+	<header>
+		<h5>{header}</h5>
+
+		<button on:click={close} type="button">
+			<img src="/images/icons/close.svg" alt="Close" />
+		</button>
+	</header>
+	<section>
+		<slot />
+	</section>
 </dialog>
 
 <style>
@@ -27,6 +35,15 @@
 		-moz-transform: translateX(-50%) translateY(-50%);
 		-ms-transform: translateX(-50%) translateY(-50%);
 		transform: translateX(-50%) translateY(-50%);
+
+		display: flex;
+		flex-direction: column;
+		max-width: 450px;
+		width: 100%;
+		background-color: white;
+		border-radius: 10px;
+		padding: 50px 30px;
+		gap: 20px;
 	}
 
 	dialog::backdrop {
@@ -34,11 +51,15 @@
 		background: rgba(0, 0, 0, 0.8);
 	}
 
-	div.wrapper {
-		width: 500px;
-		background-color: white;
-		border-radius: 10px;
-		padding: 30px;
+	header {
+		display: flex;
+		justify-content: space-between;
+	}
+
+	header,
+	section {
+		width: 90%;
+		margin: 0 auto;
 	}
 
 	.controls {
@@ -49,9 +70,5 @@
 
 	img:hover {
 		cursor: pointer;
-	}
-
-	div.inner {
-		padding: 0 50px 50px;
 	}
 </style>
