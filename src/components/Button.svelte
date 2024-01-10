@@ -1,10 +1,11 @@
 <script lang="ts">
 	import type { HTMLButtonAttributes } from 'svelte/elements';
+	import type { Snippet } from 'svelte';
 
-	let { ...props }: HTMLButtonAttributes = $props();
+	let { children, ...props } = $props<HTMLButtonAttributes & { children: Snippet }>();
 </script>
 
-<button {...props} on:click><slot /></button>
+<button {...props} on:click>{@render children()}</button>
 
 <style>
 	button {
@@ -18,6 +19,14 @@
 		font-size: 1.3rem;
 		transition: all 0.3s ease-out;
 		padding: 0.5rem;
+	}
+
+	.middle {
+		margin: 0 auto;
+	}
+
+	.left {
+		margin: 0 auto 0 0;
 	}
 
 	.secondary {
@@ -35,8 +44,8 @@
 	}
 
 	.small {
-        height: 35px;
-        font-size: 0.8rem;
+		height: 35px;
+		font-size: 0.8rem;
 	}
 
 	button:hover {
