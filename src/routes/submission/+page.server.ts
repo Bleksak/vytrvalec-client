@@ -12,8 +12,6 @@ const createAction: RequestHandler = async ({ request }): Promise<any> => {
 	if (result.type === 'error') {
 		return fail(400, { submission: result.errors });
 	}
-
-	return { success: true };
 };
 
 export const actions = {
