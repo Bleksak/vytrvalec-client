@@ -12,7 +12,7 @@
 
 	import Navbar from '$components/Navbar.svelte';
 	import Footer from '$components/Footer.svelte';
-    import Cookies from "$components/Cookies.svelte";
+	import Cookies from '$components/Cookies.svelte';
 </script>
 
 <svelte:head>
