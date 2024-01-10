@@ -50,7 +50,8 @@ const en = {
 				blank: 'Please enter your last name.'
 			},
 			faculty: {
-				invalid: 'Please select a valid faculty.'
+				invalid: 'Please select a valid faculty.',
+				no_faculties: 'Unable to fetch faculties'
 			},
 			gdpr: {
 				blank: 'Please confirm that you agree to our data processing policy.'

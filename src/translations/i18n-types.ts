@@ -141,6 +141,10 @@ type RootTranslation = {
 				 * V​y​b​r​a​n​á​ ​f​a​k​u​l​t​a​ ​n​e​n​i​́​ ​p​l​a​t​n​á​.
 				 */
 				invalid: string
+				/**
+				 * N​e​p​o​d​a​r​i​l​o​ ​s​e​ ​n​a​j​í​t​ ​f​a​k​u​l​t​y
+				 */
+				no_faculties: string
 			}
 			gdpr: {
 				/**
@@ -394,6 +398,10 @@ export type TranslationFunctions = {
 				 * Vybraná fakulta není platná.
 				 */
 				invalid: () => LocalizedString
+				/**
+				 * Nepodarilo se najít fakulty
+				 */
+				no_faculties: () => LocalizedString
 			}
 			gdpr: {
 				/**

@@ -50,7 +50,8 @@ const cs = {
 				blank: 'Vyplňte prosím své příjmení.'
 			},
 			faculty: {
-				invalid: 'Vybraná fakulta není platná.'
+				invalid: 'Vybraná fakulta není platná.',
+				no_faculties: 'Nepodarilo se najít fakulty'
 			},
 			gdpr: {
 				blank: 'Prosím potvrďte souhlas se zpracováním osobních údajů.'
