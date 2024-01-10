@@ -1,7 +1,8 @@
 import { getCurrentUser } from '$actions/Auth';
 import { dev } from '$app/environment';
 import { locales } from '$translations/i18n-util';
-import { error, redirect } from '@sveltejs/kit';
+import { error, redirect, type Handle } from '@sveltejs/kit';
+import axios from 'axios';
 
 const isPathname = (current: string, wanted: string): boolean => {
 	if (current == wanted) {
@@ -17,16 +18,20 @@ const isPathname = (current: string, wanted: string): boolean => {
 	return false;
 };
 
-export const handle = async ({ event, resolve }: any): Promise<any> => {
+export const handle: Handle = async ({ event, resolve }): Promise<any> => {
 	// NOTE: When developing with https (server), axios will reject all requests unless we set this environment variable
 	if (dev) {
 		process.env.NODE_TLS_REJECT_UNAUTHORIZED = '0';
 	}
 
-	// TODO: ???
+	event.locals.jwt = event.cookies.get('jwt') ?? null;
+
+	axios.defaults.baseURL = import.meta.env.VITE_API_BASE;
+	axios.defaults.headers.common.Authorization = `Bearer ${event.locals.jwt}`;
+
 	const result = await getCurrentUser();
 	if (result.type === 'success') {
-		event.locals.user = result.response;
+		event.locals.user = result.data;
 	}
 
 	if (isPathname(event.url.pathname, '/submission')) {
@@ -35,8 +40,8 @@ export const handle = async ({ event, resolve }: any): Promise<any> => {
 		}
 	}
 
-	if (isPathname(event.url.pathname, '/admin')) {
-		if (!event.locals.user || !event.locals.user.roles.includes('ROLE_ADMIN')) {
+	if (isPathname(event.url.pathname, '/administration')) {
+		if (!event.locals.user || !event.locals.user.roles.includes('ROLE_STAFF')) {
 			error(404);
 		}
 	}
