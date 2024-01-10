@@ -1,15 +1,8 @@
 <script lang="ts">
 	import { fetchTotalStatistics } from '$actions/Statistics';
-	import type { TotalStatisticsDTO } from '$lib/DTO/StatisticsDTO';
 	import LL from '$translations/i18n-svelte';
 
-	let statistics: TotalStatisticsDTO | any = $state(null);
-
-	$effect(() => {
-		fetchTotalStatistics().then((result) => {
-			statistics = result;
-		});
-	});
+	let statistics = fetchTotalStatistics();
 </script>
 
 <section>
@@ -17,19 +10,21 @@
 		<h2>Statistiky</h2>
 	</div>
 	<div class="row">
-		<div class="card">
-			<img src="/images/icons/people-fill.svg" alt="People icon" />
-			<h2>{statistics?.users}</h2>
-			<h5>{$LL.homepage.statistics.users()}</h5>
-		</div>
-		{#each statistics?.activities ?? [] as activity}
+		{#await statistics then stats}
 			<div class="card">
-				<img src="/images/icons/bicycle.svg" alt="Bicycle icon" />
-				<h2>{activity.distance}km</h2>
-				<!-- TODO: Jak tohle prelozit? -->
-				<h5>{activity.activity}</h5>
+				<img src="/images/icons/people-fill.svg" alt="People icon" />
+				<h2>{stats.data.users}</h2>
+				<h5>{$LL.homepage.statistics.users()}</h5>
 			</div>
-		{/each}
+			{#each stats.data.activities as activity}
+				<div class="card">
+					<img src="/images/icons/bicycle.svg" alt="Bicycle icon" />
+					<h2>{activity.distance}km</h2>
+					<!-- TODO: Jak tohle prelozit? -->
+					<h5>{activity.activity}</h5>
+				</div>
+			{/each}
+		{/await}
 	</div>
 </section>
 
