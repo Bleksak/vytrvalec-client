@@ -1,5 +1,4 @@
 <script lang="ts">
-	import type { SvelteComponent } from 'svelte';
 	import Button from './Button.svelte';
 	import RegistrationForm from './forms/RegistrationForm.svelte';
 	import LoginForm from './forms/LoginForm.svelte';
@@ -8,9 +7,7 @@
 	import { enhance } from '$app/forms';
 	import SubmissionPostForm from './forms/SubmissionPostForm.svelte';
 
-	let registrationForm: SvelteComponent;
-	let loginForm: SvelteComponent;
-	let submissionCreateForm: SvelteComponent;
+	let currentForm = $state<ConstructorOfATypedSvelteComponent>();
 </script>
 
 <nav>
@@ -25,7 +22,7 @@
 		{#if $page.data.user}
 			{#if $page.data.user.roles.includes('ROLE_STAFF')}
 				<li>
-					<a href="/{$page.data.lang}/administration">
+					<a href="/administration">
 						{$LL.navbar.administration()}
 					</a>
 				</li>
@@ -43,18 +40,31 @@
 		</li>
 		{#if !$page.data.user}
 			<li>
-				<Button on:click={loginForm.open}>
+				<Button
+					on:click={() => {
+						currentForm = LoginForm;
+					}}
+				>
 					{$LL.navbar.login()}
 				</Button>
 			</li>
 			<li>
-				<Button on:click={registrationForm.open} class="secondary">
+				<Button
+					on:click={() => {
+						currentForm = RegistrationForm;
+					}}
+					class="secondary"
+				>
 					{$LL.navbar.register()}
 				</Button>
 			</li>
 		{:else}
 			<li>
-				<Button on:click={submissionCreateForm.open}>
+				<Button
+					on:click={() => {
+						currentForm = SubmissionPostForm;
+					}}
+				>
 					{$LL.navbar.submission()}
 				</Button>
 			</li>
@@ -69,12 +79,12 @@
 	</ul>
 </nav>
 
-<RegistrationForm bind:this={registrationForm} />
-<LoginForm bind:this={loginForm} />
-
-{#if $page.data.user}
-	<SubmissionPostForm bind:this={submissionCreateForm} />
-{/if}
+<svelte:component
+	this={currentForm}
+	on:close={() => {
+		currentForm = undefined;
+	}}
+/>
 
 <style>
 	nav {
@@ -85,7 +95,6 @@
 
 		width: 100%;
 		padding: 10px 100px;
-		margin: 0 auto;
 		font-size: 1.3rem;
 	}
 
