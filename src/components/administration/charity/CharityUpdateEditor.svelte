@@ -31,5 +31,5 @@
 	<label for="description">Popisek:</label>
 	<textarea name="description" id="description" bind:value={currentCharity.description} />
 
-	<Button type="submit">Upravit</Button>
+	<Button class="left" type="submit">Upravit</Button>
 </form>
