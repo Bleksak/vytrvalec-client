@@ -1,5 +1,6 @@
 <script lang="ts">
 	import { fetchUsers, fetchUser } from '$actions/administration/Users';
+	import Button from '$components/Button.svelte';
 	import type { UserResponse } from '$lib/DTO/UserResponse';
 	import UserEditor from './UserEditor.svelte';
 
@@ -21,17 +22,9 @@
 
 	let filterText = $state('');
 
-	const setUsers = () => {
-		fetchUsers().then((response) => {
-			users = response.data;
-		});
-	};
-
-	setUsers();
-
-	// $effect(() => {
-	// 	setUsers();
-	// });
+	fetchUsers().then((response) => {
+		users = response.data;
+	});
 
 	let filteredUsers: Array<UserResponse> = $derived(filter());
 
@@ -52,7 +45,7 @@
 	};
 </script>
 
-<div>
+<div class="wrapper">
 	<h2>Správa uživatelů</h2>
 
 	<input
@@ -84,7 +77,11 @@
 					<!--TODO: pridat ikonku banned a role -->
 					<td>{user.banned}</td>
 					<td>{user.roles.includes('ROLE_STAFF')}</td>
-					<td><button on:click={() => openEditor(idx)}>Upravit</button></td>
+					<td>
+						<button on:click={() => openEditor(idx)}>
+							<img class="icon" src="/images/icons/edit.png" alt="Upravit" title="Upravit" />
+						</button>
+					</td>
 				</tr>
 			{/each}
 		</tbody>
@@ -98,7 +95,7 @@
 />
 
 <style>
-	div {
+	.wrapper {
 		display: flex;
 		flex-direction: column;
 		align-items: center;
@@ -123,5 +120,9 @@
 
 	tbody > tr:nth-child(odd) {
 		background-color: #f2f2f2;
+	}
+
+	td {
+		vertical-align: middle;
 	}
 </style>
