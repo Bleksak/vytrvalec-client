@@ -1,8 +1,9 @@
 <script lang="ts">
+	import type { Snippet } from 'svelte';
 	import type { HTMLDialogAttributes } from 'svelte/elements';
 
-	let { dialog, header, ...props } = $props<
-		HTMLDialogAttributes & { dialog?: HTMLDialogElement; header: string }
+	let { dialog, header, children, ...props } = $props<
+		HTMLDialogAttributes & { dialog?: HTMLDialogElement; header: string; children: Snippet }
 	>();
 
 	export function close() {
@@ -23,7 +24,7 @@
 		</button>
 	</header>
 	<section>
-		<slot />
+		{@render children()}
 	</section>
 </dialog>
 
