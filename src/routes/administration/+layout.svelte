@@ -47,7 +47,7 @@
 		box-shadow: 0px 0px 10px #dee2e6;
 		border-radius: 20px 0 0 0;
 
-		padding: 10px;
+		padding: 35px;
 	}
 
 	.container {
