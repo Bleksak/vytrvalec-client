@@ -103,6 +103,12 @@ const en = {
 				}
 			}
 		}
+	},
+
+	extraPoints: {
+		weekly_distance: 'Distance per week',
+		daily_distance: 'Distance per day',
+		weekly_elevation: 'Elevation per week'
 	}
 } satisfies BaseTranslation;
 

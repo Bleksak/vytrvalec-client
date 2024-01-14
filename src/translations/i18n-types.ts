@@ -268,6 +268,20 @@ type RootTranslation = {
 			}
 		}
 	}
+	extraPoints: {
+		/**
+		 * V​z​d​á​l​e​n​o​s​t​ ​z​a​ ​1​ ​t​ý​d​e​n
+		 */
+		weekly_distance: string
+		/**
+		 * V​z​d​á​l​e​n​o​s​t​ ​z​a​ ​1​ ​d​e​n
+		 */
+		daily_distance: string
+		/**
+		 * P​ř​e​v​ý​š​e​n​í​ ​z​a​ ​t​ý​d​e​n
+		 */
+		weekly_elevation: string
+	}
 }
 
 export type TranslationFunctions = {
@@ -524,6 +538,20 @@ export type TranslationFunctions = {
 				}
 			}
 		}
+	}
+	extraPoints: {
+		/**
+		 * Vzdálenost za 1 týden
+		 */
+		weekly_distance: () => LocalizedString
+		/**
+		 * Vzdálenost za 1 den
+		 */
+		daily_distance: () => LocalizedString
+		/**
+		 * Převýšení za týden
+		 */
+		weekly_elevation: () => LocalizedString
 	}
 }
 
