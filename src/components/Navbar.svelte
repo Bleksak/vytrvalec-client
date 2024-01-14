@@ -93,7 +93,6 @@
 		justify-content: space-between;
 		align-items: center;
 
-		width: 100%;
 		padding: 10px 100px;
 		font-size: 1.3rem;
 	}
