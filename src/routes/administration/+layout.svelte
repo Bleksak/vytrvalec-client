@@ -16,13 +16,16 @@
 	import AdminNavbar from '$components/administration/AdminNavbar.svelte';
 	import createSeasonStore from '$lib/stores/SeasonStore.svelte';
 	import { createCharityStore } from '$lib/stores/CharityStore.svelte';
+	import { createUserStore } from '$lib/stores/UserStore.svelte';
 	import { setContext } from 'svelte';
 
 	const seasonStore = createSeasonStore();
 	const charityStore = createCharityStore();
+	const userStore = createUserStore();
 
 	setContext('seasonStore', seasonStore);
 	setContext('charityStore', charityStore);
+	setContext('userStore', userStore);
 </script>
 
 <svelte:head>
