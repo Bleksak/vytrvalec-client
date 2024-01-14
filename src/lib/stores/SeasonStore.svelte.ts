@@ -29,10 +29,10 @@ export const createSeasonStore = (): SeasonStore => {
 	};
 
 	const updateOrCreate = (season: SeasonDTO) => {
-		let item = seasons.find((c) => c.id === season.id);
+		let index = seasons.findIndex((c) => c.id === season.id);
 
-		if (item !== undefined) {
-			item = { ...season };
+		if (index !== -1) {
+			seasons[index] = season;
 		} else {
 			seasons.push(season);
 		}
