@@ -1,6 +1,5 @@
 <script>
-	import UserTable from '$components/administration/UserTable.svelte';
+	import UserTable from '$components/administration/user/UserTable.svelte';
 </script>
 
 <UserTable />
-
