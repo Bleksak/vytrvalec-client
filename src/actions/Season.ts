@@ -1,5 +1,6 @@
 import axios, { type AxiosResponse } from 'axios';
 import type { CreateSeasonDTO, CreateSeasonResponse, SeasonDTO } from '$lib/DTO/SeasonDTO';
+import { SeasonResult, type SeasonResultDTO } from '$lib/DTO/SeasonResultDTO';
 
 export const fetchSeasons = async (): Promise<Array<SeasonDTO>> => {
 	let response = await axios.get('/season').catch(() => null);
@@ -58,4 +59,8 @@ export const createSeason = async (season: CreateSeasonDTO): Promise<CreateSeaso
 
 export const updateSeason = async (season: SeasonDTO): Promise<AxiosResponse<any>> => {
 	return await axios.patch(`/season/${season.id}`, season);
+};
+
+export const fetchSeasonResult = async (season: SeasonDTO): Promise<SeasonResultDTO> => {
+	return (await axios.get(`/season/${season.id}/results`).catch(() => null))?.data ?? [];
 };

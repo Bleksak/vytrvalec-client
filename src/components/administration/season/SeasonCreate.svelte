@@ -2,7 +2,7 @@
 	import { enhance } from '$app/forms';
 	import Button from '$components/Button.svelte';
 	import DateInput from '$components/FormComponent/DateInput.svelte';
-	import type { CreateSeasonDTO, CreateSeasonResponseDTO, SeasonDTO } from '$lib/DTO/SeasonDTO';
+	import type { CreateSeasonResponseDTO, SeasonDTO } from '$lib/DTO/SeasonDTO';
 	import type { CharityStore } from '$lib/stores/CharityStore.svelte';
 	import type { SeasonStore } from '$lib/stores/SeasonStore.svelte';
 	import type { SubmitFunction } from '@sveltejs/kit';
