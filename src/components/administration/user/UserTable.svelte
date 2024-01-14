@@ -1,11 +1,13 @@
 <script lang="ts">
-	import { fetchUsers, fetchUser } from '$actions/administration/Users';
-	import Button from '$components/Button.svelte';
 	import type { UserResponse } from '$lib/DTO/UserResponse';
-	import UserEditor from './UserEditor.svelte';
+	import UserEditor from '$components/administration/user/UserEditor.svelte';
+	import { getContext } from 'svelte';
+	import type { UserStore } from '$lib/stores/UserStore.svelte';
+
+	const userStore = getContext<UserStore>('userStore');
 
 	const filter = () => {
-		return users.filter((user) => {
+		return userStore.all().filter((user) => {
 			let withoutAccents = filterText.toLocaleLowerCase().removeAccents();
 
 			return (
@@ -18,13 +20,7 @@
 		});
 	};
 
-	let users: Array<UserResponse> = $state([]);
-
 	let filterText = $state('');
-
-	fetchUsers().then((response) => {
-		users = response.data;
-	});
 
 	let filteredUsers: Array<UserResponse> = $derived(filter());
 
@@ -37,10 +33,7 @@
 	};
 
 	const closeEditor = () => {
-		fetchUser(users[currentUser].id).then((response) => {
-			users[currentUser] = response.data;
-			currentUser = -1;
-		});
+		currentUser = -1;
 		currentUserEditor = undefined;
 	};
 </script>
@@ -78,7 +71,7 @@
 					<td>{user.banned}</td>
 					<td>{user.roles.includes('ROLE_STAFF')}</td>
 					<td>
-						<button on:click={() => openEditor(idx)}>
+						<button class="edit" on:click={() => openEditor(idx)}>
 							<img class="icon" src="/images/icons/edit.png" alt="Upravit" title="Upravit" />
 						</button>
 					</td>
@@ -91,7 +84,7 @@
 <svelte:component
 	this={currentUserEditor}
 	on:close={closeEditor}
-	user={users[currentUser] ?? null}
+	user={userStore.all()[currentUser] ?? null}
 />
 
 <style>
@@ -124,5 +117,9 @@
 
 	td {
 		vertical-align: middle;
+	}
+
+	.edit {
+		cursor: pointer;
 	}
 </style>
