@@ -8,6 +8,7 @@
 	import { fetchSeasonResult } from '$actions/Season';
 	import LL from '$translations/i18n-svelte';
 	import type { UserStore } from '$lib/stores/UserStore.svelte';
+	import SubmissionScroller from './SubmissionScroller.svelte';
 
 	const { season } = $props<{ season: SeasonDTO }>();
 
@@ -30,45 +31,59 @@
 </h4>
 
 <div class="wrapper">
-	<div class="season-data">
-		<Widget title="Charita">
-			<section class="charity">
-				<h5>{charity?.name}</h5>
-				<div class="charity-description">
-					<p>{charity?.description}</p>
-				</div>
-			</section>
-		</Widget>
+	<div class="season-wrapper">
+		<div class="season-data">
+			<Widget title="Charita">
+				<section class="charity">
+					<h5>{charity?.name}</h5>
+					<div class="charity-description">
+						<p>{charity?.description}</p>
+					</div>
+				</section>
+			</Widget>
 
-		<Widget title="Sezóna">
-			<section class="season-data">
-				<p><strong>Začátek:&nbsp;</strong>{season.start.toLocaleDateString('cs')}</p>
-				<p><strong>Konec:&nbsp;</strong>{season.end.toLocaleDateString('cs')}</p>
-				<p><strong>Celková vzdálenost:&nbsp;</strong>{seasonResult?.getTotalDistance()} km</p>
-				<!-- <p><strong>Celkové převýšení:&nbsp;</strong>{seasonResult.getTotalElevation()}</p> -->
-			</section>
-		</Widget>
+			<Widget title="Sezóna">
+				<section class="season-data">
+					<p><strong>Začátek:&nbsp;</strong>{season.start.toLocaleDateString('cs')}</p>
+					<p><strong>Konec:&nbsp;</strong>{season.end.toLocaleDateString('cs')}</p>
+					<p><strong>Celková vzdálenost:&nbsp;</strong>{seasonResult?.getTotalDistance()} km</p>
+					<!-- <p><strong>Celkové převýšení:&nbsp;</strong>{seasonResult.getTotalElevation()}</p> -->
+				</section>
+			</Widget>
 
-		<Widget title="Extra body">
-			<section class="extra-points">
-				{#each seasonResult?.getExtraPoints() ?? [] as extraPoint}
-					<p>
-						<strong>{extraPoint.user.firstName} {extraPoint.user.lastName}</strong>
-						({extraPoint.user.faculty.shortcut})
-					</p>
-					<p>Za: {$LL.extraPoints[extraPoint.name as keyof typeof $LL.extraPoints]()}</p>
-					<p>Počet získaných bodů: {extraPoint.points}</p>
-				{:else}
-					Zatím nejsou žádné
-				{/each}
+			<Widget title="Extra body">
+				<section class="extra-points">
+					{#each seasonResult?.getExtraPoints() ?? [] as extraPoint}
+						<p>
+							<strong>{extraPoint.user.firstName} {extraPoint.user.lastName}</strong>
+							({extraPoint.user.faculty.shortcut})
+						</p>
+						<p>{$LL.extraPoints[extraPoint.name as keyof typeof $LL.extraPoints]()}</p>
+						<p>Počet získaných bodů: {extraPoint.points}</p>
+					{:else}
+						Zatím nejsou žádné
+					{/each}
+				</section>
+			</Widget>
+		</div>
+	</div>
+
+	<div class="submissions">
+		<Widget title="Aktivity">
+			<section class="submissions-content">
+				<SubmissionScroller {season} />
 			</section>
 		</Widget>
 	</div>
-
-	<div class="submissions"></div>
 </div>
 
 <style>
+	.wrapper {
+		display: grid;
+		grid-template-columns: 1fr 2fr;
+		gap: 20px;
+	}
+
 	.charity {
 		display: flex;
 		flex-direction: column;
@@ -78,23 +93,19 @@
 		color: black;
 	}
 
-	.wrapper {
-		display: flex;
-		flex-direction: row;
-		gap: 20px;
+	.season-wrapper {
+		flex: 1;
 	}
 
 	.season-data {
-		flex: 1;
+		position: sticky;
+		top: 0;
+		display: flex;
+		flex-direction: column;
+		gap: 5px;
 	}
 
 	.submissions {
 		flex: 1;
-	}
-
-	.season-data {
-		display: flex;
-		flex-direction: column;
-		gap: 5px;
 	}
 </style>
