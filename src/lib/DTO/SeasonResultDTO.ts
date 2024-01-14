@@ -69,8 +69,6 @@ export class SeasonResult {
 			}
 		}
 
-		console.log(extras);
-
 		const extrasWithUserData: Array<SeasonResultExtraUser> = extras.map(
 			(extra): SeasonResultExtraUser => {
 				const user: UserResponse = this.users.find((u) => u.id === extra.user)!;
@@ -84,8 +82,6 @@ export class SeasonResult {
 				};
 			}
 		);
-
-		console.log(extrasWithUserData);
 
 		return {
 			totalDistance: totalDistance / 1000,
