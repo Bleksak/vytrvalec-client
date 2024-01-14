@@ -38,35 +38,35 @@
 	};
 </script>
 
-<Dialog bind:this={dialog} {...props}>
+<Dialog header="Úprava uživatele" bind:this={dialog} {...props}>
 	<form method="POST" action="/administration/user/?/update" use:enhance={enhancer}>
 		<label for="first_name">
 			{$LL.registration.first_name()}:
-			<input bind:value={editedUser.firstName} type="text" name="first_name" id="first_name" />
 		</label>
+		<input bind:value={editedUser.firstName} type="text" name="first_name" id="first_name" />
 
 		<label for="last_name">
 			{$LL.registration.last_name()}:
-			<input bind:value={editedUser.lastName} type="text" name="last_name" id="last_name" />
 		</label>
+		<input bind:value={editedUser.lastName} type="text" name="last_name" id="last_name" />
 
 		<label for="email">
 			{$LL.registration.email()}:
-			<input bind:value={editedUser.email} type="email" name="email" id="email" />
 		</label>
+		<input bind:value={editedUser.email} type="email" name="email" id="email" />
 
 		<label for="faculty">
 			{$LL.registration.faculty()}:
-			<select bind:value={faculty} name="faculty" id="faculty">
-				{#await facultiesPromise then faculties}
-					{#each faculties as faculty}
-						<option value={faculty.id}>{faculty.name}</option>
-					{/each}
-				{:catch}
-					<option value="-1">Nebylo možné získat fakulty</option>
-				{/await}
-			</select>
 		</label>
+		<select bind:value={faculty} name="faculty" id="faculty">
+			{#await facultiesPromise then faculties}
+				{#each faculties as faculty}
+					<option value={faculty.id}>{faculty.name}</option>
+				{/each}
+			{:catch}
+				<option value="-1">Nebylo možné získat fakulty</option>
+			{/await}
+		</select>
 
 		<label for="banned">
 			Zablokovaný:
