@@ -7,8 +7,8 @@ export const fetchUser = async (user: number): Promise<AxiosResponse<UserRespons
 	return await axios.get(`/user/${user}`);
 };
 
-export const fetchUsers = async (): Promise<AxiosResponse<Array<UserResponse>>> => {
-	return await axios.get('/user');
+export const fetchUsers = async (): Promise<Array<UserResponse>> => {
+	return (await axios.get('/user'))?.data ?? [];
 };
 
 export const updateCurrentUser = async (data: UserEditDTO) => {
