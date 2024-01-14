@@ -1,16 +1,28 @@
-import { baseUrl } from '$lib/API';
 import type { SubmissionCreateResponse } from '$lib/DTO/SubmissionCreateResponse';
 import type { SubmissionDTO } from '$lib/DTO/SubmissionDTO';
 import axios from 'axios';
 
 export const createSubmission = async (dto: SubmissionDTO): Promise<SubmissionCreateResponse> => {
-	const response = await axios.post(`${baseUrl}/submission`, dto).catch((error) => {
-		if (error.response) {
-			return error.response;
-		}
+	const formData = new FormData();
+	formData.append('activity', dto.activity.toString());
+	formData.append('image', dto.image);
+	formData.append('distance', dto.distance.toString());
 
-		return null;
-	});
+	if (dto.elevation) {
+		formData.append('elevation', dto.elevation.toString());
+	}
+
+	const response = await axios
+		.post(`/submission`, formData, {
+			headers: { 'Content-Type': 'multipart/form-data' }
+		})
+		.catch((error) => {
+			if (error.response) {
+				return error.response;
+			}
+
+			return null;
+		});
 
 	if (response === null) {
 		return {
