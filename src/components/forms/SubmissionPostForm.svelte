@@ -1,45 +1,41 @@
 <script lang="ts">
+	import { fetchActivities } from '$actions/Activity';
 	import Dialog from '$components/Dialog.svelte';
 	import Button from '$components/Button.svelte';
 	import LL from '$translations/i18n-svelte';
 	import { page } from '$app/stores';
 	import { enhance } from '$app/forms';
-	import type { ChangeEventHandler, HTMLDialogAttributes } from 'svelte/elements';
+	import type { HTMLDialogAttributes } from 'svelte/elements';
 
 	let { ...props } = $props<HTMLDialogAttributes>();
 
+	const activitesPromise = fetchActivities();
+
 	let dialog = $state<Dialog>();
 
-	let fileInput: HTMLElement | any = $state<HTMLElement>();
-	let dropzone: HTMLElement | any = $state<HTMLElement>();
-	let dropzoneImage: HTMLImageElement | any = $state<HTMLImageElement>();
-	let dropzoneText: HTMLElement | any = $state<HTMLElement>();
+	let fileInput = $state<HTMLElement>();
+	let dropzoneImage = $state<HTMLImageElement>();
+	let dropzoneText = $state<HTMLElement>();
 
-	let uploadedFiles: FileList | any = $state();
-
-	const preventDefault = (e: Event) => {
-		e.preventDefault();
-	};
+	let uploadedFiles = $state<FileList>();
 
 	const updateImagePreview = (file: File) => {
 		let reader = new FileReader();
 		reader.readAsDataURL(file);
 		reader.onloadend = () => {
-			dropzoneImage.src = reader.result as string;
-			dropzoneImage.style.display = 'block';
-			dropzoneText.style.display = 'none';
+			dropzoneImage!.src = reader.result as string;
+			dropzoneImage!.style.display = 'block';
+			dropzoneText!.style.display = 'none';
 		};
 	};
 
-	const fileInputChange: ChangeEventHandler<HTMLInputElement> = (e) => {
-		if (e.currentTarget.files?.length !== undefined) {
-			updateImagePreview(e.currentTarget.files[0]);
+	$effect(() => {
+		if (uploadedFiles?.length !== undefined) {
+			updateImagePreview(uploadedFiles[0]);
 		}
-	};
+	});
 
 	const handleDrop = (e: DragEvent) => {
-		e.preventDefault();
-
 		const dt = e.dataTransfer;
 		if (dt === null) {
 			return;
@@ -58,27 +54,29 @@
 
 		updateImagePreview(file);
 	};
-
-	$effect(() => {
-		dropzone.addEventListener('dragenter', preventDefault, false);
-		dropzone.addEventListener('dragleave', preventDefault, false);
-		dropzone.addEventListener('dragover', preventDefault, false);
-		dropzone.addEventListener('drop', handleDrop, false);
-	});
-
-	// TODO: po uploadu zavrit dialog, zobrazit hlasku
+	// TODO: po uploadu zavrit dialog, zobrazit hlasku, errory
 </script>
 
 <Dialog bind:this={dialog} header={$LL.submission.title()} {...props}>
 	<form method="POST" action="/submission/?/create" enctype="multipart/form-data" use:enhance>
-		<div class="dropzone" bind:this={dropzone}>
+		<div
+			class="dropzone"
+			on:dragenter|preventDefault
+			on:dragleave|preventDefault
+			on:dragover|preventDefault
+			on:drop|preventDefault={handleDrop}
+			on:click={() => fileInput?.click()}
+			on:keypress={() => fileInput?.click()}
+			role="button"
+			tabindex="0"
+		>
 			<div class="inner" class:no-image={!uploadedFiles}>
 				<img bind:this={dropzoneImage} src="/images/icons/file-input-icon.svg" alt="File input" />
 				<div bind:this={dropzoneText} class="dropzone-text">
 					{$LL.submission.form.image()}
 				</div>
 
-				<Button class="rounded small" type="button" on:click={() => fileInput.click()}>
+				<Button class="rounded small" type="button" on:click={() => fileInput?.click()}>
 					{$LL.submission.form.chooseImage()}
 				</Button>
 			</div>
@@ -87,7 +85,6 @@
 		<input
 			bind:this={fileInput}
 			bind:files={uploadedFiles}
-			on:change={fileInputChange}
 			type="file"
 			name="image"
 			id="image"
@@ -122,7 +119,13 @@
 		<label for="activity">
 			{$LL.submission.form.activity()}:
 		</label>
-		<input type="text" name="activity" id="activity" />
+		<select name="activity" id="activity">
+			{#await activitesPromise then activities}
+				{#each activities as activity}
+					<option value={activity.id}>{activity.name}</option>
+				{/each}
+			{/await}
+		</select>
 		{#each $page?.form?.activity ?? [] as error}
 			<span class="error">
 				{$LL.submission.form.errors.activity[error as keyof typeof $LL.submission.form.errors.activity]()}
