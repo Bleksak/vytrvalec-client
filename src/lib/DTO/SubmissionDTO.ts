@@ -1,10 +1,24 @@
 import type { ResponseErrorMap } from '$lib/ResponseErrors';
+import type { ActivityDTO } from './ActivityDTO';
+import type { UserResponse } from './UserResponse';
 
 export type SubmissionDTO = {
 	distance: number;
 	elevation?: number;
 	image: File;
 	activity: number;
+};
+
+export type SubmissionResponseDTO = {
+	id: number;
+	distance: number;
+	elevation?: number;
+	image: string;
+	activity: ActivityDTO;
+	accepted: boolean;
+	reviewed: boolean;
+	user: UserResponse;
+	date: Date;
 };
 
 export type SubmissionErrors = ResponseErrorMap<SubmissionDTO>;
