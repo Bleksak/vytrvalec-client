@@ -1,5 +1,6 @@
+import type { SeasonDTO } from '$lib/DTO/SeasonDTO';
 import type { SubmissionCreateResponse } from '$lib/DTO/SubmissionCreateResponse';
-import type { SubmissionDTO } from '$lib/DTO/SubmissionDTO';
+import type { SubmissionDTO, SubmissionResponseDTO } from '$lib/DTO/SubmissionDTO';
 import axios from 'axios';
 
 export const createSubmission = async (dto: SubmissionDTO): Promise<SubmissionCreateResponse> => {
@@ -41,4 +42,15 @@ export const createSubmission = async (dto: SubmissionDTO): Promise<SubmissionCr
 	return {
 		type: 'success'
 	};
+};
+
+export const fetchSubmissionsForSeason = async (
+	season: SeasonDTO
+): Promise<SubmissionResponseDTO[]> => {
+	return ((await axios.get(`/season/${season.id}/submissions`).catch(() => null))?.data ?? []).map(
+		(submission: { date: string | Date }) => {
+			submission.date = new Date(submission.date);
+			return submission;
+		}
+	);
 };
