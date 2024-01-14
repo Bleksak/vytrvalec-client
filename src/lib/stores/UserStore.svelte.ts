@@ -1,11 +1,11 @@
-import { fetchUsers } from '$actions/administration/Users';
+import { fetchUser, fetchUsers } from '$actions/administration/Users';
 import type { UserResponse } from '$lib/DTO/UserResponse';
 
 export type UserStore = {
 	get: (id: number) => UserResponse | null;
 	promise: () => Promise<Array<UserResponse>>;
 	all: () => Array<UserResponse>;
-	update: (season: UserResponse) => void;
+	update: (user: UserResponse) => void;
 };
 
 export const createUserStore = (): UserStore => {
@@ -29,10 +29,10 @@ export const createUserStore = (): UserStore => {
 	};
 
 	const update = (user: UserResponse) => {
-		let item = users.find((c) => c.id === user.id);
+		let item = users.findIndex((c) => c.id === user.id);
 
 		if (item !== undefined) {
-			item = { ...user };
+			users[item] = user;
 		}
 	};
 
