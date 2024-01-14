@@ -63,7 +63,7 @@
 				<b>Poznámka:&nbsp;</b>výchozí datum konce sezóny je začátek + 4 týdny
 			</span>
 
-			<Button type="submit">Vytvořit</Button>
+			<Button class="left" type="submit">Vytvořit</Button>
 		</form>
 	{/if}
 {/await}

@@ -20,8 +20,6 @@
 
 	$effect(() => {
 		Promise.all([fetchSeasonResult(season), userStore.promise()]).then(([result, users]) => {
-			console.log('users');
-			console.log(users);
 			seasonResult = new SeasonResult(result, users);
 		});
 	});
@@ -54,7 +52,12 @@
 		<Widget title="Extra body">
 			<section class="extra-points">
 				{#each seasonResult?.getExtraPoints() ?? [] as extraPoint}
-					<p>{$LL.extraPoints[extraPoint.name as keyof typeof $LL.extraPoints]}</p>
+					<p>
+						<strong>{extraPoint.user.firstName} {extraPoint.user.lastName}</strong>
+						({extraPoint.user.faculty.shortcut})
+					</p>
+					<p>Za: {$LL.extraPoints[extraPoint.name as keyof typeof $LL.extraPoints]()}</p>
+					<p>Počet získaných bodů: {extraPoint.points}</p>
 				{:else}
 					Zatím nejsou žádné
 				{/each}
