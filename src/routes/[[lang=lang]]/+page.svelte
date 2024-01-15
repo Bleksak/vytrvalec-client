@@ -27,18 +27,20 @@
 </header>
 
 <main>
-	<div class="row about">
+	<div class="about">
 		<div class="left">
 			<img src="/images/runner.png" alt="Runner" />
 		</div>
 		<article>
 			<h2>O VÝZVĚ</h2>
-			<p>
-				Účastníci bojují čtyři týdny za&nbsp;svoje týmy (fakulta, VŠ ústav / rektorátní pracoviště /
-				U3V) v&nbsp;počtu naběhaných a&nbsp;naježděných kilometrů. Ty se v&nbsp;rámci týmů sčítají
-				a&nbsp;v&nbsp;závěru týdne určují počet bodů, které daný tým získá a&nbsp;podle toho se
-				umístí v&nbsp; celkovém pořadí.
-			</p>
+			<section class="content">
+				<p>
+					Účastníci bojují čtyři týdny za&nbsp;svoje týmy (fakulta, VŠ ústav / rektorátní pracoviště
+					/ U3V) v&nbsp;počtu naběhaných a&nbsp;naježděných kilometrů. Ty se v&nbsp;rámci týmů
+					sčítají a&nbsp;v&nbsp;závěru týdne určují počet bodů, které daný tým získá a&nbsp;podle
+					toho se umístí v&nbsp; celkovém pořadí.
+				</p>
+			</section>
 		</article>
 	</div>
 
@@ -48,6 +50,7 @@
 
 <style>
 	header {
+		display: flex;
 		width: 100%;
 		position: relative;
 	}
@@ -79,11 +82,11 @@
 		color: white;
 	}
 
-	header > article > section.content {
-		background-color: white;
+	article > section.content {
 		max-width: 800px;
 		width: 100%;
 		padding: 15px 30px;
+		background-color: white;
 	}
 
 	header > article > section.buttons {
@@ -91,9 +94,12 @@
 		display: flex;
 	}
 
+	.about {
+		display: flex;
+	}
+
 	main > .about > .left {
-		width: 75%;
-		height: 100%;
+		flex: 10;
 	}
 
 	main > .about > .left > img {
@@ -101,24 +107,46 @@
 	}
 
 	main > .about > article {
-		width: 100%;
+		flex: 9;
 		display: flex;
 		flex-direction: column;
 		align-items: center;
-		margin: 50px 0 0;
+		margin-top: 50px;
 		gap: 15px;
-	}
-
-	main > .about > article > h1 {
-		width: 75%;
-		text-align: center;
-	}
-
-	main > .about > article > p {
-		width: 65%;
 	}
 
 	main > .stats {
 		padding: 50px 0;
+	}
+
+	@media (max-width: 1000px) {
+		header {
+			position: static;
+		}
+
+		header img {
+			display: none;
+		}
+
+		header article {
+			width: 100%;
+			position: static;
+		}
+
+		header article section.header {
+			width: 100%;
+		}
+
+		header article section.content {
+			align-self: center;
+		}
+
+		header article section.buttons {
+			display: none;
+		}
+
+		.about .left {
+			display: none;
+		}
 	}
 </style>

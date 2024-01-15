@@ -51,11 +51,22 @@
 		border-radius: 20px 0 0 0;
 
 		padding: 35px;
+		flex: 5;
 	}
 
 	.container {
-		display: grid;
-		grid-template-columns: 1fr 6fr;
-		column-gap: 20px;
+		display: flex;
+		gap: 20px;
+	}
+
+	@media (max-width: 1000px) {
+		.container {
+			flex-direction: column;
+		}
+
+		.slot {
+			margin-inline: 100px;
+			border-radius: 20px 20px 0 0;
+		}
 	}
 </style>

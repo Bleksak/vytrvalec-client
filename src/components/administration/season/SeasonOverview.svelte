@@ -56,9 +56,8 @@
 					{#each seasonResult?.getExtraPoints() ?? [] as extraPoint}
 						<p>
 							<strong>{extraPoint.user.firstName} {extraPoint.user.lastName}</strong>
-							({extraPoint.user.faculty.shortcut})
+							({extraPoint.user.faculty.shortcut}): {$LL.extraPoints[extraPoint.name as keyof typeof $LL.extraPoints]()}
 						</p>
-						<p>{$LL.extraPoints[extraPoint.name as keyof typeof $LL.extraPoints]()}</p>
 						<p>Počet získaných bodů: {extraPoint.points}</p>
 					{:else}
 						Zatím nejsou žádné
@@ -80,7 +79,7 @@
 <style>
 	.wrapper {
 		display: grid;
-		grid-template-columns: 1fr 2fr;
+		grid-template-columns: 2fr 3fr;
 		gap: 20px;
 	}
 

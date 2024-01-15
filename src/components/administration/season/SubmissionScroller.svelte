@@ -1,17 +1,35 @@
 <script lang="ts">
+	import Dialog from '$components/Dialog.svelte';
 	import type { SeasonDTO } from '$lib/DTO/SeasonDTO';
+	import type { SubmissionResponseDTO } from '$lib/DTO/SubmissionDTO';
 	import createSubmissionStore from '$lib/stores/SubmissionStore.svelte';
 	const { season } = $props<{ season: SeasonDTO }>();
 
 	const submissionStore = createSubmissionStore(season);
+
+	let currentSubmission = $state<SubmissionResponseDTO>();
+
+	const openSubmission = (submission: SubmissionResponseDTO) => {
+		currentSubmission = submission;
+	};
 </script>
 
 {#await submissionStore.promise}
 	Načítání...
 {:then submissions}
-	{#each submissions as submission}
-		<div class="submission">
-			<div class="submission-data">
+	{#each submissions as submission, i}
+		<div
+			class="submission"
+			on:click={() => {
+				openSubmission(submission);
+			}}
+			on:keypress={() => {
+				openSubmission(submission);
+			}}
+			role="button"
+			tabindex={i}
+		>
+			<div>
 				<p>
 					<strong>{submission.user.firstName} {submission.user.lastName}&nbsp;</strong>
 					({submission.user.faculty.shortcut})
@@ -38,11 +56,22 @@
 	{/each}
 {/await}
 
+{#if currentSubmission}
+	<Dialog header="Detail aktivity" on:close={() => (currentSubmission = undefined)}>
+		<img src={currentSubmission.image} alt="Aktivita" />
+		<form action=""></form>
+	</Dialog>
+{/if}
+
 <style>
 	.submission {
 		display: flex;
 		justify-content: flex-start;
 
 		gap: 100px;
+	}
+
+	.submission:hover {
+		background-color: rgb(245, 245, 245);
 	}
 </style>

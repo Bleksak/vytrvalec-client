@@ -5,11 +5,12 @@
 	let statistics = fetchTotalStatistics();
 </script>
 
-<section>
-	<div class="row">
+<article>
+	<header>
 		<h2>Statistiky</h2>
-	</div>
-	<div class="row">
+	</header>
+
+	<section>
 		{#await statistics then stats}
 			<div class="card">
 				<img src="/images/icons/people-fill.svg" alt="People icon" />
@@ -25,15 +26,25 @@
 				</div>
 			{/each}
 		{/await}
-	</div>
-</section>
+	</section>
+</article>
 
 <style>
-	section {
+	article {
 		padding: 50px 0;
 	}
 
-	section .card {
+	article > header {
+		display: flex;
+		justify-content: center;
+	}
+
+	article > section {
+		display: flex;
+		justify-content: space-around;
+	}
+
+	.card {
 		width: 100%;
 		display: flex;
 		flex-direction: column;
@@ -41,8 +52,19 @@
 		align-items: center;
 	}
 
-	section .card > img {
-		width: 20%;
+	.card img {
+		width: 100%;
 		max-width: 200px;
+	}
+
+	@media (max-width: 1000px) {
+		article > section {
+			flex-direction: column;
+			gap: 40px;
+		}
+
+		.card img {
+			max-width: 50px;
+		}
 	}
 </style>

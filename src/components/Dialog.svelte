@@ -43,7 +43,7 @@
 		width: 100%;
 		background-color: white;
 		border-radius: 10px;
-		padding: 50px 30px;
+		padding: 30px;
 		gap: 20px;
 	}
 

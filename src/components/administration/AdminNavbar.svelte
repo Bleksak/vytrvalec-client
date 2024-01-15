@@ -65,6 +65,8 @@
 
 <style>
 	nav {
+		flex: 1;
+		margin-left: 100px;
 		display: flex;
 		flex-direction: column;
 		background-color: white;
@@ -72,7 +74,7 @@
 		height: 100vh;
 
 		box-shadow: 0px 0px 10px #dee2e6;
-		border-radius: 0 20px 0 0;
+		border-radius: 20px 20px 0 0;
 		padding-top: 25px;
 	}
 
@@ -99,5 +101,11 @@
 	li.accordion-inner a {
 		padding: 10px;
 		padding-left: 20px;
+	}
+
+	@media (max-width: 1000px) {
+		nav {
+			margin-inline: 100px;
+		}
 	}
 </style>

@@ -4,11 +4,11 @@
 
 <footer>
 	<div class="socials">
-		<a href={import.meta.env.VITE_FACEBOOK_URL}>
-			<img src="/images/facebook.svg" alt="Facebook" />
+		<a class="icon" href={import.meta.env.VITE_FACEBOOK_URL}>
+			<img class="icon" src="/images/facebook.svg" alt="Facebook" />
 		</a>
-		<a href={import.meta.env.VITE_INSTAGRAM_URL}>
-			<img src="/images/instagram.svg" alt="Instagram" />
+		<a class="icon" href={import.meta.env.VITE_INSTAGRAM_URL}>
+			<img class="icon" src="/images/instagram.svg" alt="Instagram" />
 		</a>
 	</div>
 	<div class="about">
@@ -22,37 +22,62 @@
 <style>
 	footer {
 		display: flex;
-		justify-content: space-between;
-		flex-direction: row;
+		gap: 10px;
+		justify-content: center;
+		justify-items: center;
 		background-color: #005cab;
 		align-items: center;
 		color: white;
 		padding: 30px 100px;
 	}
 
-	footer > .socials {
-		display: flex;
-		gap: 20px;
-	}
-	footer > .socials img {
-		width: 40px;
-	}
-
 	footer span {
-		font-size: 30px;
+		font-size: 1.6rem;
 		font-weight: bold;
 	}
 
-	footer .special-links {
-		display: flex;
-		gap: 15px;
+	a {
+		color: white;
+		font-size: 1.5rem;
 	}
 
-	footer a {
-		color: white;
-		font-size: 24px;
+	.about {
+		flex: 1;
+		display: flex;
+		justify-content: center;
 	}
-	footer a:hover {
-		color: white;
+
+	.socials {
+		flex: 1;
+		gap: 10px;
+
+		align-items: center;
+		width: 100%;
+		display: flex;
+		justify-content: center;
+	}
+
+	.special-links {
+		flex: 1;
+		display: flex;
+		justify-content: center;
+	}
+
+	@media (max-width: 1000px) {
+		footer {
+			flex-direction: column;
+		}
+
+		.socials {
+			flex-direction: column;
+		}
+
+		.special-links {
+			flex-direction: column;
+		}
+
+		.about {
+			display: none;
+		}
 	}
 </style>
