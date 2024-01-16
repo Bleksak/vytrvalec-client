@@ -19,6 +19,7 @@ export type SubmissionResponseDTO = {
 	reviewed: boolean;
 	user: UserResponse;
 	date: Date;
+	updatedAt: string;
 };
 
 export type SubmissionErrors = ResponseErrorMap<SubmissionDTO>;

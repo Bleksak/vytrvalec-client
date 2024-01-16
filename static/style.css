@@ -3,6 +3,10 @@
 	display: revert;
 }
 
+* {
+	min-width: 0;
+}
+
 *,
 *::before,
 ::after {

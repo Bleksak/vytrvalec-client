@@ -9,6 +9,7 @@
 	import LL from '$translations/i18n-svelte';
 	import type { UserStore } from '$lib/stores/UserStore.svelte';
 	import SubmissionScroller from './SubmissionScroller.svelte';
+	import { fetchActivities } from '$actions/Activity';
 
 	const { season } = $props<{ season: SeasonDTO }>();
 
@@ -20,9 +21,11 @@
 	const charity = $derived(charityStore.get(season.charity));
 
 	$effect(() => {
-		Promise.all([fetchSeasonResult(season), userStore.promise()]).then(([result, users]) => {
-			seasonResult = new SeasonResult(result, users);
-		});
+		Promise.all([fetchSeasonResult(season), userStore.promise(), fetchActivities()]).then(
+			([result, users, activities]) => {
+				seasonResult = new SeasonResult(result, users, activities);
+			}
+		);
 	});
 </script>
 
@@ -59,6 +62,14 @@
 							({extraPoint.user.faculty.shortcut}): {$LL.extraPoints[extraPoint.name as keyof typeof $LL.extraPoints]()}
 						</p>
 						<p>Počet získaných bodů: {extraPoint.points}</p>
+						<p>V aktivitě: {extraPoint.activity.name}</p>
+						{#if extraPoint.name === 'weekly_distance'}
+							<p>Za: {extraPoint.value / 1000} km</p>
+						{:else if extraPoint.name === 'daily_distance'}
+							<p>Za: {extraPoint.value / 1000} km</p>
+						{:else if extraPoint.name === 'weekly_elevation'}
+							<p>Za: {extraPoint.value} m</p>
+						{/if}
 					{:else}
 						Zatím nejsou žádné
 					{/each}
@@ -106,5 +117,12 @@
 
 	.submissions {
 		flex: 1;
+	}
+
+	.submissions-content {
+		display: flex;
+		flex-direction: column;
+
+		gap: 30px;
 	}
 </style>

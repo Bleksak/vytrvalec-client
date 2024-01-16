@@ -1,3 +1,4 @@
+import type { ActivityDTO } from './ActivityDTO';
 import type { UserResponse } from './UserResponse';
 
 export type SeasonResultExtraUser = {
@@ -6,6 +7,7 @@ export type SeasonResultExtraUser = {
 	points: number;
 	name: 'weekly_distance' | 'daily_distance' | 'weekly_elevation';
 	value: number;
+	activity: ActivityDTO;
 };
 
 export type SeasonResultExtra = {
@@ -44,9 +46,11 @@ export class SeasonResult {
 	data: SeasonResultDTO;
 	cached: SeasonResultCached;
 	users: Array<UserResponse>;
+	activities: Array<ActivityDTO>;
 
-	constructor(data: SeasonResultDTO, users: Array<UserResponse>) {
+	constructor(data: SeasonResultDTO, users: Array<UserResponse>, activities: Array<ActivityDTO>) {
 		this.users = users;
+		this.activities = activities;
 		this.data = data;
 		this.cached = this.calculateCache();
 	}
@@ -64,7 +68,7 @@ export class SeasonResult {
 				}
 
 				for (const extra of activity.extras) {
-					extras.push(extra);
+					extras.push({ ...extra, activity: activity.activity });
 				}
 			}
 		}
@@ -72,12 +76,14 @@ export class SeasonResult {
 		const extrasWithUserData: Array<SeasonResultExtraUser> = extras.map(
 			(extra): SeasonResultExtraUser => {
 				const user: UserResponse = this.users.find((u) => u.id === extra.user)!;
+				const activity = this.activities.find((a) => a.id === extra.activity)!;
 
 				return {
 					faculty: extra.faculty,
 					points: extra.points,
 					name: extra.name,
 					value: extra.value,
+					activity,
 					user
 				};
 			}

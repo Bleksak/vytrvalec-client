@@ -1,6 +1,7 @@
 import type { SeasonDTO } from '$lib/DTO/SeasonDTO';
 import type { SubmissionCreateResponse } from '$lib/DTO/SubmissionCreateResponse';
 import type { SubmissionDTO, SubmissionResponseDTO } from '$lib/DTO/SubmissionDTO';
+import type { SubmissionStateDTO, SubmissionStateResponse } from '$lib/DTO/SubmissionStateDTO';
 import axios from 'axios';
 
 export const createSubmission = async (dto: SubmissionDTO): Promise<SubmissionCreateResponse> => {
@@ -53,4 +54,37 @@ export const fetchSubmissionsForSeason = async (
 			return submission;
 		}
 	);
+};
+
+export const setSubmissionState = async (
+	submissionId: number,
+	submissionStateDTO: SubmissionStateDTO
+): Promise<SubmissionStateResponse> => {
+	const response = await axios
+		.patch(`/submission/${submissionId}/state`, submissionStateDTO)
+		.catch((err) => {
+			if (err.response) {
+				return err.response;
+			}
+
+			return null;
+		});
+
+	if (response === null) {
+		return {
+			type: 'error',
+			errors: { server: ['server_down'] }
+		};
+	}
+
+	if (response.status !== 200) {
+		return {
+			type: 'error',
+			errors: response.data
+		};
+	}
+
+	return {
+		type: 'success'
+	};
 };

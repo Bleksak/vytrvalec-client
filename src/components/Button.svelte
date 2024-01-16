@@ -2,10 +2,12 @@
 	import type { HTMLButtonAttributes } from 'svelte/elements';
 	import type { Snippet } from 'svelte';
 
-	let { children, ...props } = $props<HTMLButtonAttributes & { children: Snippet }>();
+	let { children, name, id, ...props } = $props<
+		HTMLButtonAttributes & { name?: string; id?: string; children: Snippet }
+	>();
 </script>
 
-<button {...props} on:click>{@render children()}</button>
+<button {name} {id} {...props} on:click>{@render children()}</button>
 
 <style>
 	button {
@@ -27,6 +29,10 @@
 
 	.left {
 		margin: 0 auto 0 0;
+	}
+
+	.right {
+		margin: 0 0 0 auto;
 	}
 
 	.secondary {
@@ -52,7 +58,6 @@
 		background-color: white;
 		color: #005cab;
 		outline: 2px solid #005cab;
-		/* transition: all 0.3s ease-in; */
 	}
 
 	button.secondary:hover {

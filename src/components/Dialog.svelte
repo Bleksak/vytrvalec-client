@@ -39,7 +39,7 @@
 
 		display: flex;
 		flex-direction: column;
-		max-width: 450px;
+		max-width: 500px;
 		width: 100%;
 		background-color: white;
 		border-radius: 10px;
