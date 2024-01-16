@@ -7,6 +7,7 @@
 	import { fetchFaculties } from '$actions/Faculty';
 	import type { SubmitFunction } from '@sveltejs/kit';
 	import type { HTMLDialogAttributes } from 'svelte/elements';
+	import Checkbox from '$components/FormComponent/Checkbox.svelte';
 
 	let { ...props }: HTMLDialogAttributes = $props();
 	let dialog = $state<Dialog>();
@@ -83,17 +84,14 @@
 			</span>
 		{/each}
 
-		<label for="gdpr">
-			<input type="checkbox" name="gdpr" id="gdpr" value="1" />
-			<input type="hidden" name="gdpr" value="0" />
+		<Checkbox id="gdpr" name="gdpr">
 			{$LL.registration.gdpr()}
-			<br />
-			{#each $page?.form?.register?.gdpr ?? [] as error}
-				<span class="error">
-					{$LL.registration.errors.gdpr[error as keyof typeof $LL.registration.errors.gdpr]()}
-				</span>
-			{/each}
-		</label>
+		</Checkbox>
+		{#each $page?.form?.register?.gdpr ?? [] as error}
+			<span class="error">
+				{$LL.registration.errors.gdpr[error as keyof typeof $LL.registration.errors.gdpr]()}
+			</span>
+		{/each}
 		<Button class="middle">{$LL.registration.submit()}</Button>
 	</form>
 </Dialog>

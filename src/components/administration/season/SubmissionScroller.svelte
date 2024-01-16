@@ -1,5 +1,6 @@
 <script lang="ts">
 	import Dialog from '$components/Dialog.svelte';
+	import Checkbox from '$components/FormComponent/Checkbox.svelte';
 	import type { SeasonDTO } from '$lib/DTO/SeasonDTO';
 	import type { SubmissionResponseDTO } from '$lib/DTO/SubmissionDTO';
 	import createSubmissionStore from '$lib/stores/SubmissionStore.svelte';
@@ -36,12 +37,16 @@
 				</p>
 				<p><strong>Nahráno:&nbsp;</strong>{submission.date.toLocaleDateString('cs')}</p>
 				<p>
-					<strong>Schválená:&nbsp;</strong>
-					<input type="checkbox" disabled checked={submission.accepted} />
+					<!-- <strong>Schválená:&nbsp;</strong> -->
+					<Checkbox id="accepted-view" name="accepted-view" disabled checked={submission.accepted}>
+						<strong>Schválená</strong>
+					</Checkbox>
+					<!-- <input type="checkbox" disabled checked={submission.accepted} /> -->
 				</p>
 				<p>
-					<strong>Zkontrolovaná:&nbsp;</strong>
-					<input type="checkbox" disabled checked={submission.reviewed} />
+					<Checkbox id="reviewed-view" name="reviewed-view" disabled checked={submission.reviewed}>
+						<strong>Zkontrolovaná</strong>
+					</Checkbox>
 				</p>
 			</div>
 			<div>

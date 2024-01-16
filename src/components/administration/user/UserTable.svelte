@@ -3,6 +3,7 @@
 	import UserEditor from '$components/administration/user/UserEditor.svelte';
 	import { getContext } from 'svelte';
 	import type { UserStore } from '$lib/stores/UserStore.svelte';
+	import Checkbox from '$components/FormComponent/Checkbox.svelte';
 
 	const userStore = getContext<UserStore>('userStore');
 
@@ -67,9 +68,17 @@
 					<td>{user.lastName}</td>
 					<td>{user.email}</td>
 					<td>{user.faculty.shortcut}</td>
-					<!--TODO: pridat ikonku banned a role -->
-					<td>{user.banned}</td>
-					<td>{user.roles.includes('ROLE_STAFF')}</td>
+					<td>
+						<Checkbox id="banned-view" name="banned-view" checked={user.banned} disabled />
+					</td>
+					<td>
+						<Checkbox
+							id="admin-view"
+							name="admin-view"
+							checked={user.roles.includes('ROLE_STAFF')}
+							disabled
+						/>
+					</td>
 					<td>
 						<button class="edit" on:click={() => openEditor(idx)}>
 							<img class="icon" src="/images/icons/edit.png" alt="Upravit" title="Upravit" />

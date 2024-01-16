@@ -9,6 +9,7 @@
 	import { enhance } from '$app/forms';
 	import { getContext } from 'svelte';
 	import type { UserStore } from '$lib/stores/UserStore.svelte';
+	import Checkbox from '$components/FormComponent/Checkbox.svelte';
 
 	const { user, ...props } = $props<{ user: UserResponse & HTMLDialogAttributes }>();
 	let dialog = $state<Dialog>();
@@ -68,15 +69,8 @@
 			{/await}
 		</select>
 
-		<label for="banned">
-			Zablokovaný:
-			<input bind:checked={editedUser.banned} value="1" type="checkbox" name="banned" id="banned" />
-		</label>
-
-		<label for="admin">
-			Administrátor:
-			<input bind:checked={adminChecked} value="1" type="checkbox" name="admin" id="admin" />
-		</label>
+		<Checkbox id="banned" name="banned" checked={editedUser.banned}>Zablokovaný</Checkbox>
+		<Checkbox id="admin" name="admin" checked={adminChecked}>Administrátor</Checkbox>
 
 		<Button class="full-width">Upravit</Button>
 	</form>
