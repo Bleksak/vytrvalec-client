@@ -8,8 +8,6 @@
 	const charityStore = getContext<CharityStore>('charityStore');
 	const seasonStore = getContext<SeasonStore>('seasonStore');
 
-	const charities = $derived(charityStore.all());
-
 	const routeMap = [
 		'/administration/season/[[id=integer]]',
 		'/administration/charity/[[id=integer]]'
@@ -48,7 +46,7 @@
 			<a href="/administration/charity" on:click={() => toggle(1)}> Charity </a>
 			<input type="checkbox" bind:checked={checkboxes[1]} />
 			<Accordion bind:opened={checkboxes[1]}>
-				{#each charities as charity}
+				{#each charityStore.all() as charity}
 					<li class="accordion-inner">
 						<a href="/administration/charity/{charity.id}">
 							{charity.name}
