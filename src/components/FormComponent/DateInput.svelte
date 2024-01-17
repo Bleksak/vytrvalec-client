@@ -24,7 +24,7 @@
 	max={toString(maxDate) || null}
 	on:change={() => (date = fromString(internal))}
 	on:click|preventDefault={(e) => {
-		e.currentTarget.showPicker();
+		e.target.showPicker();
 	}}
 	{...props}
 />
