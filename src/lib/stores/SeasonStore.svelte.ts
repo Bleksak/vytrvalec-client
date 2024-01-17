@@ -34,7 +34,7 @@ export const createSeasonStore = (): SeasonStore => {
 		if (index !== -1) {
 			seasons[index] = season;
 		} else {
-			seasons.push(season);
+			seasons.unshift(season);
 		}
 	};
 

@@ -35,7 +35,7 @@ export const createCharityStore = (): CharityStore => {
 		if (index !== -1) {
 			charities[index] = charity;
 		} else {
-			charities.push(charity);
+			charities.unshift(charity);
 		}
 	};
 
