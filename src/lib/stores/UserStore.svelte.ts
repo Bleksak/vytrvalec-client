@@ -1,4 +1,4 @@
-import { fetchUser, fetchUsers } from '$actions/administration/Users';
+import { fetchUsers } from '$actions/administration/Users';
 import type { UserResponse } from '$lib/DTO/UserResponse';
 
 export type UserStore = {

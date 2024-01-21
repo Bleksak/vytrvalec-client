@@ -30,6 +30,7 @@ export const handle: Handle = async ({ event, resolve }): Promise<any> => {
 	axios.defaults.headers.common.Authorization = `Bearer ${event.locals.jwt}`;
 
 	const result = await getCurrentUser();
+
 	if (result.type === 'success') {
 		event.locals.user = result.data;
 	}
