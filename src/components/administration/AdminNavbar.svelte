@@ -58,6 +58,9 @@
 		<li>
 			<a href="/administration/user">Uživatelé</a>
 		</li>
+		<li>
+			<a href="/administration/submission">Uživatelské příspěvky</a>
+		</li>
 	</ul>
 </nav>
 
