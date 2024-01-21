@@ -5,11 +5,12 @@
 	import type { SeasonStore } from '$lib/stores/SeasonStore.svelte';
 	import { SeasonResult } from '$lib/DTO/SeasonResultDTO';
 	import { getContext } from 'svelte';
-	import { fetchSeasonResult } from '$actions/Season';
+	import { createSeasonCache, fetchSeasonResult } from '$actions/Season';
 	import LL from '$translations/i18n-svelte';
 	import type { UserStore } from '$lib/stores/UserStore.svelte';
 	import SubmissionScroller from './SubmissionScroller.svelte';
 	import { fetchActivities } from '$actions/Activity';
+	import Button from '$components/Button.svelte';
 
 	const { season } = $props<{ season: SeasonDTO }>();
 
@@ -19,6 +20,14 @@
 	const charityStore = getContext<CharityStore>('charityStore');
 	const userStore = getContext<UserStore>('userStore');
 	const charity = $derived(charityStore.get(season.charity));
+
+	let seasonCacheResult = $state<boolean>();
+
+	const endSeason = () => {
+		createSeasonCache(season).then((result: boolean) => {
+			seasonCacheResult = result;
+		});
+	};
 
 	$effect(() => {
 		Promise.all([fetchSeasonResult(season), userStore.promise(), fetchActivities()]).then(
@@ -50,6 +59,16 @@
 					<p><strong>Začátek:&nbsp;</strong>{season.start.toLocaleDateString('cs')}</p>
 					<p><strong>Konec:&nbsp;</strong>{season.end.toLocaleDateString('cs')}</p>
 					<p><strong>Celková vzdálenost:&nbsp;</strong>{seasonResult?.getTotalDistance()} km</p>
+					{#if season.end <= new Date()}
+						<Button on:click={endSeason}>Uzavřít sezónu</Button>
+						{#if seasonCacheResult !== undefined}
+							{#if seasonCacheResult}
+								<span class="note">Sezóna byla uzavřena</span>
+							{:else}
+								<span class="note">Chyba při uzavírání sezóny</span>
+							{/if}
+						{/if}
+					{/if}
 					<!-- <p><strong>Celkové převýšení:&nbsp;</strong>{seasonResult.getTotalElevation()}</p> -->
 				</section>
 			</Widget>
