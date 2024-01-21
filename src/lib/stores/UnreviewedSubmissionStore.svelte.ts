@@ -20,7 +20,7 @@ export const createUnreviewedSubmissionStore = (): UnreviewedSubmissionStore => 
 	let index = $state(0);
 	let ids = $state<Array<number>>([]);
 
-	const count = 3;
+	const count = 25;
 
 	$effect(() => {
 		if (initialLoad) {
