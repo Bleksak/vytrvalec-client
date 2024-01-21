@@ -64,3 +64,13 @@ export const updateSeason = async (season: SeasonDTO): Promise<AxiosResponse<any
 export const fetchSeasonResult = async (season: SeasonDTO): Promise<SeasonResultDTO> => {
 	return (await axios.get(`/season/${season.id}/results`).catch(() => null))?.data ?? [];
 };
+
+export const createSeasonCache = async (season: SeasonDTO): Promise<boolean> => {
+	const response = await axios.get(`/cache/season/${season.id}`).catch(() => null);
+
+	if (response === null) {
+		return false;
+	}
+
+	return response.status === 201;
+};
