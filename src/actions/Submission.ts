@@ -88,3 +88,32 @@ export const setSubmissionState = async (
 		type: 'success'
 	};
 };
+
+export const fetchUnreviewedSubmissions = async (
+	count: number
+): Promise<Array<SubmissionResponseDTO>> => {
+	return (await axios.get(`/submission/unresolved/${count}`, {})).data.map(
+		(submission: { date: string | Date }) => {
+			submission.date = new Date(submission.date);
+			return submission;
+		}
+	);
+};
+
+export const acceptSubmission = async (submission: SubmissionResponseDTO): Promise<void> => {
+	await axios.patch(`/submission/${submission.id}/state`, {
+		updated_at: submission.updatedAt,
+		state: true
+	});
+};
+
+export const rejectSubmission = async (
+	submission: SubmissionResponseDTO,
+	message: string
+): Promise<void> => {
+	await axios.patch(`/submission/${submission.id}/state`, {
+		updated_at: submission.updatedAt,
+		state: false,
+		message
+	});
+};
