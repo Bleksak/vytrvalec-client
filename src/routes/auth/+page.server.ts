@@ -1,10 +1,11 @@
-import { login } from '$actions/Auth';
+import { accountChange, login } from '$actions/Auth';
 import { formDataToUserLoginDTO } from '$lib/DTO/UserLoginDTO';
 import { fail, redirect, type Action } from '@sveltejs/kit';
 import axios from 'axios';
 import { register } from '$actions/Auth';
 import { formDataToUserRegisterDTO } from '$lib/DTO/UserRegisterDTO';
 import { type Actions } from '@sveltejs/kit';
+import { formDataToAccountChangeDTO } from '$lib/DTO/AccountChangeDTO';
 
 const loginAction: Action = async ({ cookies, request }) => {
 	const loginDTO = formDataToUserLoginDTO(await request.formData());
@@ -46,8 +47,21 @@ const registerAction: Action = async ({ request }) => {
 	}
 };
 
+const accountAction: Action = async ({ request, locals }) => {
+	const data = formDataToAccountChangeDTO(locals.user, await request.formData());
+	if (data.type === 'error') {
+		return fail(400, data.errors);
+	}
+
+	const response = await accountChange(data.dto);
+	if (response.type === 'error') {
+		return fail(400, response.errors);
+	}
+};
+
 export const actions: Actions = {
 	login: loginAction,
 	logout: logoutAction,
-	register: registerAction
+	register: registerAction,
+	account: accountAction
 };

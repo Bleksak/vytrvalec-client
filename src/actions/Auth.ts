@@ -1,13 +1,13 @@
 import axios, { AxiosError } from 'axios';
 import type { UserRegisterDTO } from '$lib/DTO/UserRegisterDTO';
 import type { UserRegisterResponse } from '$lib/DTO/UserRegisterResponse';
-import { baseUrl } from '$lib/API';
 import type { UserLoginDTO } from '$lib/DTO/UserLoginDTO';
 import type { UserLoginResponse } from '$lib/DTO/UserLoginResponse';
 import type { CurrentUserResponse } from '$lib/DTO/CurrentUserResponse';
+import type { AccountChangeDTO, AccountChangeResponse } from '$lib/DTO/AccountChangeDTO';
 
 export const login = async (loginDTO: UserLoginDTO): Promise<UserLoginResponse> => {
-	const response = await axios.post(`${baseUrl}/user/login`, loginDTO).catch((error) => {
+	const response = await axios.post(`/user/login`, loginDTO).catch((error) => {
 		if (error.response) {
 			return error.response;
 		}
@@ -36,7 +36,7 @@ export const login = async (loginDTO: UserLoginDTO): Promise<UserLoginResponse> 
 };
 
 export const register = async (registerDTO: UserRegisterDTO): Promise<UserRegisterResponse> => {
-	const response = await axios.post(`${baseUrl}/user`, registerDTO).catch((error) => {
+	const response = await axios.post(`/user`, registerDTO).catch((error) => {
 		if (error.response) {
 			return error.response;
 		}
@@ -62,7 +62,7 @@ export const register = async (registerDTO: UserRegisterDTO): Promise<UserRegist
 };
 
 export const getCurrentUser = async (): Promise<CurrentUserResponse> => {
-	const response = await axios.get(`${baseUrl}/user/current`).catch((error: AxiosError) => {
+	const response = await axios.get(`/user/current`).catch((error: AxiosError) => {
 		if (error.response) {
 			return error.response;
 		}
@@ -88,4 +88,32 @@ export const getCurrentUser = async (): Promise<CurrentUserResponse> => {
 		type: 'success',
 		data: response.data
 	};
+};
+
+export const accountChange = async (dto: AccountChangeDTO): Promise<AccountChangeResponse> => {
+	const response = await axios.patch(`/user/change`, dto).catch((error) => {
+		if (error.response) {
+			return error.response;
+		}
+
+		return null;
+	});
+
+	if (response === null) {
+		return {
+			type: 'error',
+			errors: {
+				auth: ['server_down']
+			}
+		};
+	}
+
+	if (response.status !== 200) {
+		return {
+			type: 'error',
+			errors: response.data
+		};
+	}
+
+	return { type: 'success' };
 };
