@@ -282,6 +282,76 @@ type RootTranslation = {
 		 */
 		weekly_elevation: string
 	}
+	account: {
+		/**
+		 * Ú​č​e​t
+		 */
+		title: string
+		/**
+		 * E​-​m​a​i​l
+		 */
+		email: string
+		/**
+		 * H​e​s​l​o
+		 */
+		password: string
+		/**
+		 * J​m​é​n​o
+		 */
+		first_name: string
+		/**
+		 * P​ř​í​j​m​e​n​í
+		 */
+		last_name: string
+		/**
+		 * F​a​k​u​l​t​a
+		 */
+		faculty: string
+		/**
+		 * S​o​u​č​a​s​n​é​ ​h​e​s​l​o
+		 */
+		old_password: string
+		/**
+		 * P​o​k​u​d​ ​n​ě​k​t​e​r​é​ ​ú​d​a​j​e​ ​n​e​s​e​d​í​,​ ​k​o​n​t​a​k​t​u​j​t​e​ ​p​r​o​s​í​m​ ​a​d​m​i​n​i​s​t​r​á​t​o​r​a
+		 */
+		invalid_info: string
+		/**
+		 * U​l​o​ž​i​t
+		 */
+		save: string
+		/**
+		 * Ú​d​a​j​e​ ​b​y​l​y​ ​ú​s​p​ě​š​n​ě​ ​z​m​ě​n​ě​n​y
+		 */
+		success: string
+		errors: {
+			email: {
+				/**
+				 * E​-​m​a​i​l​ ​n​e​s​m​í​ ​b​ý​t​ ​p​r​á​z​d​n​ý
+				 */
+				blank: string
+			}
+			password: {
+				/**
+				 * H​e​s​l​o​ ​n​e​s​m​í​ ​b​ý​t​ ​p​r​á​z​d​n​é
+				 */
+				blank: string
+				/**
+				 * H​e​s​l​o​ ​j​e​ ​p​ř​í​l​i​š​ ​s​l​a​b​é
+				 */
+				weak: string
+			}
+			old_password: {
+				/**
+				 * S​o​u​č​a​s​n​e​ ​h​e​s​l​o​ ​n​e​s​m​í​ ​b​ý​t​ ​p​r​á​z​d​n​é
+				 */
+				blank: string
+				/**
+				 * S​o​u​č​a​s​n​e​ ​h​e​s​l​o​ ​n​e​n​í​ ​s​p​r​á​v​n​é
+				 */
+				mismatch: string
+			}
+		}
+	}
 }
 
 export type TranslationFunctions = {
@@ -552,6 +622,76 @@ export type TranslationFunctions = {
 		 * Převýšení za týden
 		 */
 		weekly_elevation: () => LocalizedString
+	}
+	account: {
+		/**
+		 * Účet
+		 */
+		title: () => LocalizedString
+		/**
+		 * E-mail
+		 */
+		email: () => LocalizedString
+		/**
+		 * Heslo
+		 */
+		password: () => LocalizedString
+		/**
+		 * Jméno
+		 */
+		first_name: () => LocalizedString
+		/**
+		 * Příjmení
+		 */
+		last_name: () => LocalizedString
+		/**
+		 * Fakulta
+		 */
+		faculty: () => LocalizedString
+		/**
+		 * Současné heslo
+		 */
+		old_password: () => LocalizedString
+		/**
+		 * Pokud některé údaje nesedí, kontaktujte prosím administrátora
+		 */
+		invalid_info: () => LocalizedString
+		/**
+		 * Uložit
+		 */
+		save: () => LocalizedString
+		/**
+		 * Údaje byly úspěšně změněny
+		 */
+		success: () => LocalizedString
+		errors: {
+			email: {
+				/**
+				 * E-mail nesmí být prázdný
+				 */
+				blank: () => LocalizedString
+			}
+			password: {
+				/**
+				 * Heslo nesmí být prázdné
+				 */
+				blank: () => LocalizedString
+				/**
+				 * Heslo je příliš slabé
+				 */
+				weak: () => LocalizedString
+			}
+			old_password: {
+				/**
+				 * Současne heslo nesmí být prázdné
+				 */
+				blank: () => LocalizedString
+				/**
+				 * Současne heslo není správné
+				 */
+				mismatch: () => LocalizedString
+			}
+		}
 	}
 }
 

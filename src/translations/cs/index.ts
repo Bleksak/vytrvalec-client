@@ -109,6 +109,32 @@ const cs = {
 		weekly_distance: 'Vzdálenost za 1 týden',
 		daily_distance: 'Vzdálenost za 1 den',
 		weekly_elevation: 'Převýšení za týden'
+	},
+
+	account: {
+		title: 'Účet',
+		email: 'E-mail',
+		password: 'Heslo',
+		first_name: 'Jméno',
+		last_name: 'Příjmení',
+		faculty: 'Fakulta',
+		old_password: 'Současné heslo',
+		invalid_info: 'Pokud některé údaje nesedí, kontaktujte prosím administrátora',
+		save: 'Uložit',
+		success: 'Údaje byly úspěšně změněny',
+		errors: {
+			email: {
+				blank: 'E-mail nesmí být prázdný'
+			},
+			password: {
+				blank: 'Heslo nesmí být prázdné',
+				weak: 'Heslo je příliš slabé'
+			},
+			old_password: {
+				blank: 'Současne heslo nesmí být prázdné',
+				mismatch: 'Současne heslo není správné'
+			}
+		}
 	}
 } satisfies BaseTranslation;
 

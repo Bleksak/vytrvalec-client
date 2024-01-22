@@ -109,6 +109,32 @@ const en = {
 		weekly_distance: 'Distance per week',
 		daily_distance: 'Distance per day',
 		weekly_elevation: 'Elevation per week'
+	},
+
+	account: {
+		title: 'Account',
+		email: 'E-mail',
+		password: 'Password',
+		first_name: 'First name',
+		last_name: 'Last name',
+		faculty: 'Faculty',
+		old_password: 'Current password',
+		invalid_info: "If there's any incorrect info, please contact the administrator.",
+		save: 'Save',
+		success: 'Account details were successfully updated',
+		errors: {
+			email: {
+				blank: 'E-mail cannot be empty'
+			},
+			password: {
+				blank: 'Password cannot be empty',
+				weak: 'Password is too weak'
+			},
+			old_password: {
+				blank: 'Current password cannot be empty',
+				mismatch: 'Current password is incorrect'
+			}
+		}
 	}
 } satisfies BaseTranslation;
 
