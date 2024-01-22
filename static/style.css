@@ -226,6 +226,14 @@ html:has(dialog[open]) {
 	overflow: hidden;
 }
 
+span.success {
+	display: flex;
+	align-items: center;
+	padding: 10px;
+	background-color: #65b741;
+	font-size: 0.9rem;
+}
+
 span.note {
 	display: flex;
 	align-items: center;
@@ -240,5 +248,9 @@ span.note {
 }
 
 strong {
+	font-weight: bold;
+}
+
+label {
 	font-weight: bold;
 }
