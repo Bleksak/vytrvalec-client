@@ -1,103 +1,71 @@
 <script lang="ts">
-	import Button from './Button.svelte';
-	import RegistrationForm from './forms/RegistrationForm.svelte';
-	import LoginForm from './forms/LoginForm.svelte';
-	import LL from '../translations/i18n-svelte';
 	import { page } from '$app/stores';
-	import { enhance } from '$app/forms';
-	import SubmissionPostForm from './forms/SubmissionPostForm.svelte';
+	import Accordion from '$components/Accordion.svelte';
+	import NavbarInner from '$components/NavbarInner.svelte';
 
-	let currentForm = $state<ConstructorOfATypedSvelteComponent>();
+	let outerWidth = $state<number>();
+	let open = $state<boolean>(false);
+
+	let hamburgerSrc = $state<string>('/images/hamburger.svg');
 </script>
 
+<svelte:window bind:outerWidth />
+
 <nav>
-	<ul>
-		<li>
+	<div class="navigation-wrapper">
+		<div class="navigation">
 			<a href="/{$page.data.lang}">
 				<img src="/images/zcu-logo.png" title="Logo ZČU" alt="Logo ZČU" />
 			</a>
-		</li>
-	</ul>
-	<ul>
-		{#if $page.data.user}
-			{#if $page.data.user.roles.includes('ROLE_STAFF')}
-				<li>
-					<a href="/administration">
-						{$LL.navbar.administration()}
-					</a>
-				</li>
-			{/if}
-		{/if}
-		<li>
-			<a href="/{$page.data.lang}/rules">
-				{$LL.navbar.rules()}
-			</a>
-		</li>
-		<li>
-			<a href="/{$page.data.lang}/results">
-				{$LL.navbar.results()}
-			</a>
-		</li>
-		{#if !$page.data.user}
-			<li>
-				<Button
-					on:click={() => {
-						currentForm = LoginForm;
-					}}
-				>
-					{$LL.navbar.login()}
-				</Button>
-			</li>
-			<li>
-				<Button
-					on:click={() => {
-						currentForm = RegistrationForm;
-					}}
-					class="secondary"
-				>
-					{$LL.navbar.register()}
-				</Button>
-			</li>
-		{:else}
-			<li>
-				<Button
-					on:click={() => {
-						currentForm = SubmissionPostForm;
-					}}
-				>
-					{$LL.navbar.submission()}
-				</Button>
-			</li>
-			<li>
-				<form method="POST" action="/auth/?/logout" use:enhance>
-					<Button class="secondary">
-						{$LL.navbar.logout()}
-					</Button>
-				</form>
-			</li>
-		{/if}
-	</ul>
-</nav>
 
-<svelte:component
-	this={currentForm}
-	on:close={() => {
-		currentForm = undefined;
-	}}
-/>
+			{#if (outerWidth ?? 0) <= 1000}
+				<button class="hamburger" on:click={() => (open = !open)}>
+					{#if open}
+						<img class="icon" src="/images/x.svg" alt="Hamburger menu" />
+					{:else}
+						<img class="icon" src="/images/hamburger.svg" alt="Hamburger menu" />
+					{/if}
+				</button>
+			{:else}
+				<ul>
+					<NavbarInner />
+				</ul>
+			{/if}
+		</div>
+	</div>
+	{#if (outerWidth ?? 0) <= 1000}
+		<div class="accordion-parent">
+			<Accordion className="navbar-accordion" bind:opened={open}>
+				<NavbarInner />
+			</Accordion>
+		</div>
+	{/if}
+</nav>
 
 <style>
 	nav {
+		z-index: 9999;
+		position: sticky;
+		top: 0;
+		left: 0;
+		background-color: white;
+		display: flex;
+		flex-direction: column;
+		font-size: 1.3rem;
+	}
+
+	.navigation-wrapper {
+		padding: 10px 100px;
+	}
+
+	.navigation {
 		display: flex;
 		flex-direction: row;
 		justify-content: space-between;
 		align-items: center;
-
-		padding: 10px 100px;
-		font-size: 1.3rem;
 	}
 
-	nav > ul {
+	ul {
 		display: flex;
 		flex-direction: row;
 		align-items: center;
@@ -105,7 +73,22 @@
 		gap: 18px;
 	}
 
-	nav img {
+	img {
 		height: 80px;
+	}
+
+	.accordion-parent {
+		background-color: white;
+		position: relative;
+	}
+
+	.hamburger {
+		cursor: pointer;
+	}
+
+	@media (max-width: 1000px) {
+		nav {
+			padding: 0;
+		}
 	}
 </style>

@@ -15,7 +15,9 @@ const en = {
 		register: 'Register',
 		logout: 'Logout',
 		administration: 'Administration',
-		submission: 'Upload submission'
+		submission: 'Upload submission',
+		profile: 'Profile',
+		settings: 'Settings'
 	},
 
 	homepage: {

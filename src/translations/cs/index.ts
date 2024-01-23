@@ -15,7 +15,9 @@ const cs = {
 		register: 'Registrovat',
 		logout: 'Odhlásit se',
 		administration: 'Administrace',
-		submission: 'Nahrát aktivitu'
+		submission: 'Nahrát aktivitu',
+		profile: 'Profil',
+		settings: 'Nastavení'
 	},
 
 	homepage: {

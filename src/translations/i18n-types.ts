@@ -57,6 +57,14 @@ type RootTranslation = {
 		 * N​a​h​r​á​t​ ​a​k​t​i​v​i​t​u
 		 */
 		submission: string
+		/**
+		 * P​r​o​f​i​l
+		 */
+		profile: string
+		/**
+		 * N​a​s​t​a​v​e​n​í
+		 */
+		settings: string
 	}
 	homepage: {
 		/**
@@ -398,6 +406,14 @@ export type TranslationFunctions = {
 		 * Nahrát aktivitu
 		 */
 		submission: () => LocalizedString
+		/**
+		 * Profil
+		 */
+		profile: () => LocalizedString
+		/**
+		 * Nastavení
+		 */
+		settings: () => LocalizedString
 	}
 	homepage: {
 		/**
