@@ -1,9 +1,7 @@
 <div class="past-winners">
-	<div class="row">
-		<h2>Uplynulé ročníky</h2>
-	</div>
+	<h2>Uplynulé ročníky</h2>
 	<!-- TODO: Vymyslet jak udelat lazy loading jinak by to mohlo zatezovat server -->
-	<div class="row carousel-controls">
+	<div class="carousel-controls">
 		<h3>
 			<!-- TODO: Vyuzit ikonky pro next a prev akce -->
 			<span id="carousel-prev">&lt;</span>
@@ -12,36 +10,33 @@
 		</h3>
 	</div>
 	<div class="carousel-item">
-		<div class="item-wrapper">
-			<article class="charity">
-				<header>
-					<h3>CHARITY</h3>
-					<h6>DAVID a&nbsp;GOLIÁŠ - Kubík</h6>
-				</header>
-				<section class="content">
-					<p>
-						Kubík - kombinované postižení - 11 let. Kubík se v&nbsp;bříšku vyvíjel jako úplně zdravé
-						miminko, ale při porodu se dost přidusil, což se projevilo na jeho mozečku. Diagnóza
-						DMO.
-					</p>
-				</section>
-			</article>
-			<div class="winners-wrapper">
-				<div class="winners">
-					<div class="winner">
-						<span>Fakulta strojní</span>
-						<div class="bar bar-medium"></div>
-					</div>
+		<article class="charity">
+			<header>
+				<h3>CHARITY</h3>
+				<h6>DAVID a&nbsp;GOLIÁŠ - Kubík</h6>
+			</header>
+			<section class="content">
+				<p>
+					Kubík - kombinované postižení - 11 let. Kubík se v&nbsp;bříšku vyvíjel jako úplně zdravé
+					miminko, ale při porodu se dost přidusil, což se projevilo na jeho mozečku. Diagnóza DMO.
+				</p>
+			</section>
+		</article>
+		<div class="winners-wrapper">
+			<div class="winners">
+				<div class="winner">
+					<span>Fakulta strojní</span>
+					<div class="bar bar-medium"></div>
+				</div>
 
-					<div class="winner">
-						<span>Fakulta aplikovaných věd</span>
-						<div class="bar bar-large"></div>
-					</div>
+				<div class="winner">
+					<span>Fakulta aplikovaných věd</span>
+					<div class="bar bar-large"></div>
+				</div>
 
-					<div class="winner">
-						<span>Fakulta ekonomicka</span>
-						<div class="bar bar-small"></div>
-					</div>
+				<div class="winner">
+					<span>Fakulta ekonomicka</span>
+					<div class="bar bar-small"></div>
 				</div>
 			</div>
 		</div>
@@ -49,15 +44,13 @@
 </div>
 
 <style>
-	.item-wrapper {
-		display: flex;
-		justify-content: space-around;
-	}
-
 	.past-winners {
-		width: 100%;
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+
 		background-color: #005cab;
-		padding: 20px 0px;
+		padding: 20px 100px;
 	}
 
 	.past-winners h2,
@@ -78,22 +71,28 @@
 		color: white;
 	}
 
+	.carousel-item {
+		display: flex;
+		flex-direction: row;
+		justify-content: space-between;
+		width: 100%;
+	}
+
 	.charity {
 		max-width: 600px;
 		width: 100%;
 	}
 
 	.winners-wrapper {
-		height: 200px;
 		display: flex;
-		justify-content: center;
+		justify-content: flex-start;
 	}
 
 	.winners {
 		display: flex;
-		justify-content: space-evenly;
 		align-items: flex-end;
 	}
+
 	.winners .bar {
 		width: 80px;
 		border-top-left-radius: 20px;
@@ -130,20 +129,26 @@
 		display: flex;
 		flex-direction: column;
 		align-items: center;
+		width: 150px;
 		gap: 10px;
 	}
 	.winners .winner span {
+		white-space: nowrap;
 		color: white;
 		font-weight: 500;
 		font-size: 1.2rem;
 	}
 
-	@media (max-width: 1000px) {
-		.item-wrapper {
+	@media (max-width: 1200px) {
+		.carousel-item {
 			margin-top: 50px;
 			flex-direction: column;
 			align-items: center;
 			gap: 100px;
+		}
+
+		.past-winners {
+			padding-inline: 30px;
 		}
 	}
 </style>

@@ -212,14 +212,12 @@ main {
 	flex-direction: column;
 }
 
-.row {
-	display: flex;
-	flex-direction: row;
-	justify-content: space-around;
-}
-
 .error {
 	color: #d32f2f;
+}
+
+html {
+	scroll-behavior: smooth;
 }
 
 html:has(dialog[open]) {

@@ -23,8 +23,7 @@
 	footer {
 		display: flex;
 		gap: 10px;
-		justify-content: center;
-		justify-items: center;
+		justify-content: space-between;
 		background-color: #005cab;
 		align-items: center;
 		color: white;
@@ -52,32 +51,36 @@
 		gap: 10px;
 
 		align-items: center;
-		width: 100%;
 		display: flex;
-		justify-content: center;
+		justify-content: flex-start;
 	}
 
 	.special-links {
 		flex: 1;
 		display: flex;
-		justify-content: center;
+		justify-content: flex-end;
+		margin-right: 35px;
 	}
 
-	@media (max-width: 1000px) {
+	@media (max-width: 1200px) {
 		footer {
 			flex-direction: column;
+			padding: 10px 30px;
 		}
 
 		.socials {
 			flex-direction: column;
+			min-width: 200px;
 		}
 
 		.special-links {
 			flex-direction: column;
+			margin: 0;
 		}
 
 		.about {
 			display: none;
+			align-items: center;
 		}
 	}
 </style>

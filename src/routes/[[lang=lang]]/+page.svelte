@@ -111,8 +111,8 @@
 		display: flex;
 		flex-direction: column;
 		align-items: center;
-		margin-top: 50px;
-		gap: 15px;
+		margin-top: 10px;
+		gap: 10px;
 	}
 
 	main > .stats {

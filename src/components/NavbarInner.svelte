@@ -86,7 +86,7 @@
 />
 
 <style>
-	@media (max-width: 1000px) {
+	@media (max-width: 1200px) {
 		li {
 			text-align: center;
 		}

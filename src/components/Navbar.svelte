@@ -6,7 +6,7 @@
 	let outerWidth = $state<number>();
 	let open = $state<boolean>(false);
 
-	let hamburgerSrc = $state<string>('/images/hamburger.svg');
+	const minWidth = 1200;
 </script>
 
 <svelte:window bind:outerWidth />
@@ -18,7 +18,7 @@
 				<img src="/images/zcu-logo.png" title="Logo ZČU" alt="Logo ZČU" />
 			</a>
 
-			{#if (outerWidth ?? 0) <= 1000}
+			{#if (outerWidth ?? 0) <= minWidth}
 				<button class="hamburger" on:click={() => (open = !open)}>
 					{#if open}
 						<img class="icon" src="/images/x.svg" alt="Hamburger menu" />
@@ -33,7 +33,7 @@
 			{/if}
 		</div>
 	</div>
-	{#if (outerWidth ?? 0) <= 1000}
+	{#if (outerWidth ?? 0) <= minWidth}
 		<div class="accordion-parent">
 			<Accordion className="navbar-accordion" bind:opened={open}>
 				<NavbarInner />
@@ -86,9 +86,9 @@
 		cursor: pointer;
 	}
 
-	@media (max-width: 1000px) {
-		nav {
-			padding: 0;
+	@media (max-width: 1200px) {
+		.navigation-wrapper {
+			padding: 10px 30px;
 		}
 	}
 </style>
