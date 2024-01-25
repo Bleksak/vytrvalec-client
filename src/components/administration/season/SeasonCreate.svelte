@@ -2,6 +2,7 @@
 	import { enhance } from '$app/forms';
 	import Button from '$components/Button.svelte';
 	import DateInput from '$components/FormComponent/DateInput.svelte';
+	import Select from '$components/FormComponent/Select.svelte';
 	import type { CreateSeasonResponseDTO, SeasonDTO } from '$lib/DTO/SeasonDTO';
 	import type { CharityStore } from '$lib/stores/CharityStore.svelte';
 	import type { SeasonStore } from '$lib/stores/SeasonStore.svelte';
@@ -47,12 +48,12 @@
 	{:else}
 		<form method="post" action="/administration/season/?/create" use:enhance={enhancer}>
 			<label for="charity">Charita:</label>
-			<select name="charity" id="charity">
-				{#each charities as charity}
-					<option value={charity.id}>{charity.name}</option>
-				{/each}
-			</select>
-
+			<Select
+				name="charity"
+				id="charity"
+				keys={charities.map((charity) => charity.name)}
+				values={charities.map((charity) => charity.id)}
+			/>
 			<label for="start">Začátek sezóny:</label>
 			<DateInput bind:date={season.start} minDate={today} name="start" id="start" />
 

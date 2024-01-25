@@ -1,47 +1,105 @@
-<div class="past-winners">
-	<h2>Uplynulé ročníky</h2>
-	<!-- TODO: Vymyslet jak udelat lazy loading jinak by to mohlo zatezovat server -->
-	<div class="carousel-controls">
-		<h3>
-			<!-- TODO: Vyuzit ikonky pro next a prev akce -->
-			<span id="carousel-prev">&lt;</span>
-			&nbsp;&nbsp;Říjen 2021&nbsp;&nbsp;
-			<span id="carousel-next">&gt;</span>
-		</h3>
-	</div>
-	<div class="carousel-item">
-		<article class="charity">
-			<header>
-				<h3>CHARITY</h3>
-				<h6>DAVID a&nbsp;GOLIÁŠ - Kubík</h6>
-			</header>
-			<section class="content">
-				<p>
-					Kubík - kombinované postižení - 11 let. Kubík se v&nbsp;bříšku vyvíjel jako úplně zdravé
-					miminko, ale při porodu se dost přidusil, což se projevilo na jeho mozečku. Diagnóza DMO.
-				</p>
-			</section>
-		</article>
-		<div class="winners-wrapper">
-			<div class="winners">
-				<div class="winner">
-					<span>Fakulta strojní</span>
-					<div class="bar bar-medium"></div>
-				</div>
+<script lang="ts">
+	import { fetchActivities } from '$actions/Activity';
+	import { fetchFaculties } from '$actions/Faculty';
+	import { fetchPastSeasons, fetchSeasonResult } from '$actions/Season';
+	import Select from '$components/FormComponent/Select.svelte';
+	import type { FullSeasonDTO } from '$lib/DTO/SeasonDTO';
+	import { SeasonResult } from '$lib/DTO/SeasonResultDTO';
 
-				<div class="winner">
-					<span>Fakulta aplikovaných věd</span>
-					<div class="bar bar-large"></div>
-				</div>
+	let seasonResults = $state.frozen<Map<number, SeasonResult>>(new Map());
 
-				<div class="winner">
-					<span>Fakulta ekonomicka</span>
-					<div class="bar bar-small"></div>
-				</div>
+	const seasonsPromise = fetchPastSeasons();
+	const activitiesPromise = fetchActivities();
+	const facultiesPromise = fetchFaculties();
+
+	let currentSelection = $state<number>();
+	let currentSeason = $state<FullSeasonDTO>();
+
+	$effect(() => {
+		if (!currentSelection) {
+			return;
+		}
+
+		Promise.all([seasonsPromise, activitiesPromise, facultiesPromise]).then(
+			([seasons, activities, faculties]) => {
+				currentSeason = seasons.find((season) => season?.id === currentSelection)!;
+
+				if (seasonResults.has(currentSelection!)) {
+					return;
+				}
+
+				fetchSeasonResult(currentSeason).then((result) => {
+					seasonResults.set(currentSelection!, new SeasonResult(result, [], activities, faculties));
+					seasonResults = new Map(seasonResults);
+				});
+			}
+		);
+	});
+</script>
+
+{#await seasonsPromise then seasons}
+	{#if seasons.length > 0}
+		<div class="past-winners">
+			<h1>Předchozí ročníky</h1>
+			<Select
+				keys={seasons.map((season) =>
+					season.start.toLocaleDateString('cs', { year: 'numeric', month: 'short' })
+				)}
+				values={seasons.map((season) => season.id)}
+				bind:currentValue={currentSelection}
+			/>
+			<div class="item">
+				<article class="charity">
+					<header>
+						<h2>CHARITA</h2>
+						<h3>{currentSeason?.charity?.name}</h3>
+					</header>
+					<section class="content">
+						<p>
+							{currentSeason?.charity?.description}
+						</p>
+					</section>
+				</article>
+				{#if seasonResults.has(currentSelection!)}
+					{@const seasonResult = seasonResults.get(currentSelection!)}
+					{@const winners = seasonResult?.getTotalWinners().slice(0, 3) ?? []}
+					{#await facultiesPromise then faculties}
+						<div class="winners-wrapper">
+							<div class="winners">
+								{#if winners.length >= 2}
+									<div class="winner">
+										<span>
+											{faculties.find((faculty) => faculty.id === winners[1].faculty)?.name}
+										</span>
+										<div class="bar bar-medium"></div>
+									</div>
+								{/if}
+
+								{#if winners.length >= 1}
+									<div class="winner">
+										<span>
+											{faculties.find((faculty) => faculty.id === winners[0].faculty)?.name}
+										</span>
+										<div class="bar bar-large"></div>
+									</div>
+								{/if}
+
+								{#if winners.length >= 3}
+									<div class="winner">
+										<span>
+											{faculties.find((faculty) => faculty.id === winners[2].faculty)?.name}
+										</span>
+										<div class="bar bar-small"></div>
+									</div>
+								{/if}
+							</div>
+						</div>
+					{/await}
+				{/if}
 			</div>
 		</div>
-	</div>
-</div>
+	{/if}
+{/await}
 
 <style>
 	.past-winners {
@@ -53,16 +111,9 @@
 		padding: 20px 100px;
 	}
 
+	.past-winners h1,
 	.past-winners h2,
-	.past-winners h3,
-	.past-winners h4,
-	.past-winners h5 {
-		color: white;
-		font-weight: bold;
-	}
-
-	/* NOTE: bug in svelte, cannot merge more classes than 4 */
-	.past-winners h6 {
+	.past-winners h3 {
 		color: white;
 		font-weight: bold;
 	}
@@ -71,7 +122,8 @@
 		color: white;
 	}
 
-	.carousel-item {
+	.item {
+		margin-top: 30px;
 		display: flex;
 		flex-direction: row;
 		justify-content: space-between;
@@ -129,22 +181,27 @@
 		display: flex;
 		flex-direction: column;
 		align-items: center;
-		width: 150px;
+		width: 190px;
 		gap: 10px;
 	}
 	.winners .winner span {
-		white-space: nowrap;
+		text-align: center;
 		color: white;
 		font-weight: 500;
 		font-size: 1.2rem;
 	}
 
 	@media (max-width: 1200px) {
-		.carousel-item {
+		.item {
 			margin-top: 50px;
 			flex-direction: column;
 			align-items: center;
 			gap: 100px;
+		}
+
+		.winner span {
+			text-align: center;
+			white-space: wrap;
 		}
 
 		.past-winners {

@@ -1,5 +1,4 @@
 <script lang="ts">
-	import { acceptSubmission, rejectSubmission } from '$actions/Submission';
 	import Button from '$components/Button.svelte';
 	import type { SubmissionResponseDTO } from '$lib/DTO/SubmissionDTO';
 	import createUnreviewedSubmissionStore from '$lib/stores/UnreviewedSubmissionStore.svelte';
@@ -38,7 +37,9 @@
 {:else}
 	<div class="tinder-card">
 		<div class="wrapper">
-			<img src={currentSubmission?.image} alt="Aktivita" />
+			<a href={currentSubmission?.image} target="_blank">
+				<img src={currentSubmission?.image} alt="Aktivita" />
+			</a>
 			<div class="info">
 				<div class="info-column">
 					<p>

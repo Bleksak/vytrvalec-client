@@ -55,6 +55,7 @@
 	}
 
 	.container {
+		margin-top: 10px;
 		display: flex;
 		gap: 20px;
 	}

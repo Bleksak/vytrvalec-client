@@ -6,6 +6,7 @@
 	import { page } from '$app/stores';
 	import { enhance } from '$app/forms';
 	import type { HTMLDialogAttributes } from 'svelte/elements';
+	import Select from '$components/FormComponent/Select.svelte';
 
 	let { ...props } = $props<HTMLDialogAttributes>();
 
@@ -119,13 +120,14 @@
 		<label for="activity">
 			{$LL.submission.form.activity()}:
 		</label>
-		<select name="activity" id="activity">
-			{#await activitesPromise then activities}
-				{#each activities as activity}
-					<option value={activity.id}>{activity.name}</option>
-				{/each}
-			{/await}
-		</select>
+		{#await activitesPromise then activities}
+			<Select
+				name="activity"
+				id="activity"
+				keys={activities.map((a) => a.name)}
+				values={activities.map((a) => a.id)}
+			/>
+		{/await}
 		{#each $page?.form?.activity ?? [] as error}
 			<span class="error">
 				{$LL.submission.form.errors.activity[error as keyof typeof $LL.submission.form.errors.activity]()}

@@ -1,10 +1,18 @@
 import type { ResponseError, ResponseErrorMap } from '$lib/ResponseErrors';
+import type { CharityDTO } from './CharityDTO';
 
 export type SeasonDTO = {
 	id: number;
 	start: Date;
 	end: Date;
 	charity: number;
+};
+
+export type FullSeasonDTO = {
+	id: number;
+	start: Date;
+	end: Date;
+	charity: CharityDTO;
 };
 
 export type CreateSeasonDTO = Omit<SeasonDTO, 'id'>;

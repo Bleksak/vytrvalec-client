@@ -10,6 +10,7 @@
 	import { getContext } from 'svelte';
 	import type { UserStore } from '$lib/stores/UserStore.svelte';
 	import Checkbox from '$components/FormComponent/Checkbox.svelte';
+	import Select from '$components/FormComponent/Select.svelte';
 
 	const { user, ...props } = $props<{ user: UserResponse & HTMLDialogAttributes }>();
 	let dialog = $state<Dialog>();
@@ -59,15 +60,16 @@
 		<label for="faculty">
 			{$LL.registration.faculty()}:
 		</label>
-		<select bind:value={faculty} name="faculty" id="faculty">
-			{#await facultiesPromise then faculties}
-				{#each faculties as faculty}
-					<option value={faculty.id}>{faculty.name}</option>
-				{/each}
-			{:catch}
-				<option value="-1">Nebylo možné získat fakulty</option>
-			{/await}
-		</select>
+		{#await facultiesPromise then faculties}
+			<Select
+				name="faculty"
+				id="faculty"
+				keys={faculties.map((f) => f.name)}
+				values={faculties.map((f) => f.id)}
+			/>
+		{:catch}
+			<span class="note">Nebylo možné získat fakulty</span>
+		{/await}
 
 		<Checkbox id="banned" name="banned" checked={editedUser.banned}>Zablokovaný</Checkbox>
 		<Checkbox id="admin" name="admin" checked={adminChecked}>Administrátor</Checkbox>

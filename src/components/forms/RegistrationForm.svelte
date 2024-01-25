@@ -8,6 +8,7 @@
 	import type { SubmitFunction } from '@sveltejs/kit';
 	import type { HTMLDialogAttributes } from 'svelte/elements';
 	import Checkbox from '$components/FormComponent/Checkbox.svelte';
+	import Select from '$components/FormComponent/Select.svelte';
 
 	let { ...props }: HTMLDialogAttributes = $props();
 	let dialog = $state<Dialog>();
@@ -69,15 +70,16 @@
 		<label for="faculty">
 			{$LL.registration.faculty()}:
 		</label>
-		<select name="faculty" id="faculty">
-			{#await facultiesPromise then faculties}
-				{#each faculties as faculty}
-					<option value={faculty.id}>{faculty.name}</option>
-				{/each}
-			{:catch}
-				<option value="-1">{$LL.registration.errors.faculty.no_faculties()}</option>
-			{/await}
-		</select>
+		{#await facultiesPromise then faculties}
+			<Select
+				name="faculty"
+				id="faculty"
+				keys={faculties.map((f) => f.name)}
+				values={faculties.map((f) => f.id)}
+			/>
+		{:catch}
+			<span class="note">{$LL.registration.errors.faculty.no_faculties()}</span>
+		{/await}
 		{#each $page?.form?.register?.faculty ?? [] as error}
 			<span class="error">
 				{$LL.registration.errors.faculty[error as keyof typeof $LL.registration.errors.faculty]()}

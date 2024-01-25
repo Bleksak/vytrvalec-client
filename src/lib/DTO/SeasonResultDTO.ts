@@ -1,4 +1,5 @@
 import type { ActivityDTO } from './ActivityDTO';
+import type { Faculty } from './Faculty';
 import type { UserResponse } from './UserResponse';
 
 export type SeasonResultExtraUser = {
@@ -19,8 +20,8 @@ export type SeasonResultExtra = {
 };
 
 export type SeasonResultFaculty = {
+	faculty: number;
 	distance: number;
-	elevation: number;
 };
 
 export type SeasonResultActivity = {
@@ -38,8 +39,18 @@ export type SeasonResultDTO = Array<SeasonResultWeek>;
 
 type SeasonResultCached = {
 	totalDistance: number;
-	totalElevation: number;
 	extras: Array<SeasonResultExtraUser>;
+};
+
+export type ResultRow = {
+	faculty: number;
+	points: number; // + extra points
+};
+
+export type WeekResultRow = {
+	week: number;
+	activity: number;
+	row: Array<ResultRow>;
 };
 
 export class SeasonResult {
@@ -47,24 +58,86 @@ export class SeasonResult {
 	cached: SeasonResultCached;
 	users: Array<UserResponse>;
 	activities: Array<ActivityDTO>;
+	faculties: Array<Faculty>;
+	results: Array<WeekResultRow>;
 
-	constructor(data: SeasonResultDTO, users: Array<UserResponse>, activities: Array<ActivityDTO>) {
+	constructor(
+		data: SeasonResultDTO,
+		users: Array<UserResponse> = [],
+		activities: Array<ActivityDTO>,
+		faculties: Array<Faculty> = []
+	) {
 		this.users = users;
+		this.faculties = faculties;
 		this.activities = activities;
 		this.data = data;
 		this.cached = this.calculateCache();
+		this.results = this.calculateResults();
+	}
+
+	calculateResults() {
+		if (this.faculties.length === 0) {
+			return [];
+		}
+
+		let weekResultRows: Array<WeekResultRow> = [];
+
+		for (const week of this.data) {
+			for (const activity of week.activities) {
+				// 1. create empty object
+				let weekResultRow = {
+					week: week.week,
+					activity: activity.activity,
+					row: [] as Array<ResultRow>
+				};
+
+				// 2. fill rows with empty faculties
+				for (const faculty of this.faculties) {
+					weekResultRow.row.push({
+						faculty: faculty.id,
+						points: 0
+					});
+				}
+
+				// 3. fill rows with sorted data
+				for (const result of activity.results
+					.toSorted((a, b) => b.distance - a.distance)
+					.map((result, i) => {
+						return {
+							points: i + 1,
+							faculty: result.faculty
+						};
+					})) {
+					console.log(result);
+					let facultyResult = weekResultRow.row.find((row) => row.faculty === result.faculty);
+
+					facultyResult!.points += result.points;
+				}
+
+				// 4. add extra points
+				for (const extras of activity.extras) {
+					let facultyResult = weekResultRow.row.find((row) => row.faculty === extras.faculty);
+					facultyResult!.points += extras.points;
+				}
+
+				// 5. sort again
+				weekResultRow.row.sort((a, b) => b.points - a.points);
+
+				weekResultRows.push(weekResultRow);
+			}
+		}
+
+		return weekResultRows;
 	}
 
 	calculateCache(): SeasonResultCached {
 		let totalDistance = 0;
-		let totalElevation = 0;
 		let extras = [];
 
 		for (const week of this.data) {
 			for (const activity of week.activities) {
 				for (const result of activity.results) {
 					totalDistance += result.distance;
-					totalElevation += result.elevation;
 				}
 
 				for (const extra of activity.extras) {
@@ -91,7 +164,6 @@ export class SeasonResult {
 
 		return {
 			totalDistance: totalDistance / 1000,
-			totalElevation,
 			extras: extrasWithUserData
 		};
 	}
@@ -100,11 +172,28 @@ export class SeasonResult {
 		return this.cached.totalDistance;
 	}
 
-	getTotalElevation(): number {
-		return this.cached.totalElevation;
-	}
-
 	getExtraPoints(): Array<SeasonResultExtraUser> {
 		return this.cached.extras;
+	}
+
+	getTotalWinners(): Array<ResultRow> {
+		let winners: Array<ResultRow> = [];
+
+		for (const week of this.results) {
+			for (const row of week.row) {
+				let winner = winners.find((w) => w.faculty === row.faculty);
+				if (!winner) {
+					winners.push(row);
+				} else {
+					winner.points += row.points;
+				}
+			}
+		}
+
+		return winners;
+	}
+
+	getResults(): Array<WeekResultRow> {
+		return this.results;
 	}
 }

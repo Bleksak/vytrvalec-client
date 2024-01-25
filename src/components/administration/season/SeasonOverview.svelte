@@ -69,7 +69,6 @@
 							{/if}
 						{/if}
 					{/if}
-					<!-- <p><strong>Celkové převýšení:&nbsp;</strong>{seasonResult.getTotalElevation()}</p> -->
 				</section>
 			</Widget>
 
