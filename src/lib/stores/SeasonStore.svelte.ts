@@ -1,4 +1,4 @@
-import { fetchSeasons } from '$actions/Season';
+import { deleteSeason, fetchSeasons } from '$actions/Season';
 import { type SeasonDTO } from '$lib/DTO/SeasonDTO';
 
 export type SeasonStore = {
@@ -6,6 +6,7 @@ export type SeasonStore = {
 	promise: () => Promise<Array<SeasonDTO>>;
 	all: () => Array<SeasonDTO>;
 	updateOrCreate: (season: SeasonDTO) => void;
+	remove: (season: SeasonDTO) => Promise<boolean>;
 };
 
 export const createSeasonStore = (): SeasonStore => {
@@ -28,6 +29,16 @@ export const createSeasonStore = (): SeasonStore => {
 		return seasons;
 	};
 
+	const remove = async (season: SeasonDTO): Promise<boolean> => {
+		const result = await deleteSeason(season);
+
+		if (result) {
+			seasons = seasons.filter((s) => s.id !== season.id);
+		}
+
+		return result;
+	};
+
 	const updateOrCreate = (season: SeasonDTO) => {
 		let index = seasons.findIndex((c) => c.id === season.id);
 
@@ -44,7 +55,8 @@ export const createSeasonStore = (): SeasonStore => {
 		get: get,
 		promise: promise,
 		all: all,
-		updateOrCreate: updateOrCreate
+		updateOrCreate: updateOrCreate,
+		remove: remove
 	};
 };
 
