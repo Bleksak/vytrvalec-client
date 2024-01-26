@@ -11,6 +11,7 @@
 	import SubmissionScroller from './SubmissionScroller.svelte';
 	import { fetchActivities } from '$actions/Activity';
 	import Button from '$components/Button.svelte';
+	import { goto } from '$app/navigation';
 
 	const { season } = $props<{ season: SeasonDTO }>();
 
@@ -22,11 +23,24 @@
 	const charity = $derived(charityStore.get(season.charity));
 
 	let seasonCacheResult = $state<boolean>();
+	let seasonRemoveResult = $state<boolean>();
 
 	const endSeason = () => {
 		createSeasonCache(season).then((result: boolean) => {
 			seasonCacheResult = result;
 		});
+	};
+
+	const removeSeason = () => {
+		if (confirm('Opravdu chcete odstranit tuto sezónu? Akce je nevratná!')) {
+			seasonStore.remove(season).then((result) => {
+				if (result) {
+					goto('/administration/season');
+				} else {
+					seasonRemoveResult = false;
+				}
+			});
+		}
 	};
 
 	$effect(() => {
@@ -93,6 +107,17 @@
 					{/each}
 				</section>
 			</Widget>
+
+			{#if seasonResult?.getTotalDistance() === 0}
+				<Widget title="Odstranit sezónu">
+					<section class="season-delete">
+						<Button type="button" on:click={removeSeason}>Odstranit sezónu</Button>
+						{#if seasonRemoveResult === false}
+							<span class="note">Sezónu nelze odstranit, jelikož již obsahuje aktivity</span>
+						{/if}
+					</section>
+				</Widget>
+			{/if}
 		</div>
 	</div>
 

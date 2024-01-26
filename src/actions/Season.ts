@@ -91,3 +91,12 @@ export const fetchPastSeasons = async (): Promise<Array<FullSeasonDTO>> => {
 		}
 	);
 };
+
+export const deleteSeason = async (season: SeasonDTO): Promise<boolean> => {
+	const response = await axios.delete(`/season/${season.id}`).catch((r) => {
+		console.log(r);
+		return null;
+	});
+
+	return response !== null;
+};
