@@ -32,9 +32,6 @@ table {
 	border-collapse: collapse;
 }
 
-/*textarea {
-white-space: revert;
-}*/
 :where([hidden]) {
 	display: none;
 }
