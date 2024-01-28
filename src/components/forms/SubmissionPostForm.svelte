@@ -7,6 +7,7 @@
 	import { enhance } from '$app/forms';
 	import type { HTMLDialogAttributes } from 'svelte/elements';
 	import Select from '$components/FormComponent/Select.svelte';
+	import type { SubmitFunction } from '@sveltejs/kit';
 
 	let { ...props } = $props<HTMLDialogAttributes>();
 
@@ -55,11 +56,23 @@
 
 		updateImagePreview(file);
 	};
+
+	const enhancer: SubmitFunction = () => {
+		return async ({ result, update }) => {
+			console.log(result);
+		};
+	};
+
 	// TODO: po uploadu zavrit dialog, zobrazit hlasku, errory
 </script>
 
 <Dialog bind:this={dialog} header={$LL.submission.title()} {...props}>
-	<form method="POST" action="/submission/?/create" enctype="multipart/form-data" use:enhance>
+	<form
+		method="POST"
+		action="/submission/?/create"
+		enctype="multipart/form-data"
+		use:enhance={enhancer}
+	>
 		<div
 			class="dropzone"
 			on:dragenter|preventDefault
@@ -144,7 +157,6 @@
 		justify-content: center;
 		align-items: center;
 		width: 100%;
-		/* margin: 15px auto; */
 	}
 
 	.no-image {

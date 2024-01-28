@@ -4,7 +4,13 @@ import { formDataToSubmissionStateDTO } from '$lib/DTO/SubmissionStateDTO';
 import { fail, type Actions, type Action } from '@sveltejs/kit';
 
 const createAction: Action = async ({ request }) => {
-	let dto = formDataToSubmissionDTO(await request.formData());
+	const formData = await request.formData().catch((e) => {
+		console.log(e);
+		return e;
+	});
+	console.log('data:');
+	console.log(formData);
+	const dto = formDataToSubmissionDTO(formData);
 
 	if (dto.type === 'error') {
 		return fail(400, { submission: dto.value });

@@ -4,10 +4,10 @@
 
 Once you've created a project and installed dependencies with `npm install` (or `pnpm install` or `yarn`), start a development server:
 
-```bash
+````bash
 ```bash
 mv .env.example .env
-```
+````
 
 Edit .env file and add your API URL
 

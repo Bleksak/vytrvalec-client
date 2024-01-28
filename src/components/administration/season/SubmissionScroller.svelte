@@ -8,7 +8,7 @@
 	import createSubmissionStore from '$lib/stores/SubmissionStore.svelte';
 	const { season } = $props<{ season: SeasonDTO }>();
 
-	const submissionStore = createSubmissionStore(season);
+	const submissionStore = $derived(createSubmissionStore(season));
 
 	let currentSubmission = $state<SubmissionResponseDTO>();
 
@@ -19,7 +19,7 @@
 	// TODO: po odeslani formu asi zavrit dialog (custom enhancer...), zobrazit hlasku
 </script>
 
-{#await submissionStore.promise}
+{#await submissionStore.promise()}
 	Načítání...
 {:then submissions}
 	{#each submissions as submission, i}
