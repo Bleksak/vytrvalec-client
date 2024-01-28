@@ -70,7 +70,7 @@
 		</Button>
 	</li>
 	<li>
-		<form method="POST" action="/auth/?/logout" use:enhance>
+		<form method="POST" action="/auth?/logout" use:enhance>
 			<Button class="secondary">
 				{$LL.navbar.logout()}
 			</Button>
