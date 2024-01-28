@@ -41,13 +41,15 @@
 	{#if seasons.length > 0}
 		<div class="past-winners">
 			<h1>Předchozí ročníky</h1>
-			<Select
-				keys={seasons.map((season) =>
-					season.start.toLocaleDateString('cs', { year: 'numeric', month: 'short' })
-				)}
-				values={seasons.map((season) => season.id)}
-				bind:currentValue={currentSelection}
-			/>
+			<div class="selection-wrapper">
+				<Select
+					keys={seasons.map((season) =>
+						season.start.toLocaleDateString('cs', { year: 'numeric', month: 'short' })
+					)}
+					values={seasons.map((season) => season.id)}
+					bind:currentValue={currentSelection}
+				/>
+			</div>
 			<div class="item">
 				<article class="charity">
 					<header>
@@ -102,6 +104,10 @@
 {/await}
 
 <style>
+	.selection-wrapper {
+		width: 100%;
+	}
+
 	.past-winners {
 		display: flex;
 		flex-direction: column;
