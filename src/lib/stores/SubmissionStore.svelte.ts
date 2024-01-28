@@ -13,7 +13,7 @@ export type SubmissionStore = {
 	all: () => Array<SubmissionResponseDTO>;
 	update: (submission: SubmissionResponseDTO) => void;
 	filter: (filtering: SubmissionFilter) => Array<SubmissionResponseDTO>;
-	promise: Promise<Array<SubmissionResponseDTO>>;
+	promise: () => Promise<Array<SubmissionResponseDTO>>;
 };
 
 export const createSubmissionStore = (season: SeasonDTO): SubmissionStore => {
@@ -68,7 +68,7 @@ export const createSubmissionStore = (season: SeasonDTO): SubmissionStore => {
 		all: all,
 		update: update,
 		filter: filter,
-		promise: submissionsPromise
+		promise: () => submissionsPromise
 	};
 };
 
