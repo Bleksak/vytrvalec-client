@@ -63,9 +63,9 @@
 		<div class="select-options" transition:slide bind:this={optionsElement}>
 			{#each keys as key, i}
 				{#if key !== currentKey}
-					<button type="button" class="select-option" on:click|stopPropagation={() => select(i)}
-						>{key}</button
-					>
+					<button type="button" class="select-option" on:click|stopPropagation={() => select(i)}>
+						{key}
+					</button>
 				{/if}
 			{/each}
 		</div>
@@ -85,7 +85,6 @@
 		background-color: white;
 		border: 3px solid #005cab;
 		padding-block: 10px;
-		width: 100%;
 	}
 
 	.select::after {
@@ -134,14 +133,11 @@
 	.select-option {
 		padding-block: 10px;
 		border-bottom: 3px solid #005cab;
+		width: 100%;
 	}
 
 	.select-options:first-child {
 		border-top: 3px solid #005cab;
-	}
-
-	.select-option:last-child {
-		border-bottom: none;
 	}
 
 	.select-option:hover {
