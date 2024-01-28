@@ -108,7 +108,6 @@ export class SeasonResult {
 							faculty: result.faculty
 						};
 					})) {
-					console.log(result);
 					let facultyResult = weekResultRow.row.find((row) => row.faculty === result.faculty);
 
 					facultyResult!.points += result.points;
