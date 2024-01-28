@@ -1,4 +1,4 @@
-import { fetchCharities } from '$actions/Charity';
+import { fetchCharities, removeCharity } from '$actions/Charity';
 import type { CharityDTO } from '$lib/DTO/CharityDTO';
 
 export type CharityStore = {
@@ -6,6 +6,7 @@ export type CharityStore = {
 	all: () => Array<CharityDTO>;
 	updateOrCreate: (charity: CharityDTO) => void;
 	promise: () => Promise<Array<CharityDTO>>;
+	remove: (charity: CharityDTO) => Promise<boolean>;
 };
 
 export const createCharityStore = (): CharityStore => {
@@ -39,13 +40,24 @@ export const createCharityStore = (): CharityStore => {
 		}
 	};
 
+	const remove = async (charity: CharityDTO): Promise<boolean> => {
+		const result = await removeCharity(charity);
+
+		if (result) {
+			charities = charities.filter((c) => c.id !== charity.id);
+		}
+
+		return result;
+	};
+
 	const promise = () => charitiesPromise;
 
 	return {
 		get: get,
 		all: all,
 		promise: promise,
-		updateOrCreate: updateOrCreate
+		updateOrCreate: updateOrCreate,
+		remove: remove
 	};
 };
 

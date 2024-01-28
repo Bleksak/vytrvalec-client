@@ -79,3 +79,9 @@ export const updateCharity = async (
 		type: 'success'
 	};
 };
+
+export const removeCharity = async (charity: CharityDTO): Promise<boolean> => {
+	const response = await axios.delete(`/charity/${charity.id}`).catch(() => null);
+
+	return response !== null;
+};
