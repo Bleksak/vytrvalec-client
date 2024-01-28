@@ -1,7 +1,7 @@
 import { getCurrentUser } from '$actions/Auth';
 import { dev } from '$app/environment';
 import { locales } from '$translations/i18n-util';
-import { error, redirect, type Handle, type HandleServerError } from '@sveltejs/kit';
+import { error, redirect, type Handle } from '@sveltejs/kit';
 import axios from 'axios';
 
 const isPathname = (current: string, wanted: string): boolean => {
@@ -38,7 +38,7 @@ export const handle: Handle = async ({ event, resolve }): Promise<any> => {
 
 	if (isPathname(event.url.pathname, '/submission')) {
 		if (!event.locals.user) {
-			redirect(303, '/');
+			redirect(307, '/');
 		}
 	}
 
