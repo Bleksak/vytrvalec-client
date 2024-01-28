@@ -60,6 +60,7 @@
 	const enhancer: SubmitFunction = () => {
 		return async ({ result, update }) => {
 			console.log(result);
+			update();
 		};
 	};
 
@@ -69,7 +70,7 @@
 <Dialog bind:this={dialog} header={$LL.submission.title()} {...props}>
 	<form
 		method="POST"
-		action="/submission/?/create"
+		action="/submission?/create"
 		enctype="multipart/form-data"
 		use:enhance={enhancer}
 	>

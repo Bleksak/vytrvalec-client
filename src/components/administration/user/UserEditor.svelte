@@ -41,7 +41,7 @@
 </script>
 
 <Dialog header="Úprava uživatele" bind:this={dialog} {...props}>
-	<form method="POST" action="/administration/user/?/update" use:enhance={enhancer}>
+	<form method="POST" action="/administration/user?/update" use:enhance={enhancer}>
 		<label for="first_name">
 			{$LL.registration.first_name()}:
 		</label>

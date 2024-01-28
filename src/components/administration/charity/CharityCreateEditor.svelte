@@ -26,7 +26,7 @@
 	};
 </script>
 
-<form action="/administration/charity/?/create" method="post" use:enhance={enhancer}>
+<form action="/administration/charity?/create" method="post" use:enhance={enhancer}>
 	<label for="name">Název charity:</label>
 	<input type="text" name="name" id="name" bind:value={charity.name} autocomplete="off" />
 

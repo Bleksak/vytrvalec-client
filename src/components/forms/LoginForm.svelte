@@ -22,7 +22,7 @@
 </script>
 
 <Dialog bind:this={dialog} header={$LL.login.title()} {...props}>
-	<form method="POST" action="/auth/?/login" use:enhance={enhancer} name="login">
+	<form method="POST" action="/auth?/login" use:enhance={enhancer} name="login">
 		{#each $page?.form?.login ?? [] as error}
 			<span class="error">
 				{error}

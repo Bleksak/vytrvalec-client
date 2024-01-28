@@ -65,7 +65,7 @@
 
 {#if currentSubmission}
 	<Dialog header="Detail aktivity" on:close={() => (currentSubmission = undefined)}>
-		<form action="/submission/?/state" method="POST" use:enhance>
+		<form action="/submission?/state" method="POST" use:enhance>
 			<img src={currentSubmission.image} alt="Aktivita" />
 			<input type="hidden" name="id" value={currentSubmission.id} />
 			<input type="hidden" name="state" value={!currentSubmission.accepted ? 1 : 0} />

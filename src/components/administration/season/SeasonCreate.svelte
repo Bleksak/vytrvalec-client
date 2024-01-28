@@ -46,7 +46,7 @@
 			<a class="note" href="/administration/charity">vytvořit charitu</a>
 		</span>
 	{:else}
-		<form method="post" action="/administration/season/?/create" use:enhance={enhancer}>
+		<form method="post" action="/administration/season?/create" use:enhance={enhancer}>
 			<label for="charity">Charita:</label>
 			<Select
 				name="charity"

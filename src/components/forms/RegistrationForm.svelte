@@ -27,7 +27,7 @@
 </script>
 
 <Dialog bind:this={dialog} header={$LL.registration.title()} {...props}>
-	<form method="POST" action="/auth/?/register" use:enhance={enhancer}>
+	<form method="POST" action="/auth?/register" use:enhance={enhancer}>
 		<label for="email">
 			{$LL.registration.email()}:
 		</label>

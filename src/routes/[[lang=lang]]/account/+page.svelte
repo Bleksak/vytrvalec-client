@@ -32,7 +32,7 @@
 <div>
 	<h1>{$LL.account.title()}</h1>
 
-	<form method="post" action="/auth/?/account" use:enhance={enhancer}>
+	<form method="post" action="/auth?/account" use:enhance={enhancer}>
 		{#if success}
 			<span class="success">{$LL.account.success()}</span>
 		{/if}
