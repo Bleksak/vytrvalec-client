@@ -137,6 +137,10 @@ const en = {
 				mismatch: 'Current password is incorrect'
 			}
 		}
+	},
+	results: {
+		title: 'Season Results',
+		week_picker: ['Whole Season', 'First Week', 'Second Week', 'Third Week', 'Fourth Week']
 	}
 } satisfies BaseTranslation;
 

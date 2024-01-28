@@ -137,6 +137,10 @@ const cs = {
 				mismatch: 'Současne heslo není správné'
 			}
 		}
+	},
+	results: {
+		title: 'Výsledky sezóny',
+		week_picker: ['Celá sezóna', 'První týden', 'Druhý týden', 'Třetí týden', 'Čtvrtý týden']
 	}
 } satisfies BaseTranslation;
 

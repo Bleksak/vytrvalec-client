@@ -360,6 +360,34 @@ type RootTranslation = {
 			}
 		}
 	}
+	results: {
+		/**
+		 * V​ý​s​l​e​d​k​y​ ​s​e​z​ó​n​y
+		 */
+		title: string
+		week_picker: {
+			/**
+			 * C​e​l​á​ ​s​e​z​ó​n​a
+			 */
+			'0': string
+			/**
+			 * P​r​v​n​í​ ​t​ý​d​e​n
+			 */
+			'1': string
+			/**
+			 * D​r​u​h​ý​ ​t​ý​d​e​n
+			 */
+			'2': string
+			/**
+			 * T​ř​e​t​í​ ​t​ý​d​e​n
+			 */
+			'3': string
+			/**
+			 * Č​t​v​r​t​ý​ ​t​ý​d​e​n
+			 */
+			'4': string
+		}
+	}
 }
 
 export type TranslationFunctions = {
@@ -707,6 +735,34 @@ export type TranslationFunctions = {
 				 */
 				mismatch: () => LocalizedString
 			}
+		}
+	}
+	results: {
+		/**
+		 * Výsledky sezóny
+		 */
+		title: () => LocalizedString
+		week_picker: {
+			/**
+			 * Celá sezóna
+			 */
+			'0': () => LocalizedString
+			/**
+			 * První týden
+			 */
+			'1': () => LocalizedString
+			/**
+			 * Druhý týden
+			 */
+			'2': () => LocalizedString
+			/**
+			 * Třetí týden
+			 */
+			'3': () => LocalizedString
+			/**
+			 * Čtvrtý týden
+			 */
+			'4': () => LocalizedString
 		}
 	}
 }
