@@ -16,7 +16,7 @@
 </script>
 
 <dialog bind:this={dialog} {...props} on:close>
-	<header>
+	<header class="dialog-header">
 		<h5>{header}</h5>
 
 		<button on:click={close} type="button">
@@ -39,12 +39,13 @@
 
 		display: flex;
 		flex-direction: column;
-		max-width: 500px;
+		max-width: 550px;
 		width: 100%;
 		background-color: white;
 		border-radius: 10px;
-		padding: 30px;
-		gap: 20px;
+    padding-block: 20px;
+    gap: 30px;
+    max-height: 100vh;
 	}
 
 	dialog::backdrop {
@@ -52,13 +53,18 @@
 		background: rgba(0, 0, 0, 0.8);
 	}
 
-	header {
+	.dialog-header {
 		display: flex;
 		justify-content: space-between;
 	}
 
-	header,
+  section {
+    overflow-y: scroll;
+  }
+
+	.dialog-header,
 	section {
+		padding-inline: 30px;
 		width: 90%;
 		margin: 0 auto;
 	}

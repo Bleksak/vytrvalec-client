@@ -1,12 +1,13 @@
 <script lang="ts">
 	import { slide } from 'svelte/transition';
 
-	let { keys, values, id, name, currentValue, ...props } = $props<{
+	let { keys, values, id, name, currentValue, inverted = false, ...props } = $props<{
 		keys: string[];
 		values: any[];
 		currentValue?: any;
 		id?: string;
 		name?: string;
+    inverted?: boolean
 	}>();
 
 	let open = $state<boolean>(false);
@@ -63,7 +64,7 @@
 		<div class="select-options" transition:slide bind:this={optionsElement}>
 			{#each keys as key, i}
 				{#if key !== currentKey}
-					<button type="button" class="select-option" on:click|stopPropagation={() => select(i)}>
+					<button type="button" class="select-option" class:inverted on:click|stopPropagation={() => select(i)}>
 						{key}
 					</button>
 				{/if}
@@ -83,8 +84,10 @@
 		flex-direction: column;
 
 		background-color: white;
-		border: 3px solid #005cab;
+		border: 5px solid #005cab;
 		padding-block: 10px;
+
+    flex: 1;
 	}
 
 	.select::after {
@@ -104,17 +107,13 @@
 		border-color: transparent transparent #005cab transparent;
 	}
 
-	.selected {
-		background-color: #bbb;
-	}
-
 	.select-options {
 		text-align: center;
 		position: absolute;
 		display: flex;
 		flex-direction: column;
 
-		width: calc(100% + 6px);
+		width: calc(100% + 8px);
 
 		top: calc(100% + 3px);
 		left: 50%;
@@ -127,7 +126,7 @@
 		user-select: none;
 		max-height: 160px;
 		overflow: scroll;
-		border-inline: 3px solid #005cab;
+		border-inline: 5px solid #005cab;
 	}
 
 	.select-option {
@@ -142,5 +141,11 @@
 
 	.select-option:hover {
 		background-color: #005cab;
+    color: white;
 	}
+
+  .select-option.inverted:hover {
+    background-color: #eee;
+    color: black;
+  }
 </style>

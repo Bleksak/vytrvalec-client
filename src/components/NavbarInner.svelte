@@ -30,6 +30,7 @@
 {#if !$page.data.user}
 	<li>
 		<Button
+      class="nav-button"
 			on:click={() => {
 				currentForm = LoginForm;
 			}}
@@ -42,7 +43,7 @@
 			on:click={() => {
 				currentForm = RegistrationForm;
 			}}
-			class="secondary"
+			class="secondary nav-button"
 		>
 			{$LL.navbar.register()}
 		</Button>
@@ -55,13 +56,14 @@
 	</li>
 	<li>
 		<a href="/{$page.data.lang}/account">
-			<Button>
+			<Button class="nav-button">
 				{$LL.navbar.settings()}
 			</Button>
 		</a>
 	</li>
 	<li>
 		<Button
+      class="nav-button"
 			on:click={() => {
 				currentForm = SubmissionPostForm;
 			}}
@@ -71,7 +73,7 @@
 	</li>
 	<li>
 		<form method="POST" action="/auth?/logout" use:enhance>
-			<Button class="secondary">
+			<Button class="secondary nav-button">
 				{$LL.navbar.logout()}
 			</Button>
 		</form>
@@ -99,11 +101,11 @@
 			display: block;
 		}
 
-		a:not(:has(button)):hover {
+		a:not(:has(.nav-button)):hover {
 			background-color: rgb(200, 200, 200);
 		}
 
-		button:not(.hamburger) {
+		.nav-button:not(.hamburger) {
 			margin: 0 auto;
 			width: 50%;
 		}
