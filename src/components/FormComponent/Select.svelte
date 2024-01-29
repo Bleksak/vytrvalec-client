@@ -125,7 +125,7 @@
 		z-index: 1;
 		user-select: none;
 		max-height: 160px;
-		overflow: scroll;
+		overflow-y: auto;
 		border-inline: 5px solid #005cab;
 	}
 

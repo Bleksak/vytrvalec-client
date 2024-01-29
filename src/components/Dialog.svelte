@@ -59,7 +59,7 @@
 	}
 
   section {
-    overflow-y: scroll;
+    overflow-y: auto;
   }
 
 	.dialog-header,
