@@ -40,29 +40,35 @@
 		<strong>{$LL.account.last_name()}: </strong><span>{currentUser.lastName}</span>
 		<strong>{$LL.account.faculty()}: </strong><span>{currentUser.faculty.shortcut}</span>
 
-		<label for="email">{$LL.account.email()}: </label>
-		{#each errors.email ?? [] as error}
-			<span class="error">
-				{$LL.account.errors.email[error as keyof typeof $LL.account.errors.email]()}
-			</span>
-		{/each}
-		<input type="email" name="email" id="email" value={currentUser.email} />
+		<div class="form-field">
+			<label for="email">{$LL.account.email()}: </label>
+			{#each errors.email ?? [] as error}
+				<span class="error">
+					{$LL.account.errors.email[error as keyof typeof $LL.account.errors.email]()}
+				</span>
+			{/each}
+			<input type="email" name="email" id="email" value={currentUser.email} />
+		</div>
 
-		<label for="password">{$LL.account.password()}: </label>
-		{#each errors.password ?? [] as error}
-			<span class="error">
-				{$LL.account.errors.password[error as keyof typeof $LL.account.errors.password]()}
-			</span>
-		{/each}
-		<input type="password" name="password" id="password" bind:value={password} />
+		<div class="form-field">
+			<label for="password">{$LL.account.password()}: </label>
+			{#each errors.password ?? [] as error}
+				<span class="error">
+					{$LL.account.errors.password[error as keyof typeof $LL.account.errors.password]()}
+				</span>
+			{/each}
+			<input type="password" name="password" id="password" bind:value={password} />
+		</div>
 
-		<label for="old_password">{$LL.account.old_password()}: </label>
-		{#each errors.old_password ?? [] as error}
-			<span class="error">
-				{$LL.account.errors.old_password[error as keyof typeof $LL.account.errors.old_password]()}
-			</span>
-		{/each}
-		<input type="password" name="old_password" id="old_password" bind:value={oldPassword} />
+		<div class="form-field">
+			<label for="old_password">{$LL.account.old_password()}: </label>
+			{#each errors.old_password ?? [] as error}
+				<span class="error">
+					{$LL.account.errors.old_password[error as keyof typeof $LL.account.errors.old_password]()}
+				</span>
+			{/each}
+			<input type="password" name="old_password" id="old_password" bind:value={oldPassword} />
+		</div>
 
 		<span class="note">{$LL.account.invalid_info()}</span>
 		<Button type="submit">{$LL.account.save()}</Button>
