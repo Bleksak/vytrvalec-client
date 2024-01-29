@@ -5,6 +5,7 @@
 	import Select from '$components/FormComponent/Select.svelte';
 	import type { FullSeasonDTO } from '$lib/DTO/SeasonDTO';
 	import { SeasonResult } from '$lib/DTO/SeasonResultDTO';
+	import LL from '$translations/i18n-svelte';
 
 	let seasonResults = $state.frozen<Map<number, SeasonResult>>(new Map());
 
@@ -40,20 +41,23 @@
 {#await seasonsPromise then seasons}
 	{#if seasons.length > 0}
 		<div class="past-winners">
-			<h1>Předchozí ročníky</h1>
+			<h1>{$LL.homepage.past_seasons()}</h1>
 			<div class="selection-wrapper">
+        <label class="season-select-label" for="season-select">{$LL.homepage.current_year()}: </label>
 				<Select
+          id="season-select"
 					keys={seasons.map((season) =>
 						season.start.toLocaleDateString('cs', { year: 'numeric', month: 'short' })
 					)}
 					values={seasons.map((season) => season.id)}
 					bind:currentValue={currentSelection}
+          inverted
 				/>
 			</div>
 			<div class="item">
 				<article class="charity">
 					<header>
-						<h2>CHARITA</h2>
+						<h2>{$LL.homepage.charity()}</h2>
 						<h3>{currentSeason?.charity?.name}</h3>
 					</header>
 					<section class="content">
@@ -104,8 +108,21 @@
 {/await}
 
 <style>
+  .season-select-label {
+    font-size: 1.5rem;
+    color: white;
+  }
+
 	.selection-wrapper {
-		width: 100%;
+    display: flex;
+    flex-direction: row;
+    flex: 1;
+    align-items: center;
+
+    align-self: flex-start;
+		max-width: 250px;
+    width: 100%;
+    gap: 10px;
 	}
 
 	.past-winners {
