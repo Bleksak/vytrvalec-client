@@ -24,7 +24,10 @@ const cs = {
 		title: 'Měsíční Vytrvalec',
 		statistics: {
 			users: 'UČASTNÍKŮ'
-		}
+		},
+    past_seasons: 'Předchozí ročníky',
+    current_year: 'Ročník',
+    charity: 'Charita'
 	},
 
 	registration: {
@@ -70,7 +73,10 @@ const cs = {
 			},
 			password: {
 				blank: 'Vyplňte prosím své heslo.'
-			}
+			},
+      auth: {
+        invalid_credentials: 'Neplatné přihlašovací údaje'
+      }
 		},
 		submit: 'Přihlásit'
 	},

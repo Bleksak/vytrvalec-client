@@ -24,7 +24,10 @@ const en = {
 		title: 'Monthly Runner',
 		statistics: {
 			users: 'TOTAL PARTICIPANTS'
-		}
+		},
+    past_seasons: 'Past seasons',
+    current_year: 'Season',
+    charity: 'Charity'
 	},
 
 	registration: {
@@ -70,7 +73,10 @@ const en = {
 			},
 			password: {
 				blank: 'Please enter your password.'
-			}
+			},
+      auth: {
+        invalid_credentials: 'Invalid credentials'
+      }
 		},
 		submit: 'Login'
 	},

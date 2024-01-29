@@ -77,6 +77,18 @@ type RootTranslation = {
 			 */
 			users: string
 		}
+		/**
+		 * P​ř​e​d​c​h​o​z​í​ ​r​o​č​n​í​k​y
+		 */
+		past_seasons: string
+		/**
+		 * R​o​č​n​í​k
+		 */
+		current_year: string
+		/**
+		 * C​h​a​r​i​t​a
+		 */
+		charity: string
 	}
 	registration: {
 		/**
@@ -187,6 +199,12 @@ type RootTranslation = {
 				 * V​y​p​l​ň​t​e​ ​p​r​o​s​i​́​m​ ​s​v​e​́​ ​h​e​s​l​o​.
 				 */
 				blank: string
+			}
+			auth: {
+				/**
+				 * N​e​p​l​a​t​n​é​ ​p​ř​i​h​l​a​š​o​v​a​c​í​ ​ú​d​a​j​e
+				 */
+				invalid_credentials: string
 			}
 		}
 		/**
@@ -454,6 +472,18 @@ export type TranslationFunctions = {
 			 */
 			users: () => LocalizedString
 		}
+		/**
+		 * Předchozí ročníky
+		 */
+		past_seasons: () => LocalizedString
+		/**
+		 * Ročník
+		 */
+		current_year: () => LocalizedString
+		/**
+		 * Charita
+		 */
+		charity: () => LocalizedString
 	}
 	registration: {
 		/**
@@ -564,6 +594,12 @@ export type TranslationFunctions = {
 				 * Vyplňte prosím své heslo.
 				 */
 				blank: () => LocalizedString
+			}
+			auth: {
+				/**
+				 * Neplatné přihlašovací údaje
+				 */
+				invalid_credentials: () => LocalizedString
 			}
 		}
 		/**
