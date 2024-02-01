@@ -3,13 +3,15 @@
 	import Dialog from '$components/Dialog.svelte';
 	import Button from '$components/Button.svelte';
 	import LL from '$translations/i18n-svelte';
-	import { page } from '$app/stores';
 	import { enhance } from '$app/forms';
 	import type { HTMLDialogAttributes } from 'svelte/elements';
 	import Select from '$components/FormComponent/Select.svelte';
 	import type { SubmitFunction } from '@sveltejs/kit';
+	import type { SubmissionCreateError } from '$lib/DTO/SubmissionCreateResponse';
 
 	let { ...props } = $props<HTMLDialogAttributes>();
+
+    let errors = $state<SubmissionCreateError>();
 
 	const activitesPromise = fetchActivities();
 
@@ -59,12 +61,16 @@
 
 	const enhancer: SubmitFunction = () => {
 		return async ({ result, update }) => {
-			console.log(result);
+            if(result.type === 'failure'){
+                errors = result?.data?.submission as SubmissionCreateError;
+            } else if(result.type === 'success'){
+                errors = undefined;
+                // TODO: close, show toast
+            }
+
 			update();
 		};
 	};
-
-	// TODO: po uploadu zavrit dialog, zobrazit hlasku, errory
 </script>
 
 <Dialog bind:this={dialog} header={$LL.submission.title()} {...props}>
@@ -105,7 +111,7 @@
 			id="image"
 			accept="image/*"
 		/>
-		{#each $page?.form?.email ?? [] as error}
+		{#each errors?.image ?? [] as error}
 			<span class="error">
 				{$LL.submission.form.errors.image[error as keyof typeof $LL.submission.form.errors.image]()}
 			</span>
@@ -115,7 +121,7 @@
 			{$LL.submission.form.distance()}:
 		</label>
 		<input type="text" name="distance" id="distance" />
-		{#each $page?.form?.distance ?? [] as error}
+		{#each errors?.distance ?? [] as error}
 			<span class="error">
 				{$LL.submission.form.errors.distance[error as keyof typeof $LL.submission.form.errors.distance]()}
 			</span>
@@ -125,7 +131,7 @@
 			{$LL.submission.form.elevation()}:
 		</label>
 		<input type="text" name="elevation" id="elevation" />
-		{#each $page?.form?.first_name ?? [] as error}
+		{#each errors?.elevation ?? [] as error}
 			<span class="error">
 				{$LL.submission.form.errors.elevation[error as keyof typeof $LL.submission.form.errors.elevation]()}
 			</span>
@@ -142,11 +148,11 @@
 				values={activities.map((a) => a.id)}
 			/>
 		{/await}
-		{#each $page?.form?.activity ?? [] as error}
-			<span class="error">
-				{$LL.submission.form.errors.activity[error as keyof typeof $LL.submission.form.errors.activity]()}
-			</span>
-		{/each}
+		<!-- {#each $page?.form?.activity ?? [] as error} -->
+		<!-- 	<span class="error"> -->
+		<!-- 		{$LL.submission.form.errors.activity[error as keyof typeof $LL.submission.form.errors.activity]()} -->
+		<!-- 	</span> -->
+		<!-- {/each} -->
 
 		<Button class="full-width rounded">{$LL.submission.form.submit()}</Button>
 	</form>
