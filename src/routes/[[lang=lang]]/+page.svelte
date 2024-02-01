@@ -49,16 +49,6 @@
 </main>
 
 <style>
-	header {
-		display: flex;
-		width: 100%;
-		position: relative;
-	}
-
-	header > img {
-		width: 100%;
-	}
-
 	header > article {
 		display: flex;
 		flex-direction: column;
@@ -135,6 +125,7 @@
 
 		header article section.header {
 			width: 100%;
+            padding: 0;
 		}
 
 		header article section.content {
