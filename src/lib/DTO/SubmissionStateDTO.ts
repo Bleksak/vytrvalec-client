@@ -2,7 +2,7 @@ import type { ResponseError, ResponseErrorMap } from '$lib/ResponseErrors';
 
 export type SubmissionStateDTO = {
 	updated_at: string;
-	state: number;
+	state: '1' | '0';
 	message?: string;
 };
 
@@ -57,7 +57,7 @@ export const formDataToSubmissionStateDTO = (formData: FormData): SubmissionStat
 			type: 'success',
 			dto: {
 				updated_at: updated_at!,
-				state: state === '1' ? 1 : 0
+				state: state!,
 			}
 		};
 	}
@@ -66,7 +66,7 @@ export const formDataToSubmissionStateDTO = (formData: FormData): SubmissionStat
 		type: 'success',
 		dto: {
 			updated_at: updated_at!,
-			state: state === '1' ? 1 : 0,
+			state: state!,
 			message
 		}
 	};
