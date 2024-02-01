@@ -29,7 +29,7 @@
 	};
 </script>
 
-<div>
+<div class="account-settings">
 	<h1>{$LL.account.title()}</h1>
 
 	<form method="post" action="/auth?/account" use:enhance={enhancer}>
@@ -76,7 +76,7 @@
 </div>
 
 <style>
-	div {
+	.account-settings {
 		display: flex;
 		flex-direction: column;
 		align-items: center;
