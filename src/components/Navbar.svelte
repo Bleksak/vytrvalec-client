@@ -44,7 +44,7 @@
 
 <style>
 	nav {
-		z-index: 9999;
+		z-index: 10;
 		position: sticky;
 		top: 0;
 		left: 0;
