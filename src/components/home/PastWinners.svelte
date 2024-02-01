@@ -43,15 +43,17 @@
 		<div class="past-winners">
 			<h1>{$LL.homepage.past_seasons()}</h1>
 			<div class="selection-wrapper">
-        <label class="season-select-label" for="season-select">{$LL.homepage.current_year()}: </label>
+				<label class="season-select-label" for="season-select"
+					>{$LL.homepage.current_year()}:
+				</label>
 				<Select
-          id="season-select"
+					id="season-select"
 					keys={seasons.map((season) =>
 						season.start.toLocaleDateString('cs', { year: 'numeric', month: 'short' })
 					)}
 					values={seasons.map((season) => season.id)}
 					bind:currentValue={currentSelection}
-          inverted
+					inverted
 				/>
 			</div>
 			<div class="item">
@@ -108,21 +110,21 @@
 {/await}
 
 <style>
-  .season-select-label {
-    font-size: 1.5rem;
-    color: white;
-  }
+	.season-select-label {
+		font-size: 1.5rem;
+		color: white;
+	}
 
 	.selection-wrapper {
-    display: flex;
-    flex-direction: row;
-    flex: 1;
-    align-items: center;
+		display: flex;
+		flex-direction: row;
+		flex: 1;
+		align-items: center;
 
-    align-self: flex-start;
+		align-self: flex-start;
 		max-width: 250px;
-    width: 100%;
-    gap: 10px;
+		width: 100%;
+		gap: 10px;
 	}
 
 	.past-winners {
@@ -189,13 +191,13 @@
 		content: '2';
 	}
 	.winners .bar-small {
-		height: 100px;
+		height: 90px;
 	}
 	.winners .bar-small::after {
 		content: '3';
 	}
 	.winners .bar-large {
-		height: 190px;
+		height: 210px;
 	}
 	.winners .bar-large::after {
 		content: '1';
@@ -204,7 +206,7 @@
 		display: flex;
 		flex-direction: column;
 		align-items: center;
-		width: 190px;
+		width: 150px;
 		gap: 10px;
 	}
 	.winners .winner span {
