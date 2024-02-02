@@ -187,6 +187,14 @@ type RootTranslation = {
 		 * H​e​s​l​o
 		 */
 		password: string
+		/**
+		 * P​ř​i​h​l​á​s​e​n​í​ ​p​r​o​b​e​h​l​o​ ​ú​s​p​ě​š​n​ě
+		 */
+		success: string
+		/**
+		 * P​ř​i​h​l​á​š​e​n​í​ ​s​e​l​h​a​l​o
+		 */
+		error: string
 		errors: {
 			email: {
 				/**
@@ -590,6 +598,14 @@ export type TranslationFunctions = {
 		 * Heslo
 		 */
 		password: () => LocalizedString
+		/**
+		 * Přihlásení probehlo úspěšně
+		 */
+		success: () => LocalizedString
+		/**
+		 * Přihlášení selhalo
+		 */
+		error: () => LocalizedString
 		errors: {
 			email: {
 				/**

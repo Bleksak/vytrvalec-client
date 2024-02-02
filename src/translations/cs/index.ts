@@ -67,6 +67,8 @@ const cs = {
 		title: 'Přihlášení',
 		email: 'E-mail',
 		password: 'Heslo',
+        success: 'Přihlásení probehlo úspěšně',
+        error: 'Přihlášení selhalo',
 		errors: {
 			email: {
 				blank: 'Vyplňte prosím svou e-mailovou adresu.'

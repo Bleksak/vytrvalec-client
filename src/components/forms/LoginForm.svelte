@@ -2,23 +2,34 @@
 	import Button from '$components/Button.svelte';
 	import Dialog from '$components/Dialog.svelte';
 	import { enhance } from '$app/forms';
-	import { page } from '$app/stores';
 	import LL from '$translations/i18n-svelte';
 	import type { SubmitFunction } from '@sveltejs/kit';
 	import type { HTMLDialogAttributes } from 'svelte/elements';
 	import type { LoginError } from '$lib/DTO/UserLoginResponse';
+	import { getContext } from 'svelte';
+	import type { ToastStore } from '$lib/stores/ToastStore.svelte';
 
 	let { ...props } = $props<HTMLDialogAttributes>();
 	let dialog = $state<Dialog>();
 
 	let errors = $state<LoginError>();
 
+    const toastStore = getContext<ToastStore>('toastStore');
+
 	const enhancer: SubmitFunction = () => {
 		return async ({ result, update }) => {
 			if (result.type === 'success') {
 				dialog?.close();
+                toastStore.add({
+                    type: 'success',
+                    message: $LL.login.success()
+                });
 			} else if (result.type === 'failure') {
 				errors = result.data?.login as LoginError;
+                toastStore.add({
+                    type: 'error',
+                    message: $LL.login.error()
+                });
 			}
 
 			update();
@@ -32,8 +43,6 @@
 			{#each errors?.auth ?? [] as error}
 				<span class="error">
 					{$LL.login.errors.auth[error as keyof typeof $LL.login.errors.auth]()}
-					<!-- TODO: tady musime vyresit jak vypisovat errory typu spatnej login -->
-					<!-- {$LL.login.errors.email[error as keyof typeof $LL.login.errors.email]()} -->
 				</span>
 			{/each}
 		</div>

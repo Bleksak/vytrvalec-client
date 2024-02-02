@@ -67,6 +67,8 @@ const en = {
 		title: 'Login',
 		email: 'E-mail',
 		password: 'Password',
+        success: 'Login successful',
+        error: 'Login failed',
 		errors: {
 			email: {
 				blank: 'Please enter your email address.'
