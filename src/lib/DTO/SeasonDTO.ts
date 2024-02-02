@@ -40,8 +40,6 @@ export const createSeasonDTO = (formData: FormData): CreateSeasonDTO => {
 	const end = formData.get('end')?.toString() ?? '';
 	const charity = Number(formData.get('charity')?.toString());
 
-	// TODO: error handling? pouziva se to jen v administraci, tak to tam mozna byt nemusi
-
 	return {
 		start: new Date(start),
 		end: new Date(end),
