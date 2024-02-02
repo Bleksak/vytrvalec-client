@@ -90,6 +90,8 @@ const en = {
 			elevation: 'Elevation',
 			activity: 'Activity',
 			submit: 'Submit',
+            success: 'Uploaded activity successfully',
+            error: 'Error while uploading activity',
 			errors: {
 				image: {
 					blank: 'Please upload an image.',

@@ -90,6 +90,8 @@ const cs = {
 			elevation: 'Převýšení',
 			activity: 'Aktivita',
 			submit: 'Nahrát',
+            success: 'Nahrání aktivity proběhlo úspěšně',
+            error: 'Při nahrávání aktivity došlo k chybě',
 			errors: {
 				image: {
 					blank: 'Nahrajte prosím obrázek.',

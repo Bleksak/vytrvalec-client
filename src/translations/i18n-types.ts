@@ -242,6 +242,14 @@ type RootTranslation = {
 			 * N​a​h​r​á​t
 			 */
 			submit: string
+			/**
+			 * N​a​h​r​á​n​í​ ​a​k​t​i​v​i​t​y​ ​p​r​o​b​ě​h​l​o​ ​ú​s​p​ě​š​n​ě
+			 */
+			success: string
+			/**
+			 * P​ř​i​ ​n​a​h​r​á​v​á​n​í​ ​a​k​t​i​v​i​t​y​ ​d​o​š​l​o​ ​k​ ​c​h​y​b​ě
+			 */
+			error: string
 			errors: {
 				image: {
 					/**
@@ -637,6 +645,14 @@ export type TranslationFunctions = {
 			 * Nahrát
 			 */
 			submit: () => LocalizedString
+			/**
+			 * Nahrání aktivity proběhlo úspěšně
+			 */
+			success: () => LocalizedString
+			/**
+			 * Při nahrávání aktivity došlo k chybě
+			 */
+			error: () => LocalizedString
 			errors: {
 				image: {
 					/**

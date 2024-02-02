@@ -8,6 +8,8 @@
 	import Select from '$components/FormComponent/Select.svelte';
 	import type { SubmitFunction } from '@sveltejs/kit';
 	import type { SubmissionCreateError } from '$lib/DTO/SubmissionCreateResponse';
+	import { getContext } from 'svelte';
+	import type { ToastStore } from '$lib/stores/ToastStore.svelte';
 
 	let { ...props } = $props<HTMLDialogAttributes>();
 
@@ -59,13 +61,23 @@
 		updateImagePreview(file);
 	};
 
+    const toastStore = getContext<ToastStore>('toastStore');
 	const enhancer: SubmitFunction = () => {
+
 		return async ({ result, update }) => {
             if(result.type === 'failure'){
                 errors = result?.data?.submission as SubmissionCreateError;
+                toastStore.add({
+                    type: 'error',
+                    message: $LL.submission.form.error()
+                });
             } else if(result.type === 'success'){
                 errors = undefined;
-                // TODO: close, show toast
+                dialog?.close();
+                toastStore.add({
+                    type: 'success',
+                    message: $LL.submission.form.success()
+                });
             }
 
 			update();
@@ -148,11 +160,6 @@
 				values={activities.map((a) => a.id)}
 			/>
 		{/await}
-		<!-- {#each $page?.form?.activity ?? [] as error} -->
-		<!-- 	<span class="error"> -->
-		<!-- 		{$LL.submission.form.errors.activity[error as keyof typeof $LL.submission.form.errors.activity]()} -->
-		<!-- 	</span> -->
-		<!-- {/each} -->
 
 		<Button class="full-width rounded">{$LL.submission.form.submit()}</Button>
 	</form>
