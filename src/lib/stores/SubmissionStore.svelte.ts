@@ -55,11 +55,11 @@ export const createSubmissionStore = (season: SeasonDTO): SubmissionStore => {
 		return submissions;
 	};
 
-	const update = (charity: SubmissionResponseDTO) => {
-		let index = submissions.findIndex((c) => c.id === charity.id);
+	const update = (submission: SubmissionResponseDTO) => {
+		let index = submissions.findIndex((s) => s.id === submission.id);
 
 		if (index !== -1) {
-			submissions[index] = charity;
+			submissions[index] = submission;
 		}
 	};
 

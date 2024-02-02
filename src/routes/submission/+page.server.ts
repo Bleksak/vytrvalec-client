@@ -33,6 +33,8 @@ const stateAction: Action = async ({ request }) => {
 	if (response.type === 'error') {
 		return fail(400, { submissionState: response.errors });
 	}
+
+	return { updated_at: response.date };
 };
 
 export const actions: Actions = {

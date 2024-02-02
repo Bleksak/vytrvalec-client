@@ -13,6 +13,7 @@ export type SubmissionStateError = ResponseErrorMap<SubmissionStateDTO> & {
 export type SubmissionStateResponse =
 	| {
 			type: 'success';
+            date: string;
 	  }
 	| {
 			type: 'error';

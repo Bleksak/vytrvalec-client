@@ -6,9 +6,12 @@
 	import type { SeasonDTO } from '$lib/DTO/SeasonDTO';
 	import type { SubmissionResponseDTO } from '$lib/DTO/SubmissionDTO';
 	import createSubmissionStore from '$lib/stores/SubmissionStore.svelte';
+	import type { ToastStore } from '$lib/stores/ToastStore.svelte';
+	import type { SubmitFunction } from '@sveltejs/kit';
+	import { getContext } from 'svelte';
 	const { season } = $props<{ season: SeasonDTO }>();
 
-	const submissionStore = $derived(createSubmissionStore(season));
+	const submissionStore = createSubmissionStore(season);
 
 	let currentSubmission = $state<SubmissionResponseDTO>();
 
@@ -16,13 +19,42 @@
 		currentSubmission = submission;
 	};
 
-	// TODO: po odeslani formu asi zavrit dialog (custom enhancer...), zobrazit hlasku
+	let dialog = $state<Dialog>();
+
+	const toastStore = getContext<ToastStore>('toastStore');
+
+	const enhancer: SubmitFunction<{ updated_at: string }> = ({ formData }) => {
+		dialog?.close();
+
+		return async ({ update, result }) => {
+			if (result.type === 'success') {
+				currentSubmission!.reviewed! = true;
+				currentSubmission!.accepted! = formData.get('state')?.toString() === '1';
+				currentSubmission!.updatedAt! = result!.data!.updated_at!;
+
+				submissionStore.update(currentSubmission!);
+
+				toastStore.add({
+					type: 'success',
+					message: 'Akce proběhla úspěšně'
+				});
+			} else if (result.type === 'failure') {
+				toastStore.add({
+					type: 'error',
+					message: 'Akci nebylo možné dokončit, zkuste to prosím znovu'
+				});
+			}
+
+			currentSubmission = undefined;
+			update();
+		};
+	};
 </script>
 
 {#await submissionStore.promise()}
 	Načítání...
-{:then submissions}
-	{#each submissions as submission, i}
+{:then}
+	{#each submissionStore.all() as submission, i}
 		<div
 			class="submission"
 			on:click={() => {
@@ -64,8 +96,8 @@
 {/await}
 
 {#if currentSubmission}
-	<Dialog header="Detail aktivity" on:close={() => (currentSubmission = undefined)}>
-		<form action="/submission?/state" method="POST" use:enhance>
+	<Dialog bind:this={dialog} header="Detail aktivity">
+		<form action="/submission?/state" method="POST" use:enhance={enhancer}>
 			<img src={currentSubmission.image} alt="Aktivita" />
 			<input type="hidden" name="id" value={currentSubmission.id} />
 			<input type="hidden" name="state" value={!currentSubmission.accepted ? 1 : 0} />

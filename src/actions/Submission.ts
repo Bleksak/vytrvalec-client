@@ -67,6 +67,7 @@ export const setSubmissionState = async (
 				return err.response;
 			}
 
+
 			return null;
 		});
 
@@ -85,7 +86,8 @@ export const setSubmissionState = async (
 	}
 
 	return {
-		type: 'success'
+		type: 'success',
+        date: response.data
 	};
 };
 
