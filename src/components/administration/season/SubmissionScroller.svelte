@@ -100,7 +100,6 @@
 		<form action="/submission?/state" method="POST" use:enhance={enhancer}>
 			<img src={currentSubmission.image} alt="Aktivita" />
 			<input type="hidden" name="id" value={currentSubmission.id} />
-			<input type="hidden" name="state" value={!currentSubmission.accepted ? 1 : 0} />
 			<input type="hidden" name="updated_at" value={currentSubmission.updatedAt} />
 
 			<p><strong>Aktivita:&nbsp;</strong>{currentSubmission.activity.name}</p>
