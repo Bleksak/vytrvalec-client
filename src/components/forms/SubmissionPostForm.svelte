@@ -62,7 +62,8 @@
 	};
 
     const toastStore = getContext<ToastStore>('toastStore');
-	const enhancer: SubmitFunction = () => {
+	const enhancer: SubmitFunction = ({ submitter }) => {
+        submitter?.setAttribute('disabled', 'disabled');
 
 		return async ({ result, update }) => {
             if(result.type === 'failure'){
@@ -79,6 +80,8 @@
                     message: $LL.submission.form.success()
                 });
             }
+
+            submitter?.removeAttribute('disabled');
 
 			update();
 		};
