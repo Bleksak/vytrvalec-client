@@ -129,11 +129,10 @@
 		position: absolute;
 		display: flex;
 		flex-direction: column;
-        
-        min-width: fit-content;
+
+		min-width: fit-content;
 		width: calc(100% + 10px);
 		top: calc(100% + 5px);
-		/* left: calc(50% - 10px); */
 
 		transform: translateX(-5px);
 

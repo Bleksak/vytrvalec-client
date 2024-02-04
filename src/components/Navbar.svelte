@@ -55,7 +55,10 @@
 	}
 
 	.navigation-wrapper {
-		padding: 10px 100px;
+		padding: 10px 0;
+		max-width: 1600px;
+		margin: 0 auto;
+		width: 100%;
 	}
 
 	.navigation {

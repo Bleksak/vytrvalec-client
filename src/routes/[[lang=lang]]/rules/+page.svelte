@@ -73,10 +73,16 @@
 </main>
 
 <style>
+    main {
+		max-width: 1640px;
+		margin: 0 auto;
+		width: 100%;
+    }
+
 	article {
 		display: flex;
 		flex-direction: column;
-		padding: 50px 100px;
+		padding: 50px 20px;
 		gap: 30px;
 	}
 </style>
