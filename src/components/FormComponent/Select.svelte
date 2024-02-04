@@ -1,13 +1,20 @@
 <script lang="ts">
 	import { slide } from 'svelte/transition';
 
-	let { keys, values, id, name, currentValue, inverted = false, ...props } = $props<{
+	let {
+		keys,
+		values,
+		id,
+		name,
+		currentValue,
+		inverted = false
+	} = $props<{
 		keys: string[];
 		values: any[];
 		currentValue?: any;
 		id?: string;
 		name?: string;
-    inverted?: boolean
+		inverted?: boolean;
 	}>();
 
 	let open = $state<boolean>(false);
@@ -64,7 +71,12 @@
 		<div class="select-options" transition:slide bind:this={optionsElement}>
 			{#each keys as key, i}
 				{#if key !== currentKey}
-					<button type="button" class="select-option" class:inverted on:click|stopPropagation={() => select(i)}>
+					<button
+						type="button"
+						class="select-option"
+						class:inverted
+						on:click|stopPropagation={() => select(i)}
+					>
 						{key}
 					</button>
 				{/if}
@@ -86,15 +98,20 @@
 		background-color: white;
 		border: 5px solid #005cab;
 		padding-block: 10px;
+		min-width: fit-content;
 
-    flex: 1;
+		flex: 1;
+	}
+
+	.select-selected {
+		margin-inline: 25px;
 	}
 
 	.select::after {
 		position: absolute;
 		content: '';
 		top: 18px;
-		right: 12px;
+		right: 6px;
 		width: 0;
 		height: 0;
 		border: 8px solid black;
@@ -112,13 +129,13 @@
 		position: absolute;
 		display: flex;
 		flex-direction: column;
+        
+        min-width: fit-content;
+		width: calc(100% + 10px);
+		top: calc(100% + 5px);
+		/* left: calc(50% - 10px); */
 
-		width: calc(100% + 8px);
-
-		top: calc(100% + 3px);
-		left: 50%;
-
-		transform: translateX(-50%);
+		transform: translateX(-5px);
 
 		background-color: white;
 
@@ -141,11 +158,11 @@
 
 	.select-option:hover {
 		background-color: #005cab;
-    color: white;
+		color: white;
 	}
 
-  .select-option.inverted:hover {
-    background-color: #eee;
-    color: black;
-  }
+	.select-option.inverted:hover {
+		background-color: #eee;
+		color: black;
+	}
 </style>
