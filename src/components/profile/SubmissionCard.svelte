@@ -13,7 +13,7 @@
 	}>();
 	let isEditMode = $state<boolean>(false);
 
-	const toggleEditMode = () => (isEditMode = !isEditMode);
+	const toggleEditMode = () => (isEditMode = true);
 
 	const getSubmissionState = (submission: UnknownSubmissionResponse) => {
 		if (!submission.reviewed) {
@@ -78,7 +78,7 @@
 </div>
 
 {#if isEditMode}
-	<SubmissionForm {submission} />
+	<SubmissionForm on:close={() => (isEditMode = false)} {submission} />
 {/if}
 
 <style>
