@@ -40,15 +40,14 @@
 		};
 	};
 
-	let userSubmissionsStore = $state();
+	const userSubmissionsStore = getContext<UserSubmissionsStore>('userSubmissionsStore');
+
+    $inspect(userSubmissionsStore);
+
 	$effect(() => {
 		if (uploadedFiles?.length !== undefined) {
 			updateImagePreview(uploadedFiles[0]);
 		}
-	});
-
-	$effect(() => {
-		userSubmissionsStore = getContext<UserSubmissionsStore>('userSubmissionsStore');
 	});
 
 	const handleDrop = (e: DragEvent) => {

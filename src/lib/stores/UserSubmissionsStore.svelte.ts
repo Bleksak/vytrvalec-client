@@ -2,13 +2,13 @@ import { getUserSubmissions } from "$actions/User";
 import type { UnknownSubmissionResponse } from "$lib/DTO/SubmissionDTO"
 
 export type UserSubmissionsStore = {
-    all: () => UnknownSubmissionResponse[] | undefined;
+    all: () => UnknownSubmissionResponse[];
     refetch: () => void;
     promise: () => Promise<UnknownSubmissionResponse[]>
 }
 
 export const createUserSubmissionStore = (): UserSubmissionsStore => {
-    let userSubmissions = $state<UnknownSubmissionResponse[]>();
+    let userSubmissions = $state<UnknownSubmissionResponse[]>([]);
     let userSubmissionsPromise: Promise<UnknownSubmissionResponse[]> = getUserSubmissions();
 
     userSubmissionsPromise.then(result => {
