@@ -181,7 +181,9 @@
 		<label for="activity">
 			{$LL.submission.form.activity()}:
 		</label>
-		{#await activitesPromise then activities}
+		{#await activitesPromise}
+			<span>Načítání</span>
+		{:then activities}
 			<Select
 				name="activity"
 				id="activity"
@@ -191,9 +193,9 @@
 			/>
 		{/await}
 
-		<Button class="full-width rounded"
-			>{submission ? $LL.submission.form.edit() : $LL.submission.form.submit()}</Button
-		>
+		<Button class="full-width rounded">
+			{submission ? $LL.submission.form.edit() : $LL.submission.form.submit()}
+		</Button>
 	</form>
 </Dialog>
 
