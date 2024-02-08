@@ -17,7 +17,8 @@ const config = {
 		alias: {
 			$actions: 'src/actions',
 			$components: 'src/components',
-			$translations: 'src/translations'
+			$translations: 'src/translations',
+            $utils: 'src/utils'
 		}
 	},
 	compilerOptions: {
