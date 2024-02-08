@@ -3,17 +3,22 @@
 	import Dialog from '$components/Dialog.svelte';
 	import Button from '$components/Button.svelte';
 	import LL from '$translations/i18n-svelte';
-	import { enhance } from '$app/forms';
 	import type { HTMLDialogAttributes } from 'svelte/elements';
 	import Select from '$components/FormComponent/Select.svelte';
-	import type { SubmitFunction } from '@sveltejs/kit';
 	import type { SubmissionCreateError } from '$lib/DTO/SubmissionCreateResponse';
+	import type { UnknownSubmissionResponse } from '$lib/DTO/SubmissionDTO';
+	import type { SubmitFunction } from '@sveltejs/kit';
 	import { getContext } from 'svelte';
 	import type { ToastStore } from '$lib/stores/ToastStore.svelte';
+	import { enhance } from '$app/forms';
+	import type { UserSubmissionsStore } from '$lib/stores/UserSubmissionsStore.svelte';
 
-	let { ...props } = $props<HTMLDialogAttributes>();
+	type SubmissionFormProps = {
+		submission?: UnknownSubmissionResponse;
+	} & HTMLDialogAttributes;
 
-    let errors = $state<SubmissionCreateError>();
+	let { submission, ...props } = $props<SubmissionFormProps>();
+	let errors = $state<SubmissionCreateError>();
 
 	const activitesPromise = fetchActivities();
 
@@ -35,10 +40,15 @@
 		};
 	};
 
+	let userSubmissionsStore = $state();
 	$effect(() => {
 		if (uploadedFiles?.length !== undefined) {
 			updateImagePreview(uploadedFiles[0]);
 		}
+	});
+
+	$effect(() => {
+		userSubmissionsStore = getContext<UserSubmissionsStore>('userSubmissionsStore');
 	});
 
 	const handleDrop = (e: DragEvent) => {
@@ -61,40 +71,51 @@
 		updateImagePreview(file);
 	};
 
-    const toastStore = getContext<ToastStore>('toastStore');
-	const enhancer: SubmitFunction = ({ submitter }) => {
-        submitter?.setAttribute('disabled', 'disabled');
+	const toastStore = getContext<ToastStore>('toastStore');
+	//use:enhance nemůžu použít na patch
+	const onSubmit: SubmitFunction = ({ submitter }) => {
+		submitter?.setAttribute('disabled', 'disabled');
 
 		return async ({ result, update }) => {
-            if(result.type === 'failure'){
-                errors = result?.data?.submission as SubmissionCreateError;
-                toastStore.add({
-                    type: 'error',
-                    message: $LL.submission.form.error()
-                });
-            } else if(result.type === 'success'){
-                errors = undefined;
-                dialog?.close();
-                toastStore.add({
-                    type: 'success',
-                    message: $LL.submission.form.success()
-                });
-            }
+			if (result.type === 'failure') {
+				errors = result?.data?.submission as SubmissionCreateError;
 
-            submitter?.removeAttribute('disabled');
+				toastStore.add({
+					type: 'error',
+					message: $LL.submission.form.error()
+				});
+			} else if (result.type === 'success') {
+				errors = undefined;
+				dialog?.close();
+				toastStore.add({
+					type: 'success',
+					message: $LL.submission.form.success()
+				});
+				userSubmissionsStore.refetch();
+			}
+
+			submitter?.removeAttribute('disabled');
 
 			update();
 		};
 	};
 </script>
 
-<Dialog bind:this={dialog} header={$LL.submission.title()} {...props}>
+<Dialog
+	bind:this={dialog}
+	header={submission ? $LL.submission.editingTitle() : $LL.submission.title()}
+	{...props}
+>
 	<form
 		method="POST"
-		action="/submission?/create"
+		action={submission ? '/submission?/patch' : '/submission?/create'}
 		enctype="multipart/form-data"
-		use:enhance={enhancer}
+		use:enhance={onSubmit}
 	>
+		{#if submission}
+			<input type="hidden" name="id" value={submission.s_id} />
+			<input type="hidden" name="updated_at" value={submission.updated_at} />
+		{/if}
 		<div
 			class="dropzone"
 			on:dragenter|preventDefault
@@ -135,7 +156,12 @@
 		<label for="distance">
 			{$LL.submission.form.distance()}:
 		</label>
-		<input type="text" name="distance" id="distance" />
+		<input
+			type="text"
+			name="distance"
+			id="distance"
+			value={submission ? submission.distance : undefined}
+		/>
 		{#each errors?.distance ?? [] as error}
 			<span class="error">
 				{$LL.submission.form.errors.distance[error as keyof typeof $LL.submission.form.errors.distance]()}
@@ -145,7 +171,12 @@
 		<label for="elevation">
 			{$LL.submission.form.elevation()}:
 		</label>
-		<input type="text" name="elevation" id="elevation" />
+		<input
+			type="text"
+			name="elevation"
+			id="elevation"
+			value={submission ? submission.elevation : undefined}
+		/>
 		{#each errors?.elevation ?? [] as error}
 			<span class="error">
 				{$LL.submission.form.errors.elevation[error as keyof typeof $LL.submission.form.errors.elevation]()}
@@ -161,10 +192,13 @@
 				id="activity"
 				keys={activities.map((a) => a.name)}
 				values={activities.map((a) => a.id)}
+				currentValue={submission ? submission.activity_id : undefined}
 			/>
 		{/await}
 
-		<Button class="full-width rounded">{$LL.submission.form.submit()}</Button>
+		<Button class="full-width rounded"
+			>{submission ? $LL.submission.form.edit() : $LL.submission.form.submit()}</Button
+		>
 	</form>
 </Dialog>
 

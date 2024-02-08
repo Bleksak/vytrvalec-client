@@ -85,6 +85,7 @@ const en = {
 
 	submission: {
 		title: 'Submission',
+		editingTitle: 'Edit submission',
 		form: {
 			image: 'Drag image here',
 			chooseImage: 'Choose image',
@@ -92,6 +93,7 @@ const en = {
 			elevation: 'Elevation',
 			activity: 'Activity',
 			submit: 'Submit',
+			edit: 'Edit',
             success: 'Uploaded activity successfully',
             error: 'Error while uploading activity',
 			errors: {

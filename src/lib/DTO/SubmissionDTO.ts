@@ -22,17 +22,32 @@ export type SubmissionResponseDTO = {
 	updatedAt: string;
 };
 
+
+export type UnknownSubmissionResponse = {
+	message?: string,
+	s_id: number,
+	activity_id: number,
+	week: number,
+	distance: number,
+	elevation: number,
+	accepted: number,
+	reviewed: number,
+	date: string,
+	image: string,
+	updated_at: string,
+}
+
 export type SubmissionErrors = ResponseErrorMap<SubmissionDTO>;
 
 export type SubmissionReturn =
 	| {
-			type: 'dto';
-			value: SubmissionDTO;
-	  }
+		type: 'dto';
+		value: SubmissionDTO;
+	}
 	| {
-			type: 'error';
-			value: SubmissionErrors;
-	  };
+		type: 'error';
+		value: SubmissionErrors;
+	};
 
 export const formDataToSubmissionDTO = (formData: FormData): SubmissionReturn => {
 	const distanceString = formData.get('distance')?.toString();

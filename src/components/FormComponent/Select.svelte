@@ -23,8 +23,10 @@
 	let currentKey = $state<string>(keys[0]);
 
 	$effect(() => {
-		if (currentValue === undefined && values.length > 0) {
-            select(0);
+		if (currentValue) {
+			currentKey = keys[values.indexOf(currentValue)];
+		} else {
+			currentValue = values[0];
 		}
 	});
 
@@ -37,13 +39,13 @@
 		currentKey = keys[idx];
 	};
 
-	const closeOnOutsideClick = () => open = false;
+	const closeOnOutsideClick = () => (open = false);
 </script>
 
 <input type="hidden" {id} {name} bind:value={currentValue} />
 <div
-    use:clickOutside
-    on:outsideclick|stopPropagation={closeOnOutsideClick}
+	use:clickOutside
+	on:outsideclick|stopPropagation={closeOnOutsideClick}
 	class="select"
 	class:open
 	bind:this={selectElement}

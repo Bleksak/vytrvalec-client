@@ -225,6 +225,10 @@ type RootTranslation = {
 		 * A​k​t​i​v​i​t​a
 		 */
 		title: string
+		/**
+		 * U​p​r​a​v​i​t​ ​a​k​t​i​v​i​t​u
+		 */
+		editingTitle: string
 		form: {
 			/**
 			 * S​e​m​ ​p​ř​e​t​á​h​n​ě​t​e​ ​o​b​r​á​z​e​k
@@ -250,6 +254,10 @@ type RootTranslation = {
 			 * N​a​h​r​á​t
 			 */
 			submit: string
+			/**
+			 * U​p​r​a​v​i​t
+			 */
+			edit: string
 			/**
 			 * N​a​h​r​á​n​í​ ​a​k​t​i​v​i​t​y​ ​p​r​o​b​ě​h​l​o​ ​ú​s​p​ě​š​n​ě
 			 */
@@ -636,6 +644,10 @@ export type TranslationFunctions = {
 		 * Aktivita
 		 */
 		title: () => LocalizedString
+		/**
+		 * Upravit aktivitu
+		 */
+		editingTitle: () => LocalizedString
 		form: {
 			/**
 			 * Sem přetáhněte obrázek
@@ -661,6 +673,10 @@ export type TranslationFunctions = {
 			 * Nahrát
 			 */
 			submit: () => LocalizedString
+			/**
+			 * Upravit
+			 */
+			edit: () => LocalizedString
 			/**
 			 * Nahrání aktivity proběhlo úspěšně
 			 */

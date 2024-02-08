@@ -5,7 +5,7 @@
 	import LL from '../translations/i18n-svelte';
 	import { page } from '$app/stores';
 	import { enhance } from '$app/forms';
-	import SubmissionPostForm from './forms/SubmissionPostForm.svelte';
+	import SubmissionForm from './forms/SubmissionForm.svelte';
 
 	let currentForm = $state<ConstructorOfATypedSvelteComponent>();
 </script>
@@ -30,7 +30,7 @@
 {#if !$page.data.user}
 	<li>
 		<Button
-      class="nav-button"
+			class="nav-button"
 			on:click={() => {
 				currentForm = LoginForm;
 			}}
@@ -63,9 +63,9 @@
 	</li>
 	<li>
 		<Button
-      class="nav-button"
+			class="nav-button"
 			on:click={() => {
-				currentForm = SubmissionPostForm;
+				currentForm = SubmissionForm;
 			}}
 		>
 			{$LL.navbar.submission()}

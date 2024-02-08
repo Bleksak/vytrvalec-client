@@ -1,7 +1,9 @@
-import { createSubmission, setSubmissionState } from '$actions/Submission';
+import { createSubmission, patchSubmission, setSubmissionState } from '$actions/Submission';
 import { formDataToSubmissionDTO } from '$lib/DTO/SubmissionDTO';
 import { formDataToSubmissionStateDTO } from '$lib/DTO/SubmissionStateDTO';
+import type { UserSubmissionsStore } from '$lib/stores/UserSubmissionsStore.svelte';
 import { fail, type Actions, type Action } from '@sveltejs/kit';
+import { getContext } from 'svelte';
 
 const createAction: Action = async ({ request }) => {
 	const formData = await request.formData();
@@ -37,7 +39,22 @@ const stateAction: Action = async ({ request }) => {
 	return { updated_at: response.date };
 };
 
+const patchAction: Action = async ({ request }) => {
+	const formData = await request.formData();
+	const dto = formDataToSubmissionDTO(formData);
+	if (dto.type === 'error') {
+		return fail(400, { submission: dto.value });
+	}
+
+	const result = await patchSubmission(dto.value, formData);
+
+	if (result.type === 'error') {
+		return fail(400, { submission: result.errors });
+	}
+}
+
 export const actions: Actions = {
 	create: createAction,
-	state: stateAction
+	state: stateAction,
+	patch: patchAction
 };

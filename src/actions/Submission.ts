@@ -1,6 +1,6 @@
 import type { SeasonDTO } from '$lib/DTO/SeasonDTO';
 import type { SubmissionCreateResponse } from '$lib/DTO/SubmissionCreateResponse';
-import type { SubmissionDTO, SubmissionResponseDTO } from '$lib/DTO/SubmissionDTO';
+import type { SubmissionDTO, SubmissionResponseDTO, UnknownSubmissionResponse } from '$lib/DTO/SubmissionDTO';
 import type { SubmissionStateDTO, SubmissionStateResponse } from '$lib/DTO/SubmissionStateDTO';
 import axios from 'axios';
 
@@ -87,7 +87,7 @@ export const setSubmissionState = async (
 
 	return {
 		type: 'success',
-        date: response.data
+		date: response.data
 	};
 };
 
@@ -119,3 +119,55 @@ export const rejectSubmission = async (
 		message
 	});
 };
+const PATCH_REQUEST_HEADERS =
+	{ headers: { "Content-Type": "multipart/form-data", "X-HTTP-Method-Override": "PATCH" } }
+
+export const patchSubmission = async (dto: SubmissionDTO, data: FormData) => {
+	const formData = new FormData();
+	const updated_at = data.get('updated_at')!;
+	formData.append('activity', dto.activity.toString());
+	formData.append('image', dto.image);
+	formData.append('distance', dto.distance.toString());
+
+	formData.append('updated_at', updated_at);
+
+	if (dto.elevation) {
+		formData.append('elevation', dto.elevation.toString());
+	}
+	const id = data.get('id');
+
+	//Fking kill me already
+	const response = await axios
+		.postForm(`/submission/${id}`, formData, PATCH_REQUEST_HEADERS)
+		.catch((error) => {
+			console.log(error.response.data)
+			if (error.response) {
+				return error.response;
+			}
+
+			return null;
+		});
+
+
+	if (response === null) {
+		return {
+			type: 'error',
+			errors: { server: ['server_down'] }
+		};
+	}
+
+	if (response.status !== 201) {
+		return {
+			type: 'error',
+			errors: response.data
+		};
+	}
+
+	return {
+		type: 'success'
+	};
+};
+
+export const deleteSubmission = async (submissionId: number): Promise<boolean> => {
+	return (await axios.delete(`/submission/${submissionId}`)).data;
+}

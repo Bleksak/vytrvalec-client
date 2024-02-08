@@ -85,6 +85,7 @@ const cs = {
 
 	submission: {
 		title: 'Aktivita',
+		editingTitle: 'Upravit aktivitu',
 		form: {
 			image: 'Sem přetáhněte obrázek',
 			chooseImage: 'Vybrat obrázek',
@@ -92,6 +93,7 @@ const cs = {
 			elevation: 'Převýšení',
 			activity: 'Aktivita',
 			submit: 'Nahrát',
+			edit: 'Upravit',
             success: 'Nahrání aktivity proběhlo úspěšně',
             error: 'Při nahrávání aktivity došlo k chybě',
 			errors: {
