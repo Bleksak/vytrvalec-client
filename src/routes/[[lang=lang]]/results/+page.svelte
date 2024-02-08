@@ -1,12 +1,14 @@
 <script lang="ts">
-	import Select from '$components/FormComponent/Select.svelte';
+	import BarChart from '$components/BarChart.svelte';
+import Select from '$components/FormComponent/Select.svelte';
 	import LL from '$translations/i18n-svelte';
 
 	const weekPickerKeys = [
 		$LL.results.week_picker[0](),
 		$LL.results.week_picker[1](),
 		$LL.results.week_picker[2](),
-		$LL.results.week_picker[3]()
+		$LL.results.week_picker[3](),
+		$LL.results.week_picker[4]()
 	];
 	const weekPickerValues = [-1, 0, 1, 2, 3];
 </script>
@@ -105,7 +107,7 @@
 			</section>
 
 			<section class="graph">
-				<div style="width: 100%; background-color: green;">a</div>
+                <BarChart />
 			</section>
 		</div>
 	</div>
