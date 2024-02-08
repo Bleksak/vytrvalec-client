@@ -1,15 +1,11 @@
 <script lang="ts">
-	import createUserSubmissionStore, {
-		type UserSubmissionsStore
-	} from '$lib/stores/UserSubmissionsStore.svelte';
 	import { page } from '$app/stores';
 	import type { UserResponse } from '$lib/DTO/UserResponse';
 	import FacultyTag from '$components/profile/FacultyTag.svelte';
 	import SubmissionCard from '$components/profile/SubmissionCard.svelte';
-	import { getContext } from 'svelte';
+	import userSubmissionsStore from '$lib/stores/UserSubmissionsStore.svelte';
 
 	const currentUser: UserResponse = $page.data.user;
-	const userSubmissionsStore = getContext<UserSubmissionsStore>('userSubmissionsStore');
 </script>
 
 <main>

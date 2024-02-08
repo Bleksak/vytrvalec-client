@@ -11,7 +11,7 @@
 	import { getContext } from 'svelte';
 	import type { ToastStore } from '$lib/stores/ToastStore.svelte';
 	import { enhance } from '$app/forms';
-	import type { UserSubmissionsStore } from '$lib/stores/UserSubmissionsStore.svelte';
+	import userSubmissionsStore from '$lib/stores/UserSubmissionsStore.svelte';
 
 	type SubmissionFormProps = {
 		submission?: UnknownSubmissionResponse;
@@ -39,8 +39,6 @@
 			dropzoneText!.style.display = 'none';
 		};
 	};
-
-	const userSubmissionsStore = getContext<UserSubmissionsStore>('userSubmissionsStore');
 
     $inspect(userSubmissionsStore);
 

@@ -29,4 +29,6 @@ export const createUserSubmissionStore = (): UserSubmissionsStore => {
     }
 }
 
-export default createUserSubmissionStore;
+const userSubmissionsStore = createUserSubmissionStore();
+
+export default userSubmissionsStore;
