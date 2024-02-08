@@ -1,4 +1,5 @@
 <script lang="ts">
+	import { clickOutside } from '$utils/ClickOutside';
 	import { slide } from 'svelte/transition';
 
 	let {
@@ -36,24 +37,13 @@
 		currentKey = keys[idx];
 	};
 
-	const closeOnOutsideClick = (e: MouseEvent) => {
-		e.stopPropagation();
-
-		if (
-			e.composedPath().includes(selectElement as EventTarget) ||
-			e.composedPath().includes(optionsElement as EventTarget)
-		) {
-			return;
-		}
-
-		open = false;
-	};
+	const closeOnOutsideClick = () => open = false;
 </script>
-
-<svelte:document on:click={closeOnOutsideClick} />
 
 <input type="hidden" {id} {name} bind:value={currentValue} />
 <div
+    use:clickOutside
+    on:outsideclick|stopPropagation={closeOnOutsideClick}
 	class="select"
 	class:open
 	bind:this={selectElement}
