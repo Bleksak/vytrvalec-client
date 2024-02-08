@@ -47,7 +47,7 @@
 
 <div class="container">
 	<div class="image-container">
-		<img src={submission.image} alt="Preview" />
+		<img loading="lazy" src={submission.image} alt="Preview" title="Preview" />
 	</div>
 	<div class="content row">
 		<SubmissionStateTag state={getSubmissionState(submission)} />
