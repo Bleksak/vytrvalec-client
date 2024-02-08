@@ -3,15 +3,12 @@
 	import { page } from '$app/stores';
 	import type { UserResponse } from '$lib/DTO/UserResponse';
 	import FacultyTag from '$components/profile/FacultyTag.svelte';
-	import { getUserSubmissions } from '$actions/User';
 	import SubmissionCard from '$components/profile/SubmissionCard.svelte';
-	import type { UnknownSubmissionResponse } from '$lib/DTO/SubmissionDTO';
 	import { setContext } from 'svelte';
 
 	const currentUser: UserResponse = $page.data.user;
 	const userSubmissionsStore = createUserSubmissionStore();
 	setContext('userSubmissionsStore', userSubmissionsStore);
-	$inspect(userSubmissionsStore);
 </script>
 
 <main>

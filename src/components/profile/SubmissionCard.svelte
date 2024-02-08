@@ -30,6 +30,7 @@
 		if (confirm('Opravdu chcete aktivitu smazat?')) {
 			deleteSubmission(submission.s_id)
 				.catch((e) => {
+					console.error(e);
 					toastStore.add({
 						type: 'error',
 						message: 'Smazání aktivity se nezdařilo'
@@ -50,13 +51,23 @@
 	<div class="image-container">
 		<img src={submission.image} alt="Preview" />
 	</div>
-	<div class="content">
+	<div class="content row">
 		<SubmissionStateTag state={getSubmissionState(submission)} />
+		<img src="/images/icons/person-walking-white.svg" alt="Runner" />
 	</div>
 	<div class="bottom-stats">
-		<h6>{submission.distance} km</h6>
-		<h6>{submission.elevation} m</h6>
-		<h6>{new Date().toLocaleDateString()}</h6>
+		<div class="row">
+			<img src="/images/icons/distance.svg" alt="Distance" />
+			<h6>{submission.distance} km</h6>
+		</div>
+		<div class="row">
+			<img src="/images/icons/elevation.svg" alt="Elevation" />
+			<h6>{submission.elevation} m</h6>
+		</div>
+		<div class="row">
+			<img src="/images/icons/calendar.svg" alt="Date" />
+			<h6>{new Date().toLocaleDateString()}</h6>
+		</div>
 	</div>
 	{#if isEditSubmissionEnabled}
 		<div class="hover">
@@ -71,10 +82,29 @@
 {/if}
 
 <style>
+	.row {
+		display: flex;
+		flex-direction: row;
+		align-items: center;
+		gap: 5px;
+	}
+	.row > img {
+		height: 20px;
+		width: auto;
+	}
 	.container {
 		width: 300px;
 		height: 300px;
 		position: relative;
+	}
+	.content.row > img {
+		display: block;
+		width: auto;
+		height: 30px;
+		margin-right: 5px;
+	}
+	.content.row {
+		justify-content: space-between;
 	}
 	.hover > button {
 		visibility: hidden;
@@ -133,6 +163,11 @@
 		position: absolute;
 		top: 0;
 		text-align: center;
+		width: 300px;
+	}
+	.content > img {
+		width: 50px;
+		aspect-ratio: 1/1;
 	}
 	.bottom-stats {
 		position: absolute;
