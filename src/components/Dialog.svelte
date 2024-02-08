@@ -29,7 +29,7 @@
 </dialog>
 
 <style>
-	dialog[open] {
+	dialog {
 		top: 50%;
 		left: 50%;
 		-webkit-transform: translateX(-50%) translateY(-50%);
@@ -43,9 +43,11 @@
 		width: 100%;
 		background-color: white;
 		border-radius: 10px;
-    padding-block: 20px;
-    gap: 30px;
-    max-height: 100vh;
+		padding-block: 20px;
+		gap: 30px;
+		max-height: 100vh;
+
+        position: fixed;
 	}
 
 	dialog::backdrop {
@@ -58,9 +60,9 @@
 		justify-content: space-between;
 	}
 
-  section {
-    overflow-y: auto;
-  }
+	section {
+		overflow-y: auto;
+	}
 
 	.dialog-header,
 	section {
