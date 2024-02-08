@@ -6,13 +6,12 @@
 	import { getContext } from 'svelte';
 	import SubmissionForm from '../forms/SubmissionForm.svelte';
 	import type { ToastStore } from '$lib/stores/ToastStore.svelte';
+	import userSubmissionsStore from '$lib/stores/UserSubmissionsStore.svelte';
 
-	let { submission, fetchSubmissions } = $props<{
+	let { submission } = $props<{
 		submission: UnknownSubmissionResponse;
-		fetchSubmissions: () => void;
 	}>();
 	let isEditMode = $state<boolean>(false);
-
 	const toggleEditMode = () => (isEditMode = true);
 
 	const getSubmissionState = (submission: UnknownSubmissionResponse) => {
@@ -26,23 +25,22 @@
 	const isEditSubmissionEnabled = submissionState !== SubmissionStateEnum.ACCEPTED;
 	const toastStore = getContext<ToastStore>('toastStore');
 
-	const handleSubmissionDelete = () => {
+	const handleSubmissionDelete = async () => {
 		if (confirm('Opravdu chcete aktivitu smazat?')) {
-			deleteSubmission(submission.s_id)
-				.catch((e) => {
-					console.error(e);
-					toastStore.add({
-						type: 'error',
-						message: 'Smazání aktivity se nezdařilo'
-					});
-				})
-				.then(() => {
-					toastStore.add({
-						type: 'success',
-						message: 'Smazání aktivity proběhlo úspěšně'
-					});
-					fetchSubmissions();
+			const result = await deleteSubmission(submission.s_id).catch((e) => {
+				console.error(e);
+				toastStore.add({
+					type: 'error',
+					message: 'Smazání aktivity se nezdařilo'
 				});
+			});
+			if (result) {
+				toastStore.add({
+					type: 'success',
+					message: 'Smazání aktivity proběhlo úspěšně'
+				});
+				userSubmissionsStore.refetch();
+			}
 		}
 	};
 </script>
@@ -66,7 +64,7 @@
 		</div>
 		<div class="row">
 			<img src="/images/icons/calendar.svg" alt="Date" />
-			<h6>{new Date().toLocaleDateString()}</h6>
+			<h6>{new Date(submission.date).toLocaleDateString()}</h6>
 		</div>
 	</div>
 	{#if isEditSubmissionEnabled}
@@ -82,7 +80,8 @@
 {/if}
 
 <style>
-	.row {
+	.row,
+	.bottom-stats > div {
 		display: flex;
 		flex-direction: row;
 		align-items: center;

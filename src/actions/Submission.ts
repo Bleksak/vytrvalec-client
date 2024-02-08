@@ -169,5 +169,5 @@ export const patchSubmission = async (dto: SubmissionDTO, data: FormData) => {
 };
 
 export const deleteSubmission = async (submissionId: number): Promise<boolean> => {
-	return (await axios.delete(`/submission/${submissionId}`)).data;
+	return await axios.delete(`/submission/${submissionId}`);
 }

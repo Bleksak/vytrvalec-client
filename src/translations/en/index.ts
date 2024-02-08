@@ -25,9 +25,9 @@ const en = {
 		statistics: {
 			users: 'TOTAL PARTICIPANTS'
 		},
-    past_seasons: 'Past seasons',
-    current_year: 'Season',
-    charity: 'Charity'
+		past_seasons: 'Past seasons',
+		current_year: 'Season',
+		charity: 'Charity'
 	},
 
 	registration: {
@@ -67,8 +67,8 @@ const en = {
 		title: 'Login',
 		email: 'E-mail',
 		password: 'Password',
-        success: 'Login successful',
-        error: 'Login failed',
+		success: 'Login successful',
+		error: 'Login failed',
 		errors: {
 			email: {
 				blank: 'Please enter your email address.'
@@ -76,9 +76,9 @@ const en = {
 			password: {
 				blank: 'Please enter your password.'
 			},
-      auth: {
-        invalid_credentials: 'Invalid credentials'
-      }
+			auth: {
+				invalid_credentials: 'Invalid credentials'
+			}
 		},
 		submit: 'Login'
 	},
@@ -94,8 +94,8 @@ const en = {
 			activity: 'Activity',
 			submit: 'Submit',
 			edit: 'Edit',
-            success: 'Uploaded activity successfully',
-            error: 'Error while uploading activity',
+			success: 'Uploaded activity successfully',
+			error: 'Error while uploading activity',
 			errors: {
 				image: {
 					blank: 'Please upload an image.',
@@ -153,6 +153,9 @@ const en = {
 	results: {
 		title: 'Season Results',
 		week_picker: ['Whole Season', 'First Week', 'Second Week', 'Third Week', 'Fourth Week']
+	},
+	profile: {
+		submissions: 'Submissions'
 	}
 } satisfies BaseTranslation;
 

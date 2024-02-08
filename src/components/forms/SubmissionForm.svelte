@@ -40,8 +40,6 @@
 		};
 	};
 
-    $inspect(userSubmissionsStore);
-
 	$effect(() => {
 		if (uploadedFiles?.length !== undefined) {
 			updateImagePreview(uploadedFiles[0]);

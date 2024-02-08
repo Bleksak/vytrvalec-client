@@ -4,6 +4,7 @@
 	import FacultyTag from '$components/profile/FacultyTag.svelte';
 	import SubmissionCard from '$components/profile/SubmissionCard.svelte';
 	import userSubmissionsStore from '$lib/stores/UserSubmissionsStore.svelte';
+	import LL from '../../../translations/i18n-svelte';
 
 	const currentUser: UserResponse = $page.data.user;
 </script>
@@ -17,12 +18,13 @@
 			</h4>
 			<FacultyTag facultyShortcut={currentUser.faculty.shortcut} />
 		</div>
+		<h2 class="no-transform">{$LL.profile.submissions()}</h2>
 		{#await userSubmissionsStore.promise()}
 			Načítání aktivit...
 		{:then}
 			<div class="submissions">
 				{#each userSubmissionsStore.all() as submission}
-					<SubmissionCard {submission} fetchSubmissions={() => userSubmissionsStore.refetch()} />
+					<SubmissionCard {submission} />
 				{/each}
 			</div>
 		{/await}
@@ -30,8 +32,15 @@
 </main>
 
 <style>
-	header {
-		background-color: #fff;
+	main {
+		display: flex;
+		flex-direction: column;
+		gap: 10px;
+		max-width: 1640px;
+		margin: 0 auto;
+		width: 100%;
+		padding: 20px;
+		background-color: white;
 	}
 	.user {
 		display: grid;
@@ -43,8 +52,11 @@
 	.submissions {
 		display: grid;
 		grid-template-columns: repeat(auto-fill, minmax(300px, max-content));
-		gap: 30px;
+		gap: 15px;
 		justify-content: center;
 		margin: 20px;
+	}
+	.no-transform {
+		text-transform: none;
 	}
 </style>

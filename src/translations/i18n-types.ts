@@ -430,6 +430,12 @@ type RootTranslation = {
 			'4': string
 		}
 	}
+	profile: {
+		/**
+		 * A​k​t​i​v​i​t​y
+		 */
+		submissions: string
+	}
 }
 
 export type TranslationFunctions = {
@@ -848,6 +854,12 @@ export type TranslationFunctions = {
 			 */
 			'4': () => LocalizedString
 		}
+	}
+	profile: {
+		/**
+		 * Aktivity
+		 */
+		submissions: () => LocalizedString
 	}
 }
 

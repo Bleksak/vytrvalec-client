@@ -25,9 +25,9 @@ const cs = {
 		statistics: {
 			users: 'UČASTNÍKŮ'
 		},
-    past_seasons: 'Předchozí ročníky',
-    current_year: 'Ročník',
-    charity: 'Charita'
+		past_seasons: 'Předchozí ročníky',
+		current_year: 'Ročník',
+		charity: 'Charita'
 	},
 
 	registration: {
@@ -67,8 +67,8 @@ const cs = {
 		title: 'Přihlášení',
 		email: 'E-mail',
 		password: 'Heslo',
-        success: 'Přihlásení probehlo úspěšně',
-        error: 'Přihlášení selhalo',
+		success: 'Přihlásení probehlo úspěšně',
+		error: 'Přihlášení selhalo',
 		errors: {
 			email: {
 				blank: 'Vyplňte prosím svou e-mailovou adresu.'
@@ -76,9 +76,9 @@ const cs = {
 			password: {
 				blank: 'Vyplňte prosím své heslo.'
 			},
-      auth: {
-        invalid_credentials: 'Neplatné přihlašovací údaje'
-      }
+			auth: {
+				invalid_credentials: 'Neplatné přihlašovací údaje'
+			}
 		},
 		submit: 'Přihlásit'
 	},
@@ -94,8 +94,8 @@ const cs = {
 			activity: 'Aktivita',
 			submit: 'Nahrát',
 			edit: 'Upravit',
-            success: 'Nahrání aktivity proběhlo úspěšně',
-            error: 'Při nahrávání aktivity došlo k chybě',
+			success: 'Nahrání aktivity proběhlo úspěšně',
+			error: 'Při nahrávání aktivity došlo k chybě',
 			errors: {
 				image: {
 					blank: 'Nahrajte prosím obrázek.',
@@ -153,6 +153,9 @@ const cs = {
 	results: {
 		title: 'Výsledky sezóny',
 		week_picker: ['Celá sezóna', 'První týden', 'Druhý týden', 'Třetí týden', 'Čtvrtý týden']
+	},
+	profile: {
+		submissions: 'Aktivity'
 	}
 } satisfies BaseTranslation;
 
