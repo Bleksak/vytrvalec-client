@@ -23,8 +23,8 @@
 	let currentKey = $state<string>(keys[0]);
 
 	$effect(() => {
-		if (currentValue === undefined) {
-			currentValue = values[0];
+		if (currentValue === undefined && values.length > 0) {
+            select(0);
 		}
 	});
 
