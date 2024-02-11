@@ -180,6 +180,12 @@ const cs = {
 	icons: {
 		'Běh/Chůze': 'runner',
 		'Kolo/Koloběžka': 'bike'
+		week_picker: ['Celá sezóna', 'První týden', 'Druhý týden', 'Třetí týden', 'Čtvrtý týden'],
+        no_results: 'Zatím nejsou žádné výsledky pro tento týden či sezónu',
+        faculty: 'Fakulta',
+        distance: 'Vzdálenost',
+        elevation: 'Převýšení',
+        points: 'Body',
 	}
 } satisfies BaseTranslation;
 

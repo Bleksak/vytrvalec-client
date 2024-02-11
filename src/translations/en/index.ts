@@ -177,6 +177,13 @@ const en = {
 		'Běh/Chůze': 'Run and walk',
 		'Kolo/Koloběžka': 'Bike and scooter'
 	},
+		week_picker: ['Whole Season', 'First Week', 'Second Week', 'Third Week', 'Fourth Week'],
+        no_results: 'There are no results for this week or season yet',
+        faculty: 'Faculty',
+        distance: 'Distance',
+        elevation: 'Elevation',
+        points: 'Points',
+	}
 } satisfies BaseTranslation;
 
 export default en;
