@@ -78,6 +78,11 @@
 		updateImagePreview(file);
 	};
 
+	const onUploadClick = (event: MouseEvent) => {
+		fileInput?.click();
+		event.stopPropagation();
+	};
+
 	const toastStore = getContext<ToastStore>(StoreKey.TOAST_STORE);
 	//use:enhance nemůžu použít na patch
 	const onSubmit: SubmitFunction = ({ submitter }) => {
@@ -146,7 +151,7 @@
 					{$LL.submission.form.image()}
 				</div>
 
-				<Button class="rounded small" type="button" on:click={() => fileInput?.click()}>
+				<Button class="rounded small" type="button" on:click={onUploadClick}>
 					{$LL.submission.form.chooseImage()}
 				</Button>
 			</div>
