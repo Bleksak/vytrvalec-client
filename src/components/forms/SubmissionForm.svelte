@@ -172,7 +172,7 @@
 		{/each}
 
 		<label for="distance">
-			{$LL.submission.form.distance()}:
+			{$LL.submission.form.distance()} (km):
 		</label>
 		<input
 			type="text"
@@ -187,7 +187,7 @@
 		{/each}
 
 		<label for="elevation">
-			{$LL.submission.form.elevation()}:
+			{$LL.submission.form.elevation()} (m):
 		</label>
 		<input
 			type="text"

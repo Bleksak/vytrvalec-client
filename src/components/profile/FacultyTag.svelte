@@ -4,7 +4,9 @@
 	let { facultyShortcut } = $props<{ facultyShortcut: string }>();
 </script>
 
-<div style:background-color={FacultyColorMap[facultyShortcut] || FacultyColorMap['DEFAULT']}>
+<div
+	style:background-color={FacultyColorMap[facultyShortcut as keyof typeof FacultyColorMap] || FacultyColorMap['DEFAULT']}
+>
 	<span>{facultyShortcut}</span>
 </div>
 

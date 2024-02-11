@@ -51,7 +51,7 @@ export type SubmissionReturn =
 
 export const formDataToSubmissionDTO = (formData: FormData): SubmissionReturn => {
 	const distanceString = formData.get('distance')?.toString();
-	const distance = Number(distanceString);
+	const distance = Number(distanceString) * 1000;
 
 	const elevationString = formData.get('elevation')?.toString();
 	const elevation = Number(elevationString);

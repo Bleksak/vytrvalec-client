@@ -78,7 +78,7 @@
 	<div class="bottom-stats">
 		<div class="row">
 			<img src="/images/icons/distance.svg" alt="Distance" />
-			<span>{submission.distance.toFixed(1)} km</span>
+			<span>{Number(submission.distance / 1000).toFixed(1)} km</span>
 		</div>
 		<div class="row">
 			<img src="/images/icons/elevation.svg" alt="Elevation" />

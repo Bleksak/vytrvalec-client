@@ -9,7 +9,7 @@
 	<h5>{$LL.activities[activity.name as keyof typeof $LL.activities]()}</h5>
 	<div>
 		<img src="/images/icons/distance-blue.svg" alt="Distance" />
-		<p>{distance.toFixed(1)} km</p>
+		<p>{Number(distance / 1000).toFixed(1)} km</p>
 	</div>
 
 	<div>
