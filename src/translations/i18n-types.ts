@@ -471,6 +471,26 @@ type RootTranslation = {
 			 */
 			'4': string
 		}
+		/**
+		 * Z​a​t​í​m​ ​n​e​j​s​o​u​ ​ž​á​d​n​é​ ​v​ý​s​l​e​d​k​y​ ​p​r​o​ ​t​e​n​t​o​ ​t​ý​d​e​n​ ​č​i​ ​s​e​z​ó​n​u
+		 */
+		no_results: string
+		/**
+		 * F​a​k​u​l​t​a
+		 */
+		faculty: string
+		/**
+		 * V​z​d​á​l​e​n​o​s​t
+		 */
+		distance: string
+		/**
+		 * P​ř​e​v​ý​š​e​n​í
+		 */
+		elevation: string
+		/**
+		 * B​o​d​y
+		 */
+		points: string
 	}
 	profile: {
 		/**
@@ -507,48 +527,6 @@ type RootTranslation = {
 		 * b​i​k​e
 		 */
 		'Kolo/Koloběžka': string
-		week_picker: {
-			/**
-			 * C​e​l​á​ ​s​e​z​ó​n​a
-			 */
-			'0': string
-			/**
-			 * P​r​v​n​í​ ​t​ý​d​e​n
-			 */
-			'1': string
-			/**
-			 * D​r​u​h​ý​ ​t​ý​d​e​n
-			 */
-			'2': string
-			/**
-			 * T​ř​e​t​í​ ​t​ý​d​e​n
-			 */
-			'3': string
-			/**
-			 * Č​t​v​r​t​ý​ ​t​ý​d​e​n
-			 */
-			'4': string
-		}
-		/**
-		 * Z​a​t​í​m​ ​n​e​j​s​o​u​ ​ž​á​d​n​é​ ​v​ý​s​l​e​d​k​y​ ​p​r​o​ ​t​e​n​t​o​ ​t​ý​d​e​n​ ​č​i​ ​s​e​z​ó​n​u
-		 */
-		no_results: string
-		/**
-		 * F​a​k​u​l​t​a
-		 */
-		faculty: string
-		/**
-		 * V​z​d​á​l​e​n​o​s​t
-		 */
-		distance: string
-		/**
-		 * P​ř​e​v​ý​š​e​n​í
-		 */
-		elevation: string
-		/**
-		 * B​o​d​y
-		 */
-		points: string
 	}
 }
 
@@ -1010,6 +988,26 @@ export type TranslationFunctions = {
 			 */
 			'4': () => LocalizedString
 		}
+		/**
+		 * Zatím nejsou žádné výsledky pro tento týden či sezónu
+		 */
+		no_results: () => LocalizedString
+		/**
+		 * Fakulta
+		 */
+		faculty: () => LocalizedString
+		/**
+		 * Vzdálenost
+		 */
+		distance: () => LocalizedString
+		/**
+		 * Převýšení
+		 */
+		elevation: () => LocalizedString
+		/**
+		 * Body
+		 */
+		points: () => LocalizedString
 	}
 	profile: {
 		/**
@@ -1046,48 +1044,6 @@ export type TranslationFunctions = {
 		 * bike
 		 */
 		'Kolo/Koloběžka': () => LocalizedString
-		week_picker: {
-			/**
-			 * Celá sezóna
-			 */
-			'0': () => LocalizedString
-			/**
-			 * První týden
-			 */
-			'1': () => LocalizedString
-			/**
-			 * Druhý týden
-			 */
-			'2': () => LocalizedString
-			/**
-			 * Třetí týden
-			 */
-			'3': () => LocalizedString
-			/**
-			 * Čtvrtý týden
-			 */
-			'4': () => LocalizedString
-		}
-		/**
-		 * Zatím nejsou žádné výsledky pro tento týden či sezónu
-		 */
-		no_results: () => LocalizedString
-		/**
-		 * Fakulta
-		 */
-		faculty: () => LocalizedString
-		/**
-		 * Vzdálenost
-		 */
-		distance: () => LocalizedString
-		/**
-		 * Převýšení
-		 */
-		elevation: () => LocalizedString
-		/**
-		 * Body
-		 */
-		points: () => LocalizedString
 	}
 }
 

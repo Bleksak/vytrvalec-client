@@ -164,7 +164,12 @@ const cs = {
 	},
 	results: {
 		title: 'Výsledky sezóny',
-		week_picker: ['Celá sezóna', 'První týden', 'Druhý týden', 'Třetí týden', 'Čtvrtý týden']
+		week_picker: ['Celá sezóna', 'První týden', 'Druhý týden', 'Třetí týden', 'Čtvrtý týden'],
+        no_results: 'Zatím nejsou žádné výsledky pro tento týden či sezónu',
+        faculty: 'Fakulta',
+        distance: 'Vzdálenost',
+        elevation: 'Převýšení',
+        points: 'Body',
 	},
 	profile: {
 		submissions: 'Aktivity',
@@ -179,13 +184,7 @@ const cs = {
 	},
 	icons: {
 		'Běh/Chůze': 'runner',
-		'Kolo/Koloběžka': 'bike'
-		week_picker: ['Celá sezóna', 'První týden', 'Druhý týden', 'Třetí týden', 'Čtvrtý týden'],
-        no_results: 'Zatím nejsou žádné výsledky pro tento týden či sezónu',
-        faculty: 'Fakulta',
-        distance: 'Vzdálenost',
-        elevation: 'Převýšení',
-        points: 'Body',
+		'Kolo/Koloběžka': 'bike',
 	}
 } satisfies BaseTranslation;
 
