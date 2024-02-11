@@ -55,13 +55,6 @@
 		</a>
 	</li>
 	<li>
-		<a href="/{$page.data.lang}/account">
-			<Button class="nav-button">
-				{$LL.navbar.settings()}
-			</Button>
-		</a>
-	</li>
-	<li>
 		<Button
 			class="nav-button"
 			on:click={() => {

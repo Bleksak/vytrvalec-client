@@ -20,29 +20,42 @@
 			</h4>
 			<FacultyTag facultyShortcut={currentUser.faculty.shortcut} />
 		</div>
-		{#await profileDataStore.promise()}
-			{$LL.profile.loading.statistics()}
-		{:then}
-			<div class="repeat statistics">
-				{#each profileDataStore.all().statistics as stat}
-					<ActivityStat {...stat} />
-				{/each}
-			</div>
-		{/await}
-		<h2 class="no-transform">{$LL.profile.submissions()}</h2>
-		{#await profileDataStore.promise()}
-			{$LL.profile.loading.submissions()}
-		{:then}
-			<div class="repeat submissions">
-				{#each profileDataStore.all().submissions as submission}
-					<SubmissionCard {submission} />
-				{/each}
-			</div>
-		{/await}
+		<a href="/{$page.data.lang}/account">
+			<img src="/images/icons/settings.svg" alt="Settings" />
+		</a>
 	</header>
+
+	{#await profileDataStore.promise()}
+		{$LL.profile.loading.statistics()}
+	{:then}
+		<div class="repeat statistics">
+			{#each profileDataStore.all().statistics as stat}
+				<ActivityStat {...stat} />
+			{/each}
+		</div>
+	{/await}
+	<h2 class="no-transform">{$LL.profile.submissions()}</h2>
+	{#await profileDataStore.promise()}
+		{$LL.profile.loading.submissions()}
+	{:then}
+		<div class="repeat submissions">
+			{#each profileDataStore.all().submissions as submission}
+				<SubmissionCard {submission} />
+			{/each}
+		</div>
+	{/await}
 </main>
 
 <style>
+	header {
+		display: flex;
+		flex-direction: row;
+		justify-content: space-between;
+	}
+	a > img {
+		width: 30px;
+		aspect-ratio: 1/1;
+	}
 	main {
 		display: flex;
 		flex-direction: column;
