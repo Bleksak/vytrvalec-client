@@ -1,4 +1,4 @@
-export const FacultyColorMap: Record<string, string> = {
+export const FacultyColorMap = {
     "FAV": "#DBAC00",
     "FDU": "#E63329",
     "FEK": "#EE7202",
@@ -9,7 +9,7 @@ export const FacultyColorMap: Record<string, string> = {
     "FST": "#008FD0",
     "FZS": "#009767",
     "DEFAULT": "#90A4AE"
-}
+} as const;
 
 export const SubmissionStateColorMap: Record<string, string> = {
     "accepted": "#28A745",
