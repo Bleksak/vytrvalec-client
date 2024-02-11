@@ -120,6 +120,9 @@ export class SeasonResult {
                     }
 				}
 
+                // TODO: check all faculties, if their points for a week is 0, 
+                // then check if they had any points in the previous week, if yes, give them at least 1 point
+
 				// 3. add extra points
 				for (const extras of activity.extras) {
 					let facultyResult = weekResultRow.row.find((row) => row.faculty === extras.faculty);
@@ -192,6 +195,7 @@ export class SeasonResult {
 					winners.push(row);
 				} else {
 					winner.points += row.points;
+                    winner.distance += row.distance;
 				}
 			}
 		}
@@ -215,7 +219,7 @@ export class SeasonResult {
             if(!workingActivity) {
                 results.push({
                     activity: week.activity,
-                    row: week.row
+                    row: JSON.parse(JSON.stringify(week.row))
                 });
             } else {
                 for(const row of week.row) {
