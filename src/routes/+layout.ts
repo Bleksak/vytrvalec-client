@@ -7,6 +7,7 @@ export const load: LayoutLoad = async ({ data }) => {
 
 	return {
 		user: data.user,
+		currentSeason: data.currentSeason,
 		lang: data.lang
 	};
 };

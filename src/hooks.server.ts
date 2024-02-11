@@ -1,4 +1,5 @@
 import { getCurrentUser } from '$actions/Auth';
+import { fetchCurrentSeason } from '$actions/Season';
 import { dev } from '$app/environment';
 import { locales } from '$translations/i18n-util';
 import { error, redirect, type Handle } from '@sveltejs/kit';
@@ -34,6 +35,10 @@ export const handle: Handle = async ({ event, resolve }): Promise<any> => {
 
 	if (result.type === 'success') {
 		event.locals.user = result.data;
+		const currentSeason = await fetchCurrentSeason();
+		if (currentSeason) {
+			event.locals.currentSeason = currentSeason;
+		}
 	}
 
 	if (isPathname(event.url.pathname, '/submission')) {

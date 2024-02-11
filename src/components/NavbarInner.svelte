@@ -54,16 +54,18 @@
 			{$LL.navbar.profile()}
 		</a>
 	</li>
-	<li>
-		<Button
-			class="nav-button"
-			on:click={() => {
-				currentForm = SubmissionForm;
-			}}
-		>
-			{$LL.navbar.submission()}
-		</Button>
-	</li>
+	{#if $page.data.currentSeason}
+		<li>
+			<Button
+				class="nav-button"
+				on:click={() => {
+					currentForm = SubmissionForm;
+				}}
+			>
+				{$LL.navbar.submission()}
+			</Button>
+		</li>
+	{/if}
 	<li>
 		<form method="POST" action="/auth?/logout" use:enhance>
 			<Button class="secondary nav-button">
