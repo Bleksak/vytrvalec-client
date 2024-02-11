@@ -1,7 +1,50 @@
 <script lang="ts">
-	import BarChart from '$components/BarChart.svelte';
-import Select from '$components/FormComponent/Select.svelte';
+	import ResultsChart from '$components/ResultsChart.svelte';
+	import Select from '$components/FormComponent/Select.svelte';
 	import LL from '$translations/i18n-svelte';
+	import { fetchSeasonResult, fetchSeasons } from '$actions/Season';
+	import type { SeasonDTO } from '$lib/DTO/SeasonDTO';
+	import type { Faculty } from '$lib/DTO/Faculty';
+	import type { ActivityDTO } from '$lib/DTO/ActivityDTO';
+	import { SeasonResult } from '$lib/DTO/SeasonResultDTO';
+	import { fetchActivities } from '$actions/Activity';
+	import { fetchFaculties } from '$actions/Faculty';
+
+	let currentSeason = $state<SeasonDTO>();
+	let activitiesPromise = fetchActivities();
+	let facultiesPromise = fetchFaculties();
+
+	let activities = $state<Array<ActivityDTO>>([]);
+	let faculties = $state<Array<Faculty>>([]);
+
+	let currentWeek = $state<number>(0);
+	let currentSeasonResults = $state<SeasonResult>();
+	let currentSeasonResultsArray = $derived(
+		currentSeasonResults?.getResultsForWeek(currentWeek) ?? []
+	);
+
+	let currentSeasonResultsPromise = $derived(
+		currentSeason
+			? Promise.all([activitiesPromise, facultiesPromise, fetchSeasonResult(currentSeason)])
+			: undefined
+	);
+
+	$effect(() => {
+		if (currentSeasonResultsPromise) {
+			currentSeasonResultsPromise
+				.then(([fetchedActivities, fetchedFaculties, results]) => {
+					activities = fetchedActivities;
+					faculties = fetchedFaculties;
+					currentSeasonResults = new SeasonResult(
+						results!,
+						undefined,
+						fetchedActivities,
+						fetchedFaculties
+					);
+				})
+				.catch(() => (currentSeasonResults = undefined));
+		}
+	});
 
 	const weekPickerKeys = [
 		$LL.results.week_picker[0](),
@@ -10,7 +53,8 @@ import Select from '$components/FormComponent/Select.svelte';
 		$LL.results.week_picker[3](),
 		$LL.results.week_picker[4]()
 	];
-	const weekPickerValues = [-1, 0, 1, 2, 3];
+
+	const weekPickerValues = [0, 1, 2, 3, 4];
 </script>
 
 <main>
@@ -18,130 +62,91 @@ import Select from '$components/FormComponent/Select.svelte';
 		<h1>{$LL.results.title()}</h1>
 	</header>
 
-	<section class="pickers">
-        <Select id="week_picker" keys={weekPickerKeys} values={weekPickerValues} />
-        <Select id="year_picker" keys={weekPickerKeys} values={weekPickerValues} />
-	</section>
+	{#await fetchSeasons()}
+		Načítání...
+	{:then seasons}
+		{@const seasonKeys = seasons.map((season) =>
+			season.start.toLocaleDateString('cs', { year: 'numeric', month: 'long' })
+		)}
 
-	<div class="title-wrapper">
-		<h2>Běh a chůze</h2>
-		<div class="wrapper">
-			<section class="table">
-				<div class="results-table">
-					<header class="row">
-						<span>Fakulta</span>
-						<span class="right">Celkem km</span>
-						<span class="right">Body</span>
-					</header>
-					<div class="row">
-						<span>FZS</span>
-						<span class="right">7100</span>
-						<span class="right">102</span>
-					</div>
-					<div class="row">
-						<span>FZS</span>
-						<span class="right">7100</span>
-						<span class="right">102</span>
-					</div>
-					<div class="row">
-						<span>FZS</span>
-						<span class="right">7100</span>
-						<span class="right">102</span>
-					</div>
-					<div class="row">
-						<span>FZS</span>
-						<span class="right">7100</span>
-						<span class="right">102</span>
-					</div>
-					<div class="row">
-						<span>FZS</span>
-						<span class="right">7100</span>
-						<span class="right">102</span>
-					</div>
-					<div class="row">
-						<span>FZS</span>
-						<span class="right">7100</span>
-						<span class="right">102</span>
-					</div>
-					<div class="row">
-						<span>FZS</span>
-						<span class="right">7100</span>
-						<span class="right">102</span>
-					</div>
-					<div class="row">
-						<span>FZS</span>
-						<span class="right">7100</span>
-						<span class="right">102</span>
-					</div>
-					<div class="row">
-						<span>FZS</span>
-						<span class="right">7100</span>
-						<span class="right">102</span>
-					</div>
-					<div class="row">
-						<span>FZS</span>
-						<span class="right">7100</span>
-						<span class="right">102</span>
-					</div>
-					<div class="row">
-						<span>FZS</span>
-						<span class="right">7100</span>
-						<span class="right">102</span>
-					</div>
-					<div class="row">
-						<span>FZS</span>
-						<span class="right">7100</span>
-						<span class="right">102</span>
-					</div>
-					<div class="row">
-						<span>FZS</span>
-						<span class="right">7100</span>
-						<span class="right">102</span>
-					</div>
-					<div class="row">
-						<span>FZS</span>
-						<span class="right">7100</span>
-						<span class="right">102</span>
-					</div>
+		<section class="pickers">
+			<Select
+				id="week_picker"
+				keys={weekPickerKeys}
+				values={weekPickerValues}
+				bind:currentValue={currentWeek}
+			/>
+			<Select
+				id="year_picker"
+				keys={seasonKeys}
+				values={seasons}
+				bind:currentValue={currentSeason}
+			/>
+		</section>
+		<div class="title-wrapper">
+			{#each currentSeasonResultsArray as result}
+				{@const activity = activities.find((activity) => activity.id === result.activity)}
+				<h2>{activity?.name}</h2>
+				<div class="wrapper">
+					<section class="table">
+						<div class="results-table">
+							<header class="row">
+								<span>{$LL.results.faculty()}</span>
+								<span class="right">{$LL.results.distance()} (km)</span>
+								<span class="right">{$LL.results.points()}</span>
+							</header>
+							{#each result.row as row}
+								{@const faculty = faculties.find((faculty) => faculty.id === row.faculty)}
+								<div class="row">
+									<span>{faculty?.name}</span>
+									<span class="right">{(row.distance / 1000).toFixed(1)}</span>
+									<span class="right">{row.points}</span>
+								</div>
+							{/each}
+						</div>
+					</section>
+
+					<section class="graph">
+						{#key (currentSeason?.id ?? 0) * seasons.length + currentWeek}
+							<ResultsChart {faculties} results={result.row} />
+						{/key}
+					</section>
 				</div>
-			</section>
-
-			<section class="graph">
-                <BarChart />
-			</section>
+			{:else}
+				<h3>{$LL.results.no_results()}</h3>
+			{/each}
 		</div>
-	</div>
+	{/await}
 </main>
 
 <style>
 	main {
-        display: flex;
-        flex-direction: column;
+		display: flex;
+		flex-direction: column;
 		gap: 10px;
-        max-width: 1640px;
-        margin: 0 auto;
-        width: 100%;
-        padding: 20px;
+		margin: 0 auto;
+		padding: 20px;
 	}
 
 	.pickers {
-        width: 100%;
+		width: 100%;
 		display: flex;
-        flex-direction: row;
-        justify-content: space-between;
-        gap: 50px;
+		flex-direction: row;
+		justify-content: space-between;
+		gap: 50px;
 	}
 
 	.title-wrapper {
 		margin-block: 20px;
-        display: flex;
-        flex-direction: column;
+		display: flex;
+		flex-direction: column;
 	}
 
 	.wrapper {
 		display: grid;
 		grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
 		gap: 20px;
+		justify-content: center;
 	}
 
 	.results-table {
@@ -150,9 +155,9 @@ import Select from '$components/FormComponent/Select.svelte';
 		color: #005cab;
 		line-height: 1.7;
 
-        padding-right: 15px;
+		padding-right: 15px;
 
-        overflow: auto;
+		overflow: auto;
 		max-height: 450px;
 	}
 
