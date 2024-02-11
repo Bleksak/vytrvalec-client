@@ -1,5 +1,6 @@
 <script lang="ts">
 	import { clickOutside } from '$utils/ClickOutside';
+	import { untrack } from 'svelte';
 	import { slide } from 'svelte/transition';
 
 	let {
@@ -23,11 +24,13 @@
 	let currentKey = $state<string>(keys[0]);
 
 	$effect(() => {
-		if (currentValue) {
-			currentKey = keys[values.indexOf(currentValue)];
-		} else {
-			currentValue = values[0];
-		}
+        untrack(() => {
+            if(currentValue === undefined && values.length > 0) {
+                select(0);
+            } else if(currentValue !== undefined && values.length > 0) {
+                select(values.indexOf(currentValue));
+            }
+        })
 	});
 
 	let selectElement = $state();
