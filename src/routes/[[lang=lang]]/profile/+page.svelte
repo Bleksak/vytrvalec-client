@@ -3,13 +3,12 @@
 	import type { UserResponse } from '$lib/DTO/UserResponse';
 	import FacultyTag from '$components/profile/FacultyTag.svelte';
 	import SubmissionCard from '$components/profile/SubmissionCard.svelte';
-	import userSubmissionsStore from '$lib/stores/UserSubmissionsStore.svelte';
+	import profileDataStore from '$lib/stores/ProfileDataStore.svelte';
 	import LL from '../../../translations/i18n-svelte';
+	import ActivityStat from '$components/profile/ActivityStat.svelte';
 
 	const currentUser: UserResponse = $page.data.user;
-	if (userSubmissionsStore.all().length === 0) {
-		userSubmissionsStore.refetch();
-	}
+	profileDataStore.refetch();
 </script>
 
 <main>
@@ -21,12 +20,21 @@
 			</h4>
 			<FacultyTag facultyShortcut={currentUser.faculty.shortcut} />
 		</div>
+		{#await profileDataStore.promise()}
+			Načítání statistik...
+		{:then}
+			<div class="repeat statistics">
+				{#each profileDataStore.all().statistics as stat}
+					<ActivityStat {...stat} />
+				{/each}
+			</div>
+		{/await}
 		<h2 class="no-transform">{$LL.profile.submissions()}</h2>
-		{#await userSubmissionsStore.promise()}
+		{#await profileDataStore.promise()}
 			Načítání aktivit...
 		{:then}
-			<div class="submissions">
-				{#each userSubmissionsStore.all() as submission}
+			<div class="repeat submissions">
+				{#each profileDataStore.all().submissions as submission}
 					<SubmissionCard {submission} />
 				{/each}
 			</div>
@@ -52,12 +60,17 @@
 		gap: 10px;
 		align-items: center;
 	}
-	.submissions {
+	.repeat {
 		display: grid;
-		grid-template-columns: repeat(auto-fill, minmax(300px, max-content));
 		gap: 15px;
 		justify-content: center;
 		margin: 20px;
+	}
+	.statistics {
+		grid-template-columns: repeat(auto-fill, minmax(200px, max-content));
+	}
+	.submissions {
+		grid-template-columns: repeat(auto-fill, minmax(300px, max-content));
 	}
 	.no-transform {
 		text-transform: none;

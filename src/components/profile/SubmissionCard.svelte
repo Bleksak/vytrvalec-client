@@ -1,20 +1,23 @@
 <script lang="ts">
 	import { deleteSubmission } from '$actions/Submission';
 	import SubmissionStateTag from '$components/profile/SubmissionStateTag.svelte';
-	import type { UnknownSubmissionResponse } from '$lib/DTO/SubmissionDTO';
+	import LL from '../../translations/i18n-svelte';
 	import { SubmissionStateEnum } from '$lib/enums/SubmissionStateEnum.js';
 	import { getContext } from 'svelte';
 	import SubmissionForm from '../forms/SubmissionForm.svelte';
 	import type { ToastStore } from '$lib/stores/ToastStore.svelte';
-	import userSubmissionsStore from '$lib/stores/UserSubmissionsStore.svelte';
+	import profileDataStore, {
+		type TransformedSubmission
+	} from '$lib/stores/ProfileDataStore.svelte';
+	import { StoreKey } from '$lib/stores/StoreKey';
 
 	let { submission } = $props<{
-		submission: UnknownSubmissionResponse;
+		submission: TransformedSubmission;
 	}>();
 	let isEditMode = $state<boolean>(false);
 	const toggleEditMode = () => (isEditMode = true);
 
-	const getSubmissionState = (submission: UnknownSubmissionResponse) => {
+	const getSubmissionState = (submission: TransformedSubmission) => {
 		if (!submission.reviewed) {
 			return SubmissionStateEnum.PENDING;
 		}
@@ -25,10 +28,10 @@
 		return getSubmissionState(submission) !== SubmissionStateEnum.ACCEPTED;
 	};
 
-	const toastStore = getContext<ToastStore>('toastStore');
+	const toastStore = getContext<ToastStore>(StoreKey.TOAST_STORE);
 
 	const handleSubmissionDelete = async () => {
-		if (confirm('Opravdu chcete aktivitu smazat?')) {
+		if (confirm($LL.submission.form.deleteConfirm())) {
 			const result = await deleteSubmission(submission.s_id).catch((e) => {
 				console.error(e);
 				toastStore.add({
@@ -41,8 +44,20 @@
 					type: 'success',
 					message: 'Smazání aktivity proběhlo úspěšně'
 				});
-				userSubmissionsStore.refetch();
+				profileDataStore.refetch();
 			}
+		}
+	};
+
+	//TODO redo
+	const getIconName = () => {
+		switch (submission.activity.name) {
+			case 'Běh/Chůze':
+				return 'person-walking-white';
+			case 'Kolo/Koloběžka':
+				return 'bicycle-white';
+			default:
+				return 'unknown';
 		}
 	};
 </script>
@@ -52,21 +67,26 @@
 		<img loading="lazy" src={submission.image} alt="Preview" title="Preview" />
 	</div>
 	<div class="content row">
-		<SubmissionStateTag state={getSubmissionState(submission)} />
-		<img src="/images/icons/person-walking-white.svg" alt="Runner" />
+		<div class="row">
+			<SubmissionStateTag state={getSubmissionState(submission)} />
+			{#if submission.message}
+				<img src="/images/icons/comment.svg" alt="Comment" />
+			{/if}
+		</div>
+		<img src={`/images/icons/${getIconName()}.svg`} alt={getIconName()} />
 	</div>
 	<div class="bottom-stats">
 		<div class="row">
 			<img src="/images/icons/distance.svg" alt="Distance" />
-			<h6>{submission.distance} km</h6>
+			<span>{submission.distance.toFixed(1)} km</span>
 		</div>
 		<div class="row">
 			<img src="/images/icons/elevation.svg" alt="Elevation" />
-			<h6>{submission.elevation} m</h6>
+			<span>{submission.elevation} m</span>
 		</div>
 		<div class="row">
 			<img src="/images/icons/calendar.svg" alt="Date" />
-			<h6>{new Date(submission.date).toLocaleDateString()}</h6>
+			<span>{new Date(submission.date).toLocaleDateString()}</span>
 		</div>
 	</div>
 	{#if isEditSubmissionEnabled()}
@@ -189,5 +209,9 @@
 	}
 	h6 {
 		font-size: 1.2rem;
+	}
+	span {
+		color: #fff;
+		font-weight: 500;
 	}
 </style>

@@ -11,16 +11,18 @@
 	import { getContext } from 'svelte';
 	import type { ToastStore } from '$lib/stores/ToastStore.svelte';
 	import { enhance } from '$app/forms';
-	import userSubmissionsStore from '$lib/stores/UserSubmissionsStore.svelte';
+	import profileDataStore, {
+		type TransformedSubmission
+	} from '$lib/stores/ProfileDataStore.svelte';
+	import { StoreKey } from '$lib/stores/StoreKey';
+	import activityStore from '$lib/stores/ActivityStore.svelte';
 
 	type SubmissionFormProps = {
-		submission?: UnknownSubmissionResponse;
+		submission?: TransformedSubmission;
 	} & HTMLDialogAttributes;
 
 	let { submission, ...props } = $props<SubmissionFormProps>();
 	let errors = $state<SubmissionCreateError>();
-
-	const activitesPromise = fetchActivities();
 
 	let dialog = $state<Dialog>();
 
@@ -76,7 +78,7 @@
 		updateImagePreview(file);
 	};
 
-	const toastStore = getContext<ToastStore>('toastStore');
+	const toastStore = getContext<ToastStore>(StoreKey.TOAST_STORE);
 	//use:enhance nemůžu použít na patch
 	const onSubmit: SubmitFunction = ({ submitter }) => {
 		submitter?.setAttribute('disabled', 'disabled');
@@ -96,7 +98,7 @@
 					type: 'success',
 					message: $LL.submission.form.success()
 				});
-				userSubmissionsStore.refetch();
+				profileDataStore.refetch();
 			}
 
 			submitter?.removeAttribute('disabled');
@@ -120,6 +122,10 @@
 		{#if submission}
 			<input type="hidden" name="id" value={submission.s_id} />
 			<input type="hidden" name="updated_at" value={submission.updated_at} />
+			{#if submission.message}
+				<p class="error">Komentář k zamítnutí:</p>
+				<span class="error">{submission.message}</span>
+			{/if}
 		{/if}
 		<div
 			class="dropzone"
@@ -191,7 +197,7 @@
 		<label for="activity">
 			{$LL.submission.form.activity()}:
 		</label>
-		{#await activitesPromise}
+		{#await activityStore.promise()}
 			<span>Načítání</span>
 		{:then activities}
 			<Select
@@ -199,7 +205,7 @@
 				id="activity"
 				keys={activities.map((a) => a.name)}
 				values={activities.map((a) => a.id)}
-				currentValue={submission ? submission.activity_id : undefined}
+				currentValue={submission ? submission.activity.id : undefined}
 			/>
 		{/await}
 
