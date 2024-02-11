@@ -21,8 +21,10 @@
 		return submission.accepted ? SubmissionStateEnum.ACCEPTED : SubmissionStateEnum.REJECTED;
 	};
 
-	const submissionState = getSubmissionState(submission);
-	const isEditSubmissionEnabled = submissionState !== SubmissionStateEnum.ACCEPTED;
+	const isEditSubmissionEnabled = () => {
+		return getSubmissionState(submission) !== SubmissionStateEnum.ACCEPTED;
+	};
+
 	const toastStore = getContext<ToastStore>('toastStore');
 
 	const handleSubmissionDelete = async () => {
@@ -67,7 +69,7 @@
 			<h6>{new Date(submission.date).toLocaleDateString()}</h6>
 		</div>
 	</div>
-	{#if isEditSubmissionEnabled}
+	{#if isEditSubmissionEnabled()}
 		<div class="hover">
 			<button on:click={toggleEditMode}>Upravit</button>
 			<button on:click={handleSubmissionDelete} class="delete">Smazat</button>
