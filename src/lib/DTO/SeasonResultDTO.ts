@@ -44,14 +44,18 @@ type SeasonResultCached = {
 
 export type ResultRow = {
 	faculty: number;
-	points: number; // + extra points
+	points: number; // including extra points
+    distance: number,
 };
 
-export type WeekResultRow = {
+export type WeekResultRow = ActivityResultRow & {
 	week: number;
-	activity: number;
-	row: Array<ResultRow>;
 };
+
+export type ActivityResultRow = {
+    activity: number;
+    row: Array<ResultRow>;
+}
 
 export class SeasonResult {
 	data: SeasonResultDTO;
@@ -91,35 +95,38 @@ export class SeasonResult {
 					row: [] as Array<ResultRow>
 				};
 
-				// 2. fill rows with empty faculties
-				for (const faculty of this.faculties) {
-					weekResultRow.row.push({
-						faculty: faculty.id,
-						points: 0
-					});
-				}
-
-				// 3. fill rows with sorted data
+				// 2. fill rows with sorted data
 				for (const result of activity.results
 					.toSorted((a, b) => b.distance - a.distance)
 					.map((result, i) => {
 						return {
 							points: i + 1,
-							faculty: result.faculty
+							faculty: result.faculty,
+                            distance: result.distance
 						};
 					})) {
+
 					let facultyResult = weekResultRow.row.find((row) => row.faculty === result.faculty);
 
-					facultyResult!.points += result.points;
+                    if(!facultyResult) {
+                        weekResultRow.row.push({
+                            faculty: result.faculty,
+                            points: result.points,
+                            distance: result.distance
+                        });
+                    } else {
+                        facultyResult.points += result.points;
+                        facultyResult.distance += result.distance;
+                    }
 				}
 
-				// 4. add extra points
+				// 3. add extra points
 				for (const extras of activity.extras) {
 					let facultyResult = weekResultRow.row.find((row) => row.faculty === extras.faculty);
 					facultyResult!.points += extras.points;
 				}
 
-				// 5. sort again
+				// 4. sort again
 				weekResultRow.row.sort((a, b) => b.points - a.points);
 
 				weekResultRows.push(weekResultRow);
@@ -195,4 +202,40 @@ export class SeasonResult {
 	getResults(): Array<WeekResultRow> {
 		return this.results;
 	}
+
+    getResultsForWeek(week: number): Array<ActivityResultRow> {
+        if(week !== 0) {
+            return this.results.filter((w) => w.week === week-1);
+        }
+
+        let results: Array<ActivityResultRow> = [];
+
+        for (const week of this.results) {
+            const workingActivity = results.find((w) => w.activity === week.activity);
+            if(!workingActivity) {
+                results.push({
+                    activity: week.activity,
+                    row: week.row
+                });
+            } else {
+                for(const row of week.row) {
+                    let workingRow = workingActivity.row.find((w) => w.faculty === row.faculty);
+                    if(!workingRow) {
+                        workingActivity.row.push(row);
+                    } else {
+                        workingRow.points += row.points;
+                        workingRow.distance += row.distance;
+                    }
+                }
+            }
+        }
+
+        for (const result of results) {
+            result.row.sort((a, b) => b.points - a.points);
+        }
+
+        results.sort((a, b) => b.activity - a.activity);
+
+        return results;
+    }
 }
