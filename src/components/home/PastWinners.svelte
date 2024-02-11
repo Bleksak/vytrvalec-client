@@ -40,70 +40,72 @@
 
 {#await seasonsPromise then seasons}
 	{#if seasons.length > 0}
-		<div class="past-winners">
-			<h1>{$LL.homepage.past_seasons()}</h1>
-			<div class="selection-wrapper">
-				<label class="season-select-label" for="season-select"
-					>{$LL.homepage.current_year()}:
-				</label>
-				<Select
-					id="season-select"
-					keys={seasons.map((season) =>
-						season.start.toLocaleDateString('cs', { year: 'numeric', month: 'short' })
-					)}
-					values={seasons.map((season) => season.id)}
-					bind:currentValue={currentSelection}
-					inverted
-				/>
-			</div>
-			<div class="item">
-				<article class="charity">
-					<header>
-						<h2>{$LL.homepage.charity()}</h2>
-						<h3>{currentSeason?.charity?.name}</h3>
-					</header>
-					<section class="content">
-						<p>
-							{currentSeason?.charity?.description}
-						</p>
-					</section>
-				</article>
-				{#if seasonResults.has(currentSelection!)}
-					{@const seasonResult = seasonResults.get(currentSelection!)}
-					{@const winners = seasonResult?.getTotalWinners().slice(0, 3) ?? []}
-					{#await facultiesPromise then faculties}
-						<div class="winners-wrapper">
-							<div class="winners">
-								{#if winners.length >= 2}
-									<div class="winner">
-										<span>
-											{faculties.find((faculty) => faculty.id === winners[1].faculty)?.name}
-										</span>
-										<div class="bar bar-medium"></div>
-									</div>
-								{/if}
+		<div class="past-winners-wrapper">
+			<div class="past-winners">
+				<h1>{$LL.homepage.past_seasons()}</h1>
+				<div class="selection-wrapper">
+					<label class="season-select-label" for="season-select"
+						>{$LL.homepage.current_year()}:
+					</label>
+					<Select
+						id="season-select"
+						keys={seasons.map((season) =>
+							season.start.toLocaleDateString('cs', { year: 'numeric', month: 'short' })
+						)}
+						values={seasons.map((season) => season.id)}
+						bind:currentValue={currentSelection}
+						inverted
+					/>
+				</div>
+				<div class="item">
+					<article class="charity">
+						<header>
+							<h2>{$LL.homepage.charity()}</h2>
+							<h3>{currentSeason?.charity?.name}</h3>
+						</header>
+						<section class="content">
+							<p>
+								{currentSeason?.charity?.description}
+							</p>
+						</section>
+					</article>
+					{#if seasonResults.has(currentSelection!)}
+						{@const  seasonResult = seasonResults.get(currentSelection!)}
+						{@const winners = seasonResult?.getTotalWinners().slice(0, 3) ?? []}
+						{#await facultiesPromise then faculties}
+							<div class="winners-wrapper">
+								<div class="winners">
+									{#if winners.length >= 2}
+										<div class="winner">
+											<span>
+												{faculties.find((faculty) => faculty.id === winners[1].faculty)?.name}
+											</span>
+											<div class="bar bar-medium"></div>
+										</div>
+									{/if}
 
-								{#if winners.length >= 1}
-									<div class="winner">
-										<span>
-											{faculties.find((faculty) => faculty.id === winners[0].faculty)?.name}
-										</span>
-										<div class="bar bar-large"></div>
-									</div>
-								{/if}
+									{#if winners.length >= 1}
+										<div class="winner">
+											<span>
+												{faculties.find((faculty) => faculty.id === winners[0].faculty)?.name}
+											</span>
+											<div class="bar bar-large"></div>
+										</div>
+									{/if}
 
-								{#if winners.length >= 3}
-									<div class="winner">
-										<span>
-											{faculties.find((faculty) => faculty.id === winners[2].faculty)?.name}
-										</span>
-										<div class="bar bar-small"></div>
-									</div>
-								{/if}
+									{#if winners.length >= 3}
+										<div class="winner">
+											<span>
+												{faculties.find((faculty) => faculty.id === winners[2].faculty)?.name}
+											</span>
+											<div class="bar bar-small"></div>
+										</div>
+									{/if}
+								</div>
 							</div>
-						</div>
-					{/await}
-				{/if}
+						{/await}
+					{/if}
+				</div>
 			</div>
 		</div>
 	{/if}
@@ -127,13 +129,21 @@
 		gap: 10px;
 	}
 
+	.past-winners-wrapper {
+		background-color: #005cab;
+		width: 100%;
+	}
+
 	.past-winners {
 		display: flex;
 		flex-direction: column;
 		align-items: center;
 
 		background-color: #005cab;
-		padding: 20px 100px;
+		/* padding: 20px 100px; */
+		max-width: 1600px;
+		margin: 0 auto;
+		width: 100%;
 	}
 
 	.past-winners h1,

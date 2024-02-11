@@ -125,7 +125,8 @@
 		flex-direction: column;
 		gap: 10px;
 		margin: 0 auto;
-		padding: 20px;
+        max-width: 1600px;
+        width: 100%;
 	}
 
 	.pickers {
@@ -160,6 +161,10 @@
 		overflow: auto;
 		max-height: 450px;
 	}
+
+    .row {
+        padding-inline: 10px;
+    }
 
 	.results-table > .row {
 		display: flex;

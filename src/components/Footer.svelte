@@ -67,7 +67,6 @@
 		flex: 1;
 		display: flex;
 		justify-content: flex-end;
-		margin-right: 35px;
 	}
 
 	@media (max-width: 1200px) {
