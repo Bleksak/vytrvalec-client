@@ -21,7 +21,7 @@
 			<FacultyTag facultyShortcut={currentUser.faculty.shortcut} />
 		</div>
 		{#await profileDataStore.promise()}
-			Načítání statistik...
+			{$LL.profile.loading.statistics()}
 		{:then}
 			<div class="repeat statistics">
 				{#each profileDataStore.all().statistics as stat}
@@ -31,7 +31,7 @@
 		{/await}
 		<h2 class="no-transform">{$LL.profile.submissions()}</h2>
 		{#await profileDataStore.promise()}
-			Načítání aktivit...
+			{$LL.profile.loading.submissions()}
 		{:then}
 			<div class="repeat submissions">
 				{#each profileDataStore.all().submissions as submission}

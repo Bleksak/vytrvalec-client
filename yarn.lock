@@ -220,6 +220,11 @@
     "@jridgewell/resolve-uri" "^3.1.0"
     "@jridgewell/sourcemap-codec" "^1.4.14"
 
+"@kurkle/color@^0.3.0":
+  version "0.3.2"
+  resolved "https://registry.yarnpkg.com/@kurkle/color/-/color-0.3.2.tgz#5acd38242e8bde4f9986e7913c8fdf49d3aa199f"
+  integrity sha512-fuscdXJ9G1qb7W8VdHi+IwRqij3lBkosAm4ydQtEmbY58OzHXqQhvlxqEkoz0yssNVn38bcpRWgA9PP+OGoisw==
+
 "@nodelib/fs.scandir@2.1.5":
   version "2.1.5"
   resolved "https://registry.yarnpkg.com/@nodelib/fs.scandir/-/fs.scandir-2.1.5.tgz#7619c2eb21b25483f6d167548b4cfd5a7488c3d5"
@@ -782,6 +787,13 @@ chalk@^4.0.0:
   dependencies:
     ansi-styles "^4.1.0"
     supports-color "^7.1.0"
+
+chart.js@^4.4.1:
+  version "4.4.1"
+  resolved "https://registry.yarnpkg.com/chart.js/-/chart.js-4.4.1.tgz#ac5dc0e69a7758909158a96fe80ce43b3bb96a9f"
+  integrity sha512-C74QN1bxwV1v2PEujhmKjOZ7iUM4w6BWs23Md/6aOZZSlwMzeCIDGuZay++rBgChYru7/+QFeoQW0fQoP534Dg==
+  dependencies:
+    "@kurkle/color" "^0.3.0"
 
 check-error@^1.0.3:
   version "1.0.3"
@@ -2548,7 +2560,7 @@ svelte-hmr@^0.15.3:
   resolved "https://registry.yarnpkg.com/svelte-hmr/-/svelte-hmr-0.15.3.tgz#df54ccde9be3f091bf5f18fc4ef7b8eb6405fbe6"
   integrity sha512-41snaPswvSf8TJUhlkoJBekRrABDXDMdpNpT2tfHIv4JuhgvHqLMhEPGtaQn0BmbNSTkuz2Ed20DF2eHw0SmBQ==
 
-svelte@^5.0.0-next.50:
+svelte@5.0.0-next.50:
   version "5.0.0-next.50"
   resolved "https://registry.yarnpkg.com/svelte/-/svelte-5.0.0-next.50.tgz#212df1db0479c67c19395f2adf39c8d6c6d5ffc5"
   integrity sha512-/X5fXYBCMgiClCI2HjkECZUv+J/FNyX9BnflgBPMO3yu4ulfxv3Cm6lz8/Sd5A9xy9Xbl+1DUUTv8UJRGiMEiA==

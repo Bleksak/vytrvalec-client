@@ -12,8 +12,8 @@ export const FacultyColorMap: Record<string, string> = {
 }
 
 export const SubmissionStateColorMap: Record<string, string> = {
-    "ACCEPTED": "#28A745",
-    "REJECTED": "#DC3545",
-    "PENDING": "#FFC107",
-    "DEFAULT": "#90A4AE"
+    "accepted": "#28A745",
+    "rejected": "#DC3545",
+    "pending": "#FFC107",
+    "default": "#90A4AE"
 }

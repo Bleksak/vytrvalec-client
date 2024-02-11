@@ -94,8 +94,15 @@ const cs = {
 			activity: 'Aktivita',
 			submit: 'Nahrát',
 			edit: 'Upravit',
+			comment: 'Komentář k zamítnutí',
 			success: 'Nahrání aktivity proběhlo úspěšně',
 			error: 'Při nahrávání aktivity došlo k chybě',
+			delete: 'Smazat',
+			deleteConfirm: 'Opravdu chcete aktivitu smazat?',
+			deleteSuccessToast: 'Aktivita smazána',
+			deleteErrorToast: 'Při mazání aktivity došlo k chybě',
+			editSuccessToast: 'Aktivita upravena',
+			editErrorToast: 'Při úpravě aktivity došlo k chybě',
 			errors: {
 				image: {
 					blank: 'Nahrajte prosím obrázek.',
@@ -116,6 +123,11 @@ const cs = {
 					invalid: 'Vybraná aktivita není platná.'
 				}
 			}
+		},
+		state: {
+			pending: 'Zpracovává se',
+			accepted: 'Schváleno',
+			rejected: 'Zamítnuto'
 		}
 	},
 
@@ -155,7 +167,19 @@ const cs = {
 		week_picker: ['Celá sezóna', 'První týden', 'Druhý týden', 'Třetí týden', 'Čtvrtý týden']
 	},
 	profile: {
-		submissions: 'Aktivity'
+		submissions: 'Aktivity',
+		loading: {
+			statistics: 'Načítání statistik...',
+			submissions: 'načítání aktivit...'
+		}
+	},
+	activities: {
+		'Běh/Chůze': 'Běh a chůze',
+		'Kolo/Koloběžka': 'Kolo a koloběžka'
+	},
+	icons: {
+		'Běh/Chůze': 'runner',
+		'Kolo/Koloběžka': 'bike'
 	}
 } satisfies BaseTranslation;
 

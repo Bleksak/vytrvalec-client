@@ -1,6 +1,6 @@
 export enum SubmissionStateEnum {
-	ACCEPTED = 'ACCEPTED',
-	REJECTED = 'REJECTED',
-	PENDING = 'PENDING',
-	DEFAULT = 'DEFAULT'
+	ACCEPTED = 'accepted',
+	REJECTED = 'rejected',
+	PENDING = 'pending',
+	DEFAULT = 'unknown'
 }

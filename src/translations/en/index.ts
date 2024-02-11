@@ -94,8 +94,15 @@ const en = {
 			activity: 'Activity',
 			submit: 'Submit',
 			edit: 'Edit',
+			comment: 'Rejection comment',
 			success: 'Uploaded activity successfully',
 			error: 'Error while uploading activity',
+			delete: 'Delete',
+			deleteConfirm: 'Do you really want to delete this activity?',
+			deleteSuccessToast: 'Submission deleted',
+			deleteErrorToast: 'An error occured during submission deletion',
+			editSuccessToast: 'Submission edited',
+			editErrorToast: 'An error occured during submission editing',
 			errors: {
 				image: {
 					blank: 'Please upload an image.',
@@ -116,6 +123,11 @@ const en = {
 					invalid: 'The selected activity is not valid.'
 				}
 			}
+		},
+		state: {
+			pending: 'Pending',
+			accepted: 'Accepted',
+			rejected: 'Rejected'
 		}
 	},
 
@@ -155,8 +167,16 @@ const en = {
 		week_picker: ['Whole Season', 'First Week', 'Second Week', 'Third Week', 'Fourth Week']
 	},
 	profile: {
-		submissions: 'Submissions'
-	}
+		submissions: 'Submissions',
+		loading: {
+			statistics: 'Loading user statistics...',
+			submissions: 'Loading user submissions...'
+		}
+	},
+	activities: {
+		'Běh/Chůze': 'Run and walk',
+		'Kolo/Koloběžka': 'Bike and scooter'
+	},
 } satisfies BaseTranslation;
 
 export default en;

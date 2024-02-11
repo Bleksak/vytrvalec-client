@@ -36,13 +36,13 @@
 				console.error(e);
 				toastStore.add({
 					type: 'error',
-					message: 'Smazání aktivity se nezdařilo'
+					message: $LL.submission.form.deleteErrorToast()
 				});
 			});
 			if (result) {
 				toastStore.add({
 					type: 'success',
-					message: 'Smazání aktivity proběhlo úspěšně'
+					message: $LL.submission.form.deleteSuccessToast()
 				});
 				profileDataStore.refetch();
 			}
@@ -91,8 +91,10 @@
 	</div>
 	{#if isEditSubmissionEnabled()}
 		<div class="hover">
-			<button on:click={toggleEditMode}>Upravit</button>
-			<button on:click={handleSubmissionDelete} class="delete">Smazat</button>
+			<button on:click={toggleEditMode}>{$LL.submission.form.edit()}</button>
+			<button on:click={handleSubmissionDelete} class="delete"
+				>{$LL.submission.form.delete()}</button
+			>
 		</div>
 	{/if}
 </div>

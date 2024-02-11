@@ -259,6 +259,10 @@ type RootTranslation = {
 			 */
 			edit: string
 			/**
+			 * K​o​m​e​n​t​á​ř​ ​k​ ​z​a​m​í​t​n​u​t​í
+			 */
+			comment: string
+			/**
 			 * N​a​h​r​á​n​í​ ​a​k​t​i​v​i​t​y​ ​p​r​o​b​ě​h​l​o​ ​ú​s​p​ě​š​n​ě
 			 */
 			success: string
@@ -266,6 +270,30 @@ type RootTranslation = {
 			 * P​ř​i​ ​n​a​h​r​á​v​á​n​í​ ​a​k​t​i​v​i​t​y​ ​d​o​š​l​o​ ​k​ ​c​h​y​b​ě
 			 */
 			error: string
+			/**
+			 * S​m​a​z​a​t
+			 */
+			'delete': string
+			/**
+			 * O​p​r​a​v​d​u​ ​c​h​c​e​t​e​ ​a​k​t​i​v​i​t​u​ ​s​m​a​z​a​t​?
+			 */
+			deleteConfirm: string
+			/**
+			 * A​k​t​i​v​i​t​a​ ​s​m​a​z​á​n​a
+			 */
+			deleteSuccessToast: string
+			/**
+			 * P​ř​i​ ​m​a​z​á​n​í​ ​a​k​t​i​v​i​t​y​ ​d​o​š​l​o​ ​k​ ​c​h​y​b​ě
+			 */
+			deleteErrorToast: string
+			/**
+			 * A​k​t​i​v​i​t​a​ ​u​p​r​a​v​e​n​a
+			 */
+			editSuccessToast: string
+			/**
+			 * P​ř​i​ ​ú​p​r​a​v​ě​ ​a​k​t​i​v​i​t​y​ ​d​o​š​l​o​ ​k​ ​c​h​y​b​ě
+			 */
+			editErrorToast: string
 			errors: {
 				image: {
 					/**
@@ -316,6 +344,20 @@ type RootTranslation = {
 					invalid: string
 				}
 			}
+		}
+		state: {
+			/**
+			 * Z​p​r​a​c​o​v​á​v​á​ ​s​e
+			 */
+			pending: string
+			/**
+			 * S​c​h​v​á​l​e​n​o
+			 */
+			accepted: string
+			/**
+			 * Z​a​m​í​t​n​u​t​o
+			 */
+			rejected: string
 		}
 	}
 	extraPoints: {
@@ -435,6 +477,36 @@ type RootTranslation = {
 		 * A​k​t​i​v​i​t​y
 		 */
 		submissions: string
+		loading: {
+			/**
+			 * N​a​č​í​t​á​n​í​ ​s​t​a​t​i​s​t​i​k​.​.​.
+			 */
+			statistics: string
+			/**
+			 * n​a​č​í​t​á​n​í​ ​a​k​t​i​v​i​t​.​.​.
+			 */
+			submissions: string
+		}
+	}
+	activities: {
+		/**
+		 * B​ě​h​ ​a​ ​c​h​ů​z​e
+		 */
+		'Běh/Chůze': string
+		/**
+		 * K​o​l​o​ ​a​ ​k​o​l​o​b​ě​ž​k​a
+		 */
+		'Kolo/Koloběžka': string
+	}
+	icons: {
+		/**
+		 * r​u​n​n​e​r
+		 */
+		'Běh/Chůze': string
+		/**
+		 * b​i​k​e
+		 */
+		'Kolo/Koloběžka': string
 	}
 }
 
@@ -684,6 +756,10 @@ export type TranslationFunctions = {
 			 */
 			edit: () => LocalizedString
 			/**
+			 * Komentář k zamítnutí
+			 */
+			comment: () => LocalizedString
+			/**
 			 * Nahrání aktivity proběhlo úspěšně
 			 */
 			success: () => LocalizedString
@@ -691,6 +767,30 @@ export type TranslationFunctions = {
 			 * Při nahrávání aktivity došlo k chybě
 			 */
 			error: () => LocalizedString
+			/**
+			 * Smazat
+			 */
+			'delete': () => LocalizedString
+			/**
+			 * Opravdu chcete aktivitu smazat?
+			 */
+			deleteConfirm: () => LocalizedString
+			/**
+			 * Aktivita smazána
+			 */
+			deleteSuccessToast: () => LocalizedString
+			/**
+			 * Při mazání aktivity došlo k chybě
+			 */
+			deleteErrorToast: () => LocalizedString
+			/**
+			 * Aktivita upravena
+			 */
+			editSuccessToast: () => LocalizedString
+			/**
+			 * Při úpravě aktivity došlo k chybě
+			 */
+			editErrorToast: () => LocalizedString
 			errors: {
 				image: {
 					/**
@@ -741,6 +841,20 @@ export type TranslationFunctions = {
 					invalid: () => LocalizedString
 				}
 			}
+		}
+		state: {
+			/**
+			 * Zpracovává se
+			 */
+			pending: () => LocalizedString
+			/**
+			 * Schváleno
+			 */
+			accepted: () => LocalizedString
+			/**
+			 * Zamítnuto
+			 */
+			rejected: () => LocalizedString
 		}
 	}
 	extraPoints: {
@@ -860,6 +974,36 @@ export type TranslationFunctions = {
 		 * Aktivity
 		 */
 		submissions: () => LocalizedString
+		loading: {
+			/**
+			 * Načítání statistik...
+			 */
+			statistics: () => LocalizedString
+			/**
+			 * načítání aktivit...
+			 */
+			submissions: () => LocalizedString
+		}
+	}
+	activities: {
+		/**
+		 * Běh a chůze
+		 */
+		'Běh/Chůze': () => LocalizedString
+		/**
+		 * Kolo a koloběžka
+		 */
+		'Kolo/Koloběžka': () => LocalizedString
+	}
+	icons: {
+		/**
+		 * runner
+		 */
+		'Běh/Chůze': () => LocalizedString
+		/**
+		 * bike
+		 */
+		'Kolo/Koloběžka': () => LocalizedString
 	}
 }
 

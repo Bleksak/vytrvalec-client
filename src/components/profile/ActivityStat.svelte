@@ -1,11 +1,12 @@
 <script lang="ts">
 	import type { ProfileStatistics } from '$lib/stores/ProfileDataStore.svelte';
+	import LL from '../../translations/i18n-svelte';
 
 	let { activity, distance, elevation } = $props<ProfileStatistics>();
 </script>
 
 <main>
-	<h5>{activity.name}</h5>
+	<h5>{$LL.activities[activity.name as keyof typeof $LL.activities]()}</h5>
 	<div>
 		<img src="/images/icons/distance-blue.svg" alt="Distance" />
 		<p>{distance.toFixed(1)} km</p>

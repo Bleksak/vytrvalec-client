@@ -89,14 +89,16 @@
 
 				toastStore.add({
 					type: 'error',
-					message: $LL.submission.form.error()
+					message: submission ? $LL.submission.form.editErrorToast() : $LL.submission.form.error()
 				});
 			} else if (result.type === 'success') {
 				errors = undefined;
 				dialog?.close();
 				toastStore.add({
 					type: 'success',
-					message: $LL.submission.form.success()
+					message: submission
+						? $LL.submission.form.editSuccessToast()
+						: $LL.submission.form.success()
 				});
 				profileDataStore.refetch();
 			}
@@ -123,7 +125,7 @@
 			<input type="hidden" name="id" value={submission.s_id} />
 			<input type="hidden" name="updated_at" value={submission.updated_at} />
 			{#if submission.message}
-				<p class="error">Komentář k zamítnutí:</p>
+				<p class="error">{$LL.submission.form.comment()}:</p>
 				<span class="error">{submission.message}</span>
 			{/if}
 		{/if}
@@ -203,7 +205,7 @@
 			<Select
 				name="activity"
 				id="activity"
-				keys={activities.map((a) => a.name)}
+				keys={activities.map((a) => $LL.activities[a.name as keyof typeof $LL.activities]())}
 				values={activities.map((a) => a.id)}
 				currentValue={submission ? submission.activity.id : undefined}
 			/>
