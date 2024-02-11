@@ -9,7 +9,10 @@ export type UserSubmissionsStore = {
 
 export const createUserSubmissionStore = (): UserSubmissionsStore => {
     let userSubmissions = $state<UnknownSubmissionResponse[]>([]);
-    let userSubmissionsPromise: Promise<UnknownSubmissionResponse[]> = getUserSubmissions();
+    let userSubmissionsPromise: Promise<UnknownSubmissionResponse[]> = getUserSubmissions()
+        .catch(e => {
+            return [];
+        });
 
     userSubmissionsPromise.then(result => {
         userSubmissions = result;
