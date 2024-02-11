@@ -7,6 +7,9 @@
 	import LL from '../../../translations/i18n-svelte';
 
 	const currentUser: UserResponse = $page.data.user;
+	if (userSubmissionsStore.all().length === 0) {
+		userSubmissionsStore.refetch();
+	}
 </script>
 
 <main>

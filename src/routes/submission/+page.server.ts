@@ -1,7 +1,6 @@
 import { createSubmission, patchSubmission, setSubmissionState } from '$actions/Submission';
 import { formDataToSubmissionDTO } from '$lib/DTO/SubmissionDTO';
 import { formDataToSubmissionStateDTO } from '$lib/DTO/SubmissionStateDTO';
-import type { UserSubmissionsStore } from '$lib/stores/UserSubmissionsStore.svelte';
 import { fail, type Actions, type Action } from '@sveltejs/kit';
 import { getContext } from 'svelte';
 

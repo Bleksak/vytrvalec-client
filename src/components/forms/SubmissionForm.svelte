@@ -30,17 +30,27 @@
 
 	let uploadedFiles = $state<FileList>();
 
+	let imageUri = $state<string>();
+
+	const displayImage = (uri: string) => {
+		imageUri = uri;
+		dropzoneImage!.src = uri;
+		dropzoneImage!.style.display = 'block';
+		dropzoneText!.style.display = 'none';
+	};
+
 	const updateImagePreview = (file: File) => {
 		let reader = new FileReader();
 		reader.readAsDataURL(file);
 		reader.onloadend = () => {
-			dropzoneImage!.src = reader.result as string;
-			dropzoneImage!.style.display = 'block';
-			dropzoneText!.style.display = 'none';
+			displayImage(reader.result as string);
 		};
 	};
 
 	$effect(() => {
+		if (submission && !uploadedFiles?.length) {
+			displayImage(submission.image);
+		}
 		if (uploadedFiles?.length !== undefined) {
 			updateImagePreview(uploadedFiles[0]);
 		}
@@ -122,7 +132,7 @@
 			role="button"
 			tabindex="0"
 		>
-			<div class="inner" class:no-image={!uploadedFiles}>
+			<div class="inner" class:no-image={!imageUri}>
 				<img bind:this={dropzoneImage} src="/images/icons/file-input-icon.svg" alt="File input" />
 				<div bind:this={dropzoneText} class="dropzone-text">
 					{$LL.submission.form.image()}
