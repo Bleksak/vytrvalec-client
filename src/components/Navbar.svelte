@@ -1,4 +1,5 @@
 <script lang="ts">
+	import { afterNavigate } from '$app/navigation';
 	import { page } from '$app/stores';
 	import Accordion from '$components/Accordion.svelte';
 	import NavbarInner from '$components/NavbarInner.svelte';
@@ -7,9 +8,23 @@
 	let open = $state<boolean>(false);
 
 	const minWidth = 1200;
+
+    let scrollY = $state<number>(0);
+
+	const scrollToTop = () => {
+        // NOTE: ve firefoxu nefunguje scrollTo 0, 0, proto tady scrollujeme na 1px a ne na 0
+        // treba se to v budoucnu zmeni
+        // da se to opravit odstranenim smooth scrollingu, ale bez nej to vypada zvlastne
+
+        scrollY = 1;
+	};
+
+	afterNavigate(() => {
+		scrollToTop();
+	});
 </script>
 
-<svelte:window bind:outerWidth />
+<svelte:window bind:outerWidth bind:scrollY={scrollY} />
 
 <nav>
 	<div class="navigation-wrapper">
