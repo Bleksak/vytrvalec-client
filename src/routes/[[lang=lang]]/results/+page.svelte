@@ -86,7 +86,9 @@
 		<div class="title-wrapper">
 			{#each currentSeasonResultsArray as result}
 				{@const activity = activities.find((activity) => activity.id === result.activity)}
-				<h2>{activity?.name}</h2>
+                <div class="title">
+                    <h2>{activity?.name}</h2>
+                </div>
 				<div class="wrapper">
 					<section class="table">
 						<div class="results-table">
@@ -113,7 +115,9 @@
 					</section>
 				</div>
 			{:else}
-				<h3>{$LL.results.no_results()}</h3>
+                <div class="title">
+                    <h3>{$LL.results.no_results()}</h3>
+                </div>
 			{/each}
 		</div>
 	{/await}
@@ -127,6 +131,7 @@
 		margin: 0 auto;
         max-width: 1600px;
         width: 100%;
+        min-height: calc(100vh - 100px - 60px - 1.6*1.5rem);
 	}
 
 	.pickers {
@@ -141,7 +146,14 @@
 		margin-block: 20px;
 		display: flex;
 		flex-direction: column;
+        gap: 20px;
 	}
+
+    .title {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
 
 	.wrapper {
 		display: grid;
