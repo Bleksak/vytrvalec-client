@@ -186,6 +186,14 @@ const cs = {
 			submissions: 'načítání aktivit...'
 		}
 	},
+	reset: {
+		title: 'Změna hesla',
+		password: 'Heslo',
+		passwordRepeat: 'Heslo znova',
+		success: 'Heslo bylo změněno',
+		error: 'Nastala chyba při změně hesla',
+		submit: 'Změnit'
+	},
 	activities: {
 		'Běh/Chůze': 'Běh a chůze',
 		'Kolo/Koloběžka': 'Kolo a koloběžka'

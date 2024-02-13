@@ -534,6 +534,32 @@ type RootTranslation = {
 			submissions: string
 		}
 	}
+	reset: {
+		/**
+		 * Z​m​ě​n​a​ ​h​e​s​l​a
+		 */
+		title: string
+		/**
+		 * H​e​s​l​o
+		 */
+		password: string
+		/**
+		 * H​e​s​l​o​ ​z​n​o​v​a
+		 */
+		passwordRepeat: string
+		/**
+		 * H​e​s​l​o​ ​b​y​l​o​ ​z​m​ě​n​ě​n​o
+		 */
+		success: string
+		/**
+		 * N​a​s​t​a​l​a​ ​c​h​y​b​a​ ​p​ř​i​ ​z​m​ě​n​ě​ ​h​e​s​l​a
+		 */
+		error: string
+		/**
+		 * Z​m​ě​n​i​t
+		 */
+		submit: string
+	}
 	activities: {
 		/**
 		 * B​ě​h​ ​a​ ​c​h​ů​z​e
@@ -1076,6 +1102,32 @@ export type TranslationFunctions = {
 			 */
 			submissions: () => LocalizedString
 		}
+	}
+	reset: {
+		/**
+		 * Změna hesla
+		 */
+		title: () => LocalizedString
+		/**
+		 * Heslo
+		 */
+		password: () => LocalizedString
+		/**
+		 * Heslo znova
+		 */
+		passwordRepeat: () => LocalizedString
+		/**
+		 * Heslo bylo změněno
+		 */
+		success: () => LocalizedString
+		/**
+		 * Nastala chyba při změně hesla
+		 */
+		error: () => LocalizedString
+		/**
+		 * Změnit
+		 */
+		submit: () => LocalizedString
 	}
 	activities: {
 		/**

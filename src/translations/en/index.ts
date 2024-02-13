@@ -186,6 +186,14 @@ const en = {
 			submissions: 'Loading user submissions...'
 		}
 	},
+	reset: {
+		title: 'Change password',
+		password: 'Password',
+		passwordRepeat: 'Password repeat',
+		success: 'Password has been changed',
+		error: 'An error occurred when changing the password',
+		submit: 'Change'
+	},
 	activities: {
 		'Běh/Chůze': 'Run and walk',
 		'Kolo/Koloběžka': 'Bike and scooter'
