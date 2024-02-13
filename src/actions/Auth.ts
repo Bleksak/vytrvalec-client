@@ -119,8 +119,8 @@ export const accountChange = async (dto: AccountChangeDTO): Promise<AccountChang
 	return { type: 'success' };
 };
 
-export const resetPassword = async (forgottenPasswordDTO: ForgottenPasswordDTO): Promise<ForgottenPasswordResponse> => {
-	const response = await axios.post(`/user/reset`, forgottenPasswordDTO).catch((error) => {
+export const resetPassword = async (forgottenPasswordDTO: ForgottenPasswordDTO, lang: string): Promise<ForgottenPasswordResponse> => {
+	const response = await axios.post(`/user/password/${lang}`, forgottenPasswordDTO).catch((error) => {
 		if (error.response) {
 			return error.response;
 		}

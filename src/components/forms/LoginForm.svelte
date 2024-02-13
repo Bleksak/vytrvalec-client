@@ -7,6 +7,7 @@
 	import type { HTMLDialogAttributes } from 'svelte/elements';
 	import type { LoginError } from '$lib/DTO/UserLoginResponse';
 	import { getContext } from 'svelte';
+	import { page } from '$app/stores';
 	import type { ToastStore } from '$lib/stores/ToastStore.svelte';
 	import type { ForgottenPasswordError } from '$lib/DTO/ForgottenPasswordDTO';
 
@@ -62,6 +63,7 @@
 			{/each}
 		</div>
 		{#if isForgottenPassword}
+			<input type="hidden" name="lang" value={$page.data.lang} />
 			<span>{$LL.login.forgotten.description()}</span>
 		{/if}
 

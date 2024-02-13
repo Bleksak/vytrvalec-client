@@ -61,12 +61,13 @@ const accountAction: Action = async ({ request, locals }) => {
 };
 
 const forgottenPasswordAction: Action = async ({ request }) => {
-	const data = formDataToForgottenPasswordDTO(await request.formData());
+	const formData = await request.formData();
+	const data = formDataToForgottenPasswordDTO(formData);
 	if (data.type === 'error') {
 		return fail(400, { forgotten: data.value });
 	}
 
-	const response = await resetPassword(data.value);
+	const response = await resetPassword(data.value, formData.get('lang') as string);
 	if (response.type === 'error') {
 		return fail(400, response.errors);
 	}
