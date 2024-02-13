@@ -80,7 +80,15 @@ const cs = {
 				invalid_credentials: 'Neplatné přihlašovací údaje'
 			}
 		},
-		submit: 'Přihlásit'
+		submit: 'Přihlásit',
+		forgotten: {
+			title: 'Zapomenuté heslo',
+			prompt: 'Zapomněli jste heslo?',
+			submit: 'Odeslat',
+			description: 'Na e-mailovou adresu bude zaslán odkaz k obnovení hesla.',
+			success: 'Email odeslán',
+			error: 'Nastala chyba při odesílání emailu'
+		}
 	},
 
 	submission: {
@@ -165,11 +173,11 @@ const cs = {
 	results: {
 		title: 'Výsledky sezóny',
 		week_picker: ['Celá sezóna', 'První týden', 'Druhý týden', 'Třetí týden', 'Čtvrtý týden'],
-        no_results: 'Zatím nejsou žádné výsledky pro tento týden či sezónu',
-        faculty: 'Fakulta',
-        distance: 'Vzdálenost',
-        elevation: 'Převýšení',
-        points: 'Body',
+		no_results: 'Zatím nejsou žádné výsledky pro tento týden či sezónu',
+		faculty: 'Fakulta',
+		distance: 'Vzdálenost',
+		elevation: 'Převýšení',
+		points: 'Body',
 	},
 	profile: {
 		submissions: 'Aktivity',

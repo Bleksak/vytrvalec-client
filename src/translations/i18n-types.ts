@@ -219,6 +219,32 @@ type RootTranslation = {
 		 * P​ř​i​h​l​á​s​i​t
 		 */
 		submit: string
+		forgotten: {
+			/**
+			 * Z​a​p​o​m​e​n​u​t​é​ ​h​e​s​l​o
+			 */
+			title: string
+			/**
+			 * Z​a​p​o​m​n​ě​l​i​ ​j​s​t​e​ ​h​e​s​l​o​?
+			 */
+			prompt: string
+			/**
+			 * O​d​e​s​l​a​t
+			 */
+			submit: string
+			/**
+			 * N​a​ ​e​-​m​a​i​l​o​v​o​u​ ​a​d​r​e​s​u​ ​b​u​d​e​ ​z​a​s​l​á​n​ ​o​d​k​a​z​ ​k​ ​o​b​n​o​v​e​n​í​ ​h​e​s​l​a​.
+			 */
+			description: string
+			/**
+			 * E​m​a​i​l​ ​o​d​e​s​l​á​n
+			 */
+			success: string
+			/**
+			 * N​a​s​t​a​l​a​ ​c​h​y​b​a​ ​p​ř​i​ ​o​d​e​s​í​l​á​n​í​ ​e​m​a​i​l​u
+			 */
+			error: string
+		}
 	}
 	submission: {
 		/**
@@ -736,6 +762,32 @@ export type TranslationFunctions = {
 		 * Přihlásit
 		 */
 		submit: () => LocalizedString
+		forgotten: {
+			/**
+			 * Zapomenuté heslo
+			 */
+			title: () => LocalizedString
+			/**
+			 * Zapomněli jste heslo?
+			 */
+			prompt: () => LocalizedString
+			/**
+			 * Odeslat
+			 */
+			submit: () => LocalizedString
+			/**
+			 * Na e-mailovou adresu bude zaslán odkaz k obnovení hesla.
+			 */
+			description: () => LocalizedString
+			/**
+			 * Email odeslán
+			 */
+			success: () => LocalizedString
+			/**
+			 * Nastala chyba při odesílání emailu
+			 */
+			error: () => LocalizedString
+		}
 	}
 	submission: {
 		/**

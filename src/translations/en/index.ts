@@ -80,7 +80,15 @@ const en = {
 				invalid_credentials: 'Invalid credentials'
 			}
 		},
-		submit: 'Login'
+		submit: 'Login',
+		forgotten: {
+			title: 'Forgotten password',
+			prompt: 'Forgot your password?',
+			submit: 'Submit',
+			description: 'A link to password reset will be sent to the email address.',
+			success: 'Email sent',
+			error: 'An error occurred while sending an email'
+		}
 	},
 
 	submission: {
@@ -165,11 +173,11 @@ const en = {
 	results: {
 		title: 'Season Results',
 		week_picker: ['Whole Season', 'First Week', 'Second Week', 'Third Week', 'Fourth Week'],
-        no_results: 'There are no results for this week or season yet',
-        faculty: 'Faculty',
-        distance: 'Distance',
-        elevation: 'Elevation',
-        points: 'Points',
+		no_results: 'There are no results for this week or season yet',
+		faculty: 'Faculty',
+		distance: 'Distance',
+		elevation: 'Elevation',
+		points: 'Points',
 	},
 	profile: {
 		submissions: 'Submissions',

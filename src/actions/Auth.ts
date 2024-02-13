@@ -5,6 +5,7 @@ import type { UserLoginDTO } from '$lib/DTO/UserLoginDTO';
 import type { UserLoginResponse } from '$lib/DTO/UserLoginResponse';
 import type { CurrentUserResponse } from '$lib/DTO/CurrentUserResponse';
 import type { AccountChangeDTO, AccountChangeResponse } from '$lib/DTO/AccountChangeDTO';
+import type { ForgottenPasswordDTO, ForgottenPasswordResponse } from '$lib/DTO/ForgottenPasswordDTO';
 
 export const login = async (loginDTO: UserLoginDTO): Promise<UserLoginResponse> => {
 	const response = await axios.post(`/user/login`, loginDTO).catch((error) => {
@@ -117,3 +118,30 @@ export const accountChange = async (dto: AccountChangeDTO): Promise<AccountChang
 
 	return { type: 'success' };
 };
+
+export const resetPassword = async (forgottenPasswordDTO: ForgottenPasswordDTO): Promise<ForgottenPasswordResponse> => {
+	const response = await axios.post(`/user/reset`, forgottenPasswordDTO).catch((error) => {
+		if (error.response) {
+			return error.response;
+		}
+
+		return null;
+	});
+
+	if (response === null) {
+		return {
+			type: 'error',
+			errors: { forgotten: ['server_down'] }
+		};
+	}
+
+	if (response.status !== 201) {
+		return {
+			type: 'error',
+			errors: response?.data ?? {}
+		};
+	}
+
+	return { type: 'success' };
+};
+

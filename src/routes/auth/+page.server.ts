@@ -1,4 +1,4 @@
-import { accountChange, login } from '$actions/Auth';
+import { accountChange, login, resetPassword } from '$actions/Auth';
 import { formDataToUserLoginDTO } from '$lib/DTO/UserLoginDTO';
 import { fail, redirect, type Action } from '@sveltejs/kit';
 import axios from 'axios';
@@ -6,6 +6,7 @@ import { register } from '$actions/Auth';
 import { formDataToUserRegisterDTO } from '$lib/DTO/UserRegisterDTO';
 import { type Actions } from '@sveltejs/kit';
 import { formDataToAccountChangeDTO } from '$lib/DTO/AccountChangeDTO';
+import { formDataToForgottenPasswordDTO } from '$lib/DTO/ForgottenPasswordDTO';
 
 const loginAction: Action = async ({ cookies, request }) => {
 	const loginDTO = formDataToUserLoginDTO(await request.formData());
@@ -59,9 +60,23 @@ const accountAction: Action = async ({ request, locals }) => {
 	}
 };
 
+const forgottenPasswordAction: Action = async ({ request }) => {
+	const data = formDataToForgottenPasswordDTO(await request.formData());
+	if (data.type === 'error') {
+		return fail(400, { forgotten: data.value });
+	}
+
+	const response = await resetPassword(data.value);
+	if (response.type === 'error') {
+		return fail(400, response.errors);
+	}
+
+}
+
 export const actions: Actions = {
 	login: loginAction,
 	logout: logoutAction,
 	register: registerAction,
-	account: accountAction
+	account: accountAction,
+	forgotten: forgottenPasswordAction
 };
