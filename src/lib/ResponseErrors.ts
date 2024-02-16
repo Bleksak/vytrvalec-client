@@ -6,7 +6,9 @@ export type ResponseError =
 	| 'logged_in'
 	| 'too_large'
 	| 'negative'
-	| 'server_down';
+	| 'server_down'
+	| 'different'
+	| 'user_not_found';
 
 export type ResponseErrorMap<T> = {
 	[K in keyof T]?: Array<ResponseError>;

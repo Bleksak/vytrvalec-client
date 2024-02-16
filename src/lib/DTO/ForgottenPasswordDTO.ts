@@ -8,7 +8,7 @@ export type ForgottenPasswordResponse = | {
 };
 
 export type ForgottenPasswordError = ResponseErrorMap<ForgottenPasswordDTO> & {
-    forgotten?: Array<ResponseError>;
+    auth?: Array<ResponseError>;
 };
 
 export type ForgottenPasswordDTO = {

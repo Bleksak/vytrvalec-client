@@ -6,8 +6,10 @@
 	import { page } from '$app/stores';
 	import { enhance } from '$app/forms';
 	import SubmissionForm from './forms/SubmissionForm.svelte';
+	import { getContext } from 'svelte';
+	import type { DialogStore } from '$lib/stores/DialogStore.svelte';
 
-	let currentForm = $state<ConstructorOfATypedSvelteComponent>();
+	const dialogStore = getContext<DialogStore>('dialogStore');
 </script>
 
 {#if $page.data.user && $page.data.user.roles.includes('ROLE_STAFF')}
@@ -29,22 +31,12 @@
 </li>
 {#if !$page.data.user}
 	<li>
-		<Button
-			class="nav-button"
-			on:click={() => {
-				currentForm = LoginForm;
-			}}
-		>
+		<Button class="nav-button" onclick={() => dialogStore.open(LoginForm)}>
 			{$LL.navbar.login()}
 		</Button>
 	</li>
 	<li>
-		<Button
-			on:click={() => {
-				currentForm = RegistrationForm;
-			}}
-			class="secondary nav-button"
-		>
+		<Button on:click={() => dialogStore.open(RegistrationForm)} class="secondary nav-button">
 			{$LL.navbar.register()}
 		</Button>
 	</li>
@@ -56,31 +48,19 @@
 	</li>
 	{#if $page.data.currentSeason}
 		<li>
-			<Button
-				class="nav-button"
-				on:click={() => {
-					currentForm = SubmissionForm;
-				}}
-			>
+			<Button class="nav-button" on:click={() => dialogStore.open(SubmissionForm)}>
 				{$LL.navbar.submission()}
 			</Button>
 		</li>
 	{/if}
 	<li>
 		<form method="POST" action="/auth?/logout" use:enhance>
-			<Button class="secondary nav-button">
+			<Button type="submit" class="secondary nav-button">
 				{$LL.navbar.logout()}
 			</Button>
 		</form>
 	</li>
 {/if}
-
-<svelte:component
-	this={currentForm}
-	on:close={() => {
-		currentForm = undefined;
-	}}
-/>
 
 <style>
 	@media (max-width: 1200px) {

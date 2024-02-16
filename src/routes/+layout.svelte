@@ -1,5 +1,6 @@
 <script lang="ts">
 	import Toast from '$components/Toast.svelte';
+	import createDialogStore from '$lib/stores/DialogStore.svelte';
 	import { createToastStore } from '$lib/stores/ToastStore.svelte';
 	import { setContext } from 'svelte';
 	import { fade } from 'svelte/transition';
@@ -8,8 +9,11 @@
 		return this.normalize('NFD').replace(/[\u0300-\u036f]/g, '');
 	};
 
+	const dialogStore = createDialogStore();
 	const toastStore = createToastStore();
+
 	setContext('toastStore', toastStore);
+	setContext('dialogStore', dialogStore);
 </script>
 
 {#if toastStore.toasts().length > 0}
@@ -21,6 +25,11 @@
 		</div>
 	</div>
 {/if}
+
+{#if dialogStore.current()}
+    <svelte:component this={dialogStore.current()} />
+{/if}
+
 <slot />
 
 <style>

@@ -86,8 +86,8 @@ const cs = {
 			prompt: 'Zapomněli jste heslo?',
 			submit: 'Odeslat',
 			description: 'Na e-mailovou adresu bude zaslán odkaz k obnovení hesla.',
-			success: 'Email odeslán',
-			error: 'Nastala chyba při odesílání emailu'
+			success: 'E-mail odeslán',
+			error: 'Nastala chyba při odesílání e-mailu'
 		}
 	},
 
@@ -177,7 +177,7 @@ const cs = {
 		faculty: 'Fakulta',
 		distance: 'Vzdálenost',
 		elevation: 'Převýšení',
-		points: 'Body',
+		points: 'Body'
 	},
 	profile: {
 		submissions: 'Aktivity',
@@ -186,13 +186,21 @@ const cs = {
 			submissions: 'načítání aktivit...'
 		}
 	},
+	reset: {
+		title: 'Změna hesla',
+		password: 'Heslo',
+		passwordRepeat: 'Heslo znova',
+		success: 'Heslo bylo změněno',
+		error: 'Nastala chyba při změně hesla',
+		submit: 'Změnit'
+	},
 	activities: {
 		'Běh/Chůze': 'Běh a chůze',
 		'Kolo/Koloběžka': 'Kolo a koloběžka'
 	},
 	icons: {
 		'Běh/Chůze': 'runner',
-		'Kolo/Koloběžka': 'bike',
+		'Kolo/Koloběžka': 'bike'
 	}
 } satisfies BaseTranslation;
 

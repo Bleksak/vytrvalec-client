@@ -237,11 +237,11 @@ type RootTranslation = {
 			 */
 			description: string
 			/**
-			 * E​m​a​i​l​ ​o​d​e​s​l​á​n
+			 * E​-​m​a​i​l​ ​o​d​e​s​l​á​n
 			 */
 			success: string
 			/**
-			 * N​a​s​t​a​l​a​ ​c​h​y​b​a​ ​p​ř​i​ ​o​d​e​s​í​l​á​n​í​ ​e​m​a​i​l​u
+			 * N​a​s​t​a​l​a​ ​c​h​y​b​a​ ​p​ř​i​ ​o​d​e​s​í​l​á​n​í​ ​e​-​m​a​i​l​u
 			 */
 			error: string
 		}
@@ -534,6 +534,32 @@ type RootTranslation = {
 			submissions: string
 		}
 	}
+	reset: {
+		/**
+		 * Z​m​ě​n​a​ ​h​e​s​l​a
+		 */
+		title: string
+		/**
+		 * H​e​s​l​o
+		 */
+		password: string
+		/**
+		 * H​e​s​l​o​ ​z​n​o​v​a
+		 */
+		passwordRepeat: string
+		/**
+		 * H​e​s​l​o​ ​b​y​l​o​ ​z​m​ě​n​ě​n​o
+		 */
+		success: string
+		/**
+		 * N​a​s​t​a​l​a​ ​c​h​y​b​a​ ​p​ř​i​ ​z​m​ě​n​ě​ ​h​e​s​l​a
+		 */
+		error: string
+		/**
+		 * Z​m​ě​n​i​t
+		 */
+		submit: string
+	}
 	activities: {
 		/**
 		 * B​ě​h​ ​a​ ​c​h​ů​z​e
@@ -780,11 +806,11 @@ export type TranslationFunctions = {
 			 */
 			description: () => LocalizedString
 			/**
-			 * Email odeslán
+			 * E-mail odeslán
 			 */
 			success: () => LocalizedString
 			/**
-			 * Nastala chyba při odesílání emailu
+			 * Nastala chyba při odesílání e-mailu
 			 */
 			error: () => LocalizedString
 		}
@@ -1076,6 +1102,32 @@ export type TranslationFunctions = {
 			 */
 			submissions: () => LocalizedString
 		}
+	}
+	reset: {
+		/**
+		 * Změna hesla
+		 */
+		title: () => LocalizedString
+		/**
+		 * Heslo
+		 */
+		password: () => LocalizedString
+		/**
+		 * Heslo znova
+		 */
+		passwordRepeat: () => LocalizedString
+		/**
+		 * Heslo bylo změněno
+		 */
+		success: () => LocalizedString
+		/**
+		 * Nastala chyba při změně hesla
+		 */
+		error: () => LocalizedString
+		/**
+		 * Změnit
+		 */
+		submit: () => LocalizedString
 	}
 	activities: {
 		/**

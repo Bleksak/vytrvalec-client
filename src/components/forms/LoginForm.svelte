@@ -7,18 +7,18 @@
 	import type { HTMLDialogAttributes } from 'svelte/elements';
 	import type { LoginError } from '$lib/DTO/UserLoginResponse';
 	import { getContext } from 'svelte';
-	import { page } from '$app/stores';
 	import type { ToastStore } from '$lib/stores/ToastStore.svelte';
-	import type { ForgottenPasswordError } from '$lib/DTO/ForgottenPasswordDTO';
+	import ForgottenPasswordForm from './ForgottenPasswordForm.svelte';
+	import type { DialogStore } from '$lib/stores/DialogStore.svelte';
 
 	let { ...props } = $props<HTMLDialogAttributes>();
 	let dialog = $state<Dialog>();
 
 	let errors = $state<LoginError>();
-	let forgottenError = $state<ForgottenPasswordError>();
-	let isForgottenPassword = $state<boolean>(false);
 
 	const toastStore = getContext<ToastStore>('toastStore');
+
+	const dialogStore = getContext<DialogStore>('dialogStore');
 
 	const enhancer: SubmitFunction = () => {
 		return async ({ result, update }) => {
@@ -26,35 +26,26 @@
 				dialog?.close();
 				toastStore.add({
 					type: 'success',
-					message: isForgottenPassword ? $LL.login.forgotten.success() : $LL.login.success()
+					message: $LL.login.success()
 				});
 			} else if (result.type === 'failure') {
-				if (result.data?.login) {
-					errors = result.data?.login as LoginError;
-				} else {
-					forgottenError = result.data?.forgotten as ForgottenPasswordError;
-				}
+				errors = result.data as LoginError;
 				toastStore.add({
 					type: 'error',
-					message: isForgottenPassword ? $LL.login.forgotten.error() : $LL.login.error()
+					message: $LL.login.error()
 				});
 			}
 			update();
 		};
 	};
+
+	const openForgottenPassword = () => {
+		dialogStore.open(ForgottenPasswordForm);
+	};
 </script>
 
-<Dialog
-	bind:this={dialog}
-	header={isForgottenPassword ? $LL.login.forgotten.title() : $LL.login.title()}
-	{...props}
->
-	<form
-		method="POST"
-		action={isForgottenPassword ? '/auth?/forgotten' : '/auth?/login'}
-		use:enhance={enhancer}
-		name="login"
-	>
+<Dialog bind:this={dialog} header={$LL.login.title()} {...props}>
+	<form method="POST" action="/auth?/login" use:enhance={enhancer} name="login">
 		<div class="form-field">
 			{#each errors?.auth ?? [] as error}
 				<span class="error">
@@ -62,58 +53,43 @@
 				</span>
 			{/each}
 		</div>
-		{#if isForgottenPassword}
-			<input type="hidden" name="lang" value={$page.data.lang} />
-			<span>{$LL.login.forgotten.description()}</span>
-		{/if}
-
 		<div class="form-field">
 			<label for="email">
 				{$LL.login.email()}:
 			</label>
 			<input type="email" name="email" id="email" />
-			{#if !isForgottenPassword}
-				{#each errors?.email ?? [] as error}
-					<span class="error">
-						{$LL.login.errors.email[error as keyof typeof $LL.login.errors.email]()}
-					</span>
-				{/each}
-			{:else}
-				{#each forgottenError?.email ?? [] as error}
-					<span class="error">
-						<!-- TODO -->
-						{$LL.login.errors.email[error as keyof typeof $LL.login.errors.email]()}
-					</span>
-				{/each}
-			{/if}
+			{#each errors?.email ?? [] as error}
+				<span class="error">
+					{$LL.login.errors.email[error as keyof typeof $LL.login.errors.email]()}
+				</span>
+			{/each}
 		</div>
-		{#if !isForgottenPassword}
-			<div class="form-field">
-				<label for="password">
-					{$LL.login.password()}:
-				</label>
-				<input type="password" name="password" id="password" />
-				{#each errors?.password ?? [] as error}
-					<span class="error">
-						{$LL.login.errors.password[error as keyof typeof $LL.login.errors.password]()}
-					</span>
-				{/each}
-			</div>
 
-			<button type="button" on:click={() => (isForgottenPassword = true)}>
-				{$LL.login.forgotten.prompt()}
-			</button>
-		{/if}
+		<div class="form-field">
+			<label for="password">
+				{$LL.login.password()}:
+			</label>
+			<input type="password" name="password" id="password" />
+			{#each errors?.password ?? [] as error}
+				<span class="error">
+					{$LL.login.errors.password[error as keyof typeof $LL.login.errors.password]()}
+				</span>
+			{/each}
+		</div>
 
-		<Button class="middle">
-			{isForgottenPassword ? $LL.login.forgotten.submit() : $LL.login.submit()}
+		<button class="forgotten-password" type="button" on:click={openForgottenPassword}>
+			{$LL.login.forgotten.prompt()}
+		</button>
+
+		<Button type="submit" class="middle">
+			{$LL.login.submit()}
 		</Button>
 	</form>
 </Dialog>
 
 <style>
-	button {
-		color: gray;
+	.forgotten-password {
+		color: #444;
 		cursor: pointer;
 	}
 </style>
