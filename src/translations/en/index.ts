@@ -85,9 +85,9 @@ const en = {
 			title: 'Forgotten password',
 			prompt: 'Forgot your password?',
 			submit: 'Submit',
-			description: 'A link to password reset will be sent to the email address.',
-			success: 'Email sent',
-			error: 'An error occurred while sending an email'
+			description: 'Link to password reset will be sent to the email address.',
+			success: 'E-mail sent',
+			error: 'An error occurred while sending an e-mail'
 		}
 	},
 
@@ -177,7 +177,7 @@ const en = {
 		faculty: 'Faculty',
 		distance: 'Distance',
 		elevation: 'Elevation',
-		points: 'Points',
+		points: 'Points'
 	},
 	profile: {
 		submissions: 'Submissions',
@@ -197,7 +197,7 @@ const en = {
 	activities: {
 		'Běh/Chůze': 'Run and walk',
 		'Kolo/Koloběžka': 'Bike and scooter'
-	},
+	}
 } satisfies BaseTranslation;
 
 export default en;

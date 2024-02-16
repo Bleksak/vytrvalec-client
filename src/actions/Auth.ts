@@ -126,17 +126,18 @@ export const requestResetPassword = async (forgottenPasswordDTO: ForgottenPasswo
 			return error.response;
 		}
 
+
 		return null;
 	});
 
 	if (response === null) {
 		return {
 			type: 'error',
-			errors: { forgotten: ['server_down'] }
+			errors: { auth: ['server_down'] }
 		};
 	}
 
-	if (response.status !== 201) {
+	if (response.status !== 200) {
 		return {
 			type: 'error',
 			errors: response?.data ?? {}

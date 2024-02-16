@@ -237,11 +237,11 @@ type RootTranslation = {
 			 */
 			description: string
 			/**
-			 * E​m​a​i​l​ ​o​d​e​s​l​á​n
+			 * E​-​m​a​i​l​ ​o​d​e​s​l​á​n
 			 */
 			success: string
 			/**
-			 * N​a​s​t​a​l​a​ ​c​h​y​b​a​ ​p​ř​i​ ​o​d​e​s​í​l​á​n​í​ ​e​m​a​i​l​u
+			 * N​a​s​t​a​l​a​ ​c​h​y​b​a​ ​p​ř​i​ ​o​d​e​s​í​l​á​n​í​ ​e​-​m​a​i​l​u
 			 */
 			error: string
 		}
@@ -806,11 +806,11 @@ export type TranslationFunctions = {
 			 */
 			description: () => LocalizedString
 			/**
-			 * Email odeslán
+			 * E-mail odeslán
 			 */
 			success: () => LocalizedString
 			/**
-			 * Nastala chyba při odesílání emailu
+			 * Nastala chyba při odesílání e-mailu
 			 */
 			error: () => LocalizedString
 		}
