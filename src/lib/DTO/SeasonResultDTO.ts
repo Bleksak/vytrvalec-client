@@ -209,7 +209,7 @@ export class SeasonResult {
 
     getResultsForWeek(week: number): Array<ActivityResultRow> {
         if(week !== 0) {
-            return this.results.filter((w) => w.week === week-1);
+            return this.results.filter((w) => w.week === week-1).toSorted((a, b) => b.activity - a.activity);
         }
 
         let results: Array<ActivityResultRow> = [];
