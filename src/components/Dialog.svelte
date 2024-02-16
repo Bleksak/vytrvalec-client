@@ -1,13 +1,21 @@
 <script lang="ts">
-	import type { Snippet } from 'svelte';
+	import type { DialogStore } from '$lib/stores/DialogStore.svelte';
+	import { getContext, type Snippet } from 'svelte';
 	import type { HTMLDialogAttributes } from 'svelte/elements';
 
 	let { dialog, header, children, ...props } = $props<
-		HTMLDialogAttributes & { dialog?: HTMLDialogElement; header: string; children: Snippet }
+		HTMLDialogAttributes & {
+			dialog?: HTMLDialogElement;
+			header: string;
+			children: Snippet;
+		}
 	>();
+
+    const dialogStore = getContext<DialogStore>('dialogStore');
 
 	export function close() {
 		dialog?.close();
+        dialogStore.close();
 	}
 
 	$effect(() => {
@@ -15,7 +23,7 @@
 	});
 </script>
 
-<dialog bind:this={dialog} {...props} on:close>
+<dialog bind:this={dialog} {...props} on:close={close}>
 	<header class="dialog-header">
 		<h5>{header}</h5>
 
@@ -47,7 +55,7 @@
 		gap: 30px;
 		max-height: 100vh;
 
-        position: fixed;
+		position: fixed;
 	}
 
 	dialog::backdrop {
