@@ -3,7 +3,6 @@
 	import LL from '$translations/i18n-svelte';
 
 	const { userStats } = $props<{ userStats: UserStatisticsDTO }>();
-    $inspect(userStats);
 </script>
 
 <div class="stat">

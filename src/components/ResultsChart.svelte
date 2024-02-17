@@ -8,7 +8,6 @@
 
     let { faculties, results } = $props<{ faculties: Faculty[], results: ResultRow[] }>();
 
-    $inspect(results);
     const resultFaculties = results.map(result => faculties.find(faculty => faculty.id === result.faculty));
     const labels = resultFaculties.map(result => result?.name);
     const dataset = results.map(result => Number((result.distance / 1000).toFixed(1)));
