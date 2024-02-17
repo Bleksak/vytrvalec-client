@@ -1,17 +1,25 @@
 <script lang="ts">
-	import { fetchActivities } from '$actions/Activity';
-	import Dialog from '$components/Dialog.svelte';
-	import Button from '$components/Button.svelte';
-	import LL from '$translations/i18n-svelte';
 	import type { HTMLDialogAttributes } from 'svelte/elements';
-	import Select from '$components/FormComponent/Select.svelte';
 	import type { SubmissionCreateError } from '$lib/DTO/SubmissionCreateResponse';
 	import type { SubmitFunction } from '@sveltejs/kit';
-	import { getContext } from 'svelte';
 	import type { ToastStore } from '$lib/stores/ToastStore.svelte';
+	import type { ProfileSubmissionResponseDTO } from '$lib/DTO/SubmissionDTO';
+	import Dialog from '$components/Dialog.svelte';
+	import Button from '$components/Button.svelte';
+	import Select from '$components/FormComponent/Select.svelte';
+	import LL from '$translations/i18n-svelte';
+	import { fetchActivities } from '$actions/Activity';
+	import { getContext } from 'svelte';
 	import { enhance } from '$app/forms';
 
-	let { ...props } = $props<HTMLDialogAttributes>();
+	let { submission, ...props } = $props<
+		{ submission: ProfileSubmissionResponseDTO } & HTMLDialogAttributes
+	>();
+
+    // TODO: tady je asi bug ve svelte, kdyz neprekopiruju props, tak se ze svelte:component proste nepreberou
+    const restProps = {...props};
+    const submissionCopy = submission;
+
 	let errors = $state<SubmissionCreateError>();
 
 	let dialog = $state<Dialog>();
@@ -21,6 +29,8 @@
 	let dropzoneText = $state<HTMLElement>();
 
 	let uploadedFiles = $state<FileList>();
+
+    let dropzone = $state<HTMLElement>();
 
 	let imageUri = $state<string>();
 
@@ -40,12 +50,24 @@
 	};
 
 	$effect(() => {
-		if (uploadedFiles?.length !== undefined) {
+		if (!uploadedFiles?.length) {
+			displayImage(submissionCopy.image);
+		} else {
 			updateImagePreview(uploadedFiles[0]);
 		}
 	});
 
+    $effect(() => {
+        // NOTE: tohle nejde nastavit na div pomoci HTML tak to musi byt tady
+        dropzone?.addEventListener('dragenter', (e) => e.preventDefault());
+        dropzone?.addEventListener('dragover', (e) => e.preventDefault());
+        dropzone?.addEventListener('dragleave', (e) => e.preventDefault());
+        dropzone?.addEventListener('drop', handleDrop);
+    });
+
 	const handleDrop = (e: DragEvent) => {
+        e.preventDefault();
+
 		const dt = e.dataTransfer;
 		if (dt === null) {
 			return;
@@ -81,14 +103,14 @@
 
 				toastStore.add({
 					type: 'error',
-					message: $LL.submission.form.error()
+					message: $LL.submission.form.editErrorToast()
 				});
 			} else if (result.type === 'success') {
 				errors = undefined;
 				dialog?.close();
 				toastStore.add({
 					type: 'success',
-					message: $LL.submission.form.success()
+					message: $LL.submission.form.editSuccessToast()
 				});
 			}
 
@@ -99,21 +121,24 @@
 	};
 </script>
 
-<Dialog bind:this={dialog} header={$LL.submission.title()} {...props}>
+<Dialog bind:this={dialog} header={$LL.submission.editingTitle()} {...restProps}>
 	<form
 		method="POST"
-		action={'/submission?/create'}
+		action="/submission?/patch"
 		enctype="multipart/form-data"
 		use:enhance={onSubmit}
 	>
+		<input type="hidden" name="id" value={submissionCopy.id} />
+		<input type="hidden" name="updated_at" value={submissionCopy.updatedAt} />
+		{#if submissionCopy.message}
+			<p class="error">{$LL.submission.form.comment()}:</p>
+			<span class="error">{submissionCopy.message}</span>
+		{/if}
 		<div
+            bind:this={dropzone}
 			class="dropzone"
-			on:dragenter|preventDefault
-			on:dragleave|preventDefault
-			on:dragover|preventDefault
-			on:drop|preventDefault={handleDrop}
-			on:click={() => fileInput?.click()}
-			on:keypress={() => fileInput?.click()}
+			onclick={() => fileInput?.click()}
+			onkeypress={() => fileInput?.click()}
 			role="button"
 			tabindex="0"
 		>
@@ -123,7 +148,7 @@
 					{$LL.submission.form.image()}
 				</div>
 
-				<Button class="rounded small" type="button" on:click={onUploadClick}>
+				<Button class="rounded small" type="button" onclick={onUploadClick}>
 					{$LL.submission.form.chooseImage()}
 				</Button>
 			</div>
@@ -146,7 +171,7 @@
 		<label for="distance">
 			{$LL.submission.form.distance()} (km):
 		</label>
-		<input type="text" name="distance" id="distance" />
+		<input type="text" name="distance" id="distance" value={submissionCopy.distance / 1000} />
 		{#each errors?.distance ?? [] as error}
 			<span class="error">
 				{$LL.submission.form.errors.distance[error as keyof typeof $LL.submission.form.errors.distance]()}
@@ -156,7 +181,7 @@
 		<label for="elevation">
 			{$LL.submission.form.elevation()} (m):
 		</label>
-		<input type="text" name="elevation" id="elevation" />
+		<input type="text" name="elevation" id="elevation" value={submissionCopy.elevation} />
 		{#each errors?.elevation ?? [] as error}
 			<span class="error">
 				{$LL.submission.form.errors.elevation[error as keyof typeof $LL.submission.form.errors.elevation]()}
@@ -174,11 +199,12 @@
 				id="activity"
 				keys={activities.map((a) => $LL.activities[a.name as keyof typeof $LL.activities]())}
 				values={activities.map((a) => a.id)}
+                currentValue={submissionCopy.activity.id}
 			/>
 		{/await}
 
 		<Button class="full-width rounded">
-			{$LL.submission.form.submit()}
+			{$LL.submission.form.edit()}
 		</Button>
 	</form>
 </Dialog>

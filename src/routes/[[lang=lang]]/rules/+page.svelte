@@ -1,6 +1,3 @@
-<script>
-</script>
-
 <main>
 	<article>
 		<h2 class="no-transform">Pravidla výzvy</h2>

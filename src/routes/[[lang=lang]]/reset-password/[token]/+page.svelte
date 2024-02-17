@@ -1,23 +1,30 @@
 <script lang="ts">
-	import { StoreKey } from '$lib/stores/StoreKey';
 	import type { ToastStore } from '$lib/stores/ToastStore.svelte';
 	import type { SubmitFunction } from '@sveltejs/kit';
 	import { getContext } from 'svelte';
 	import LL from '$translations/i18n-svelte';
 	import { enhance } from '$app/forms';
 	import Button from '$components/Button.svelte';
+	import { goto } from '$app/navigation';
 
-	const toastStore = getContext<ToastStore>(StoreKey.TOAST_STORE);
+	const toastStore = getContext<ToastStore>('toastStore');
 
-	const onSubmit: SubmitFunction = () => {
+    let errors = $state();
+
+	const onSubmit: SubmitFunction = ({submitter}) => {
+        submitter?.setAttribute('disabled', 'disabled');
 		return async ({ result, update }) => {
 			if (result.type === 'success') {
 				toastStore.add({
 					type: 'success',
 					message: $LL.reset.success()
 				});
+
+                goto('/');
 			} else if (result.type === 'failure') {
-				//TODO
+                submitter?.removeAttribute('disabled');
+                errors = result.data;
+
 				toastStore.add({
 					type: 'error',
 					message: $LL.reset.error()
@@ -28,7 +35,7 @@
 	};
 </script>
 
-<main>
+<div class="reset-password">
 	<header>
 		<h3>{$LL.reset.title()}</h3>
 	</header>
@@ -48,22 +55,23 @@
 			{$LL.reset.submit()}
 		</Button>
 	</form>
-</main>
+</div>
 
 <style>
-	main {
+	.reset-password {
 		display: flex;
 		flex-direction: column;
 		align-items: center;
 		justify-content: center;
-		background-color: white;
+
+		margin-bottom: 40px;
 	}
+
 	form {
 		display: flex;
 		flex-direction: column;
 		justify-content: center;
 		max-width: 550px;
 		width: 100%;
-		margin-bottom: 20px;
 	}
 </style>

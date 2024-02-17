@@ -3,59 +3,83 @@
 	import type { UserResponse } from '$lib/DTO/UserResponse';
 	import FacultyTag from '$components/profile/FacultyTag.svelte';
 	import SubmissionCard from '$components/profile/SubmissionCard.svelte';
-	import profileDataStore from '$lib/stores/ProfileDataStore.svelte';
-	import LL from '../../../translations/i18n-svelte';
+	import LL from '$translations/i18n-svelte';
 	import ActivityStat from '$components/profile/ActivityStat.svelte';
+	import { fetchUserStatistics } from '$actions/Statistics';
+	import { fetchActivities } from '$actions/Activity';
+	import { fetchUserSubmissions } from '$actions/Submission';
+	import type { ProfileSubmissionResponseDTO } from '$lib/DTO/SubmissionDTO';
 
 	const currentUser: UserResponse = $page.data.user;
-	profileDataStore.refetch();
+
+	const activitiesPromise = fetchActivities();
+	const userStatisticsPromise = fetchUserStatistics(activitiesPromise);
+	const submissionsPromise = fetchUserSubmissions(activitiesPromise);
+
+	let submissions = $state<Array<ProfileSubmissionResponseDTO>>([]);
+
+	submissionsPromise.then((submissionsResult) => {
+		submissions = submissionsResult;
+	});
+
+	// TODO: currently this page only works for current user
 </script>
 
 <main>
-	<header>
-		<div class="user">
-			<h4 style="width: fit-content;">
-				{currentUser.firstName}
-				{currentUser.lastName}
-			</h4>
-			<FacultyTag facultyShortcut={currentUser.faculty.shortcut} />
-		</div>
-		<a href="/{$page.data.lang}/account">
-			<img src="/images/icons/settings.svg" alt="Settings" />
-		</a>
-	</header>
+	<div class="wrapper">
+		<header>
+			<div class="user">
+				<h4 style="width: fit-content;">
+					{currentUser.firstName}
+					{currentUser.lastName}
+				</h4>
+				<FacultyTag facultyShortcut={currentUser.faculty.shortcut} />
+			</div>
+			<a class="settings" href="/{$page.data.lang}/account">
+				<img class="icon" src="/images/icons/settings.svg" alt="Nastavení" title="Nastavení" />
+			</a>
+		</header>
 
-	{#await profileDataStore.promise()}
-		{$LL.profile.loading.statistics()}
-	{:then}
-		<div class="repeat statistics">
-			{#each profileDataStore.all().statistics as stat}
-				<ActivityStat {...stat} />
-			{/each}
-		</div>
-	{/await}
-	<h2 class="no-transform">{$LL.profile.submissions()}</h2>
-	{#await profileDataStore.promise()}
+		{#await userStatisticsPromise}
+			{$LL.profile.loading.statistics()}
+		{:then statistics}
+			<div class="statistics">
+				{#each statistics as stat}
+					<ActivityStat userStats={stat} />
+				{/each}
+			</div>
+		{/await}
+	</div>
+
+	{#await submissionsPromise}
 		{$LL.profile.loading.submissions()}
 	{:then}
-		<div class="repeat submissions">
-			{#each profileDataStore.all().submissions as submission}
-				<SubmissionCard {submission} />
+		<div class="submissions">
+			{#each submissions as submission}
+				{#key submission.id}
+					<SubmissionCard {submission} bind:submissions />
+				{/key}
+			{:else}
+				{$LL.profile.noSubmissions()}
 			{/each}
 		</div>
 	{/await}
 </main>
 
 <style>
+	.wrapper {
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
+	}
+
 	header {
 		display: flex;
-		flex-direction: row;
 		justify-content: space-between;
+		gap: 30px;
+		align-items: center;
 	}
-	a > img {
-		width: 30px;
-		aspect-ratio: 1/1;
-	}
+
 	main {
 		display: flex;
 		flex-direction: column;
@@ -66,26 +90,52 @@
 		padding: 20px;
 		background-color: white;
 	}
+
 	.user {
-		display: grid;
-		width: fit-content;
-		grid-template-columns: auto auto;
+		display: flex;
 		gap: 10px;
 		align-items: center;
+		align-self: flex-start;
 	}
-	.repeat {
-		display: grid;
-		gap: 15px;
-		justify-content: center;
-		margin: 20px;
+
+	.settings {
+		justify-self: flex-end;
 	}
+
 	.statistics {
-		grid-template-columns: repeat(auto-fill, minmax(200px, max-content));
+		display: flex;
+		flex-wrap: wrap;
+		gap: 80px;
 	}
+
 	.submissions {
-		grid-template-columns: repeat(auto-fill, minmax(300px, max-content));
+		display: grid;
+		grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+
+		justify-content: space-between;
+		gap: 15px;
 	}
-	.no-transform {
-		text-transform: none;
+
+	@media (max-width: 48em) {
+        .wrapper {
+            margin: 0 auto;
+        }
+
+		header {
+			justify-content: space-between;
+			gap: 80px;
+		}
+
+		.statistics {
+			justify-content: space-between;
+			margin: 0 auto;
+			width: 100%;
+		}
+
+		.submissions {
+			grid-template-columns: minmax(200px, 300px);
+			justify-content: center;
+			gap: 15px;
+		}
 	}
 </style>

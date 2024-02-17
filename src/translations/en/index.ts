@@ -184,7 +184,8 @@ const en = {
 		loading: {
 			statistics: 'Loading user statistics...',
 			submissions: 'Loading user submissions...'
-		}
+		},
+        noSubmissions: 'You have no submissions'
 	},
 	reset: {
 		title: 'Change password',

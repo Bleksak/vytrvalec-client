@@ -533,6 +533,10 @@ type RootTranslation = {
 			 */
 			submissions: string
 		}
+		/**
+		 * Z​a​t​í​m​ ​n​e​m​á​t​e​ ​ž​á​d​n​é​ ​a​k​t​i​v​i​t​y
+		 */
+		noSubmissions: string
 	}
 	reset: {
 		/**
@@ -1102,6 +1106,10 @@ export type TranslationFunctions = {
 			 */
 			submissions: () => LocalizedString
 		}
+		/**
+		 * Zatím nemáte žádné aktivity
+		 */
+		noSubmissions: () => LocalizedString
 	}
 	reset: {
 		/**

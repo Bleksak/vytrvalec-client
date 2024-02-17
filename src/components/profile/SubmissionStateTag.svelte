@@ -1,25 +1,34 @@
 <script lang="ts">
-	import { SubmissionStateColorMap } from '../../utils/colors';
-	import LL from '../../translations/i18n-svelte';
-	import { SubmissionStateEnum } from '$lib/enums/SubmissionStateEnum';
+	import { SubmissionStateColorMap } from '$utils/colors';
+	import LL from '$translations/i18n-svelte';
+	import type { ProfileSubmissionResponseDTO } from '$lib/DTO/SubmissionDTO';
 
-	let { state } = $props<{ state: string }>();
+	let { submission } = $props<{ submission: ProfileSubmissionResponseDTO }>();
+
+	const state = submission.reviewed
+		? submission.accepted
+			? 'accepted'
+			: 'rejected'
+		: 'pending';
 </script>
 
 <div
+	class="submission-state"
 	style:background-color={SubmissionStateColorMap[state] ||
-		SubmissionStateColorMap[SubmissionStateEnum.DEFAULT]}
+		SubmissionStateColorMap.default}
 >
-	<span>{$LL.submission.state[state.toString() as keyof typeof $LL.submission.state]()}</span>
+	<span class="state-text">
+		{$LL.submission.state[state.toString() as keyof typeof $LL.submission.state]()}
+	</span>
 </div>
 
 <style>
-	div {
+	.submission-state {
 		padding: 3px 15px;
 		width: fit-content;
-		margin: 5px;
 	}
-	span {
+
+	.state-text {
 		font-weight: bolder;
 		font-size: 18px;
 		color: #fff;

@@ -184,7 +184,8 @@ const cs = {
 		loading: {
 			statistics: 'Načítání statistik...',
 			submissions: 'načítání aktivit...'
-		}
+		},
+        noSubmissions: 'Zatím nemáte žádné aktivity'
 	},
 	reset: {
 		title: 'Změna hesla',

@@ -1,35 +1,35 @@
 <script lang="ts">
-	import type { ProfileStatistics } from '$lib/stores/ProfileDataStore.svelte';
-	import LL from '../../translations/i18n-svelte';
+	import type { UserStatisticsDTO } from '$lib/DTO/StatisticsDTO';
+	import LL from '$translations/i18n-svelte';
 
-	let { activity, distance, elevation } = $props<ProfileStatistics>();
+	const { userStats } = $props<{ userStats: UserStatisticsDTO }>();
+    $inspect(userStats);
 </script>
 
-<main>
-	<h5>{$LL.activities[activity.name as keyof typeof $LL.activities]()}</h5>
-	<div>
-		<img src="/images/icons/distance-blue.svg" alt="Distance" />
-		<p>{Number(distance / 1000).toFixed(1)} km</p>
+<div class="stat">
+	<h5>{$LL.activities[userStats.activity.name as keyof typeof $LL.activities]()}</h5>
+	<div class="stat-distance">
+		<img class="icon" src="/images/icons/distance-blue.svg" alt="Distance" />
+		<span>{Number(userStats.distance / 1000).toFixed(1)} km</span>
 	</div>
 
-	<div>
-		<img src="/images/icons/elevation-blue.svg" alt="Elevation" />
-		<p>{elevation} m</p>
+	<div class="stat-elevation">
+		<img class="icon" src="/images/icons/elevation-blue.svg" alt="Elevation" />
+		<span>{userStats.elevation} m</span>
 	</div>
-</main>
+</div>
 
 <style>
-	main > div {
+	.stat-distance,
+    .stat-elevation {
 		display: flex;
-		flex-direction: row;
 		align-items: center;
 		gap: 5px;
 	}
-	img {
-		width: 25px;
-		aspect-ratio: 1/1;
-	}
-	p {
+
+	span {
 		color: #005cab;
+        font-size: 1.4rem;
+        font-weight: 100;
 	}
 </style>

@@ -26,9 +26,7 @@
 	</div>
 {/if}
 
-{#if dialogStore.current()}
-    <svelte:component this={dialogStore.current()} />
-{/if}
+<svelte:component this={dialogStore.current()} {...dialogStore.props()} />
 
 <slot />
 
