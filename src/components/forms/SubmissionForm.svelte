@@ -10,8 +10,12 @@
 	import { getContext } from 'svelte';
 	import type { ToastStore } from '$lib/stores/ToastStore.svelte';
 	import { enhance } from '$app/forms';
+	import { getGlobalContext } from '$lib/stores/GlobalContext.svelte';
 
 	let { ...props } = $props<HTMLDialogAttributes>();
+
+	const refetchSubmissions = getGlobalContext<() => void>('refetchSubmissions');
+
 	let errors = $state<SubmissionCreateError>();
 
 	let dialog = $state<Dialog>();
@@ -90,6 +94,10 @@
 					type: 'success',
 					message: $LL.submission.form.success()
 				});
+
+				if (refetchSubmissions) {
+					refetchSubmissions();
+				}
 			}
 
 			submitter?.removeAttribute('disabled');
@@ -102,7 +110,7 @@
 <Dialog bind:this={dialog} header={$LL.submission.title()} {...props}>
 	<form
 		method="POST"
-		action={'/submission?/create'}
+		action="/submission?/create"
 		enctype="multipart/form-data"
 		use:enhance={onSubmit}
 	>

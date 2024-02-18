@@ -14,7 +14,6 @@
     const dialogStore = getContext<DialogStore>('dialogStore');
 
 	export function close() {
-		dialog?.close();
         dialogStore.close();
 	}
 

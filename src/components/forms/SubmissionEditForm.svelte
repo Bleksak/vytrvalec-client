@@ -11,14 +11,17 @@
 	import { fetchActivities } from '$actions/Activity';
 	import { getContext } from 'svelte';
 	import { enhance } from '$app/forms';
+	import { getGlobalContext } from '$lib/stores/GlobalContext.svelte';
 
 	let { submission, ...props } = $props<
-		{ submission: ProfileSubmissionResponseDTO } & HTMLDialogAttributes
+		{
+			submission: ProfileSubmissionResponseDTO;
+		} & HTMLDialogAttributes
 	>();
 
-    // TODO: tady je asi bug ve svelte, kdyz neprekopiruju props, tak se ze svelte:component proste nepreberou
-    const restProps = {...props};
-    const submissionCopy = submission;
+    const activitiesPromise = fetchActivities();
+
+    const refetchSubmissions = getGlobalContext<() => void>('refetchSubmissions');
 
 	let errors = $state<SubmissionCreateError>();
 
@@ -30,7 +33,7 @@
 
 	let uploadedFiles = $state<FileList>();
 
-    let dropzone = $state<HTMLElement>();
+	let dropzone = $state<HTMLElement>();
 
 	let imageUri = $state<string>();
 
@@ -51,22 +54,22 @@
 
 	$effect(() => {
 		if (!uploadedFiles?.length) {
-			displayImage(submissionCopy.image);
+			displayImage(submission.image);
 		} else {
 			updateImagePreview(uploadedFiles[0]);
 		}
 	});
 
-    $effect(() => {
-        // NOTE: tohle nejde nastavit na div pomoci HTML tak to musi byt tady
-        dropzone?.addEventListener('dragenter', (e) => e.preventDefault());
-        dropzone?.addEventListener('dragover', (e) => e.preventDefault());
-        dropzone?.addEventListener('dragleave', (e) => e.preventDefault());
-        dropzone?.addEventListener('drop', handleDrop);
-    });
+	$effect(() => {
+		// NOTE: tohle nejde nastavit na div pomoci HTML tak to musi byt tady
+		dropzone?.addEventListener('dragenter', (e) => e.preventDefault());
+		dropzone?.addEventListener('dragover', (e) => e.preventDefault());
+		dropzone?.addEventListener('dragleave', (e) => e.preventDefault());
+		dropzone?.addEventListener('drop', handleDrop);
+	});
 
 	const handleDrop = (e: DragEvent) => {
-        e.preventDefault();
+		e.preventDefault();
 
 		const dt = e.dataTransfer;
 		if (dt === null) {
@@ -112,6 +115,10 @@
 					type: 'success',
 					message: $LL.submission.form.editSuccessToast()
 				});
+
+				if (refetchSubmissions) {
+                    refetchSubmissions();
+				}
 			}
 
 			submitter?.removeAttribute('disabled');
@@ -121,21 +128,21 @@
 	};
 </script>
 
-<Dialog bind:this={dialog} header={$LL.submission.editingTitle()} {...restProps}>
+<Dialog bind:this={dialog} header={$LL.submission.editingTitle()} {...props}>
 	<form
 		method="POST"
 		action="/submission?/patch"
 		enctype="multipart/form-data"
 		use:enhance={onSubmit}
 	>
-		<input type="hidden" name="id" value={submissionCopy.id} />
-		<input type="hidden" name="updated_at" value={submissionCopy.updatedAt} />
-		{#if submissionCopy.message}
+		<input type="hidden" name="id" value={submission.id} />
+		<input type="hidden" name="updated_at" value={submission.updatedAt} />
+		{#if submission.message}
 			<p class="error">{$LL.submission.form.comment()}:</p>
-			<span class="error">{submissionCopy.message}</span>
+			<span class="error">{submission.message}</span>
 		{/if}
 		<div
-            bind:this={dropzone}
+			bind:this={dropzone}
 			class="dropzone"
 			onclick={() => fileInput?.click()}
 			onkeypress={() => fileInput?.click()}
@@ -171,7 +178,7 @@
 		<label for="distance">
 			{$LL.submission.form.distance()} (km):
 		</label>
-		<input type="text" name="distance" id="distance" value={submissionCopy.distance / 1000} />
+		<input type="text" name="distance" id="distance" value={submission.distance / 1000} />
 		{#each errors?.distance ?? [] as error}
 			<span class="error">
 				{$LL.submission.form.errors.distance[error as keyof typeof $LL.submission.form.errors.distance]()}
@@ -181,7 +188,7 @@
 		<label for="elevation">
 			{$LL.submission.form.elevation()} (m):
 		</label>
-		<input type="text" name="elevation" id="elevation" value={submissionCopy.elevation} />
+		<input type="text" name="elevation" id="elevation" value={submission.elevation} />
 		{#each errors?.elevation ?? [] as error}
 			<span class="error">
 				{$LL.submission.form.errors.elevation[error as keyof typeof $LL.submission.form.errors.elevation]()}
@@ -191,7 +198,7 @@
 		<label for="activity">
 			{$LL.submission.form.activity()}:
 		</label>
-		{#await fetchActivities()}
+		{#await activitiesPromise}
 			<span>Načítání</span>
 		{:then activities}
 			<Select
@@ -199,7 +206,7 @@
 				id="activity"
 				keys={activities.map((a) => $LL.activities[a.name as keyof typeof $LL.activities]())}
 				values={activities.map((a) => a.id)}
-                currentValue={submissionCopy.activity.id}
+				currentValue={submission.activity.id}
 			/>
 		{/await}
 

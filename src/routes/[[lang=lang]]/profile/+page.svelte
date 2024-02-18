@@ -9,6 +9,7 @@
 	import { fetchActivities } from '$actions/Activity';
 	import { fetchUserSubmissions } from '$actions/Submission';
 	import type { ProfileSubmissionResponseDTO } from '$lib/DTO/SubmissionDTO';
+	import { setGlobalContext } from '$lib/stores/GlobalContext.svelte';
 
 	const currentUser: UserResponse = $page.data.user;
 
@@ -18,9 +19,15 @@
 
 	let submissions = $state<Array<ProfileSubmissionResponseDTO>>([]);
 
-	submissionsPromise.then((submissionsResult) => {
-		submissions = submissionsResult;
-	});
+
+    const refetchSubmissions = () => {
+		fetchUserSubmissions(activitiesPromise).then((submissionsResult) => {
+			submissions = submissionsResult;
+		});
+	};
+
+    setGlobalContext('refetchSubmissions', refetchSubmissions);
+	refetchSubmissions();
 
 	// TODO: currently this page only works for current user
 </script>
@@ -68,9 +75,9 @@
 
 <style>
 	.wrapper {
-        display: flex;
-        flex-direction: column;
-        gap: 20px;
+		display: flex;
+		flex-direction: column;
+		gap: 20px;
 	}
 
 	header {
@@ -117,9 +124,9 @@
 	}
 
 	@media (max-width: 48em) {
-        .wrapper {
-            margin: 0 auto;
-        }
+		.wrapper {
+			margin: 0 auto;
+		}
 
 		header {
 			justify-content: space-between;

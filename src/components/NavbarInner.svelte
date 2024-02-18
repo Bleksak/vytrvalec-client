@@ -6,10 +6,11 @@
 	import { page } from '$app/stores';
 	import { enhance } from '$app/forms';
 	import SubmissionForm from './forms/SubmissionForm.svelte';
-	import { getContext } from 'svelte';
+	import { getAllContexts, getContext } from 'svelte';
 	import type { DialogStore } from '$lib/stores/DialogStore.svelte';
 
 	const dialogStore = getContext<DialogStore>('dialogStore');
+    const context = getAllContexts();
 </script>
 
 {#if $page.data.user && $page.data.user.roles.includes('ROLE_STAFF')}
@@ -31,12 +32,12 @@
 </li>
 {#if !$page.data.user}
 	<li>
-		<Button class="nav-button" onclick={() => dialogStore.open(LoginForm)}>
+		<Button class="nav-button" onclick={() => dialogStore.open(LoginForm, {}, context)}>
 			{$LL.navbar.login()}
 		</Button>
 	</li>
 	<li>
-		<Button on:click={() => dialogStore.open(RegistrationForm)} class="secondary nav-button">
+		<Button on:click={() => dialogStore.open(RegistrationForm, {}, context)} class="secondary nav-button">
 			{$LL.navbar.register()}
 		</Button>
 	</li>
@@ -48,7 +49,7 @@
 	</li>
 	{#if $page.data.currentSeason}
 		<li>
-			<Button class="nav-button" on:click={() => dialogStore.open(SubmissionForm)}>
+			<Button class="nav-button" on:click={() => dialogStore.open(SubmissionForm, {}, context)}>
 				{$LL.navbar.submission()}
 			</Button>
 		</li>

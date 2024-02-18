@@ -2,7 +2,7 @@
 	import { deleteSubmission } from '$actions/Submission';
 	import SubmissionStateTag from '$components/profile/SubmissionStateTag.svelte';
 	import LL from '$translations/i18n-svelte';
-	import { getContext } from 'svelte';
+	import { getAllContexts, getContext } from 'svelte';
 	import type { ToastStore } from '$lib/stores/ToastStore.svelte';
 	import type { DialogStore } from '$lib/stores/DialogStore.svelte';
 	import type { ProfileSubmissionResponseDTO } from '$lib/DTO/SubmissionDTO';
@@ -12,6 +12,8 @@
         submissions: Array<ProfileSubmissionResponseDTO>;
 		submission: ProfileSubmissionResponseDTO;
 	}>();
+
+    const contexts = getAllContexts();
 
 	const dialogStore = getContext<DialogStore>('dialogStore');
 	const toastStore = getContext<ToastStore>('toastStore');
@@ -90,7 +92,7 @@
 	</div>
 	{#if isEditable}
 		<div class="buttons">
-			<button onclick={() => dialogStore.open(SubmissionEditForm, { submission })}>
+			<button onclick={() => dialogStore.open(SubmissionEditForm, { submission }, contexts)}>
 				{$LL.submission.form.edit()}
 			</button>
 

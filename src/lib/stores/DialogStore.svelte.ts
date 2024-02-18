@@ -1,36 +1,29 @@
 import type { SvelteComponent, ComponentType, ComponentProps } from 'svelte';
-
-type Component = ComponentType<SvelteComponent>;
+import { hydrate, unmount } from 'svelte';
 
 export type DialogStore = {
-	open: <T extends SvelteComponent>(component: ComponentType<T>, props?: ComponentProps<T>) => void;
+	open: <T extends SvelteComponent>(
+		component: ComponentType<T>,
+		props?: ComponentProps<T>,
+		context?: Map<string, any>,
+	) => void;
 	close: () => void;
-    props: () => ComponentProps<SvelteComponent>;
-	current: () => Component | undefined;
 };
 
 const createDialogStore = (): DialogStore => {
-	let currentDialog = $state<Component>();
-    let currentProps = $state<ComponentProps<SvelteComponent>>({});
+	let currentDialog: Record<string, any> | undefined = undefined;
 
-	const open = <T extends SvelteComponent>(component: ComponentType<T>, props: ComponentProps<T> | {} = {}) => {
-        currentProps = props;
-		currentDialog = component;
-	};
+	const open = <T extends SvelteComponent>(
+		component: ComponentType<T>,
+		props: Record<string, any> = {},
+		context?: Map<string, any>,
+	) => (currentDialog = hydrate(component, { props, target: document.body, context }));
 
-	const close = () => {
-		currentDialog = undefined;
-        currentProps = {};
-	};
-
-	const current = () => currentDialog;
-    const props = () => currentProps;
+	const close = () => unmount(currentDialog!);
 
 	return {
 		open,
-		close,
-        props,
-		current
+		close
 	};
 };
 
