@@ -49,6 +49,10 @@
 </main>
 
 <style>
+    header {
+        position: relative;
+    }
+
 	header > article {
 		display: flex;
 		flex-direction: column;
