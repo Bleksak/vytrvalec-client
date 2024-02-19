@@ -5,24 +5,31 @@
 	import Button from '$components/Button.svelte';
 	import type { AccountChangeErrors } from '$lib/DTO/AccountChangeDTO';
 	import type { UserResponse } from '$lib/DTO/UserResponse';
+	import type { ToastStore } from '$lib/stores/ToastStore.svelte';
 	import LL from '$translations/i18n-svelte';
 	import type { SubmitFunction } from '@sveltejs/kit';
+	import { getContext } from 'svelte';
 
 	const currentUser: UserResponse = $page.data.user;
 
 	let password = $state<string>('');
 	let oldPassword = $state<string>('');
 	let errors = $state<AccountChangeErrors>({});
-	let success = $state<boolean>(false);
+
+    const toastStore = getContext<ToastStore>('toastStore');
 
 	const enhancer: SubmitFunction = () => {
-		return async ({ result, update }) => {
+		return async ({ result }) => {
 			if (result.type === 'failure') {
 				errors = result.data as AccountChangeErrors;
 				return;
 			}
 
-			success = true;
+            toastStore.add({
+                type: 'success',
+                message: $LL.account.success(),
+            })
+
 			password = '';
 			oldPassword = '';
 		};
@@ -33,9 +40,6 @@
 	<h1>{$LL.account.title()}</h1>
 
 	<form method="post" action="/auth?/account" use:enhance={enhancer}>
-		{#if success}
-			<span class="success">{$LL.account.success()}</span>
-		{/if}
 		<strong>{$LL.account.first_name()}: </strong><span>{currentUser.firstName}</span>
 		<strong>{$LL.account.last_name()}: </strong><span>{currentUser.lastName}</span>
 		<strong>{$LL.account.faculty()}: </strong><span>{currentUser.faculty.shortcut}</span>
