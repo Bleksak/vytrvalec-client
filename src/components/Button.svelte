@@ -12,7 +12,8 @@
 <style>
 	button {
 		cursor: pointer;
-		display: block;
+        display: inline-flex;
+        justify-content: center;
 		text-align: center;
 		min-width: 150px;
 		height: 50px;

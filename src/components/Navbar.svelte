@@ -20,6 +20,7 @@
 	};
 
 	afterNavigate(() => {
+        open = false;
 		scrollToTop();
 	});
 </script>

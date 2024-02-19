@@ -19,7 +19,7 @@
 
 <style>
 	.container {
-		position: sticky;
+		position: fixed;
 		bottom: 5vh;
 		background-color: #fff;
 		padding: 25px;
@@ -30,6 +30,7 @@
 		left: 50%;
 		transform: translateX(-50%);
 
+        width: 100%;
 		max-width: 850px;
 
 		flex-direction: column;
