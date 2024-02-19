@@ -1,11 +1,15 @@
 <script lang="ts">
 	import type { UserResponse } from '$lib/DTO/UserResponse';
 	import UserEditor from '$components/administration/user/UserEditor.svelte';
-	import { getContext } from 'svelte';
+	import { getAllContexts, getContext } from 'svelte';
 	import type { UserStore } from '$lib/stores/UserStore.svelte';
 	import Checkbox from '$components/FormComponent/Checkbox.svelte';
+	import type { DialogStore } from '$lib/stores/DialogStore.svelte';
 
 	const userStore = getContext<UserStore>('userStore');
+    const dialogStore = getContext<DialogStore>('dialogStore');
+
+    const context = getAllContexts();
 
 	const filter = () => {
 		return userStore.all().filter((user) => {
@@ -29,19 +33,6 @@
 	let filterText = $state('');
 
 	let filteredUsers: Array<UserResponse> = $derived(filter());
-
-	let currentUserEditor = $state<ConstructorOfATypedSvelteComponent>();
-	let currentUser = $state<number>(-1);
-
-	const openEditor = (userIndex: number) => {
-		currentUser = userIndex;
-		currentUserEditor = UserEditor;
-	};
-
-	const closeEditor = () => {
-		currentUser = -1;
-		currentUserEditor = undefined;
-	};
 </script>
 
 <div class="wrapper">
@@ -67,7 +58,7 @@
 		</thead>
 
 		<tbody>
-			{#each filteredUsers as user, idx}
+			{#each filteredUsers as user}
 				<tr>
 					<td>{user.firstName}</td>
 					<td>{user.lastName}</td>
@@ -85,7 +76,7 @@
 						/>
 					</td>
 					<td>
-						<button class="edit" on:click={() => openEditor(idx)}>
+						<button class="edit" on:click={() => dialogStore.open(UserEditor, {user: user}, context)}>
 							<img class="icon" src="/images/icons/edit.png" alt="Upravit" title="Upravit" />
 						</button>
 					</td>
@@ -94,12 +85,6 @@
 		</tbody>
 	</table>
 </div>
-
-<svelte:component
-	this={currentUserEditor}
-	on:close={closeEditor}
-	user={userStore.all()[currentUser] ?? null}
-/>
 
 <style>
 	.wrapper {

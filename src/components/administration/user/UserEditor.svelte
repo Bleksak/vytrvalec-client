@@ -11,14 +11,17 @@
 	import type { UserStore } from '$lib/stores/UserStore.svelte';
 	import Checkbox from '$components/FormComponent/Checkbox.svelte';
 	import Select from '$components/FormComponent/Select.svelte';
+	import type { ToastStore } from '$lib/stores/ToastStore.svelte';
 
-	const { user, ...props } = $props<{ user: UserResponse & HTMLDialogAttributes }>();
+	const { user, ...props } = $props<{ user: UserResponse } & HTMLDialogAttributes>();
 	let dialog = $state<Dialog>();
 	let facultiesPromise = fetchFaculties();
 
 	let editedUser = { ...user };
 
 	const userStore = getContext<UserStore>('userStore');
+
+    const toastStore = getContext<ToastStore>('toastStore');
 
 	let adminChecked = $state<boolean>(editedUser.roles.includes('ROLE_STAFF'));
 	let faculty = $state<number>(editedUser.faculty.id);
@@ -33,6 +36,11 @@
 					editedUser.faculty = faculties.find((f) => f.id == faculty) ?? faculties[0];
 					userStore.update(editedUser);
 				});
+
+                toastStore.add({
+                    type: 'success',
+                    message: 'Uživatel byl úspěšně upraven'
+                });
 			}
 
 			update();
@@ -42,6 +50,7 @@
 
 <Dialog header="Úprava uživatele" bind:this={dialog} {...props}>
 	<form method="POST" action="/administration/user?/update" use:enhance={enhancer}>
+		<input type="hidden" name="id" value={editedUser.id} />
 		<label for="first_name">
 			{$LL.registration.first_name()}:
 		</label>
