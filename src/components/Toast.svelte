@@ -17,8 +17,8 @@
 	class="toast"
 	class:toast-error={toast.type === 'error'}
 	class:toast-success={toast.type === 'success'}
-    on:click={closeToast}
-    transition:fade
+	on:click={closeToast}
+	transition:fade
 >
 	{toast.message}
 </button>

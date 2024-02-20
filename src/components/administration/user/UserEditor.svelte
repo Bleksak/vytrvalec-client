@@ -21,7 +21,7 @@
 
 	const userStore = getContext<UserStore>('userStore');
 
-    const toastStore = getContext<ToastStore>('toastStore');
+	const toastStore = getContext<ToastStore>('toastStore');
 
 	let adminChecked = $state<boolean>(editedUser.roles.includes('ROLE_STAFF'));
 	let faculty = $state<number>(editedUser.faculty.id);
@@ -37,10 +37,10 @@
 					userStore.update(editedUser);
 				});
 
-                toastStore.add({
-                    type: 'success',
-                    message: 'Uživatel byl úspěšně upraven'
-                });
+				toastStore.add({
+					type: 'success',
+					message: 'Uživatel byl úspěšně upraven'
+				});
 			}
 
 			update();

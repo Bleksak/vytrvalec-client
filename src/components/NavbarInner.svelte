@@ -10,7 +10,7 @@
 	import type { DialogStore } from '$lib/stores/DialogStore.svelte';
 
 	const dialogStore = getContext<DialogStore>('dialogStore');
-    const context = getAllContexts();
+	const context = getAllContexts();
 </script>
 
 {#if $page.data.user && $page.data.user.roles.includes('ROLE_STAFF')}
@@ -37,7 +37,10 @@
 		</Button>
 	</li>
 	<li>
-		<Button on:click={() => dialogStore.open(RegistrationForm, {}, context)} class="secondary nav-button">
+		<Button
+			on:click={() => dialogStore.open(RegistrationForm, {}, context)}
+			class="secondary nav-button"
+		>
 			{$LL.navbar.register()}
 		</Button>
 	</li>

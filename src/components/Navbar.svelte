@@ -9,23 +9,23 @@
 
 	const minWidth = 1200;
 
-    let scrollY = $state<number>(0);
+	let scrollY = $state<number>(0);
 
 	const scrollToTop = () => {
-        // NOTE: ve firefoxu nefunguje scrollTo 0, 0, proto tady scrollujeme na 1px a ne na 0
-        // treba se to v budoucnu zmeni
-        // da se to opravit odstranenim smooth scrollingu, ale bez nej to vypada zvlastne
+		// NOTE: ve firefoxu nefunguje scrollTo 0, 0, proto tady scrollujeme na 1px a ne na 0
+		// treba se to v budoucnu zmeni
+		// da se to opravit odstranenim smooth scrollingu, ale bez nej to vypada zvlastne
 
-        scrollY = 1;
+		scrollY = 1;
 	};
 
 	afterNavigate(() => {
-        open = false;
+		open = false;
 		scrollToTop();
 	});
 </script>
 
-<svelte:window bind:outerWidth bind:scrollY={scrollY} />
+<svelte:window bind:outerWidth bind:scrollY />
 
 <nav>
 	<div class="navigation-wrapper">

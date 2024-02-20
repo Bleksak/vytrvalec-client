@@ -5,17 +5,12 @@
 
 	let { submission } = $props<{ submission: ProfileSubmissionResponseDTO }>();
 
-	const state = submission.reviewed
-		? submission.accepted
-			? 'accepted'
-			: 'rejected'
-		: 'pending';
+	const state = submission.reviewed ? (submission.accepted ? 'accepted' : 'rejected') : 'pending';
 </script>
 
 <div
 	class="submission-state"
-	style:background-color={SubmissionStateColorMap[state] ||
-		SubmissionStateColorMap.default}
+	style:background-color={SubmissionStateColorMap[state] || SubmissionStateColorMap.default}
 >
 	<span class="state-text">
 		{$LL.submission.state[state.toString() as keyof typeof $LL.submission.state]()}

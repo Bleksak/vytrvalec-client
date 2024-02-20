@@ -20,7 +20,7 @@
 
 <style>
 	.stat-distance,
-    .stat-elevation {
+	.stat-elevation {
 		display: flex;
 		align-items: center;
 		gap: 5px;
@@ -28,7 +28,7 @@
 
 	span {
 		color: #005cab;
-        font-size: 1.4rem;
-        font-weight: 100;
+		font-size: 1.4rem;
+		font-weight: 100;
 	}
 </style>

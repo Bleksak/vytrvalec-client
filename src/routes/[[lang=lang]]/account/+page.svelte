@@ -16,7 +16,7 @@
 	let oldPassword = $state<string>('');
 	let errors = $state<AccountChangeErrors>({});
 
-    const toastStore = getContext<ToastStore>('toastStore');
+	const toastStore = getContext<ToastStore>('toastStore');
 
 	const enhancer: SubmitFunction = () => {
 		return async ({ result }) => {
@@ -25,10 +25,10 @@
 				return;
 			}
 
-            toastStore.add({
-                type: 'success',
-                message: $LL.account.success(),
-            })
+			toastStore.add({
+				type: 'success',
+				message: $LL.account.success()
+			});
 
 			password = '';
 			oldPassword = '';

@@ -49,9 +49,9 @@
 </main>
 
 <style>
-    header {
-        position: relative;
-    }
+	header {
+		position: relative;
+	}
 
 	header > article {
 		display: flex;
@@ -129,7 +129,7 @@
 
 		header article section.header {
 			width: 100%;
-            padding: 0;
+			padding: 0;
 		}
 
 		header article section.content {

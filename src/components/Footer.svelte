@@ -28,15 +28,15 @@
 		padding: 30px 0;
 	}
 
-    .footer-wrapper {
-        display: flex;
-        gap: 10px;
-        justify-content: space-between;
-        align-items: center;
+	.footer-wrapper {
+		display: flex;
+		gap: 10px;
+		justify-content: space-between;
+		align-items: center;
 		max-width: 1600px;
 		margin: 0 auto;
 		width: 100%;
-    }
+	}
 
 	footer span {
 		font-size: 1.6rem;

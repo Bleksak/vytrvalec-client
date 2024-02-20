@@ -5,7 +5,7 @@ export type DialogStore = {
 	open: <T extends SvelteComponent>(
 		component: ComponentType<T>,
 		props?: ComponentProps<T>,
-		context?: Map<string, any>,
+		context?: Map<string, any>
 	) => void;
 	close: () => void;
 };
@@ -16,7 +16,7 @@ const createDialogStore = (): DialogStore => {
 	const open = <T extends SvelteComponent>(
 		component: ComponentType<T>,
 		props: Record<string, any> = {},
-		context?: Map<string, any>,
+		context?: Map<string, any>
 	) => (currentDialog = hydrate(component, { props, target: document.body, context }));
 
 	const close = () => unmount(currentDialog!);

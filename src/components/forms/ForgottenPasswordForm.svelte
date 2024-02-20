@@ -17,19 +17,19 @@
 
 	const toastStore = getContext<ToastStore>('toastStore');
 
-	const enhancer: SubmitFunction = ({submitter}) => {
+	const enhancer: SubmitFunction = ({ submitter }) => {
 		submitter?.setAttribute('disabled', 'disabled');
 
 		return async ({ result }) => {
 			if (result.type === 'success') {
-                dialog?.close();
+				dialog?.close();
 
 				toastStore.add({
 					type: 'success',
 					message: $LL.login.forgotten.success()
 				});
 			} else if (result.type === 'failure') {
-                submitter?.removeAttribute('disabled');
+				submitter?.removeAttribute('disabled');
 				errors = result.data as ForgottenPasswordError;
 
 				toastStore.add({

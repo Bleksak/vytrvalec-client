@@ -9,10 +9,10 @@
 
 	const toastStore = getContext<ToastStore>('toastStore');
 
-    let errors = $state();
+	let errors = $state();
 
-	const onSubmit: SubmitFunction = ({submitter}) => {
-        submitter?.setAttribute('disabled', 'disabled');
+	const onSubmit: SubmitFunction = ({ submitter }) => {
+		submitter?.setAttribute('disabled', 'disabled');
 		return async ({ result, update }) => {
 			if (result.type === 'success') {
 				toastStore.add({
@@ -20,10 +20,10 @@
 					message: $LL.reset.success()
 				});
 
-                goto('/');
+				goto('/');
 			} else if (result.type === 'failure') {
-                submitter?.removeAttribute('disabled');
-                errors = result.data;
+				submitter?.removeAttribute('disabled');
+				errors = result.data;
 
 				toastStore.add({
 					type: 'error',

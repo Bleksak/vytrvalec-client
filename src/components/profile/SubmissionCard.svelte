@@ -9,11 +9,11 @@
 	import SubmissionEditForm from '$components/forms/SubmissionEditForm.svelte';
 
 	let { submission, submissions } = $props<{
-        submissions: Array<ProfileSubmissionResponseDTO>;
+		submissions: Array<ProfileSubmissionResponseDTO>;
 		submission: ProfileSubmissionResponseDTO;
 	}>();
 
-    const contexts = getAllContexts();
+	const contexts = getAllContexts();
 
 	const dialogStore = getContext<DialogStore>('dialogStore');
 	const toastStore = getContext<ToastStore>('toastStore');
@@ -27,19 +27,19 @@
 
 		const result = await deleteSubmission(submission.id);
 
-        if(!result) {
-            toastStore.add({
-                type: 'error',
-                message: $LL.submission.form.deleteErrorToast()
-            });
-        } else {
-            toastStore.add({
-                type: 'success',
-                message: $LL.submission.form.deleteSuccessToast()
-            });
+		if (!result) {
+			toastStore.add({
+				type: 'error',
+				message: $LL.submission.form.deleteErrorToast()
+			});
+		} else {
+			toastStore.add({
+				type: 'success',
+				message: $LL.submission.form.deleteSuccessToast()
+			});
 
-            submissions = submissions.filter((sub) => submission.id !== sub.id);
-        }
+			submissions = submissions.filter((sub) => submission.id !== sub.id);
+		}
 	};
 
 	const getIconName = () => {

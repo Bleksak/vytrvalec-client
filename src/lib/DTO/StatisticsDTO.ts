@@ -1,17 +1,17 @@
-import type { ActivityDTO } from "./ActivityDTO";
+import type { ActivityDTO } from './ActivityDTO';
 
 export type ActivityStatisticsDTO = {
-    activity: string,
-    distance: number,
+	activity: string;
+	distance: number;
 };
 
 export type TotalStatisticsDTO = {
-    users: number,
-    activities: Array<ActivityStatisticsDTO>
+	users: number;
+	activities: Array<ActivityStatisticsDTO>;
 };
 
 export type UserStatisticsDTO = {
-    activity: ActivityDTO;
-    distance: number;
-    elevation: number;
-}
+	activity: ActivityDTO;
+	distance: number;
+	elevation: number;
+};

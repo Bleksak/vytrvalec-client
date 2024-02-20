@@ -19,14 +19,13 @@
 
 	let submissions = $state<Array<ProfileSubmissionResponseDTO>>([]);
 
-
-    const refetchSubmissions = () => {
+	const refetchSubmissions = () => {
 		fetchUserSubmissions(activitiesPromise).then((submissionsResult) => {
 			submissions = submissionsResult;
 		});
 	};
 
-    setGlobalContext('refetchSubmissions', refetchSubmissions);
+	setGlobalContext('refetchSubmissions', refetchSubmissions);
 	refetchSubmissions();
 
 	// TODO: currently this page only works for current user

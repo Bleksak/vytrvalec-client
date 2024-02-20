@@ -70,11 +70,11 @@
 </main>
 
 <style>
-    main {
+	main {
 		max-width: 1640px;
 		margin: 0 auto;
 		width: 100%;
-    }
+	}
 
 	article {
 		display: flex;

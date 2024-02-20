@@ -6,7 +6,7 @@
 
 <div
 	style:background-color={FacultyColorMap[facultyShortcut as keyof typeof FacultyColorMap] || FacultyColorMap['DEFAULT']}
-    class="faculty-tag"
+	class="faculty-tag"
 >
 	<span>{facultyShortcut}</span>
 </div>

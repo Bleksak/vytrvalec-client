@@ -11,10 +11,10 @@
 		}
 	>();
 
-    const dialogStore = getContext<DialogStore>('dialogStore');
+	const dialogStore = getContext<DialogStore>('dialogStore');
 
 	export function close() {
-        dialogStore.close();
+		dialogStore.close();
 	}
 
 	$effect(() => {

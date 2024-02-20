@@ -19,9 +19,9 @@
 		} & HTMLDialogAttributes
 	>();
 
-    const activitiesPromise = fetchActivities();
+	const activitiesPromise = fetchActivities();
 
-    const refetchSubmissions = getGlobalContext<() => void>('refetchSubmissions');
+	const refetchSubmissions = getGlobalContext<() => void>('refetchSubmissions');
 
 	let errors = $state<SubmissionCreateError>();
 
@@ -117,7 +117,7 @@
 				});
 
 				if (refetchSubmissions) {
-                    refetchSubmissions();
+					refetchSubmissions();
 				}
 			}
 

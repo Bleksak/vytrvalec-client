@@ -102,5 +102,4 @@
 		padding: 10px;
 		padding-left: 20px;
 	}
-
 </style>

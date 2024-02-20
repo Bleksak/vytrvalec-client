@@ -24,13 +24,13 @@
 	let currentKey = $state<string>(keys[0]);
 
 	$effect(() => {
-        untrack(() => {
-            if(currentValue === undefined && values.length > 0) {
-                select(0);
-            } else if(currentValue !== undefined && values.length > 0) {
-                select(values.indexOf(currentValue));
-            }
-        })
+		untrack(() => {
+			if (currentValue === undefined && values.length > 0) {
+				select(0);
+			} else if (currentValue !== undefined && values.length > 0) {
+				select(values.indexOf(currentValue));
+			}
+		});
 	});
 
 	let selectElement = $state();

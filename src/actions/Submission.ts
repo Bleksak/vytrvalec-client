@@ -1,7 +1,11 @@
 import type { ActivityDTO } from '$lib/DTO/ActivityDTO';
 import type { SeasonDTO } from '$lib/DTO/SeasonDTO';
 import type { SubmissionCreateResponse } from '$lib/DTO/SubmissionCreateResponse';
-import type { SubmissionDTO, SubmissionResponseDTO, ProfileSubmissionResponseDTO } from '$lib/DTO/SubmissionDTO';
+import type {
+	SubmissionDTO,
+	SubmissionResponseDTO,
+	ProfileSubmissionResponseDTO
+} from '$lib/DTO/SubmissionDTO';
 import type { SubmissionStateDTO, SubmissionStateResponse } from '$lib/DTO/SubmissionStateDTO';
 import axios from 'axios';
 
@@ -68,7 +72,6 @@ export const setSubmissionState = async (
 				return err.response;
 			}
 
-
 			return null;
 		});
 
@@ -122,8 +125,9 @@ export const rejectSubmission = async (
 };
 
 // TODO: rewrite
-const PATCH_REQUEST_HEADERS =
-	{ headers: { "Content-Type": "multipart/form-data", "X-HTTP-Method-Override": "PATCH" } }
+const PATCH_REQUEST_HEADERS = {
+	headers: { 'Content-Type': 'multipart/form-data', 'X-HTTP-Method-Override': 'PATCH' }
+};
 
 export const patchSubmission = async (dto: SubmissionDTO, data: FormData) => {
 	const formData = new FormData();
@@ -143,14 +147,13 @@ export const patchSubmission = async (dto: SubmissionDTO, data: FormData) => {
 	const response = await axios
 		.postForm(`/submission/${id}`, formData, PATCH_REQUEST_HEADERS)
 		.catch((error) => {
-			console.log(error.response.data)
+			console.log(error.response.data);
 			if (error.response) {
 				return error.response;
 			}
 
 			return null;
 		});
-
 
 	if (response === null) {
 		return {
@@ -173,28 +176,32 @@ export const patchSubmission = async (dto: SubmissionDTO, data: FormData) => {
 
 export const deleteSubmission = async (submissionId: number): Promise<boolean> => {
 	const response = await axios.delete(`/submission/${submissionId}`).catch(() => {
-        return null;
-    });
+		return null;
+	});
 
-    if(response === null) {
-        return false;
-    }
+	if (response === null) {
+		return false;
+	}
 
-    if(response.status !== 200) {
-        return false;
-    }
+	if (response.status !== 200) {
+		return false;
+	}
 
-    return true;
-}
+	return true;
+};
 
-export const fetchUserSubmissions = async (activities: Promise<Array<ActivityDTO>> | Array<ActivityDTO>): Promise<ProfileSubmissionResponseDTO[]> => {
-    const activitiesData = activities instanceof Promise ? await activities : activities;
+export const fetchUserSubmissions = async (
+	activities: Promise<Array<ActivityDTO>> | Array<ActivityDTO>
+): Promise<ProfileSubmissionResponseDTO[]> => {
+	const activitiesData = activities instanceof Promise ? await activities : activities;
 
-    return ((await axios.get(`/submission/user`).catch(() => null))?.data ?? []).map(
-        (submission: { date: string | Date, activity: number | ActivityDTO }) => {
-            submission.date = new Date(submission.date);
-            submission.activity = activitiesData.find((activity: ActivityDTO) => activity.id === submission.activity)!;
-            return submission;
-        }
-    );
-}
+	return ((await axios.get(`/submission/user`).catch(() => null))?.data ?? []).map(
+		(submission: { date: string | Date; activity: number | ActivityDTO }) => {
+			submission.date = new Date(submission.date);
+			submission.activity = activitiesData.find(
+				(activity: ActivityDTO) => activity.id === submission.activity
+			)!;
+			return submission;
+		}
+	);
+};

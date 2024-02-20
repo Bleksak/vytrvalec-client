@@ -13,7 +13,7 @@ export type SubmissionStateError = ResponseErrorMap<SubmissionStateDTO> & {
 export type SubmissionStateResponse =
 	| {
 			type: 'success';
-            date: string;
+			date: string;
 	  }
 	| {
 			type: 'error';
@@ -58,7 +58,7 @@ export const formDataToSubmissionStateDTO = (formData: FormData): SubmissionStat
 			type: 'success',
 			dto: {
 				updated_at: updated_at!,
-				state: state!,
+				state: state!
 			}
 		};
 	}

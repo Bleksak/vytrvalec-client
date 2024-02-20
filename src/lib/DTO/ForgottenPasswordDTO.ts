@@ -1,50 +1,52 @@
-import type { ResponseError, ResponseErrorMap } from "$lib/ResponseErrors";
+import type { ResponseError, ResponseErrorMap } from '$lib/ResponseErrors';
 
-export type ForgottenPasswordResponse = | {
-    type: 'success';
-} | {
-    type: 'error';
-    errors: ForgottenPasswordError;
-};
+export type ForgottenPasswordResponse =
+	| {
+			type: 'success';
+	  }
+	| {
+			type: 'error';
+			errors: ForgottenPasswordError;
+	  };
 
 export type ForgottenPasswordError = ResponseErrorMap<ForgottenPasswordDTO> & {
-    auth?: Array<ResponseError>;
+	auth?: Array<ResponseError>;
 };
 
 export type ForgottenPasswordDTO = {
-    email: string;
+	email: string;
 };
 
 export type ForgottenPasswordReturn =
-    | {
-        type: 'dto';
-        value: ForgottenPasswordDTO;
-    }
-    | {
-        type: 'error';
-        value: ForgottenPasswordError;
-    };
+	| {
+			type: 'dto';
+			value: ForgottenPasswordDTO;
+	  }
+	| {
+			type: 'error';
+			value: ForgottenPasswordError;
+	  };
 
 export const formDataToForgottenPasswordDTO = (formData: FormData): ForgottenPasswordReturn => {
-    const email = formData.get('email')?.toString();
+	const email = formData.get('email')?.toString();
 
-    let errors: ForgottenPasswordError = {};
+	let errors: ForgottenPasswordError = {};
 
-    if (email === undefined || email === '') {
-        errors.email = ['blank'];
-    }
+	if (email === undefined || email === '') {
+		errors.email = ['blank'];
+	}
 
-    if (Object.keys(errors).length !== 0) {
-        return {
-            type: 'error',
-            value: errors
-        };
-    }
+	if (Object.keys(errors).length !== 0) {
+		return {
+			type: 'error',
+			value: errors
+		};
+	}
 
-    return {
-        type: 'dto',
-        value: {
-            email: email!,
-        }
-    };
+	return {
+		type: 'dto',
+		value: {
+			email: email!
+		}
+	};
 };

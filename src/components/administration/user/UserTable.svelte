@@ -7,9 +7,9 @@
 	import type { DialogStore } from '$lib/stores/DialogStore.svelte';
 
 	const userStore = getContext<UserStore>('userStore');
-    const dialogStore = getContext<DialogStore>('dialogStore');
+	const dialogStore = getContext<DialogStore>('dialogStore');
 
-    const context = getAllContexts();
+	const context = getAllContexts();
 
 	const filter = () => {
 		return userStore.all().filter((user) => {
@@ -76,7 +76,10 @@
 						/>
 					</td>
 					<td>
-						<button class="edit" on:click={() => dialogStore.open(UserEditor, {user: user}, context)}>
+						<button
+							class="edit"
+							on:click={() => dialogStore.open(UserEditor, { user: user }, context)}
+						>
 							<img class="icon" src="/images/icons/edit.png" alt="Upravit" title="Upravit" />
 						</button>
 					</td>

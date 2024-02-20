@@ -49,7 +49,7 @@ const patchAction: Action = async ({ request }) => {
 	if (result.type === 'error') {
 		return fail(400, { submission: result.errors });
 	}
-}
+};
 
 export const actions: Actions = {
 	create: createAction,

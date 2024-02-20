@@ -45,7 +45,7 @@ type SeasonResultCached = {
 export type ResultRow = {
 	faculty: number;
 	points: number; // including extra points
-    distance: number,
+	distance: number;
 };
 
 export type WeekResultRow = ActivityResultRow & {
@@ -53,9 +53,9 @@ export type WeekResultRow = ActivityResultRow & {
 };
 
 export type ActivityResultRow = {
-    activity: number;
-    row: Array<ResultRow>;
-}
+	activity: number;
+	row: Array<ResultRow>;
+};
 
 export class SeasonResult {
 	data: SeasonResultDTO;
@@ -102,26 +102,25 @@ export class SeasonResult {
 						return {
 							points: i + 1,
 							faculty: result.faculty,
-                            distance: result.distance
+							distance: result.distance
 						};
 					})) {
-
 					let facultyResult = weekResultRow.row.find((row) => row.faculty === result.faculty);
 
-                    if(!facultyResult) {
-                        weekResultRow.row.push({
-                            faculty: result.faculty,
-                            points: result.points,
-                            distance: result.distance
-                        });
-                    } else {
-                        facultyResult.points += result.points;
-                        facultyResult.distance += result.distance;
-                    }
+					if (!facultyResult) {
+						weekResultRow.row.push({
+							faculty: result.faculty,
+							points: result.points,
+							distance: result.distance
+						});
+					} else {
+						facultyResult.points += result.points;
+						facultyResult.distance += result.distance;
+					}
 				}
 
-                // TODO: check all faculties, if their points for a week is 0, 
-                // then check if they had any points in the previous week, if yes, give them at least 1 point
+				// TODO: check all faculties, if their points for a week is 0,
+				// then check if they had any points in the previous week, if yes, give them at least 1 point
 
 				// 3. add extra points
 				for (const extras of activity.extras) {
@@ -195,7 +194,7 @@ export class SeasonResult {
 					winners.push(row);
 				} else {
 					winner.points += row.points;
-                    winner.distance += row.distance;
+					winner.distance += row.distance;
 				}
 			}
 		}
@@ -207,39 +206,41 @@ export class SeasonResult {
 		return this.results;
 	}
 
-    getResultsForWeek(week: number): Array<ActivityResultRow> {
-        if(week !== 0) {
-            return this.results.filter((w) => w.week === week-1).toSorted((a, b) => b.activity - a.activity);
-        }
+	getResultsForWeek(week: number): Array<ActivityResultRow> {
+		if (week !== 0) {
+			return this.results
+				.filter((w) => w.week === week - 1)
+				.toSorted((a, b) => b.activity - a.activity);
+		}
 
-        let results: Array<ActivityResultRow> = [];
+		let results: Array<ActivityResultRow> = [];
 
-        for (const week of this.results) {
-            const workingActivity = results.find((w) => w.activity === week.activity);
-            if(!workingActivity) {
-                results.push({
-                    activity: week.activity,
-                    row: JSON.parse(JSON.stringify(week.row))
-                });
-            } else {
-                for(const row of week.row) {
-                    let workingRow = workingActivity.row.find((w) => w.faculty === row.faculty);
-                    if(!workingRow) {
-                        workingActivity.row.push(row);
-                    } else {
-                        workingRow.points += row.points;
-                        workingRow.distance += row.distance;
-                    }
-                }
-            }
-        }
+		for (const week of this.results) {
+			const workingActivity = results.find((w) => w.activity === week.activity);
+			if (!workingActivity) {
+				results.push({
+					activity: week.activity,
+					row: JSON.parse(JSON.stringify(week.row))
+				});
+			} else {
+				for (const row of week.row) {
+					let workingRow = workingActivity.row.find((w) => w.faculty === row.faculty);
+					if (!workingRow) {
+						workingActivity.row.push(row);
+					} else {
+						workingRow.points += row.points;
+						workingRow.distance += row.distance;
+					}
+				}
+			}
+		}
 
-        for (const result of results) {
-            result.row.sort((a, b) => b.points - a.points);
-        }
+		for (const result of results) {
+			result.row.sort((a, b) => b.points - a.points);
+		}
 
-        results.sort((a, b) => b.activity - a.activity);
+		results.sort((a, b) => b.activity - a.activity);
 
-        return results;
-    }
+		return results;
+	}
 }
