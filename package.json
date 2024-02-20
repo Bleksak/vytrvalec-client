@@ -4,6 +4,8 @@
 	"private": true,
 	"scripts": {
 		"dev": "npm-run-all --parallel vite typesafe-i18n",
+		"prod": "npm-run-all --parallel server typesafe-i18n",
+        "server": "node build/index.js",
 		"vite": "vite",
 		"build": "vite build",
 		"preview": "vite preview",
