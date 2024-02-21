@@ -3,12 +3,36 @@
 	import Button from './Button.svelte';
 	import { browser } from '$app/environment';
 
-	let cookiesAccepted = $state(browser ? window.localStorage.getItem('cookiesAccepted') : true);
+    // taken from: https://www.w3schools.com/js/js_cookies.asp
+	const setCookie = (cname: string, cvalue: any, exdays: number): void => {
+		const d = new Date();
+		d.setTime(d.getTime() + exdays * 24 * 60 * 60 * 1000);
+		let expires = 'expires=' + d.toUTCString();
+		document.cookie = cname + '=' + cvalue + ';' + expires + ';path=/';
+	}
 
-	const acceptCookies = () => {
-		window.localStorage.setItem('cookiesAccepted', 'true');
-		cookiesAccepted = true;
-	};
+	const getCookie = (cname: string): string => {
+		let name = cname + '=';
+		let decodedCookie = decodeURIComponent(document.cookie);
+		let ca = decodedCookie.split(';');
+		for (let i = 0; i < ca.length; i++) {
+			let c = ca[i];
+			while (c.charAt(0) == ' ') {
+				c = c.substring(1);
+			}
+			if (c.indexOf(name) == 0) {
+				return c.substring(name.length, c.length);
+			}
+		}
+		return '';
+	}
+
+    let cookiesAccepted = $state(browser ? getCookie('cookiesAccepted') === 'true' : true);
+
+    const acceptCookies = () => {
+        setCookie('cookiesAccepted', 'true', 365);
+        cookiesAccepted = true;
+    };
 </script>
 
 <div class="container" class:hidden={cookiesAccepted}>
