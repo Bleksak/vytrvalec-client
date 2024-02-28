@@ -14,8 +14,9 @@ spec:
       containers:
         - name: client
           # TODO: tady zmenit na url
-          imagePullPolicy: IfNotPresent
-          image: vytrvalec-client
+          # image: vytrvalec-client
+          imagePullPolicy: Always
+          image: ipmil.civ.zcu.cz:4567/webs/vytrvalec-client/app
           ports:
             - containerPort: 3000
 
