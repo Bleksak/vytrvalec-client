@@ -12,7 +12,7 @@ spec:
         component: client
     spec:
       imagePullSecrets:
-        - name: gitlab-project-registry
+        - name: client-deploy-token
       containers:
         - name: client
           # TODO: tady zmenit na url
