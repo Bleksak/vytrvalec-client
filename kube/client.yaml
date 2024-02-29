@@ -16,6 +16,8 @@ spec:
           # TODO: tady zmenit na url
           # image: vytrvalec-client
           imagePullPolicy: Always
+          imagePullSecrets:
+            - name: gitlab-project-registry
           image: ipmil.civ.zcu.cz:4567/webs/vytrvalec-client/app
           ports:
             - containerPort: 3000
