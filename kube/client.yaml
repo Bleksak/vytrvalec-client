@@ -18,7 +18,7 @@ spec:
           # TODO: tady zmenit na url
           # image: vytrvalec-client
           imagePullPolicy: Always
-          image: ipmil.civ.zcu.cz:4567/kiv/vytrvalec-webclient/app
+          image: ipmil.civ.zcu.cz:4567/kiv/vytrvalec-webclient/app:${CI_COMMIT_SHORT_SHA}
           ports:
             - containerPort: 3000
 
