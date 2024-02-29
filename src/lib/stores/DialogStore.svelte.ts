@@ -22,7 +22,7 @@ const createDialogStore = (): DialogStore => {
             unmount(currentDialog);
         }
 
-        currentDialog = hydrate(component, { props, target: document.body, context }));
+        currentDialog = hydrate(component, { props, target: document.body, context });
     }
 
 
