@@ -17,7 +17,14 @@ const createDialogStore = (): DialogStore => {
 		component: ComponentType<T>,
 		props: Record<string, any> = {},
 		context?: Map<string, any>
-	) => (currentDialog = hydrate(component, { props, target: document.body, context }));
+	) =>  {
+        if(currentDialog) {
+            unmount(currentDialog);
+        }
+
+        currentDialog = hydrate(component, { props, target: document.body, context }));
+    }
+
 
 	const close = () => unmount(currentDialog!);
 
