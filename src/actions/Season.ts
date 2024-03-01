@@ -83,7 +83,7 @@ export const createSeasonCache = async (season: SeasonDTO): Promise<boolean> => 
 };
 
 export const fetchPastSeasons = async (): Promise<Array<FullSeasonDTO>> => {
-	return ((await axios.get('/season/past/').catch(() => null))?.data ?? []).map(
+	return ((await axios.get('/season/past').catch(() => null))?.data ?? []).map(
 		(season: FullSeasonDTO) => {
 			season.start = new Date(season.start);
 			season.end = new Date(season.end);
