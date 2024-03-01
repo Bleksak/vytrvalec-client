@@ -6,7 +6,7 @@
 	import type { SubmitFunction } from '@sveltejs/kit';
 	import type { HTMLDialogAttributes } from 'svelte/elements';
 	import type { LoginError } from '$lib/DTO/UserLoginResponse';
-	import { getContext } from 'svelte';
+	import { getAllContexts, getContext } from 'svelte';
 	import type { ToastStore } from '$lib/stores/ToastStore.svelte';
 	import ForgottenPasswordForm from './ForgottenPasswordForm.svelte';
 	import type { DialogStore } from '$lib/stores/DialogStore.svelte';
@@ -19,6 +19,8 @@
 	const toastStore = getContext<ToastStore>('toastStore');
 
 	const dialogStore = getContext<DialogStore>('dialogStore');
+
+    const currentContext = getAllContexts();
 
 	const enhancer: SubmitFunction = () => {
 		return async ({ result, update }) => {
@@ -39,9 +41,7 @@
 		};
 	};
 
-	const openForgottenPassword = () => {
-		dialogStore.open(ForgottenPasswordForm);
-	};
+	const openForgottenPassword = () => dialogStore.open(ForgottenPasswordForm, {}, currentContext);
 </script>
 
 <Dialog bind:this={dialog} header={$LL.login.title()} {...props}>
