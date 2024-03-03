@@ -199,6 +199,8 @@ export class SeasonResult {
 			}
 		}
 
+        winners.sort((a, b) => b.points - a.points);
+
 		return winners;
 	}
 

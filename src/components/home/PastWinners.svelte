@@ -70,7 +70,7 @@
 						</section>
 					</article>
 					{#if seasonResults.has(currentSelection!)}
-						{@const    seasonResult = seasonResults.get(currentSelection!)}
+						{@const seasonResult = seasonResults.get(currentSelection!)}
 						{@const winners = seasonResult?.getTotalWinners().slice(0, 3) ?? []}
 						{#await facultiesPromise then faculties}
 							<div class="winners-wrapper">
