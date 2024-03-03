@@ -97,7 +97,7 @@ export class SeasonResult {
 
 				// 2. fill rows with sorted data
 				for (const result of activity.results
-					.toSorted((a, b) => b.distance - a.distance)
+					.toSorted((a, b) => a.distance - b.distance)
 					.map((result, i) => {
 						return {
 							points: i + 1,
@@ -236,7 +236,7 @@ export class SeasonResult {
 		}
 
 		for (const result of results) {
-			result.row.sort((a, b) => a.points - b.points);
+			result.row.sort((a, b) => b.points - a.points);
 		}
 
 		results.sort((a, b) => a.activity - b.activity);
