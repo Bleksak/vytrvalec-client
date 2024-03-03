@@ -210,7 +210,7 @@ export class SeasonResult {
 		if (week !== 0) {
 			return this.results
 				.filter((w) => w.week === week - 1)
-				.toSorted((a, b) => b.activity - a.activity);
+				.toSorted((a, b) => a.activity - b.activity);
 		}
 
 		let results: Array<ActivityResultRow> = [];
@@ -236,10 +236,10 @@ export class SeasonResult {
 		}
 
 		for (const result of results) {
-			result.row.sort((a, b) => b.points - a.points);
+			result.row.sort((a, b) => a.points - b.points);
 		}
 
-		results.sort((a, b) => b.activity - a.activity);
+		results.sort((a, b) => a.activity - b.activity);
 
 		return results;
 	}
