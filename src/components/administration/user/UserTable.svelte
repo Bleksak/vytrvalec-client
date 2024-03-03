@@ -17,10 +17,10 @@
 
 			return (
 				user.firstName.toLowerCase().removeAccents().includes(withoutAccents) ||
-					user.lastName.toLowerCase().removeAccents().includes(withoutAccents) ||
-					user.email.toLowerCase().includes(filterText.toLowerCase().removeAccents()) ||
-					user.faculty.shortcut.toLowerCase().includes(filterText.toLowerCase()) ||
-					user.faculty.name.toLowerCase().removeAccents().includes(withoutAccents),
+				user.lastName.toLowerCase().removeAccents().includes(withoutAccents) ||
+				user.email.toLowerCase().includes(filterText.toLowerCase().removeAccents()) ||
+				user.faculty.shortcut.toLowerCase().includes(filterText.toLowerCase()) ||
+				user.faculty.name.toLowerCase().removeAccents().includes(withoutAccents) ||
 				(
 					user.firstName.toLowerCase().removeAccents() +
 					' ' +
