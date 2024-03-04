@@ -121,13 +121,15 @@
 		</div>
 	</div>
 
-	<div class="submissions">
-		<Widget title="Aktivity">
-			<section class="submissions-content">
-				<SubmissionScroller {season} />
-			</section>
-		</Widget>
-	</div>
+	{#key season.id}
+		<div class="submissions">
+			<Widget title="Aktivity">
+				<section class="submissions-content">
+					<SubmissionScroller {season} />
+				</section>
+			</Widget>
+		</div>
+	{/key}
 </div>
 
 <style>
@@ -151,8 +153,6 @@
 	}
 
 	.season-data {
-		position: sticky;
-		top: 0;
 		display: flex;
 		flex-direction: column;
 		gap: 5px;
