@@ -21,7 +21,7 @@
 				{#each stats.activities as activity}
 					<div class="card">
 						<img src="/images/icons/bicycle.svg" alt="Bicycle icon" />
-						<h2>{activity.distance / 1000}&nbsp;km</h2>
+						<h2>{(activity.distance / 1000).toFixed(2)}&nbsp;km</h2>
 						<!-- TODO: Jak tohle prelozit? -->
 						<h5>{activity.activity}</h5>
 					</div>
