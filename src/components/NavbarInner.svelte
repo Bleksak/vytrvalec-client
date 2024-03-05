@@ -1,4 +1,5 @@
 <script lang="ts">
+	import {  locale, setLocale } from "$translations/i18n-svelte";
 	import Button from './Button.svelte';
 	import RegistrationForm from './forms/RegistrationForm.svelte';
 	import LoginForm from './forms/LoginForm.svelte';
@@ -8,10 +9,23 @@
 	import SubmissionForm from './forms/SubmissionForm.svelte';
 	import { getAllContexts, getContext } from 'svelte';
 	import type { DialogStore } from '$lib/stores/DialogStore.svelte';
+	import { detectLocale } from "$translations/i18n-util";
 
 	const dialogStore = getContext<DialogStore>('dialogStore');
 	const context = getAllContexts();
+	let currentLocale = $state(detectLocale());
+
+	const handleChange = () => {
+		const selectedLocale = currentLocale === 'cs' ? 'en' : 'cs';
+		currentLocale = selectedLocale;
+		setLocale(selectedLocale);
+	}
+	
 </script>
+
+<button on:click={handleChange}>
+	<img src={currentLocale === 'cs' ? "/images/lang/cs.svg": "/images/lang/en.svg"} alt={currentLocale}/>
+</button>
 
 {#if $page.data.user && $page.data.user.roles.includes('ROLE_STAFF')}
 	<li>
@@ -67,6 +81,13 @@
 {/if}
 
 <style>
+	img {
+		width: 30px;
+		aspect-ratio: 1/1;
+		object-fit: cover;
+		border-radius: 50%;
+		
+	}
 	@media (max-width: 1200px) {
 		li {
 			text-align: center;
