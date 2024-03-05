@@ -11,7 +11,7 @@
 	const resultFaculties = results.map((result) =>
 		faculties.find((faculty) => faculty.id === result.faculty)
 	);
-	const labels = resultFaculties.map((result) => result?.name);
+	const labels = resultFaculties.map((result) => result?.shortcut);
 	const dataset = results.map((result) => Number((result.distance / 1000).toFixed(1)));
 	const colors = resultFaculties.map(
 		(faculty) =>

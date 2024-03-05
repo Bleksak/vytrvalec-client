@@ -100,7 +100,7 @@
 							{#each result.row as row}
 								{@const faculty = faculties.find((faculty) => faculty.id === row.faculty)}
 								<div class="row">
-									<span>{faculty?.name}</span>
+									<span>{faculty?.shortcut}</span>
 									<span class="right">{(row.distance / 1000).toFixed(1)}</span>
 									<span class="right">{row.points}</span>
 								</div>
