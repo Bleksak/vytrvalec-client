@@ -87,7 +87,7 @@
 			{#each currentSeasonResultsArray as result}
 				{@const activity = activities.find((activity) => activity.id === result.activity)}
 				<div class="title">
-					<h2>{activity?.name}</h2>
+					<h2>{$LL.activities[activity?.name as keyof typeof $LL.activities]().toUpperCase()}</h2>
 				</div>
 				<div class="wrapper">
 					<section class="table">
