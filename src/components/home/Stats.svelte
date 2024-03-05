@@ -9,7 +9,7 @@
 	{#if stats.activities.length > 0}
 		<article>
 			<header>
-				<h2>Statistiky</h2>
+				<h2>{$LL.homepage.statistics.title().toUpperCase()}</h2>
 			</header>
 
 			<section>
@@ -22,8 +22,7 @@
 					<div class="card">
 						<img src="/images/icons/bicycle.svg" alt="Bicycle icon" />
 						<h2>{(activity.distance / 1000).toFixed(0)}&nbsp;km</h2>
-						<!-- TODO: Jak tohle prelozit? -->
-						<h5>{activity.activity}</h5>
+						<h5>{$LL.activities[activity.activity as keyof typeof $LL.activities]().toUpperCase()}</h5>
 					</div>
 				{/each}
 			</section>

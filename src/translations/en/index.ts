@@ -23,11 +23,17 @@ const en = {
 	homepage: {
 		title: 'Monthly Runner',
 		statistics: {
+			title: 'Statistics',
 			users: 'TOTAL PARTICIPANTS'
 		},
+		intro: "The monthly endurance event was created during the winter semester in 2020. This competition was prepared and organized by the Department of Physical Education of the Faculty of Mechanical Engineering of the University of West Bohemia in Pilsen with the intention to make students engage in sports during distance learning, which took place at the University of West Bohemia during the coronavirus pandemic.",
 		past_seasons: 'Past seasons',
 		current_year: 'Season',
-		charity: 'Charity'
+		charity: 'Charity',
+		about: {
+			title: 'About',
+			content: 'Participants compete over a four-week period for their teams (faculty, university institute / rectorate / U3V) in the number of kilometres run and cycled. These are summed up within teams and at the end of the week to decide the number of points that a given team receives. The final sum of points will determine the overall team ranking.'
+		}
 	},
 
 	registration: {
@@ -172,6 +178,7 @@ const en = {
 	},
 	results: {
 		title: 'Season Results',
+		results: 'Results',
 		week_picker: ['Whole Season', 'First Week', 'Second Week', 'Third Week', 'Fourth Week'],
 		no_results: 'There are no results for this week or season yet',
 		faculty: 'Faculty',
@@ -198,6 +205,9 @@ const en = {
 	activities: {
 		'Běh/Chůze': 'Run and walk',
 		'Kolo/Koloběžka': 'Bike and scooter'
+	}, 
+	rules: {
+		title: 'Rules'
 	}
 } satisfies BaseTranslation;
 

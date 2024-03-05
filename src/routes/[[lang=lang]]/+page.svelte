@@ -3,6 +3,7 @@
 	import Button from '$components/Button.svelte';
 	import PastWinners from '$components/home/PastWinners.svelte';
 	import Stats from '$components/home/Stats.svelte';
+	import LL from '$translations/i18n-svelte'
 </script>
 
 <header>
@@ -13,15 +14,12 @@
 		</section>
 		<section class="content">
 			<p>
-				Akce měsíční vytrvalec vznikla během zimního semestru v&nbsp;roce 2020. Tuto pohybovou
-				soutěž připravila a&nbsp;zorganizovala Katedra tělesné výchovy Fakulty strojní Západočeské
-				univerzity v&nbsp;Plzni s&nbsp;úmyslem rozhýbat studenty během distanční výuky, která
-				probíhala na&nbsp;ZČU během koronavirové pandemie.
+				{$LL.homepage.intro()}
 			</p>
 		</section>
 		<section class="buttons">
-			<a href="/{$page.data.lang}/rules"><Button class="squared secondary">PRAVIDLA</Button></a>
-			<a href="/{$page.data.lang}/results"><Button class="squared">VÝSLEDKY</Button></a>
+			<a href="/{$page.data.lang}/rules"><Button class="squared secondary">{$LL.rules.title().toUpperCase()}</Button></a>
+			<a href="/{$page.data.lang}/results"><Button class="squared">{$LL.results.results().toLocaleUpperCase()}</Button></a>
 		</section>
 	</article>
 </header>
@@ -32,13 +30,10 @@
 			<img src="/images/runner.png" alt="Runner" />
 		</div>
 		<article>
-			<h2>O VÝZVĚ</h2>
+			<h2>{$LL.homepage.about.title().toUpperCase()}</h2>
 			<section class="content">
 				<p>
-					Účastníci bojují čtyři týdny za&nbsp;svoje týmy (fakulta, VŠ ústav / rektorátní pracoviště
-					/ U3V) v&nbsp;počtu naběhaných a&nbsp;naježděných kilometrů. Ty se v&nbsp;rámci týmů
-					sčítají a&nbsp;v&nbsp;závěru týdne určují počet bodů, které daný tým získá a&nbsp;podle
-					toho se umístí v&nbsp; celkovém pořadí.
+					{$LL.homepage.about.content()}
 				</p>
 			</section>
 		</article>

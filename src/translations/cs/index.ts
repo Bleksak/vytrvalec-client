@@ -23,11 +23,17 @@ const cs = {
 	homepage: {
 		title: 'Měsíční Vytrvalec',
 		statistics: {
+			title: 'Statistiky',
 			users: 'UČASTNÍKŮ'
 		},
+		intro: "Akce měsíční vytrvalec vznikla během zimního semestru v roce 2020. Tuto pohybovou soutěž připravila a zorganizovala Katedra tělesné výchovy Fakulty strojní Západočeské univerzity v Plzni s úmyslem rozhýbat studenty během distanční výuky, která probíhala na ZČU během koronavirové pandemie.",
 		past_seasons: 'Předchozí ročníky',
 		current_year: 'Ročník',
-		charity: 'Charita'
+		charity: 'Charita',
+		about: {
+			title: 'O výzvě',
+			content: 'Účastníci bojují čtyři týdny za&nbsp;svoje týmy (fakulta, VŠ ústav / rektorátní pracoviště / U3V) v počtu naběhaných a naježděných kilometrů. Ty se v rámci týmů sčítají a v závěru týdne určují počet bodů, které daný tým získá a podle toho se umístí v celkovém pořadí.'
+		},
 	},
 
 	registration: {
@@ -172,6 +178,7 @@ const cs = {
 	},
 	results: {
 		title: 'Výsledky sezóny',
+		results: 'Výsledky',
 		week_picker: ['Celá sezóna', 'První týden', 'Druhý týden', 'Třetí týden', 'Čtvrtý týden'],
 		no_results: 'Zatím nejsou žádné výsledky pro tento týden či sezónu',
 		faculty: 'Fakulta',
@@ -202,6 +209,9 @@ const cs = {
 	icons: {
 		'Běh/Chůze': 'runner',
 		'Kolo/Koloběžka': 'bike'
+	},
+	rules: {
+		title: 'Pravidla'
 	}
 } satisfies BaseTranslation;
 
