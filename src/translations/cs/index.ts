@@ -211,7 +211,35 @@ const cs = {
 		'Kolo/Koloběžka': 'bike'
 	},
 	rules: {
-		title: 'Pravidla'
+		title: 'Pravidla',
+		challangeTitle: 'Pravidla výzvy',
+		intro: {
+			content1: 'Běhejte, choďte jezděte na kole, koloběžce, bruslích! Nejen, že uděláte něco pro svoje zdraví, ale přispějete na dobrou věc! Kilometry, které soutěžící urazí se přemění na koruny a přispějeme tím na charitu.',
+			content2: 'Průběžný počet najetých a uběhnutých kilometrů fakult a mimofakultních pracovišť budeme vyhodnocovat po týdnu a každá fakulta či pracoviště mají možnost získat body do celkového hodnocení.'
+		},
+		disciplines: {
+			title: 'Soutěž probíhá ve dvou disciplínách',
+		},
+		progress: {
+			title: 'Průběh soutěže',
+			content1: 'Uživatelé zaznamenávají své pohybové aktivity prostřednictvím některé mobilní aplikace na svůj telefon a nahrají je na tento portál.',
+			content2: 'Každý týden se vyhodnocuje počet uražených kilometrů v daných disciplínách. První tým dostane v každé disciplíně např. 15 bodů (podle počtu zůčastněných fakult a pracovišť), druhý 14 bodu, třetí 13 bodů, apod. Celkovým vítězem výzvy se stane tým, který získá nejvíce bodů za 4 týdny v součtu obou disciplín.'
+		},
+		extraPoints: {
+			title: 'Extra body!',
+			intro: 'Jednotlivci mohou pro svou fakultu získat extra body.',
+			thirdWeek: {
+				title: 'Třetí týden',
+				extraOne: 'pro jednotlivce, který uběhne/ujde/ujede nejvíce kilometrů v jednom dni v dané disciplíně.',
+				extraTwo: 'pro jednotlivce s největším součtem kilometrů za celý týden v dané disciplíně.',
+			},
+			fourthWeek: {
+				title: 'Čtvrtý týden',
+				extraOne: 'pro jednotlivce s největším převýšením za celý týden v dané disciplíně. Chůze více než 1000m a jízda více než 1500m.'
+			},
+			extraPoint: 'Extra bod',
+			extraPoints: 'Extra body'
+		},
 	}
 } satisfies BaseTranslation;
 

@@ -207,7 +207,35 @@ const en = {
 		'Kolo/Koloběžka': 'Bike and scooter'
 	}, 
 	rules: {
-		title: 'Rules'
+		title: 'Rules',
+		challangeTitle: 'Challange rules',
+		intro: {
+			content1: 'Run, walk, bike, scooter, skate! Not only will you do something for your health, but you will contribute to a good cause! The kilometres that the contestants travel will be converted into crowns and we will donate them to charity.',
+			content2: 'We will be evaluating the kilometers traveled by faculty and non-faculty departments on a weekly basis, and each faculty or department has the opportunity to earn points towards the overall score.'
+		},
+		disciplines: {
+			title: 'The competition is held in two disciplines',
+		},
+		progress: {
+			title: 'The course of the competition',
+			content1: 'Users record their physical activities through a mobile app on their phone and upload them to this portal.',
+			content2: 'Each week the number of kilometres completed in the given disciplines is evaluated. The first team gets 15 points in each discipline (depending on the number of participating faculties and departments), the second 14 points, the third 13 points, etc. The overall winner of the challenge will be the team that scores the most points over the 4 weeks in the sum of both disciplines.'
+		},
+		extraPoints: {
+			title: 'Extra points!',
+			intro: 'Individuals can earn extra points for their faculty.',
+			thirdWeek: {
+				title: 'Third week',
+				extraOne: 'for the individual who runs/walk/rides the most kilometres in one day in a given discipline.',
+				extraTwo: 'for the individual with the highest total kilometres for the whole week in the given discipline.',
+			},
+			fourthWeek: {
+				title: 'Fourth week',
+				extraOne: 'for the individual with the highest elevation gain for the entire week in a given discipline. Walking more than 1000m and riding more than 1500m.'
+			},
+			extraPoint: 'Extra point',
+			extraPoints: 'Extra points'
+		}
 	}
 } satisfies BaseTranslation;
 

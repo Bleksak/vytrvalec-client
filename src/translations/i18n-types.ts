@@ -73,10 +73,18 @@ type RootTranslation = {
 		title: string
 		statistics: {
 			/**
+			 * S​t​a​t​i​s​t​i​k​y
+			 */
+			title: string
+			/**
 			 * U​Č​A​S​T​N​Í​K​Ů
 			 */
 			users: string
 		}
+		/**
+		 * A​k​c​e​ ​m​ě​s​í​č​n​í​ ​v​y​t​r​v​a​l​e​c​ ​v​z​n​i​k​l​a​ ​b​ě​h​e​m​ ​z​i​m​n​í​h​o​ ​s​e​m​e​s​t​r​u​ ​v​ ​r​o​c​e​ ​2​0​2​0​.​ ​T​u​t​o​ ​p​o​h​y​b​o​v​o​u​ ​s​o​u​t​ě​ž​ ​p​ř​i​p​r​a​v​i​l​a​ ​a​ ​z​o​r​g​a​n​i​z​o​v​a​l​a​ ​K​a​t​e​d​r​a​ ​t​ě​l​e​s​n​é​ ​v​ý​c​h​o​v​y​ ​F​a​k​u​l​t​y​ ​s​t​r​o​j​n​í​ ​Z​á​p​a​d​o​č​e​s​k​é​ ​u​n​i​v​e​r​z​i​t​y​ ​v​ ​P​l​z​n​i​ ​s​ ​ú​m​y​s​l​e​m​ ​r​o​z​h​ý​b​a​t​ ​s​t​u​d​e​n​t​y​ ​b​ě​h​e​m​ ​d​i​s​t​a​n​č​n​í​ ​v​ý​u​k​y​,​ ​k​t​e​r​á​ ​p​r​o​b​í​h​a​l​a​ ​n​a​ ​Z​Č​U​ ​b​ě​h​e​m​ ​k​o​r​o​n​a​v​i​r​o​v​é​ ​p​a​n​d​e​m​i​e​.
+		 */
+		intro: string
 		/**
 		 * P​ř​e​d​c​h​o​z​í​ ​r​o​č​n​í​k​y
 		 */
@@ -89,6 +97,16 @@ type RootTranslation = {
 		 * C​h​a​r​i​t​a
 		 */
 		charity: string
+		about: {
+			/**
+			 * O​ ​v​ý​z​v​ě
+			 */
+			title: string
+			/**
+			 * Ú​č​a​s​t​n​í​c​i​ ​b​o​j​u​j​í​ ​č​t​y​ř​i​ ​t​ý​d​n​y​ ​z​a​&​n​b​s​p​;​s​v​o​j​e​ ​t​ý​m​y​ ​(​f​a​k​u​l​t​a​,​ ​V​Š​ ​ú​s​t​a​v​ ​/​ ​r​e​k​t​o​r​á​t​n​í​ ​p​r​a​c​o​v​i​š​t​ě​ ​/​ ​U​3​V​)​ ​v​ ​p​o​č​t​u​ ​n​a​b​ě​h​a​n​ý​c​h​ ​a​ ​n​a​j​e​ž​d​ě​n​ý​c​h​ ​k​i​l​o​m​e​t​r​ů​.​ ​T​y​ ​s​e​ ​v​ ​r​á​m​c​i​ ​t​ý​m​ů​ ​s​č​í​t​a​j​í​ ​a​ ​v​ ​z​á​v​ě​r​u​ ​t​ý​d​n​e​ ​u​r​č​u​j​í​ ​p​o​č​e​t​ ​b​o​d​ů​,​ ​k​t​e​r​é​ ​d​a​n​ý​ ​t​ý​m​ ​z​í​s​k​á​ ​a​ ​p​o​d​l​e​ ​t​o​h​o​ ​s​e​ ​u​m​í​s​t​í​ ​v​ ​c​e​l​k​o​v​é​m​ ​p​o​ř​a​d​í​.
+			 */
+			content: string
+		}
 	}
 	registration: {
 		/**
@@ -475,6 +493,10 @@ type RootTranslation = {
 		 * V​ý​s​l​e​d​k​y​ ​s​e​z​ó​n​y
 		 */
 		title: string
+		/**
+		 * V​ý​s​l​e​d​k​y
+		 */
+		results: string
 		week_picker: {
 			/**
 			 * C​e​l​á​ ​s​e​z​ó​n​a
@@ -584,6 +606,88 @@ type RootTranslation = {
 		 */
 		'Kolo/Koloběžka': string
 	}
+	rules: {
+		/**
+		 * P​r​a​v​i​d​l​a
+		 */
+		title: string
+		/**
+		 * P​r​a​v​i​d​l​a​ ​v​ý​z​v​y
+		 */
+		challangeTitle: string
+		intro: {
+			/**
+			 * B​ě​h​e​j​t​e​,​ ​c​h​o​ď​t​e​ ​j​e​z​d​ě​t​e​ ​n​a​ ​k​o​l​e​,​ ​k​o​l​o​b​ě​ž​c​e​,​ ​b​r​u​s​l​í​c​h​!​ ​N​e​j​e​n​,​ ​ž​e​ ​u​d​ě​l​á​t​e​ ​n​ě​c​o​ ​p​r​o​ ​s​v​o​j​e​ ​z​d​r​a​v​í​,​ ​a​l​e​ ​p​ř​i​s​p​ě​j​e​t​e​ ​n​a​ ​d​o​b​r​o​u​ ​v​ě​c​!​ ​K​i​l​o​m​e​t​r​y​,​ ​k​t​e​r​é​ ​s​o​u​t​ě​ž​í​c​í​ ​u​r​a​z​í​ ​s​e​ ​p​ř​e​m​ě​n​í​ ​n​a​ ​k​o​r​u​n​y​ ​a​ ​p​ř​i​s​p​ě​j​e​m​e​ ​t​í​m​ ​n​a​ ​c​h​a​r​i​t​u​.
+			 */
+			content1: string
+			/**
+			 * P​r​ů​b​ě​ž​n​ý​ ​p​o​č​e​t​ ​n​a​j​e​t​ý​c​h​ ​a​ ​u​b​ě​h​n​u​t​ý​c​h​ ​k​i​l​o​m​e​t​r​ů​ ​f​a​k​u​l​t​ ​a​ ​m​i​m​o​f​a​k​u​l​t​n​í​c​h​ ​p​r​a​c​o​v​i​š​ť​ ​b​u​d​e​m​e​ ​v​y​h​o​d​n​o​c​o​v​a​t​ ​p​o​ ​t​ý​d​n​u​ ​a​ ​k​a​ž​d​á​ ​f​a​k​u​l​t​a​ ​č​i​ ​p​r​a​c​o​v​i​š​t​ě​ ​m​a​j​í​ ​m​o​ž​n​o​s​t​ ​z​í​s​k​a​t​ ​b​o​d​y​ ​d​o​ ​c​e​l​k​o​v​é​h​o​ ​h​o​d​n​o​c​e​n​í​.
+			 */
+			content2: string
+		}
+		disciplines: {
+			/**
+			 * S​o​u​t​ě​ž​ ​p​r​o​b​í​h​á​ ​v​e​ ​d​v​o​u​ ​d​i​s​c​i​p​l​í​n​á​c​h
+			 */
+			title: string
+		}
+		progress: {
+			/**
+			 * P​r​ů​b​ě​h​ ​s​o​u​t​ě​ž​e
+			 */
+			title: string
+			/**
+			 * U​ž​i​v​a​t​e​l​é​ ​z​a​z​n​a​m​e​n​á​v​a​j​í​ ​s​v​é​ ​p​o​h​y​b​o​v​é​ ​a​k​t​i​v​i​t​y​ ​p​r​o​s​t​ř​e​d​n​i​c​t​v​í​m​ ​n​ě​k​t​e​r​é​ ​m​o​b​i​l​n​í​ ​a​p​l​i​k​a​c​e​ ​n​a​ ​s​v​ů​j​ ​t​e​l​e​f​o​n​ ​a​ ​n​a​h​r​a​j​í​ ​j​e​ ​n​a​ ​t​e​n​t​o​ ​p​o​r​t​á​l​.
+			 */
+			content1: string
+			/**
+			 * K​a​ž​d​ý​ ​t​ý​d​e​n​ ​s​e​ ​v​y​h​o​d​n​o​c​u​j​e​ ​p​o​č​e​t​ ​u​r​a​ž​e​n​ý​c​h​ ​k​i​l​o​m​e​t​r​ů​ ​v​ ​d​a​n​ý​c​h​ ​d​i​s​c​i​p​l​í​n​á​c​h​.​ ​P​r​v​n​í​ ​t​ý​m​ ​d​o​s​t​a​n​e​ ​v​ ​k​a​ž​d​é​ ​d​i​s​c​i​p​l​í​n​ě​ ​n​a​p​ř​.​ ​1​5​ ​b​o​d​ů​ ​(​p​o​d​l​e​ ​p​o​č​t​u​ ​z​ů​č​a​s​t​n​ě​n​ý​c​h​ ​f​a​k​u​l​t​ ​a​ ​p​r​a​c​o​v​i​š​ť​)​,​ ​d​r​u​h​ý​ ​1​4​ ​b​o​d​u​,​ ​t​ř​e​t​í​ ​1​3​ ​b​o​d​ů​,​ ​a​p​o​d​.​ ​C​e​l​k​o​v​ý​m​ ​v​í​t​ě​z​e​m​ ​v​ý​z​v​y​ ​s​e​ ​s​t​a​n​e​ ​t​ý​m​,​ ​k​t​e​r​ý​ ​z​í​s​k​á​ ​n​e​j​v​í​c​e​ ​b​o​d​ů​ ​z​a​ ​4​ ​t​ý​d​n​y​ ​v​ ​s​o​u​č​t​u​ ​o​b​o​u​ ​d​i​s​c​i​p​l​í​n​.
+			 */
+			content2: string
+		}
+		extraPoints: {
+			/**
+			 * E​x​t​r​a​ ​b​o​d​y​!
+			 */
+			title: string
+			/**
+			 * J​e​d​n​o​t​l​i​v​c​i​ ​m​o​h​o​u​ ​p​r​o​ ​s​v​o​u​ ​f​a​k​u​l​t​u​ ​z​í​s​k​a​t​ ​e​x​t​r​a​ ​b​o​d​y​.
+			 */
+			intro: string
+			thirdWeek: {
+				/**
+				 * T​ř​e​t​í​ ​t​ý​d​e​n
+				 */
+				title: string
+				/**
+				 * p​r​o​ ​j​e​d​n​o​t​l​i​v​c​e​,​ ​k​t​e​r​ý​ ​u​b​ě​h​n​e​/​u​j​d​e​/​u​j​e​d​e​ ​n​e​j​v​í​c​e​ ​k​i​l​o​m​e​t​r​ů​ ​v​ ​j​e​d​n​o​m​ ​d​n​i​ ​v​ ​d​a​n​é​ ​d​i​s​c​i​p​l​í​n​ě​.
+				 */
+				extraOne: string
+				/**
+				 * p​r​o​ ​j​e​d​n​o​t​l​i​v​c​e​ ​s​ ​n​e​j​v​ě​t​š​í​m​ ​s​o​u​č​t​e​m​ ​k​i​l​o​m​e​t​r​ů​ ​z​a​ ​c​e​l​ý​ ​t​ý​d​e​n​ ​v​ ​d​a​n​é​ ​d​i​s​c​i​p​l​í​n​ě​.
+				 */
+				extraTwo: string
+			}
+			fourthWeek: {
+				/**
+				 * Č​t​v​r​t​ý​ ​t​ý​d​e​n
+				 */
+				title: string
+				/**
+				 * p​r​o​ ​j​e​d​n​o​t​l​i​v​c​e​ ​s​ ​n​e​j​v​ě​t​š​í​m​ ​p​ř​e​v​ý​š​e​n​í​m​ ​z​a​ ​c​e​l​ý​ ​t​ý​d​e​n​ ​v​ ​d​a​n​é​ ​d​i​s​c​i​p​l​í​n​ě​.​ ​C​h​ů​z​e​ ​v​í​c​e​ ​n​e​ž​ ​1​0​0​0​m​ ​a​ ​j​í​z​d​a​ ​v​í​c​e​ ​n​e​ž​ ​1​5​0​0​m​.
+				 */
+				extraOne: string
+			}
+			/**
+			 * E​x​t​r​a​ ​b​o​d
+			 */
+			extraPoint: string
+			/**
+			 * E​x​t​r​a​ ​b​o​d​y
+			 */
+			extraPoints: string
+		}
+	}
 }
 
 export type TranslationFunctions = {
@@ -646,10 +750,18 @@ export type TranslationFunctions = {
 		title: () => LocalizedString
 		statistics: {
 			/**
+			 * Statistiky
+			 */
+			title: () => LocalizedString
+			/**
 			 * UČASTNÍKŮ
 			 */
 			users: () => LocalizedString
 		}
+		/**
+		 * Akce měsíční vytrvalec vznikla během zimního semestru v roce 2020. Tuto pohybovou soutěž připravila a zorganizovala Katedra tělesné výchovy Fakulty strojní Západočeské univerzity v Plzni s úmyslem rozhýbat studenty během distanční výuky, která probíhala na ZČU během koronavirové pandemie.
+		 */
+		intro: () => LocalizedString
 		/**
 		 * Předchozí ročníky
 		 */
@@ -662,6 +774,16 @@ export type TranslationFunctions = {
 		 * Charita
 		 */
 		charity: () => LocalizedString
+		about: {
+			/**
+			 * O výzvě
+			 */
+			title: () => LocalizedString
+			/**
+			 * Účastníci bojují čtyři týdny za&nbsp;svoje týmy (fakulta, VŠ ústav / rektorátní pracoviště / U3V) v počtu naběhaných a naježděných kilometrů. Ty se v rámci týmů sčítají a v závěru týdne určují počet bodů, které daný tým získá a podle toho se umístí v celkovém pořadí.
+			 */
+			content: () => LocalizedString
+		}
 	}
 	registration: {
 		/**
@@ -1048,6 +1170,10 @@ export type TranslationFunctions = {
 		 * Výsledky sezóny
 		 */
 		title: () => LocalizedString
+		/**
+		 * Výsledky
+		 */
+		results: () => LocalizedString
 		week_picker: {
 			/**
 			 * Celá sezóna
@@ -1156,6 +1282,88 @@ export type TranslationFunctions = {
 		 * bike
 		 */
 		'Kolo/Koloběžka': () => LocalizedString
+	}
+	rules: {
+		/**
+		 * Pravidla
+		 */
+		title: () => LocalizedString
+		/**
+		 * Pravidla výzvy
+		 */
+		challangeTitle: () => LocalizedString
+		intro: {
+			/**
+			 * Běhejte, choďte jezděte na kole, koloběžce, bruslích! Nejen, že uděláte něco pro svoje zdraví, ale přispějete na dobrou věc! Kilometry, které soutěžící urazí se přemění na koruny a přispějeme tím na charitu.
+			 */
+			content1: () => LocalizedString
+			/**
+			 * Průběžný počet najetých a uběhnutých kilometrů fakult a mimofakultních pracovišť budeme vyhodnocovat po týdnu a každá fakulta či pracoviště mají možnost získat body do celkového hodnocení.
+			 */
+			content2: () => LocalizedString
+		}
+		disciplines: {
+			/**
+			 * Soutěž probíhá ve dvou disciplínách
+			 */
+			title: () => LocalizedString
+		}
+		progress: {
+			/**
+			 * Průběh soutěže
+			 */
+			title: () => LocalizedString
+			/**
+			 * Uživatelé zaznamenávají své pohybové aktivity prostřednictvím některé mobilní aplikace na svůj telefon a nahrají je na tento portál.
+			 */
+			content1: () => LocalizedString
+			/**
+			 * Každý týden se vyhodnocuje počet uražených kilometrů v daných disciplínách. První tým dostane v každé disciplíně např. 15 bodů (podle počtu zůčastněných fakult a pracovišť), druhý 14 bodu, třetí 13 bodů, apod. Celkovým vítězem výzvy se stane tým, který získá nejvíce bodů za 4 týdny v součtu obou disciplín.
+			 */
+			content2: () => LocalizedString
+		}
+		extraPoints: {
+			/**
+			 * Extra body!
+			 */
+			title: () => LocalizedString
+			/**
+			 * Jednotlivci mohou pro svou fakultu získat extra body.
+			 */
+			intro: () => LocalizedString
+			thirdWeek: {
+				/**
+				 * Třetí týden
+				 */
+				title: () => LocalizedString
+				/**
+				 * pro jednotlivce, který uběhne/ujde/ujede nejvíce kilometrů v jednom dni v dané disciplíně.
+				 */
+				extraOne: () => LocalizedString
+				/**
+				 * pro jednotlivce s největším součtem kilometrů za celý týden v dané disciplíně.
+				 */
+				extraTwo: () => LocalizedString
+			}
+			fourthWeek: {
+				/**
+				 * Čtvrtý týden
+				 */
+				title: () => LocalizedString
+				/**
+				 * pro jednotlivce s největším převýšením za celý týden v dané disciplíně. Chůze více než 1000m a jízda více než 1500m.
+				 */
+				extraOne: () => LocalizedString
+			}
+			/**
+			 * Extra bod
+			 */
+			extraPoint: () => LocalizedString
+			/**
+			 * Extra body
+			 */
+			extraPoints: () => LocalizedString
+		}
 	}
 }
 

@@ -1,66 +1,54 @@
+<script lang='ts'>
+	import LL from '$translations/i18n-svelte';
+</script>
+
 <main>
 	<article>
-		<h2 class="no-transform">Pravidla výzvy</h2>
+		<h2 class="no-transform">{$LL.rules.challangeTitle()}</h2>
 		<section>
-			<p>
-				Běhejte, choďte jezděte na kole, koloběžce, bruslích! Nejen, že uděláte něco pro svoje
-				zdraví, ale přispějete na dobrou věc! Kilometry, které soutěžící urazí se přemění na koruny
-				a přispějeme tím na charitu.
-			</p>
-			<p>
-				Průběžný počet najetých a uběhnutých kilometrů fakult a mimofakultních pracovišť budeme
-				vyhodnocovat po týdnu a každá fakulta či pracoviště mají možnost získat body do celkového
-				hodnocení.
-			</p>
+			<p>{$LL.rules.intro.content1()}</p>
+			<p>{$LL.rules.intro.content2()}</p>
 		</section>
 
 		<section>
-			<h4>Soutěž probíhá ve dvou disciplínách</h4>
+			<h4>{$LL.rules.disciplines.title()}</h4>
 			<ul class="list-style">
-				<li>Běh a chůze</li>
-				<li>Kolo a koloběžka</li>
+				<li>{$LL.activities['Běh/Chůze']()}</li>
+				<li>{$LL.activities['Kolo/Koloběžka']()}</li>
 			</ul>
 		</section>
 
 		<section>
-			<h4>Průběh soutěže</h4>
+			<h4>{$LL.rules.progress.title()}</h4>
 			<ul class="list-style">
-				<li>
-					Uživatelé zaznamenávají své pohybové aktivity prostřednictvím některé mobilní aplikace na
-					svůj telefon a nahrají je na tento portál.
-				</li>
-				<li>
-					Každý týden se vyhodnocuje počet uražených kilometrů v daných disciplínách. První tým
-					dostane v každé disciplíně např. 15 bodů (podle počtu zůčastněných fakult a pracovišť),
-					druhý 14 bodu, třetí 13 bodů, apod. Celkovým vítězem výzvy se stane tým, který získá
-					nejvíce bodů za 4 týdny v součtu obou disciplín.
-				</li>
+				<li>{$LL.rules.progress.content1()}</li>
+				<li>{$LL.rules.progress.content2()}</li>
 			</ul>
 		</section>
 
 		<section>
-			<h4>Extra body!</h4>
-			<p>Jednotlivci mohou pro svou fakultu získat extra body.</p>
+			<h4>{$LL.rules.extraPoints.title()}</h4>
+			<p>{$LL.rules.extraPoints.intro()}</p>
 			<ul class="list-style">
 				<li>
-					Třetí týden
+					{$LL.rules.extraPoints.thirdWeek.title()}
 					<ul class="list-style">
 						<li>
-							1 <strong>EXTRA BOD</strong> pro jednotlivce, který uběhne/ujde/ujede nejvíce kilometrů
-							v jednom dni v dané disciplíně.
+							1 <strong>{$LL.rules.extraPoints.extraPoint().toUpperCase()}</strong> 
+							{'' + $LL.rules.extraPoints.thirdWeek.extraOne()}
 						</li>
 						<li>
-							2 <strong>EXTRA BODY</strong> pro jednotlivce s největším součtem kilometrů za celý týden
-							v dané disciplíně.
+							2 <strong>{$LL.rules.extraPoints.extraPoints().toUpperCase()}</strong>
+							{' '+ $LL.rules.extraPoints.thirdWeek.extraTwo()}
 						</li>
 					</ul>
 				</li>
 				<li>
-					Čtvrtý týden
+					{$LL.rules.extraPoints.fourthWeek.title()}
 					<ul class="list-style">
 						<li>
-							1 <strong>EXTRA BOD</strong> pro jednotlivce s největším převýšením za celý týden v dané
-							disciplíně. Chůze více než 1000m a jízda více než 1500m.
+							1 <strong>{$LL.rules.extraPoints.extraPoint().toUpperCase()}</strong> 
+							{' '+ $LL.rules.extraPoints.fourthWeek.extraOne()}
 						</li>
 					</ul>
 				</li>
