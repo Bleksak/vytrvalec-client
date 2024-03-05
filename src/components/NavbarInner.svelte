@@ -23,10 +23,6 @@
 	
 </script>
 
-<button on:click={handleChange}>
-	<img src={currentLocale === 'cs' ? "/images/lang/cs.svg": "/images/lang/en.svg"} alt={currentLocale}/>
-</button>
-
 {#if $page.data.user && $page.data.user.roles.includes('ROLE_STAFF')}
 	<li>
 		<a href="/administration">
@@ -34,6 +30,11 @@
 		</a>
 	</li>
 {/if}
+<li>
+	<button on:click={handleChange}>
+		<img src={currentLocale === 'cs' ? "/images/lang/cs.svg": "/images/lang/en.svg"} alt={currentLocale}/>
+	</button>
+</li>
 <li>
 	<a href="/{$page.data.lang}/rules">
 		{$LL.navbar.rules()}
@@ -45,6 +46,7 @@
 	</a>
 </li>
 {#if !$page.data.user}
+
 	<li>
 		<Button class="nav-button" onclick={() => dialogStore.open(LoginForm, {}, context)}>
 			{$LL.navbar.login()}
