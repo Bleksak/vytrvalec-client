@@ -7,7 +7,7 @@ import type {
 	ProfileSubmissionResponseDTO
 } from '$lib/DTO/SubmissionDTO';
 import type { SubmissionStateDTO, SubmissionStateResponse } from '$lib/DTO/SubmissionStateDTO';
-import axios from 'axios';
+import axios, { type AxiosResponse } from 'axios';
 
 export const createSubmission = async (dto: SubmissionDTO): Promise<SubmissionCreateResponse> => {
 	const formData = new FormData();
@@ -106,8 +106,8 @@ export const fetchUnreviewedSubmissions = async (
 	);
 };
 
-export const acceptSubmission = async (submission: SubmissionResponseDTO): Promise<void> => {
-	await axios.patch(`/submission/${submission.id}/state`, {
+export const acceptSubmission = async (submission: SubmissionResponseDTO): Promise<AxiosResponse> => {
+	return await axios.patch(`/submission/${submission.id}/state`, {
 		updated_at: submission.updatedAt,
 		state: true
 	});
@@ -116,8 +116,8 @@ export const acceptSubmission = async (submission: SubmissionResponseDTO): Promi
 export const rejectSubmission = async (
 	submission: SubmissionResponseDTO,
 	message: string
-): Promise<void> => {
-	await axios.patch(`/submission/${submission.id}/state`, {
+): Promise<AxiosResponse> => {
+	return await axios.patch(`/submission/${submission.id}/state`, {
 		updated_at: submission.updatedAt,
 		state: false,
 		message

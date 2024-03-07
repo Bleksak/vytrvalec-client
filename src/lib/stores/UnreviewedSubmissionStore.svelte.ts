@@ -4,12 +4,13 @@ import {
 	rejectSubmission
 } from '$actions/Submission';
 import type { SubmissionResponseDTO } from '$lib/DTO/SubmissionDTO';
+import type { AxiosError, AxiosResponse } from 'axios';
 
 export type UnreviewedSubmissionStore = {
 	all: () => Array<SubmissionResponseDTO>;
 	pop: () => SubmissionResponseDTO | null;
-	accept: (submission: SubmissionResponseDTO) => Promise<void>;
-	reject: (submission: SubmissionResponseDTO, message: string) => Promise<void>;
+	accept: (submission: SubmissionResponseDTO) => Promise<AxiosResponse | AxiosError>;
+	reject: (submission: SubmissionResponseDTO, message: string) => Promise<AxiosResponse | AxiosError>;
 };
 
 export const createUnreviewedSubmissionStore = (): UnreviewedSubmissionStore => {
@@ -54,16 +55,22 @@ export const createUnreviewedSubmissionStore = (): UnreviewedSubmissionStore => 
 		}
 	};
 
-	const accept = async (submission: SubmissionResponseDTO): Promise<void> => {
-		await acceptSubmission(submission);
+	const accept = async (submission: SubmissionResponseDTO): Promise<AxiosResponse | AxiosError> => {
+		const result = await acceptSubmission(submission).catch((error: AxiosError) => {
+			return error;
+		});
 		await refetchIfNeeded();
 		swapIfNeeded();
+		return result;
 	};
 
-	const reject = async (submission: SubmissionResponseDTO, message: string): Promise<void> => {
-		await rejectSubmission(submission, message);
+	const reject = async (submission: SubmissionResponseDTO, message: string): Promise<AxiosResponse | AxiosError> => {
+		const result = await rejectSubmission(submission, message).catch((error: AxiosError) => {
+			return error;
+		});
 		await refetchIfNeeded();
 		swapIfNeeded();
+		return result;
 	};
 
 	const all = () => submissions;

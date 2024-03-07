@@ -1,7 +1,11 @@
 <script lang="ts">
 	import Button from '$components/Button.svelte';
 	import type { SubmissionResponseDTO } from '$lib/DTO/SubmissionDTO';
+	import type { ToastStore } from '$lib/stores/ToastStore.svelte';
 	import createUnreviewedSubmissionStore from '$lib/stores/UnreviewedSubmissionStore.svelte';
+	import { getContext } from 'svelte';
+	const toastStore = getContext<ToastStore>('toastStore');
+
 
 	const submissionStore = createUnreviewedSubmissionStore();
 
@@ -14,20 +18,46 @@
 	});
 
 	let message = $state<string>('');
+	let imageError = $state<(Event & {currentTarget: EventTarget & Element}) | null>(null);
+
 
 	const popNext = () => {
 		currentSubmission = submissionStore.pop();
 	};
 
+
+	//Nevim debilnější řešení mi nenapadlo
 	const acceptCurrent = () => {
-		submissionStore.accept(currentSubmission!).then(() => {
-			popNext();
+		submissionStore.accept(currentSubmission!).then((result) => {
+			if(result.status === 200) {
+				toastStore.add({
+					type: 'success',
+					message: 'Aktivita byla schválena'
+				});
+				popNext();
+			} else {
+				toastStore.add({
+					type: 'error',
+					message: 'Nastala chyba při schvalování aktivity. Aktualizujte stránku a opakujte akci znova.'
+				});
+			}
 		});
 	};
 
 	const rejectCurrent = () => {
-		submissionStore.reject(currentSubmission!, message!).then(() => {
-			popNext();
+		submissionStore.reject(currentSubmission!, message!).then((result) => {
+			if(result.status === 200) {
+				toastStore.add({
+					type: 'success',
+					message: 'Aktivita byla zamítnuta'
+				});
+				popNext();
+			} else {
+				toastStore.add({
+					type: 'error',
+					message: 'Nastala chyba při zamítnutí aktivity. Aktualizujte stránku a opakujte akci znova.'
+				});
+			}
 		});
 	};
 </script>
@@ -37,9 +67,13 @@
 {:else}
 	<div class="tinder-card">
 		<div class="wrapper">
-			<a href={currentSubmission?.image} target="_blank">
-				<img src={currentSubmission?.image} alt="Aktivita" />
-			</a>
+			{#if imageError}
+				<strong class='image-error'>Obrázek se nepodařilo načíst</strong>
+			{:else }
+				<a href={currentSubmission?.image} target="_blank">
+					<img src={currentSubmission?.image} alt="Aktivita" on:error={(err) => {imageError = err}}/>
+				</a>
+			{/if}
 			<div class="info">
 				<div class="info-column">
 					<p>
@@ -105,6 +139,10 @@
 		flex-direction: column;
 		justify-content: center;
 		gap: 20px;
+	}
+	.image-error {
+		color: red;
+		align-self: center;
 	}
 
 	.message {
