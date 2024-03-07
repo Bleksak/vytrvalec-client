@@ -1,7 +1,6 @@
 <script lang="ts">
 	import Button from '$components/Button.svelte';
 	import Dialog from '$components/Dialog.svelte';
-	import { page } from '$app/stores';
 	import { enhance } from '$app/forms';
 	import LL from '$translations/i18n-svelte';
 	import { fetchFaculties } from '$actions/Faculty';
@@ -39,7 +38,7 @@
 				<Select
 					name="faculty"
 					id="faculty"
-					keys={faculties.map((f) => f.name)}
+					keys={faculties.map((f) => $LL.faculties[f.name as keyof typeof $LL.faculties]())}
 					values={faculties.map((f) => f.id)}
 				/>
 			{:catch}

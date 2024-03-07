@@ -688,6 +688,60 @@ type RootTranslation = {
 			extraPoints: string
 		}
 	}
+	faculties: {
+		/**
+		 * F​a​k​u​l​t​a​ ​a​p​l​i​k​o​v​a​n​ý​c​h​ ​v​ě​d
+		 */
+		'Fakulta aplikovaných věd': string
+		/**
+		 * F​a​k​u​l​t​a​ ​d​e​s​i​g​n​u​ ​a​ ​u​m​ě​n​í​ ​L​a​d​i​s​l​a​v​a​ ​S​u​t​n​a​r​a
+		 */
+		'Fakulta designu a umění Ladislava Sutnara': string
+		/**
+		 * F​a​k​u​l​t​a​ ​e​k​o​n​o​m​i​c​k​á
+		 */
+		'Fakulta ekonomická': string
+		/**
+		 * F​a​k​u​l​t​a​ ​e​l​e​k​t​r​o​t​e​c​h​n​i​c​k​á
+		 */
+		'Fakulta elektrotechnická': string
+		/**
+		 * F​a​k​u​l​t​a​ ​f​i​l​o​z​o​f​i​c​k​á
+		 */
+		'Fakulta filozofická': string
+		/**
+		 * F​a​k​u​l​t​a​ ​p​e​d​a​g​o​g​i​c​k​á
+		 */
+		'Fakulta pedagogická': string
+		/**
+		 * F​a​k​u​l​t​a​ ​p​r​á​v​n​i​c​k​á
+		 */
+		'Fakulta právnická': string
+		/**
+		 * F​a​k​u​l​t​a​ ​s​t​r​o​j​n​í
+		 */
+		'Fakulta strojní': string
+		/**
+		 * F​a​k​u​l​t​a​ ​z​d​r​a​v​o​t​n​í​c​h​ ​s​t​u​d​i​í
+		 */
+		'Fakulta zdravotních studií': string
+		/**
+		 * R​e​k​t​o​r​á​t
+		 */
+		Rektorát: string
+		/**
+		 * N​o​v​é​ ​t​e​c​h​n​o​l​o​g​i​e​ ​-​ ​v​ý​z​k​u​m​n​é​ ​c​e​n​t​r​u​m
+		 */
+		'Nové technologie - výzkumné centrum': string
+		/**
+		 * U​n​i​v​e​r​z​i​t​a​ ​t​ř​e​t​í​h​o​ ​v​ě​k​u
+		 */
+		'Univerzita třetího věku': string
+		/**
+		 * U​́​s​t​a​v​ ​j​a​z​y​k​o​v​é​ ​p​ř​i​́​p​r​a​v​y
+		 */
+		'Ústav jazykové přípravy': string
+	}
 }
 
 export type TranslationFunctions = {
@@ -1364,6 +1418,60 @@ export type TranslationFunctions = {
 			 */
 			extraPoints: () => LocalizedString
 		}
+	}
+	faculties: {
+		/**
+		 * Fakulta aplikovaných věd
+		 */
+		'Fakulta aplikovaných věd': () => LocalizedString
+		/**
+		 * Fakulta designu a umění Ladislava Sutnara
+		 */
+		'Fakulta designu a umění Ladislava Sutnara': () => LocalizedString
+		/**
+		 * Fakulta ekonomická
+		 */
+		'Fakulta ekonomická': () => LocalizedString
+		/**
+		 * Fakulta elektrotechnická
+		 */
+		'Fakulta elektrotechnická': () => LocalizedString
+		/**
+		 * Fakulta filozofická
+		 */
+		'Fakulta filozofická': () => LocalizedString
+		/**
+		 * Fakulta pedagogická
+		 */
+		'Fakulta pedagogická': () => LocalizedString
+		/**
+		 * Fakulta právnická
+		 */
+		'Fakulta právnická': () => LocalizedString
+		/**
+		 * Fakulta strojní
+		 */
+		'Fakulta strojní': () => LocalizedString
+		/**
+		 * Fakulta zdravotních studií
+		 */
+		'Fakulta zdravotních studií': () => LocalizedString
+		/**
+		 * Rektorát
+		 */
+		Rektorát: () => LocalizedString
+		/**
+		 * Nové technologie - výzkumné centrum
+		 */
+		'Nové technologie - výzkumné centrum': () => LocalizedString
+		/**
+		 * Univerzita třetího věku
+		 */
+		'Univerzita třetího věku': () => LocalizedString
+		/**
+		 * Ústav jazykové přípravy
+		 */
+		'Ústav jazykové přípravy': () => LocalizedString
 	}
 }
 

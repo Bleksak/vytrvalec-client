@@ -240,6 +240,21 @@ const cs = {
 			extraPoint: 'Extra bod',
 			extraPoints: 'Extra body'
 		},
+	},
+	faculties: {
+		'Fakulta aplikovaných věd': 'Fakulta aplikovaných věd',
+		'Fakulta designu a umění Ladislava Sutnara': 'Fakulta designu a umění Ladislava Sutnara',
+		'Fakulta ekonomická': 'Fakulta ekonomická',
+		'Fakulta elektrotechnická': 'Fakulta elektrotechnická',
+		'Fakulta filozofická': 'Fakulta filozofická',
+		'Fakulta pedagogická': 'Fakulta pedagogická',
+		'Fakulta právnická': 'Fakulta právnická',
+		'Fakulta strojní': 'Fakulta strojní',
+		'Fakulta zdravotních studií': 'Fakulta zdravotních studií',
+		'Rektorát': 'Rektorát',
+		'Nové technologie - výzkumné centrum': 'Nové technologie - výzkumné centrum',
+		'Univerzita třetího věku': 'Univerzita třetího věku',
+		'Ústav jazykové přípravy': 'Ústav jazykové přípravy'
 	}
 } satisfies BaseTranslation;
 

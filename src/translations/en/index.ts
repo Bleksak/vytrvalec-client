@@ -211,7 +211,7 @@ const en = {
 		challangeTitle: 'Challange rules',
 		intro: {
 			content1: 'Run, walk, bike, scooter, skate! Not only will you do something for your health, but you will contribute to a good cause! The kilometres that the contestants travel will be converted into crowns and we will donate them to charity.',
-			content2: 'We will be evaluating the kilometers traveled by faculty and non-faculty departments on a weekly basis, and each faculty or department has the opportunity to earn points towards the overall score.'
+			content2: 'We will evaluate the continuous number of kilometers covered by faculties and non-faculty departments after a week and each faculty or department has the opportunity to get points for the overall evaluation.'
 		},
 		disciplines: {
 			title: 'The competition is held in two disciplines',
@@ -219,23 +219,38 @@ const en = {
 		progress: {
 			title: 'The course of the competition',
 			content1: 'Users record their physical activities through a mobile app on their phone and upload them to this portal.',
-			content2: 'Each week the number of kilometres completed in the given disciplines is evaluated. The first team gets 15 points in each discipline (depending on the number of participating faculties and departments), the second 14 points, the third 13 points, etc. The overall winner of the challenge will be the team that scores the most points over the 4 weeks in the sum of both disciplines.'
+			content2: 'Each week the number of kilometres covered in the given disciplines is evaluated. The first team gets 15 points in each discipline (depending on the number of participating faculties and departments), the second 14 points, the third 13 points, etc. The overall winner of the challenge will be the team that scores the most points over the 4 weeks in the sum of both disciplines.'
 		},
 		extraPoints: {
 			title: 'Extra points!',
 			intro: 'Individuals can earn extra points for their faculty.',
 			thirdWeek: {
-				title: 'Third week',
+				title: 'Week Three',
 				extraOne: 'for the individual who runs/walk/rides the most kilometres in one day in a given discipline.',
 				extraTwo: 'for the individual with the highest total kilometres for the whole week in the given discipline.',
 			},
 			fourthWeek: {
-				title: 'Fourth week',
+				title: 'Week Four',
 				extraOne: 'for the individual with the highest elevation gain for the entire week in a given discipline. Walking more than 1000m and riding more than 1500m.'
 			},
 			extraPoint: 'Extra point',
 			extraPoints: 'Extra points'
 		}
+	},
+	faculties: {
+		'Fakulta aplikovaných věd': 'Faculty of Applied Sciences',
+		'Fakulta designu a umění Ladislava Sutnara': 'Ladislav Sutnar Faculty of Design and Art',
+		'Fakulta ekonomická': 'Faculty of Economics',
+		'Fakulta elektrotechnická': 'Faculty of Electrical Engineering',
+		'Fakulta filozofická': 'Faculty of Arts',
+		'Fakulta pedagogická': 'Faculty of Education',
+		'Fakulta právnická': 'Faculty of Law',
+		'Fakulta strojní': 'Faculty of Mechanical Engineering',
+		'Fakulta zdravotních studií': 'Faculty of Health Care Studies',
+		'Rektorát': 'Rectorate',
+		'Nové technologie - výzkumné centrum': 'New Technologies - Research Centre',
+		'Univerzita třetího věku': 'University of Third Age',
+		'Ústav jazykové přípravy': 'Institute of Applied Language Studies'
 	}
 } satisfies BaseTranslation;
 

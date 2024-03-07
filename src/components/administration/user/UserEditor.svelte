@@ -73,7 +73,7 @@
 			<Select
 				name="faculty"
 				id="faculty"
-				keys={faculties.map((f) => f.name)}
+				keys={faculties.map((f) =>  $LL.faculties[f.name as keyof typeof $LL.faculties]())}
 				values={faculties.map((f) => f.id)}
 			/>
 		{:catch}
