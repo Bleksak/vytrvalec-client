@@ -20,6 +20,8 @@
 
 	const isEditable = !submission.reviewed || !submission.accepted;
 
+	let error = $state<(Event & {currentTarget: EventTarget & Element}) | null>(null);
+
 	const handleSubmissionDelete = async () => {
 		if (!confirm($LL.submission.form.deleteConfirm())) {
 			return;
@@ -55,13 +57,25 @@
 </script>
 
 <div class="submission-card">
+	{#if error}
+	<img
+		class="submission-preview"
+		loading="lazy"
+		src='/images/image-not-found.png'
+		alt="Náhled"
+		title="Náhled"
+		onerror={(err) => error = err}
+	/>
+	{:else}
 	<img
 		class="submission-preview"
 		loading="lazy"
 		src={submission.image}
 		alt="Náhled"
 		title="Náhled"
+		on:error={(err) => error = err}
 	/>
+	{/if}
 	<div class="status-bar">
 		<div class="submission-card-row">
 			<div class="stack">
