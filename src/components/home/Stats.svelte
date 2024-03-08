@@ -21,9 +21,11 @@
 				</div>
 				{#each stats.activities as activity}
 					<div class="card">
-                        <img src="{getActivityImage(activity.activity)}" alt="Statistics icon" />
-                        <h3>{(activity.distance / 1000).toFixed(0)}&nbsp;km</h3>
-						<h5>{$LL.activities[activity.activity as keyof typeof $LL.activities]().toUpperCase()}</h5>
+						<img src={getActivityImage(activity.activity)} alt="Statistics icon" />
+						<h3>{(activity.distance / 1000).toFixed(0)}&nbsp;km</h3>
+						<h5>
+							{$LL.activities[activity.activity as keyof typeof $LL.activities]().toUpperCase()}
+						</h5>
 					</div>
 				{/each}
 			</section>
