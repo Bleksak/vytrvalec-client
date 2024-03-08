@@ -15,15 +15,26 @@ export type CharityCreateData = {
 export type CharityError = ResponseErrorMap<CharityDTO> & {
 	auth?: Array<ResponseError>;
 };
-export type CharityCreateResponse =
+export type CharityCreateReturn =
 	| {
-			type: 'success';
-			data: CharityCreateData;
+			type: 'dto';
+			data: CharityCreateDTO;
 	  }
 	| {
 			type: 'error';
 			errors: CharityError;
-	  };
+	};  
+
+export type CharityCreateResponse =
+	| {
+		type: 'success';
+		data: CharityDTO
+	}
+	| {
+		type: 'error';
+		errors: CharityError;
+	};
+
 
 export type CharityUpdateResponse =
 	| {
@@ -32,11 +43,32 @@ export type CharityUpdateResponse =
 	| {
 			type: 'error';
 			errors: CharityError;
-	  };
+	};
+	  
 
-export const createCharityDTO = (formData: FormData): CharityCreateDTO => {
+export const createCharityDTO = (formData: FormData): CharityCreateReturn => {
+	const name = formData.get('name') as string;
+	const description = formData.get('description') as string;
+
+	let errors: CharityError = {}
+
+	if (!name || name === '') {
+		errors['name'] = ['blank'];
+	}
+
+	if (!description || description === '') {
+		errors['description'] = ['blank'];
+	}
+
+	if (Object.keys(errors).length !== 0) {
+		return { type: 'error', errors: errors };
+	}
+
 	return {
-		name: formData.get('name') as string,
-		description: formData.get('description') as string
+		type: 'dto',
+		data: {
+			name: name,
+			description: description
+		}
 	};
 };
