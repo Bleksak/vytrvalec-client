@@ -1,5 +1,5 @@
 <script lang="ts">
-	import {  locale, setLocale } from "$translations/i18n-svelte";
+	import { setLocale } from '$translations/i18n-svelte';
 	import Button from './Button.svelte';
 	import RegistrationForm from './forms/RegistrationForm.svelte';
 	import LoginForm from './forms/LoginForm.svelte';
@@ -9,23 +9,25 @@
 	import SubmissionForm from './forms/SubmissionForm.svelte';
 	import { getAllContexts, getContext } from 'svelte';
 	import type { DialogStore } from '$lib/stores/DialogStore.svelte';
-	import { detectLocale } from "$translations/i18n-util";
+	import { detectLocale } from '$translations/i18n-util';
 
 	const dialogStore = getContext<DialogStore>('dialogStore');
 	const context = getAllContexts();
 	let currentLocale = $state(detectLocale());
 
-	const handleChange = () => {
+	const handleLocaleChange = () => {
 		const selectedLocale = currentLocale === 'cs' ? 'en' : 'cs';
 		currentLocale = selectedLocale;
 		setLocale(selectedLocale);
-	}
-	
+	};
 </script>
 
 <li>
-	<button on:click={handleChange}>
-		<img src={currentLocale === 'cs' ? "/images/lang/cs.svg": "/images/lang/en.svg"} alt={currentLocale}/>
+	<button onclick={handleLocaleChange}>
+		<img
+			src={currentLocale === 'cs' ? '/images/lang/cs.svg' : '/images/lang/en.svg'}
+			alt={currentLocale}
+		/>
 	</button>
 </li>
 {#if $page.data.user && $page.data.user.roles.includes('ROLE_STAFF')}
@@ -36,17 +38,16 @@
 	</li>
 {/if}
 <li>
-	<a href="/{$page.data.lang}/rules">
+	<a href="/{currentLocale}/rules">
 		{$LL.navbar.rules()}
 	</a>
 </li>
 <li>
-	<a href="/{$page.data.lang}/results">
+	<a href="/{currentLocale}/results">
 		{$LL.navbar.results()}
 	</a>
 </li>
 {#if !$page.data.user}
-
 	<li>
 		<Button class="nav-button" onclick={() => dialogStore.open(LoginForm, {}, context)}>
 			{$LL.navbar.login()}
@@ -54,7 +55,7 @@
 	</li>
 	<li>
 		<Button
-			on:click={() => dialogStore.open(RegistrationForm, {}, context)}
+			onclick={() => dialogStore.open(RegistrationForm, {}, context)}
 			class="secondary nav-button"
 		>
 			{$LL.navbar.register()}
@@ -62,13 +63,13 @@
 	</li>
 {:else}
 	<li>
-		<a href="/{$page.data.lang}/profile">
+		<a href="/{currentLocale}/profile">
 			{$LL.navbar.profile()}
 		</a>
 	</li>
 	{#if $page.data.currentSeason}
 		<li>
-			<Button class="nav-button" on:click={() => dialogStore.open(SubmissionForm, {}, context)}>
+			<Button class="nav-button" onclick={() => dialogStore.open(SubmissionForm, {}, context)}>
 				{$LL.navbar.submission()}
 			</Button>
 		</li>
@@ -88,10 +89,16 @@
 		aspect-ratio: 1/1;
 		object-fit: cover;
 		border-radius: 50%;
-		
 	}
+
+	li {
+		display: flex;
+		align-items: center;
+	}
+
 	@media (max-width: 1200px) {
 		li {
+			display: block;
 			text-align: center;
 		}
 

@@ -4,6 +4,7 @@
 	import { page } from '$app/stores';
 	import type { SeasonStore } from '$lib/stores/SeasonStore.svelte';
 	import Accordion from '$components/Accordion.svelte';
+	import { beforeNavigate } from '$app/navigation';
 
 	const charityStore = getContext<CharityStore>('charityStore');
 	const seasonStore = getContext<SeasonStore>('seasonStore');
@@ -13,24 +14,18 @@
 		'/administration/charity/[[id=integer]]'
 	];
 
-	let checkboxes = $state(routeMap.map(() => true));
-	let route = $derived($page.route.id as string);
+	let route = $state($page.route.id as string);
+	let checkboxes = $derived(routeMap.map((r) => r === route));
 
-	const toggle = (index: number) => {
-		checkboxes[index] = !checkboxes[index];
-	};
-
-	$effect(() => {
-		for (let i = 0; i < checkboxes.length; i++) {
-			checkboxes[i] = i === routeMap.indexOf(route);
-		}
+	beforeNavigate(({ to }) => {
+		route = to?.route.id as string;
 	});
 </script>
 
 <nav>
 	<ul>
 		<li>
-			<a href="/administration/season" on:click={() => toggle(0)}>Sezóny</a>
+			<a href="/administration/season">Sezóny</a>
 			<input id="navbar-season" bind:checked={checkboxes[0]} type="checkbox" />
 			<Accordion bind:opened={checkboxes[0]}>
 				{#each seasonStore.all() as season}
@@ -43,7 +38,7 @@
 			</Accordion>
 		</li>
 		<li>
-			<a href="/administration/charity" on:click={() => toggle(1)}> Charity </a>
+			<a href="/administration/charity">Charity</a>
 			<input type="checkbox" bind:checked={checkboxes[1]} />
 			<Accordion bind:opened={checkboxes[1]}>
 				{#each charityStore.all() as charity}

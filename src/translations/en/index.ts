@@ -26,13 +26,15 @@ const en = {
 			title: 'Statistics',
 			users: 'TOTAL PARTICIPANTS'
 		},
-		intro: "The monthly endurance event was created during the winter semester in 2020. This competition was prepared and organized by the Department of Physical Education of the Faculty of Mechanical Engineering of the University of West Bohemia in Pilsen with the intention to make students engage in sports during distance learning, which took place at the University of West Bohemia during the coronavirus pandemic.",
+		intro:
+			'The monthly runner event was created during the winter semester in 2020. This competition was prepared and organized by the Department of Physical Education of the Faculty of Mechanical Engineering of the University of West Bohemia in Pilsen with the intention to make students engage in sports during distance learning, which took place at the University of West Bohemia during the coronavirus pandemic.',
 		past_seasons: 'Past seasons',
 		current_year: 'Season',
 		charity: 'Charity',
 		about: {
 			title: 'About',
-			content: 'Participants compete over a four-week period for their teams (faculty, university institute / rectorate / U3V) in the number of kilometres run and cycled. These are summed up within teams and at the end of the week to decide the number of points that a given team receives. The final sum of points will determine the overall team ranking.'
+			content:
+				'Participants compete over a four-week period for their teams (faculty, university institute / rectorate / U3V) in the number of kilometres run and cycled. These are summed up within teams and at the end of the week to decide the number of points that a given team receives. The final sum of points will determine the overall team ranking.'
 		}
 	},
 
@@ -205,52 +207,59 @@ const en = {
 	activities: {
 		'Běh/Chůze': 'Run and walk',
 		'Kolo/Koloběžka': 'Bike and scooter'
-	}, 
+	},
 	rules: {
 		title: 'Rules',
-		challangeTitle: 'Challange rules',
+		challengeTitle: 'Challenge rules',
 		intro: {
-			content1: 'Run, walk, bike, scooter, skate! Not only will you do something for your health, but you will contribute to a good cause! The kilometres that the contestants travel will be converted into crowns and we will donate them to charity.',
-			content2: 'We will evaluate the continuous number of kilometers covered by faculties and non-faculty departments after a week and each faculty or department has the opportunity to get points for the overall evaluation.'
+			content1:
+				'Run, walk, bike, scooter, skate! Not only will you do something for your health, but you will contribute to a good cause! The kilometres that the contestants travel will be converted into crowns and we will donate them to charity.',
+			content2:
+				'We will evaluate the continuous number of kilometers covered by faculties and non-faculty departments after each week and each faculty or department has the opportunity to get points for the overall evaluation.'
 		},
 		disciplines: {
-			title: 'The competition is held in two disciplines',
+			title: 'The competition is held in two disciplines'
 		},
 		progress: {
 			title: 'The course of the competition',
-			content1: 'Users record their physical activities through a mobile app on their phone and upload them to this portal.',
-			content2: 'Each week the number of kilometres covered in the given disciplines is evaluated. The first team gets 15 points in each discipline (depending on the number of participating faculties and departments), the second 14 points, the third 13 points, etc. The overall winner of the challenge will be the team that scores the most points over the 4 weeks in the sum of both disciplines.'
+			content1:
+				'Users record their physical activities through a mobile app on their phone and upload them to this portal.',
+			content2:
+				'Each week the number of kilometres covered in the given disciplines is evaluated. The first team gets 15 points in each discipline (depending on the number of participating faculties and departments), the second 14 points, the third 13 points, etc. The overall winner of the challenge will be the team that scores the most points over the 4 weeks in the sum of both disciplines.'
 		},
 		extraPoints: {
 			title: 'Extra points!',
 			intro: 'Individuals can earn extra points for their faculty.',
 			thirdWeek: {
 				title: 'Week Three',
-				extraOne: 'for the individual who runs/walk/rides the most kilometres in one day in a given discipline.',
-				extraTwo: 'for the individual with the highest total kilometres for the whole week in the given discipline.',
+				extraOne:
+					'for the individual who runs/walk/rides the most kilometres in one day in a given discipline.',
+				extraTwo:
+					'for the individual with the highest total kilometres for the whole week in the given discipline.'
 			},
 			fourthWeek: {
 				title: 'Week Four',
-				extraOne: 'for the individual with the highest elevation gain for the entire week in a given discipline. Walking more than 1000m and riding more than 1500m.'
+				extraOne:
+					'for the individual with the highest elevation gain for the entire week in a given discipline. Walking more than 1000m and riding more than 1500m.'
 			},
 			extraPoint: 'Extra point',
 			extraPoints: 'Extra points'
 		}
 	},
 	faculties: {
-		'Fakulta aplikovaných věd': 'Faculty of Applied Sciences',
-		'Fakulta designu a umění Ladislava Sutnara': 'Ladislav Sutnar Faculty of Design and Art',
-		'Fakulta ekonomická': 'Faculty of Economics',
-		'Fakulta elektrotechnická': 'Faculty of Electrical Engineering',
-		'Fakulta filozofická': 'Faculty of Arts',
-		'Fakulta pedagogická': 'Faculty of Education',
-		'Fakulta právnická': 'Faculty of Law',
-		'Fakulta strojní': 'Faculty of Mechanical Engineering',
-		'Fakulta zdravotních studií': 'Faculty of Health Care Studies',
-		'Rektorát': 'Rectorate',
-		'Nové technologie - výzkumné centrum': 'New Technologies - Research Centre',
-		'Univerzita třetího věku': 'University of Third Age',
-		'Ústav jazykové přípravy': 'Institute of Applied Language Studies'
+		FAV: 'Faculty of Applied Sciences',
+		FDU: 'Ladislav Sutnar Faculty of Design and Art',
+		FEK: 'Faculty of Economics',
+		FEL: 'Faculty of Electrical Engineering',
+		FF: 'Faculty of Arts',
+		FPE: 'Faculty of Education',
+		FPR: 'Faculty of Law',
+		FST: 'Faculty of Mechanical Engineering',
+		FZS: 'Faculty of Health Care Studies',
+		REK: 'Rectorate',
+		NTC: 'New Technologies - Research Centre',
+		U3V: 'University of Third Age',
+		UJP: 'Institute of Applied Language Studies'
 	}
 } satisfies BaseTranslation;
 

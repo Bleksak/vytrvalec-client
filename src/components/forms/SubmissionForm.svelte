@@ -120,7 +120,7 @@
 			on:dragleave|preventDefault
 			on:dragover|preventDefault
 			on:drop|preventDefault={handleDrop}
-			on:click={() => fileInput?.click()}
+			onclick={() => fileInput?.click()}
 			on:keypress={() => fileInput?.click()}
 			role="button"
 			tabindex="0"
@@ -131,7 +131,7 @@
 					{$LL.submission.form.image()}
 				</div>
 
-				<Button class="rounded small" type="button" on:click={onUploadClick}>
+				<Button class="rounded small" type="button" onclick={onUploadClick}>
 					{$LL.submission.form.chooseImage()}
 				</Button>
 			</div>

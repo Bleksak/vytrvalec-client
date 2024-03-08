@@ -35,7 +35,7 @@
 			</a>
 
 			{#if (outerWidth ?? 0) <= minWidth}
-				<button class="hamburger" on:click={() => (open = !open)}>
+				<button class="hamburger" onclick={() => (open = !open)}>
 					{#if open}
 						<img class="icon" src="/images/x.svg" alt="Hamburger menu" />
 					{:else}

@@ -70,7 +70,7 @@
 						</section>
 					</article>
 					{#if seasonResults.has(currentSelection!)}
-						{@const seasonResult = seasonResults.get(currentSelection!)}
+						{@const  seasonResult = seasonResults.get(currentSelection!)}
 						{@const winners = seasonResult?.getTotalWinners().slice(0, 3) ?? []}
 						{#await facultiesPromise then faculties}
 							<div class="winners-wrapper">
@@ -78,7 +78,9 @@
 									{#if winners.length >= 2}
 										<div class="winner">
 											<span>
-												{faculties.find((faculty) => faculty.id === winners[1].faculty)?.name}
+												{$LL.faculties[
+													faculties.find((faculty) => faculty.id === winners[1].faculty)?.shortcut
+												]()}
 											</span>
 											<div class="bar bar-medium"></div>
 										</div>
@@ -87,7 +89,9 @@
 									{#if winners.length >= 1}
 										<div class="winner">
 											<span>
-												{faculties.find((faculty) => faculty.id === winners[0].faculty)?.name}
+												{$LL.faculties[
+													faculties.find((faculty) => faculty.id === winners[0].faculty)?.shortcut
+												]()}
 											</span>
 											<div class="bar bar-large"></div>
 										</div>
@@ -96,7 +100,9 @@
 									{#if winners.length >= 3}
 										<div class="winner">
 											<span>
-												{faculties.find((faculty) => faculty.id === winners[2].faculty)?.name}
+												{$LL.faculties[
+													faculties.find((faculty) => faculty.id === winners[2].faculty)?.shortcut
+												]()}
 											</span>
 											<div class="bar bar-small"></div>
 										</div>
