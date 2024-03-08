@@ -1,14 +1,22 @@
 import { updateUser } from '$actions/administration/Users';
 import { formDataToUserEditDTO } from '$lib/DTO/UserEditDTO';
-import type { Actions, RequestHandler } from '@sveltejs/kit';
+import { fail, type Actions, type RequestHandler } from '@sveltejs/kit';
 
 const updateAction: RequestHandler = async ({ request }): Promise<any> => {
 	const formData = await request.formData();
-	const data = formDataToUserEditDTO(formData);
+	const userDTO = formDataToUserEditDTO(formData);
 
-	let response = await updateUser(Number(formData.get('id')?.toString()), data);
+	if (userDTO.type === 'error') {
+		return fail(400, { errors: userDTO.errors });
+	}
 
-	return { status: response.status };
+	let response = await updateUser(Number(formData.get('id')?.toString()), userDTO.data);
+
+	if (response.type === 'error') {
+		return fail(400, { errors: response.errors });
+	}
+
+	return { status: response.type };
 };
 
 export const actions: Actions = {
