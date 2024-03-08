@@ -20,11 +20,9 @@
 		checkboxes[index] = !checkboxes[index];
 	};
 
-	$effect(() => {
-		for (let i = 0; i < checkboxes.length; i++) {
-			checkboxes[i] = i === routeMap.indexOf(route);
-		}
-	});
+    for (let i = 0; i < checkboxes.length; i++) {
+        checkboxes[i] = i === routeMap.indexOf(route);
+    }
 </script>
 
 <nav>
