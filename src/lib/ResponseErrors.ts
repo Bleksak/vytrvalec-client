@@ -8,7 +8,8 @@ export type ResponseError =
 	| 'negative'
 	| 'server_down'
 	| 'different'
-	| 'user_not_found';
+	| 'user_not_found'
+	| 'mismatch_updated_at';
 
 export type ResponseErrorMap<T> = {
 	[K in keyof T]?: Array<ResponseError>;

@@ -144,6 +144,9 @@ const en = {
 			pending: 'Pending',
 			accepted: 'Accepted',
 			rejected: 'Rejected'
+		},
+		errors: {
+			mismatch_updated_at: 'Another administrator changed this submission. Please refresh the page and try again.'
 		}
 	},
 

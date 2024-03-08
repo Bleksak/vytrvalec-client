@@ -4,13 +4,14 @@ import {
 	rejectSubmission
 } from '$actions/Submission';
 import type { SubmissionResponseDTO } from '$lib/DTO/SubmissionDTO';
+import type { SubmissionStateResponse } from '$lib/DTO/SubmissionStateDTO';
 import type { AxiosError, AxiosResponse } from 'axios';
 
 export type UnreviewedSubmissionStore = {
 	all: () => Array<SubmissionResponseDTO>;
 	pop: () => SubmissionResponseDTO | null;
-	accept: (submission: SubmissionResponseDTO) => Promise<AxiosResponse | AxiosError>;
-	reject: (submission: SubmissionResponseDTO, message: string) => Promise<AxiosResponse | AxiosError>;
+	accept: (submission: SubmissionResponseDTO) => Promise<SubmissionStateResponse>;
+	reject: (submission: SubmissionResponseDTO, message: string) => Promise<SubmissionStateResponse>;
 };
 
 export const createUnreviewedSubmissionStore = (): UnreviewedSubmissionStore => {
@@ -55,22 +56,74 @@ export const createUnreviewedSubmissionStore = (): UnreviewedSubmissionStore => 
 		}
 	};
 
-	const accept = async (submission: SubmissionResponseDTO): Promise<AxiosResponse | AxiosError> => {
+	const accept = async (submission: SubmissionResponseDTO): Promise<SubmissionStateResponse> => {
 		const result = await acceptSubmission(submission).catch((error: AxiosError) => {
-			return error;
+			if (error.response) {
+				return error.response;
+			}
+
+			return null;
 		});
+
+		if (result === null) {
+			return {
+				type: 'error',
+				errors: {
+					server: ['server_down']
+				}
+			};
+		}
+		console.log('result :>> ', result);
+
+		if (result.status !== 200) {
+			return {
+				type: 'error',
+				errors: result?.data ?? {}
+			};
+		}
+
 		await refetchIfNeeded();
 		swapIfNeeded();
-		return result;
+
+		return {
+			type: 'success',
+			date: result.data
+		};
 	};
 
-	const reject = async (submission: SubmissionResponseDTO, message: string): Promise<AxiosResponse | AxiosError> => {
+	const reject = async (submission: SubmissionResponseDTO, message: string): Promise<SubmissionStateResponse> => {
 		const result = await rejectSubmission(submission, message).catch((error: AxiosError) => {
-			return error;
+			if (error.response) {
+				return error.response;
+			}
+
+			return null;
 		});
+console.log('result :>> ', result);
+		if (result === null) {
+			return {
+				type: 'error',
+				errors: {
+					server: ['server_down']
+				}
+			};
+		}
+
+		console.log('result.data :>> ', result.data);
+		if (result.status !== 200) {
+			return {
+				type: 'error',
+				errors: result?.data ?? {}
+			};
+		}
+
 		await refetchIfNeeded();
 		swapIfNeeded();
-		return result;
+
+		return {
+			type: 'success',
+			date: result.data
+		};
 	};
 
 	const all = () => submissions;

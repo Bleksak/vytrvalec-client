@@ -1,15 +1,17 @@
 <script lang="ts">
 	import Button from '$components/Button.svelte';
 	import type { SubmissionResponseDTO } from '$lib/DTO/SubmissionDTO';
+	import type { SubmissionStateError } from '$lib/DTO/SubmissionStateDTO';
 	import type { ToastStore } from '$lib/stores/ToastStore.svelte';
 	import createUnreviewedSubmissionStore from '$lib/stores/UnreviewedSubmissionStore.svelte';
 	import { getContext } from 'svelte';
+	import { LL } from '$translations/i18n-svelte';
+
 	const toastStore = getContext<ToastStore>('toastStore');
-
-
 	const submissionStore = createUnreviewedSubmissionStore();
 
 	let currentSubmission = $state<SubmissionResponseDTO | null>(null);
+	let errors = $state<SubmissionStateError>();
 
 	$effect(() => {
 		if (currentSubmission === null && submissionStore.all().length > 0) {
@@ -29,13 +31,15 @@
 	//Nevim debilnější řešení mi nenapadlo
 	const acceptCurrent = () => {
 		submissionStore.accept(currentSubmission!).then((result) => {
-			if(result.status === 200) {
+			if(result.type === 'success') {
 				toastStore.add({
 					type: 'success',
 					message: 'Aktivita byla schválena'
 				});
+				errors = undefined;
 				popNext();
-			} else {
+			} else if(result.type === 'error') {
+				errors = result.errors as SubmissionStateError;
 				toastStore.add({
 					type: 'error',
 					message: 'Nastala chyba při schvalování aktivity. Aktualizujte stránku a opakujte akci znova.'
@@ -46,13 +50,15 @@
 
 	const rejectCurrent = () => {
 		submissionStore.reject(currentSubmission!, message!).then((result) => {
-			if(result.status === 200) {
+			if(result.type === 'success') {
 				toastStore.add({
 					type: 'success',
 					message: 'Aktivita byla zamítnuta'
 				});
 				popNext();
-			} else {
+				errors = undefined;
+			} else if(result.type === 'error'){
+				errors = result.errors as SubmissionStateError;
 				toastStore.add({
 					type: 'error',
 					message: 'Nastala chyba při zamítnutí aktivity. Aktualizujte stránku a opakujte akci znova.'
@@ -67,6 +73,15 @@
 {:else}
 	<div class="tinder-card">
 		<div class="wrapper">
+			<!-- FIXME typrscript err - later teď se mi nechce -->
+			{#each errors as error} 
+				<span class="error">{$LL.submission.errors[error as keyof typeof $LL.submission.errors]()}</span>
+			{/each}
+			{#each errors?.server?? [] as error}
+				<span class="error">
+					{error}
+				</span>
+			{/each}
 			{#if imageError}
 				<strong class='image-error'>Obrázek se nepodařilo načíst</strong>
 			{:else }

@@ -144,6 +144,9 @@ const cs = {
 			pending: 'Zpracovává se',
 			accepted: 'Schváleno',
 			rejected: 'Zamítnuto'
+		},
+		errors: {
+			mismatch_updated_at: 'Jiný administrátor změnil tuto aktivitu. Aktualizujte stránku a opakujte akci.'
 		}
 	},
 

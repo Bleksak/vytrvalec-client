@@ -403,6 +403,12 @@ type RootTranslation = {
 			 */
 			rejected: string
 		}
+		errors: {
+			/**
+			 * J​i​n​ý​ ​a​d​m​i​n​i​s​t​r​á​t​o​r​ ​z​m​ě​n​i​l​ ​t​u​t​o​ ​a​k​t​i​v​i​t​u​.​ ​A​k​t​u​a​l​i​z​u​j​t​e​ ​s​t​r​á​n​k​u​ ​a​ ​o​p​a​k​u​j​t​e​ ​a​k​c​i
+			 */
+			mismatch_updated_at: string
+		}
 	}
 	extraPoints: {
 		/**
@@ -1133,6 +1139,12 @@ export type TranslationFunctions = {
 			 * Zamítnuto
 			 */
 			rejected: () => LocalizedString
+		}
+		errors: {
+			/**
+			 * Jiný administrátor změnil tuto aktivitu. Aktualizujte stránku a opakujte akci
+			 */
+			mismatch_updated_at: () => LocalizedString
 		}
 	}
 	extraPoints: {
