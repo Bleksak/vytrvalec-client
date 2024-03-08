@@ -12,6 +12,8 @@
 	import { fetchActivities } from '$actions/Activity';
 	import Button from '$components/Button.svelte';
 	import { goto } from '$app/navigation';
+	import type { ToastStore } from '$lib/stores/ToastStore.svelte';
+	import Toast from '$components/Toast.svelte';
 
 	const { season } = $props<{ season: SeasonDTO }>();
 
@@ -20,6 +22,7 @@
 	const seasonStore = getContext<SeasonStore>('seasonStore');
 	const charityStore = getContext<CharityStore>('charityStore');
 	const userStore = getContext<UserStore>('userStore');
+	const toastStore = getContext<ToastStore>('toastStore');
 	const charity = $derived(charityStore.get(season.charity));
 
 	let seasonCacheResult = $state<boolean>();
@@ -35,8 +38,16 @@
 		if (confirm('Opravdu chcete odstranit tuto sezónu? Akce je nevratná!')) {
 			seasonStore.remove(season).then((result) => {
 				if (result) {
+					toastStore.add({
+						type: 'success',
+						message: 'Sezóna odstraněna'
+					});
 					goto('/administration/season');
 				} else {
+					toastStore.add({
+						type: 'error',
+						message: 'Nastala chyba při odstranění sezóny'
+					});
 					seasonRemoveResult = false;
 				}
 			});

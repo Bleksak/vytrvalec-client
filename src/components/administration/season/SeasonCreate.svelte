@@ -6,11 +6,13 @@
 	import type { CreateSeasonResponseDTO, SeasonDTO } from '$lib/DTO/SeasonDTO';
 	import type { CharityStore } from '$lib/stores/CharityStore.svelte';
 	import type { SeasonStore } from '$lib/stores/SeasonStore.svelte';
+	import type { ToastStore } from '$lib/stores/ToastStore.svelte';
 	import type { SubmitFunction } from '@sveltejs/kit';
 	import { getContext } from 'svelte';
 
 	const seasonStore = getContext<SeasonStore>('seasonStore');
 	const charityStore = getContext<CharityStore>('charityStore');
+	const toastStore = getContext<ToastStore>('toastStore');
 	const fourWeeks = 4 * 7 * 24 * 60 * 60 * 1000;
 
 	const today = new Date();
@@ -32,6 +34,15 @@
 			if (result.type === 'success') {
 				season.id = result.data?.id!;
 				seasonStore.updateOrCreate(season);
+				toastStore.add({
+					type: 'success',
+					message: 'Sezóna vytvořena'
+				});
+			} else {
+				toastStore.add({
+					type: 'error',
+					message: 'Nastala chyba při tvorbě sezóny'
+				});
 			}
 		};
 	};
