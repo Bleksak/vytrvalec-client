@@ -103,7 +103,7 @@ type RootTranslation = {
 			 */
 			title: string
 			/**
-			 * Ú​č​a​s​t​n​í​c​i​ ​b​o​j​u​j​í​ ​č​t​y​ř​i​ ​t​ý​d​n​y​ ​z​a​&​n​b​s​p​;​s​v​o​j​e​ ​t​ý​m​y​ ​(​f​a​k​u​l​t​a​,​ ​V​Š​ ​ú​s​t​a​v​ ​/​ ​r​e​k​t​o​r​á​t​n​í​ ​p​r​a​c​o​v​i​š​t​ě​ ​/​ ​U​3​V​)​ ​v​ ​p​o​č​t​u​ ​n​a​b​ě​h​a​n​ý​c​h​ ​a​ ​n​a​j​e​ž​d​ě​n​ý​c​h​ ​k​i​l​o​m​e​t​r​ů​.​ ​T​y​ ​s​e​ ​v​ ​r​á​m​c​i​ ​t​ý​m​ů​ ​s​č​í​t​a​j​í​ ​a​ ​v​ ​z​á​v​ě​r​u​ ​t​ý​d​n​e​ ​u​r​č​u​j​í​ ​p​o​č​e​t​ ​b​o​d​ů​,​ ​k​t​e​r​é​ ​d​a​n​ý​ ​t​ý​m​ ​z​í​s​k​á​ ​a​ ​p​o​d​l​e​ ​t​o​h​o​ ​s​e​ ​u​m​í​s​t​í​ ​v​ ​c​e​l​k​o​v​é​m​ ​p​o​ř​a​d​í​.
+			 * Ú​č​a​s​t​n​í​c​i​ ​b​o​j​u​j​í​ ​č​t​y​ř​i​ ​t​ý​d​n​y​ ​z​a​ ​s​v​o​j​e​ ​t​ý​m​y​ ​(​f​a​k​u​l​t​a​,​ ​V​Š​ ​ú​s​t​a​v​ ​/​ ​r​e​k​t​o​r​á​t​n​í​ ​p​r​a​c​o​v​i​š​t​ě​ ​/​ ​U​3​V​)​ ​v​ ​p​o​č​t​u​ ​n​a​b​ě​h​a​n​ý​c​h​ ​a​ ​n​a​j​e​ž​d​ě​n​ý​c​h​ ​k​i​l​o​m​e​t​r​ů​.​ ​T​y​ ​s​e​ ​v​ ​r​á​m​c​i​ ​t​ý​m​ů​ ​s​č​í​t​a​j​í​ ​a​ ​v​ ​z​á​v​ě​r​u​ ​t​ý​d​n​e​ ​u​r​č​u​j​í​ ​p​o​č​e​t​ ​b​o​d​ů​,​ ​k​t​e​r​é​ ​d​a​n​ý​ ​t​ý​m​ ​z​í​s​k​á​ ​a​ ​p​o​d​l​e​ ​t​o​h​o​ ​s​e​ ​u​m​í​s​t​í​ ​v​ ​c​e​l​k​o​v​é​m​ ​p​o​ř​a​d​í​.
 			 */
 			content: string
 		}
@@ -614,7 +614,7 @@ type RootTranslation = {
 		/**
 		 * P​r​a​v​i​d​l​a​ ​v​ý​z​v​y
 		 */
-		challangeTitle: string
+		challengeTitle: string
 		intro: {
 			/**
 			 * B​ě​h​e​j​t​e​,​ ​c​h​o​ď​t​e​ ​j​e​z​d​ě​t​e​ ​n​a​ ​k​o​l​e​,​ ​k​o​l​o​b​ě​ž​c​e​,​ ​b​r​u​s​l​í​c​h​!​ ​N​e​j​e​n​,​ ​ž​e​ ​u​d​ě​l​á​t​e​ ​n​ě​c​o​ ​p​r​o​ ​s​v​o​j​e​ ​z​d​r​a​v​í​,​ ​a​l​e​ ​p​ř​i​s​p​ě​j​e​t​e​ ​n​a​ ​d​o​b​r​o​u​ ​v​ě​c​!​ ​K​i​l​o​m​e​t​r​y​,​ ​k​t​e​r​é​ ​s​o​u​t​ě​ž​í​c​í​ ​u​r​a​z​í​ ​s​e​ ​p​ř​e​m​ě​n​í​ ​n​a​ ​k​o​r​u​n​y​ ​a​ ​p​ř​i​s​p​ě​j​e​m​e​ ​t​í​m​ ​n​a​ ​c​h​a​r​i​t​u​.
@@ -692,55 +692,55 @@ type RootTranslation = {
 		/**
 		 * F​a​k​u​l​t​a​ ​a​p​l​i​k​o​v​a​n​ý​c​h​ ​v​ě​d
 		 */
-		'Fakulta aplikovaných věd': string
+		FAV: string
 		/**
 		 * F​a​k​u​l​t​a​ ​d​e​s​i​g​n​u​ ​a​ ​u​m​ě​n​í​ ​L​a​d​i​s​l​a​v​a​ ​S​u​t​n​a​r​a
 		 */
-		'Fakulta designu a umění Ladislava Sutnara': string
+		FDU: string
 		/**
 		 * F​a​k​u​l​t​a​ ​e​k​o​n​o​m​i​c​k​á
 		 */
-		'Fakulta ekonomická': string
+		FEK: string
 		/**
 		 * F​a​k​u​l​t​a​ ​e​l​e​k​t​r​o​t​e​c​h​n​i​c​k​á
 		 */
-		'Fakulta elektrotechnická': string
+		FEL: string
 		/**
 		 * F​a​k​u​l​t​a​ ​f​i​l​o​z​o​f​i​c​k​á
 		 */
-		'Fakulta filozofická': string
+		FF: string
 		/**
 		 * F​a​k​u​l​t​a​ ​p​e​d​a​g​o​g​i​c​k​á
 		 */
-		'Fakulta pedagogická': string
+		FPE: string
 		/**
 		 * F​a​k​u​l​t​a​ ​p​r​á​v​n​i​c​k​á
 		 */
-		'Fakulta právnická': string
+		FPR: string
 		/**
 		 * F​a​k​u​l​t​a​ ​s​t​r​o​j​n​í
 		 */
-		'Fakulta strojní': string
+		FST: string
 		/**
 		 * F​a​k​u​l​t​a​ ​z​d​r​a​v​o​t​n​í​c​h​ ​s​t​u​d​i​í
 		 */
-		'Fakulta zdravotních studií': string
+		FZS: string
 		/**
 		 * R​e​k​t​o​r​á​t
 		 */
-		Rektorát: string
+		REK: string
 		/**
 		 * N​o​v​é​ ​t​e​c​h​n​o​l​o​g​i​e​ ​-​ ​v​ý​z​k​u​m​n​é​ ​c​e​n​t​r​u​m
 		 */
-		'Nové technologie - výzkumné centrum': string
+		NTC: string
 		/**
 		 * U​n​i​v​e​r​z​i​t​a​ ​t​ř​e​t​í​h​o​ ​v​ě​k​u
 		 */
-		'Univerzita třetího věku': string
+		U3V: string
 		/**
 		 * U​́​s​t​a​v​ ​j​a​z​y​k​o​v​é​ ​p​ř​i​́​p​r​a​v​y
 		 */
-		'Ústav jazykové přípravy': string
+		UJP: string
 	}
 }
 
@@ -834,7 +834,7 @@ export type TranslationFunctions = {
 			 */
 			title: () => LocalizedString
 			/**
-			 * Účastníci bojují čtyři týdny za&nbsp;svoje týmy (fakulta, VŠ ústav / rektorátní pracoviště / U3V) v počtu naběhaných a naježděných kilometrů. Ty se v rámci týmů sčítají a v závěru týdne určují počet bodů, které daný tým získá a podle toho se umístí v celkovém pořadí.
+			 * Účastníci bojují čtyři týdny za svoje týmy (fakulta, VŠ ústav / rektorátní pracoviště / U3V) v počtu naběhaných a naježděných kilometrů. Ty se v rámci týmů sčítají a v závěru týdne určují počet bodů, které daný tým získá a podle toho se umístí v celkovém pořadí.
 			 */
 			content: () => LocalizedString
 		}
@@ -1345,7 +1345,7 @@ export type TranslationFunctions = {
 		/**
 		 * Pravidla výzvy
 		 */
-		challangeTitle: () => LocalizedString
+		challengeTitle: () => LocalizedString
 		intro: {
 			/**
 			 * Běhejte, choďte jezděte na kole, koloběžce, bruslích! Nejen, že uděláte něco pro svoje zdraví, ale přispějete na dobrou věc! Kilometry, které soutěžící urazí se přemění na koruny a přispějeme tím na charitu.
@@ -1423,55 +1423,55 @@ export type TranslationFunctions = {
 		/**
 		 * Fakulta aplikovaných věd
 		 */
-		'Fakulta aplikovaných věd': () => LocalizedString
+		FAV: () => LocalizedString
 		/**
 		 * Fakulta designu a umění Ladislava Sutnara
 		 */
-		'Fakulta designu a umění Ladislava Sutnara': () => LocalizedString
+		FDU: () => LocalizedString
 		/**
 		 * Fakulta ekonomická
 		 */
-		'Fakulta ekonomická': () => LocalizedString
+		FEK: () => LocalizedString
 		/**
 		 * Fakulta elektrotechnická
 		 */
-		'Fakulta elektrotechnická': () => LocalizedString
+		FEL: () => LocalizedString
 		/**
 		 * Fakulta filozofická
 		 */
-		'Fakulta filozofická': () => LocalizedString
+		FF: () => LocalizedString
 		/**
 		 * Fakulta pedagogická
 		 */
-		'Fakulta pedagogická': () => LocalizedString
+		FPE: () => LocalizedString
 		/**
 		 * Fakulta právnická
 		 */
-		'Fakulta právnická': () => LocalizedString
+		FPR: () => LocalizedString
 		/**
 		 * Fakulta strojní
 		 */
-		'Fakulta strojní': () => LocalizedString
+		FST: () => LocalizedString
 		/**
 		 * Fakulta zdravotních studií
 		 */
-		'Fakulta zdravotních studií': () => LocalizedString
+		FZS: () => LocalizedString
 		/**
 		 * Rektorát
 		 */
-		Rektorát: () => LocalizedString
+		REK: () => LocalizedString
 		/**
 		 * Nové technologie - výzkumné centrum
 		 */
-		'Nové technologie - výzkumné centrum': () => LocalizedString
+		NTC: () => LocalizedString
 		/**
 		 * Univerzita třetího věku
 		 */
-		'Univerzita třetího věku': () => LocalizedString
+		U3V: () => LocalizedString
 		/**
 		 * Ústav jazykové přípravy
 		 */
-		'Ústav jazykové přípravy': () => LocalizedString
+		UJP: () => LocalizedString
 	}
 }
 

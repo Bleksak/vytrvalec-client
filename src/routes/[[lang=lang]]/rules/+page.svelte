@@ -4,7 +4,7 @@
 
 <main>
 	<article>
-		<h2 class="no-transform">{$LL.rules.challangeTitle()}</h2>
+		<h2 class="no-transform">{$LL.rules.challengeTitle()}</h2>
 		<section>
 			<p>{$LL.rules.intro.content1()}</p>
 			<p>{$LL.rules.intro.content2()}</p>
@@ -35,11 +35,11 @@
 					<ul class="list-style">
 						<li>
 							1 <strong>{$LL.rules.extraPoints.extraPoint().toUpperCase()}</strong> 
-							{'' + $LL.rules.extraPoints.thirdWeek.extraOne()}
+							{$LL.rules.extraPoints.thirdWeek.extraOne()}
 						</li>
 						<li>
 							2 <strong>{$LL.rules.extraPoints.extraPoints().toUpperCase()}</strong>
-							{' '+ $LL.rules.extraPoints.thirdWeek.extraTwo()}
+							{$LL.rules.extraPoints.thirdWeek.extraTwo()}
 						</li>
 					</ul>
 				</li>
@@ -48,7 +48,7 @@
 					<ul class="list-style">
 						<li>
 							1 <strong>{$LL.rules.extraPoints.extraPoint().toUpperCase()}</strong> 
-							{' '+ $LL.rules.extraPoints.fourthWeek.extraOne()}
+							{$LL.rules.extraPoints.fourthWeek.extraOne()}
 						</li>
 					</ul>
 				</li>
