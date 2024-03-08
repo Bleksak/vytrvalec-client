@@ -144,7 +144,7 @@ type RootTranslation = {
 		errors: {
 			email: {
 				/**
-				 * V​y​p​l​ň​t​e​ ​p​r​o​s​i​́​m​ ​s​v​o​u​ ​e​-​m​a​i​l​o​v​o​u​ ​a​d​r​e​s​u​.
+				 * E​-​m​a​i​l​o​v​á​ ​a​d​r​e​s​a​ ​n​e​s​m​í​ ​b​ý​t​ ​p​r​á​z​d​n​á​.
 				 */
 				blank: string
 				/**
@@ -154,7 +154,7 @@ type RootTranslation = {
 			}
 			password: {
 				/**
-				 * V​y​p​l​ň​t​e​ ​p​r​o​s​i​́​m​ ​s​v​e​́​ ​h​e​s​l​o​.
+				 * H​e​s​l​o​ ​n​e​s​m​í​ ​b​ý​t​ ​p​r​á​z​d​n​é​.
 				 */
 				blank: string
 				/**
@@ -164,13 +164,13 @@ type RootTranslation = {
 			}
 			first_name: {
 				/**
-				 * V​y​p​l​ň​t​e​ ​p​r​o​s​i​́​m​ ​s​v​e​́​ ​j​m​é​n​o​.
+				 * J​m​é​n​o​ ​n​e​s​m​í​ ​b​ý​t​ ​p​r​á​z​d​n​é​.
 				 */
 				blank: string
 			}
 			last_name: {
 				/**
-				 * V​y​p​l​ň​t​e​ ​p​r​o​s​i​́​m​ ​s​v​e​́​ ​p​ř​í​j​m​e​n​í​.
+				 * P​ř​í​j​m​e​n​í​ ​n​e​s​m​í​ ​b​ý​t​ ​p​r​á​z​d​n​é​.
 				 */
 				blank: string
 			}
@@ -875,7 +875,7 @@ export type TranslationFunctions = {
 		errors: {
 			email: {
 				/**
-				 * Vyplňte prosím svou e-mailovou adresu.
+				 * E-mailová adresa nesmí být prázdná.
 				 */
 				blank: () => LocalizedString
 				/**
@@ -885,7 +885,7 @@ export type TranslationFunctions = {
 			}
 			password: {
 				/**
-				 * Vyplňte prosím své heslo.
+				 * Heslo nesmí být prázdné.
 				 */
 				blank: () => LocalizedString
 				/**
@@ -895,13 +895,13 @@ export type TranslationFunctions = {
 			}
 			first_name: {
 				/**
-				 * Vyplňte prosím své jméno.
+				 * Jméno nesmí být prázdné.
 				 */
 				blank: () => LocalizedString
 			}
 			last_name: {
 				/**
-				 * Vyplňte prosím své příjmení.
+				 * Příjmení nesmí být prázdné.
 				 */
 				blank: () => LocalizedString
 			}

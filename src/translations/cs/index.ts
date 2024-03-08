@@ -47,18 +47,18 @@ const cs = {
 		submit: 'Registrovat',
 		errors: {
 			email: {
-				blank: 'Vyplňte prosím svou e-mailovou adresu.',
+				blank: 'E-mailová adresa nesmí být prázdná.',
 				not_unique: 'Tato e-mailová adresa byla již registrována.'
 			},
 			password: {
-				blank: 'Vyplňte prosím své heslo.',
+				blank: 'Heslo nesmí být prázdné.',
 				weak: 'Vaše heslo musí obsahovat alespoň 8 znaků a alespoň jedno číslo a speciální znak.'
 			},
 			first_name: {
-				blank: 'Vyplňte prosím své jméno.'
+				blank: 'Jméno nesmí být prázdné.'
 			},
 			last_name: {
-				blank: 'Vyplňte prosím své příjmení.'
+				blank: 'Příjmení nesmí být prázdné.'
 			},
 			faculty: {
 				invalid: 'Vybraná fakulta není platná.',

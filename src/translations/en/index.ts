@@ -47,18 +47,18 @@ const en = {
 		submit: 'Register',
 		errors: {
 			email: {
-				blank: 'Please enter your email address.',
+				blank: 'Email address cannot be empty.',
 				not_unique: 'This email address is already registered.'
 			},
 			password: {
-				blank: 'Please enter your password.',
+				blank: 'Password cannot be empty.',
 				weak: 'Your password must be at least 8 characters long and contain at least one number and one special character.'
 			},
 			first_name: {
-				blank: 'Please enter your first name.'
+				blank: 'First name cannot be empty.'
 			},
 			last_name: {
-				blank: 'Please enter your last name.'
+				blank: 'Last name cannot be empty.'
 			},
 			faculty: {
 				invalid: 'Please select a valid faculty.',
