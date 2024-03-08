@@ -1,6 +1,7 @@
 <script lang="ts">
 	import { fetchTotalStatistics } from '$actions/Statistics';
 	import LL from '$translations/i18n-svelte';
+	import getActivityImage from '$utils/ActivityUtils';
 
 	const statistics = fetchTotalStatistics();
 </script>
@@ -20,8 +21,8 @@
 				</div>
 				{#each stats.activities as activity}
 					<div class="card">
-						<img src="/images/icons/bicycle.svg" alt="Bicycle icon" />
-						<h2>{(activity.distance / 1000).toFixed(0)}&nbsp;km</h2>
+                        <img src="{getActivityImage(activity.activity)}" alt="Statistics icon" />
+                        <h3>{(activity.distance / 1000).toFixed(0)}&nbsp;km</h3>
 						<h5>{$LL.activities[activity.activity as keyof typeof $LL.activities]().toUpperCase()}</h5>
 					</div>
 				{/each}
@@ -55,7 +56,7 @@
 
 	.card img {
 		width: 100%;
-		max-width: 200px;
+		max-width: 150px;
 	}
 
 	@media (max-width: 1000px) {
