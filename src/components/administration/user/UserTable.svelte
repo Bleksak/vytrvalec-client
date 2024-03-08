@@ -78,7 +78,7 @@
 					<td>
 						<button
 							class="edit"
-							on:click={() => dialogStore.open(UserEditor, { user: user }, context)}
+							onclick={() => dialogStore.open(UserEditor, { user: user }, context)}
 						>
 							<img class="icon" src="/images/icons/edit.png" alt="Upravit" title="Upravit" />
 						</button>

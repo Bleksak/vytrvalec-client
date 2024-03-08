@@ -18,7 +18,7 @@
 	{#each submissionStore.all() as submission, i}
 		<div
 			class="submission"
-			on:click={() => {
+			onclick={() => {
 				dialogStore.open(SubmissionDetail, { currentSubmission: submission }, context);
 			}}
 			on:keypress={() => {

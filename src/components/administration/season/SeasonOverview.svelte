@@ -74,7 +74,7 @@
 					<p><strong>Konec:&nbsp;</strong>{season.end.toLocaleDateString('cs')}</p>
 					<p><strong>Celková vzdálenost:&nbsp;</strong>{seasonResult?.getTotalDistance()} km</p>
 					{#if season.end <= new Date()}
-						<Button on:click={endSeason}>Uzavřít sezónu</Button>
+						<Button onclick={endSeason}>Uzavřít sezónu</Button>
 						{#if seasonCacheResult !== undefined}
 							{#if seasonCacheResult}
 								<span class="note">Sezóna byla uzavřena</span>
@@ -111,7 +111,7 @@
 			{#if seasonResult?.getTotalDistance() === 0}
 				<Widget title="Odstranit sezónu">
 					<section class="season-delete">
-						<Button type="button" on:click={removeSeason}>Odstranit sezónu</Button>
+						<Button type="button" onclick={removeSeason}>Odstranit sezónu</Button>
 						{#if seasonRemoveResult === false}
 							<span class="note">Sezónu nelze odstranit, jelikož již obsahuje aktivity</span>
 						{/if}

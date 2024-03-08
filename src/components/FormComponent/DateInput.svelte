@@ -22,9 +22,12 @@
 	{id}
 	min={toString(minDate) || null}
 	max={toString(maxDate) || null}
-	on:change={() => (date = fromString(internal))}
-	on:click|preventDefault={(e) => {
-		e.target.showPicker();
+	onchange={() => (date = fromString(internal))}
+	onclick={(e: MouseEvent) => {
+        e.preventDefault();
+
+        const inputElement = e.target as HTMLInputElement;
+		inputElement?.showPicker();
 	}}
 	{...props}
 />

@@ -7,7 +7,7 @@
 	>();
 </script>
 
-<button {name} {id} {...props} on:click>{@render children()}</button>
+<button {name} {id} {...props}>{@render children()}</button>
 
 <style>
 	button {

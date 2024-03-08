@@ -30,7 +30,7 @@
 <nav>
 	<ul>
 		<li>
-			<a href="/administration/season" on:click={() => toggle(0)}>Sezóny</a>
+			<a href="/administration/season" onclick={() => toggle(0)}>Sezóny</a>
 			<input id="navbar-season" bind:checked={checkboxes[0]} type="checkbox" />
 			<Accordion bind:opened={checkboxes[0]}>
 				{#each seasonStore.all() as season}
@@ -43,7 +43,7 @@
 			</Accordion>
 		</li>
 		<li>
-			<a href="/administration/charity" on:click={() => toggle(1)}> Charity </a>
+			<a href="/administration/charity" onclick={() => toggle(1)}> Charity </a>
 			<input type="checkbox" bind:checked={checkboxes[1]} />
 			<Accordion bind:opened={checkboxes[1]}>
 				{#each charityStore.all() as charity}

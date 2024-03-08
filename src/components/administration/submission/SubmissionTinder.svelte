@@ -100,7 +100,7 @@
 				<Button
 					class="rounded"
 					type="button"
-					on:click={() => {
+					onclick={() => {
 						rejectCurrent();
 						message = '';
 					}}
@@ -110,7 +110,7 @@
 				<Button
 					class="rounded"
 					type="button"
-					on:click={() => {
+					onclick={() => {
 						acceptCurrent();
 					}}
 				>

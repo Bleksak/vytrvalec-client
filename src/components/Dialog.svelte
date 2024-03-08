@@ -26,7 +26,7 @@
 	<header class="dialog-header">
 		<h5>{header}</h5>
 
-		<button on:click={close} type="button">
+		<button onclick={close} type="button">
 			<img src="/images/icons/close.svg" alt="Close" />
 		</button>
 	</header>

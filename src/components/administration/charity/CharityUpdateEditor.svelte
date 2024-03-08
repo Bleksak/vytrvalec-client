@@ -46,7 +46,7 @@
 
 	<div class="buttons">
 		<Button type="submit">Upravit</Button>
-		<Button type="button" on:click={deleteCharity}>Odstranit</Button>
+		<Button type="button" onclick={deleteCharity}>Odstranit</Button>
 	</div>
 
 	{#if deleteStatus === false}

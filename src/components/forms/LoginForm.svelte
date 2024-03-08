@@ -77,7 +77,7 @@
 			{/each}
 		</div>
 
-		<button class="forgotten-password" type="button" on:click={openForgottenPassword}>
+		<button class="forgotten-password" type="button" onclick={openForgottenPassword}>
 			{$LL.login.forgotten.prompt()}
 		</button>
 

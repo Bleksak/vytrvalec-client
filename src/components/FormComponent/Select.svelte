@@ -1,6 +1,5 @@
 <script lang="ts">
 	import { clickOutside } from '$utils/ClickOutside';
-	import { untrack } from 'svelte';
 	import { slide } from 'svelte/transition';
 
 	let {
@@ -23,16 +22,6 @@
 
 	let currentKey = $state<string>(keys[0]);
 
-	$effect(() => {
-		untrack(() => {
-			if (currentValue === undefined && values.length > 0) {
-				select(0);
-			} else if (currentValue !== undefined && values.length > 0) {
-				select(values.indexOf(currentValue));
-			}
-		});
-	});
-
 	let selectElement = $state();
 	let optionsElement = $state();
 
@@ -41,6 +30,12 @@
 		currentValue = values[idx];
 		currentKey = keys[idx];
 	};
+
+	if (currentValue === undefined && values.length > 0) {
+		select(0);
+	} else if (currentValue !== undefined && values.length > 0) {
+		select(values.indexOf(currentValue));
+	}
 
 	const closeOnOutsideClick = () => (open = false);
 </script>
@@ -52,7 +47,7 @@
 	class="select"
 	class:open
 	bind:this={selectElement}
-	on:click={() => (open = !open)}
+	onclick={() => (open = !open)}
 	role="button"
 	tabindex="0"
 	on:keydown={(e) => {
@@ -70,7 +65,10 @@
 						type="button"
 						class="select-option"
 						class:inverted
-						on:click|stopPropagation={() => select(i)}
+						onclick={(e) => {
+							e.stopPropagation();
+							select(i);
+						}}
 					>
 						{key}
 					</button>
