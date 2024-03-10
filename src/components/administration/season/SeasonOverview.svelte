@@ -13,7 +13,6 @@
 	import Button from '$components/Button.svelte';
 	import { goto } from '$app/navigation';
 	import type { ToastStore } from '$lib/stores/ToastStore.svelte';
-	import Toast from '$components/Toast.svelte';
 
 	const { season } = $props<{ season: SeasonDTO }>();
 

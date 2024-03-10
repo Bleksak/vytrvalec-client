@@ -20,7 +20,6 @@
 
 	const enhancer: SubmitFunction<CharityCreateData> = () => {
 		return async ({ result, update }) => {
-			console.log('result :>> ', result);
 			if (result.type === 'success') {
 				charity.id = result.data?.id!;
 				charityStore.updateOrCreate(charity);

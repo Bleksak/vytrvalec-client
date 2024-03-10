@@ -73,7 +73,6 @@ export const createUnreviewedSubmissionStore = (): UnreviewedSubmissionStore => 
 				}
 			};
 		}
-		console.log('result :>> ', result);
 
 		if (result.status !== 200) {
 			return {
@@ -99,7 +98,6 @@ export const createUnreviewedSubmissionStore = (): UnreviewedSubmissionStore => 
 
 			return null;
 		});
-console.log('result :>> ', result);
 		if (result === null) {
 			return {
 				type: 'error',
