@@ -122,6 +122,10 @@ type RootTranslation = {
 		 */
 		password: string
 		/**
+		 * H​e​s​l​o​ ​z​n​o​v​u
+		 */
+		password_repeat: string
+		/**
 		 * J​m​é​n​o
 		 */
 		first_name: string
@@ -165,6 +169,12 @@ type RootTranslation = {
 				 * V​a​š​e​ ​h​e​s​l​o​ ​m​u​s​í​ ​o​b​s​a​h​o​v​a​t​ ​a​l​e​s​p​o​ň​ ​1​2​ ​z​n​a​k​ů​ ​a​ ​a​l​e​s​p​o​ň​ ​j​e​d​n​o​ ​č​í​s​l​o​ ​a​ ​s​p​e​c​i​á​l​n​í​ ​z​n​a​k​.
 				 */
 				weak: string
+			}
+			password_repeat: {
+				/**
+				 * H​e​s​l​a​ ​s​e​ ​m​u​s​í​ ​s​h​o​d​o​v​a​t​.
+				 */
+				password_mismatch: string
 			}
 			first_name: {
 				/**
@@ -863,6 +873,10 @@ export type TranslationFunctions = {
 		 */
 		password: () => LocalizedString
 		/**
+		 * Heslo znovu
+		 */
+		password_repeat: () => LocalizedString
+		/**
 		 * Jméno
 		 */
 		first_name: () => LocalizedString
@@ -906,6 +920,12 @@ export type TranslationFunctions = {
 				 * Vaše heslo musí obsahovat alespoň 12 znaků a alespoň jedno číslo a speciální znak.
 				 */
 				weak: () => LocalizedString
+			}
+			password_repeat: {
+				/**
+				 * Hesla se musí shodovat.
+				 */
+				password_mismatch: () => LocalizedString
 			}
 			first_name: {
 				/**

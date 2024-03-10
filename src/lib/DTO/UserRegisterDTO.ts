@@ -32,6 +32,12 @@ export const formDataToUserRegisterDTO = (formData: FormData): UserRegisterRetur
 		errors['password'] = ['blank'];
 	}
 
+	const password_repeat = formData.get('password_repeat')?.toString();
+
+	if (password_repeat !== password) {
+		errors['password_repeat'] = ['password_mismatch'];
+	}
+
 	const firstName = formData.get('first_name')?.toString();
 
 	if (firstName === undefined || firstName === '') {

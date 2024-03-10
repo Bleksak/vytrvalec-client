@@ -42,6 +42,7 @@ const cs = {
 		title: 'Registrace',
 		email: 'E-mail',
 		password: 'Heslo',
+		password_repeat: 'Heslo znovu',
 		first_name: 'Jméno',
 		last_name: 'Příjmení',
 		faculty: 'Fakulta',
@@ -56,6 +57,9 @@ const cs = {
 			password: {
 				blank: 'Heslo nesmí být prázdné.',
 				weak: 'Vaše heslo musí obsahovat alespoň 12 znaků a alespoň jedno číslo a speciální znak.'
+			},
+			password_repeat: {
+				password_mismatch: 'Hesla se musí shodovat.'
 			},
 			first_name: {
 				blank: 'Jméno nesmí být prázdné.'

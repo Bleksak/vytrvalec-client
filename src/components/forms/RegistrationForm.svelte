@@ -32,7 +32,6 @@
 				dialog?.close();
 			} else if (result.type === 'failure') {
 				errors = result?.data?.register as RegistrationError;
-				console.log('result?.data :>> ', result?.data);
 				toastStore.add({
 					type: 'error',
 					message: 'Registrace nebyla úspěšná'
@@ -85,6 +84,18 @@
 			{#each errors?.password ?? [] as error}
 				<span class="error">
 					{$LL.registration.errors.password[error as keyof typeof $LL.registration.errors.password]()}
+				</span>
+			{/each}
+		</div>
+
+		<div class="form-field">
+			<label for="password_repeat">
+				{$LL.registration.password_repeat()}:
+			</label>
+			<input type="password" name="password_repeat" id="password_repeat" />
+			{#each errors?.password_repeat ?? [] as error}
+				<span class="error">
+					{$LL.registration.errors.password_repeat[error as keyof typeof $LL.registration.errors.password_repeat]()}
 				</span>
 			{/each}
 		</div>

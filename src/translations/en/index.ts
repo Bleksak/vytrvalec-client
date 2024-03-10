@@ -42,6 +42,7 @@ const en = {
 		title: 'Registration',
 		email: 'E-mail',
 		password: 'Password',
+		password_repeat: 'Password repeat',
 		first_name: 'First name',
 		last_name: 'Last name',
 		faculty: 'Faculty',
@@ -56,6 +57,9 @@ const en = {
 			password: {
 				blank: 'Password cannot be empty.',
 				weak: 'Your password must be at least 12 characters long and contain at least one number and one special character.'
+			},
+			password_repeat: {
+				password_mismatch: 'Passwords must match.'
 			},
 			first_name: {
 				blank: 'First name cannot be empty.'
