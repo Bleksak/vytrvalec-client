@@ -9,6 +9,10 @@
 	import Checkbox from '$components/FormComponent/Checkbox.svelte';
 	import Select from '$components/FormComponent/Select.svelte';
 	import type { RegistrationError } from '$lib/DTO/UserRegisterResponse';
+	import { getContext } from 'svelte';
+	import type { ToastStore } from '$lib/stores/ToastStore.svelte';
+
+	const toastStore = getContext<ToastStore>('toastStore');
 
 	let { ...props }: HTMLDialogAttributes = $props();
 	let dialog = $state<Dialog>();
@@ -20,9 +24,19 @@
 	const enhancer: SubmitFunction = () => {
 		return async ({ result, update }) => {
 			if (result.type === 'success') {
+				toastStore.add({
+					type: 'success',
+					message: 'Registrace proběhla úspěšně'
+				});
+				errors = undefined;
 				dialog?.close();
 			} else if (result.type === 'failure') {
 				errors = result?.data?.register as RegistrationError;
+				console.log('result?.data :>> ', result?.data);
+				toastStore.add({
+					type: 'error',
+					message: 'Registrace nebyla úspěšná'
+				});
 			}
 		};
 	};

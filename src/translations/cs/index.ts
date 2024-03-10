@@ -50,11 +50,12 @@ const cs = {
 		errors: {
 			email: {
 				blank: 'E-mailová adresa nesmí být prázdná.',
-				not_unique: 'Tato e-mailová adresa byla již registrována.'
+				not_unique: 'Tato e-mailová adresa byla již registrována.',
+				invalid: 'Neplatná e-mailová adresa.'
 			},
 			password: {
 				blank: 'Heslo nesmí být prázdné.',
-				weak: 'Vaše heslo musí obsahovat alespoň 8 znaků a alespoň jedno číslo a speciální znak.'
+				weak: 'Vaše heslo musí obsahovat alespoň 12 znaků a alespoň jedno číslo a speciální znak.'
 			},
 			first_name: {
 				blank: 'Jméno nesmí být prázdné.'
@@ -64,7 +65,7 @@ const cs = {
 			},
 			faculty: {
 				invalid: 'Vybraná fakulta není platná.',
-				no_faculties: 'Nepodarilo se najít fakulty'
+				no_faculties: 'Nepodařilo se najít fakulty'
 			},
 			gdpr: {
 				blank: 'Prosím potvrďte souhlas se zpracováním osobních údajů.'

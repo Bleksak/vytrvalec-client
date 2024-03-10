@@ -50,11 +50,12 @@ const en = {
 		errors: {
 			email: {
 				blank: 'Email address cannot be empty.',
-				not_unique: 'This email address is already registered.'
+				not_unique: 'This email address is already registered.',
+				invalid: 'Invalid email address.'
 			},
 			password: {
 				blank: 'Password cannot be empty.',
-				weak: 'Your password must be at least 8 characters long and contain at least one number and one special character.'
+				weak: 'Your password must be at least 12 characters long and contain at least one number and one special character.'
 			},
 			first_name: {
 				blank: 'First name cannot be empty.'

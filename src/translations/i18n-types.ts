@@ -151,6 +151,10 @@ type RootTranslation = {
 				 * T​a​t​o​ ​e​-​m​a​i​l​o​v​a​́​ ​a​d​r​e​s​a​ ​b​y​l​a​ ​j​i​z​̌​ ​r​e​g​i​s​t​r​o​v​a​́​n​a​.
 				 */
 				not_unique: string
+				/**
+				 * N​e​p​l​a​t​n​á​ ​e​-​m​a​i​l​o​v​á​ ​a​d​r​e​s​a​.
+				 */
+				invalid: string
 			}
 			password: {
 				/**
@@ -158,7 +162,7 @@ type RootTranslation = {
 				 */
 				blank: string
 				/**
-				 * V​a​š​e​ ​h​e​s​l​o​ ​m​u​s​í​ ​o​b​s​a​h​o​v​a​t​ ​a​l​e​s​p​o​ň​ ​8​ ​z​n​a​k​ů​ ​a​ ​a​l​e​s​p​o​ň​ ​j​e​d​n​o​ ​č​í​s​l​o​ ​a​ ​s​p​e​c​i​á​l​n​í​ ​z​n​a​k​.
+				 * V​a​š​e​ ​h​e​s​l​o​ ​m​u​s​í​ ​o​b​s​a​h​o​v​a​t​ ​a​l​e​s​p​o​ň​ ​1​2​ ​z​n​a​k​ů​ ​a​ ​a​l​e​s​p​o​ň​ ​j​e​d​n​o​ ​č​í​s​l​o​ ​a​ ​s​p​e​c​i​á​l​n​í​ ​z​n​a​k​.
 				 */
 				weak: string
 			}
@@ -180,7 +184,7 @@ type RootTranslation = {
 				 */
 				invalid: string
 				/**
-				 * N​e​p​o​d​a​r​i​l​o​ ​s​e​ ​n​a​j​í​t​ ​f​a​k​u​l​t​y
+				 * N​e​p​o​d​a​ř​i​l​o​ ​s​e​ ​n​a​j​í​t​ ​f​a​k​u​l​t​y
 				 */
 				no_faculties: string
 			}
@@ -405,7 +409,7 @@ type RootTranslation = {
 		}
 		errors: {
 			/**
-			 * J​i​n​ý​ ​a​d​m​i​n​i​s​t​r​á​t​o​r​ ​z​m​ě​n​i​l​ ​t​u​t​o​ ​a​k​t​i​v​i​t​u​.​ ​A​k​t​u​a​l​i​z​u​j​t​e​ ​s​t​r​á​n​k​u​ ​a​ ​o​p​a​k​u​j​t​e​ ​a​k​c​i
+			 * J​i​n​ý​ ​a​d​m​i​n​i​s​t​r​á​t​o​r​ ​z​m​ě​n​i​l​ ​t​u​t​o​ ​a​k​t​i​v​i​t​u​.​ ​A​k​t​u​a​l​i​z​u​j​t​e​ ​s​t​r​á​n​k​u​ ​a​ ​o​p​a​k​u​j​t​e​ ​a​k​c​i​.
 			 */
 			mismatch_updated_at: string
 		}
@@ -888,6 +892,10 @@ export type TranslationFunctions = {
 				 * Tato e-mailová adresa byla již registrována.
 				 */
 				not_unique: () => LocalizedString
+				/**
+				 * Neplatná e-mailová adresa.
+				 */
+				invalid: () => LocalizedString
 			}
 			password: {
 				/**
@@ -895,7 +903,7 @@ export type TranslationFunctions = {
 				 */
 				blank: () => LocalizedString
 				/**
-				 * Vaše heslo musí obsahovat alespoň 8 znaků a alespoň jedno číslo a speciální znak.
+				 * Vaše heslo musí obsahovat alespoň 12 znaků a alespoň jedno číslo a speciální znak.
 				 */
 				weak: () => LocalizedString
 			}
@@ -917,7 +925,7 @@ export type TranslationFunctions = {
 				 */
 				invalid: () => LocalizedString
 				/**
-				 * Nepodarilo se najít fakulty
+				 * Nepodařilo se najít fakulty
 				 */
 				no_faculties: () => LocalizedString
 			}
@@ -1142,7 +1150,7 @@ export type TranslationFunctions = {
 		}
 		errors: {
 			/**
-			 * Jiný administrátor změnil tuto aktivitu. Aktualizujte stránku a opakujte akci
+			 * Jiný administrátor změnil tuto aktivitu. Aktualizujte stránku a opakujte akci.
 			 */
 			mismatch_updated_at: () => LocalizedString
 		}
