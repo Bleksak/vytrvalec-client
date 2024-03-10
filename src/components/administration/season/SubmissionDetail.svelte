@@ -7,6 +7,8 @@
     import type {SubmitFunction} from '@sveltejs/kit';
 	import { getContext } from 'svelte';
 	import type { SubmissionStore } from '$lib/stores/SubmissionStore.svelte';
+	import type { SubmissionStateError } from '$lib/DTO/SubmissionStateDTO';
+	import { LL } from '$translations/i18n-svelte';
 
 	const { currentSubmission } = $props<{ currentSubmission: SubmissionResponseDTO }>();
 
@@ -15,23 +17,25 @@
     let dialog = $state<Dialog>();
 
     const submissionStore = getContext<SubmissionStore>('submissionStore');
+	let errors = $state<SubmissionStateError>();
 
 	const enhancer: SubmitFunction<{ updated_at: string }> = ({ formData }) => {
-		dialog?.close();
-
 		return async ({ update, result }) => {
 			if (result.type === 'success') {
 				currentSubmission!.reviewed! = true;
 				currentSubmission!.accepted! = formData.get('state')?.toString() === '1';
 				currentSubmission!.updatedAt! = result!.data!.updated_at!;
 
-				submissionStore.update(currentSubmission!);
+				submissionStore?.update(currentSubmission!);
 
+				dialog?.close();
 				toastStore.add({
 					type: 'success',
 					message: 'Akce proběhla úspěšně'
 				});
+				errors = undefined;
 			} else if (result.type === 'failure') {
+				errors = result?.data as SubmissionStateError;
 				toastStore.add({
 					type: 'error',
 					message: 'Akci nebylo možné dokončit, zkuste to prosím znovu'
@@ -48,6 +52,12 @@
 		<img src={currentSubmission.image} alt="Aktivita" />
 		<input type="hidden" name="id" value={currentSubmission.id} />
 		<input type="hidden" name="updated_at" value={currentSubmission.updatedAt} />
+		<!-- FIXME: fixnout s ostatníma ts errorama při refactoru -->
+		{#each errors?.submissionState ?? [] as error}
+				<span class="error">
+					<span class="error">{$LL.submission.errors[error as keyof typeof $LL.submission.errors]()}</span>
+				</span>
+			{/each}
 
 		<p><strong>Aktivita:&nbsp;</strong>{currentSubmission.activity.name}</p>
 		<p><strong>Vzdálenost:&nbsp;</strong>{currentSubmission.distance / 1000} km</p>
