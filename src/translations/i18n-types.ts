@@ -613,6 +613,20 @@ type RootTranslation = {
 		 * Z​m​ě​n​i​t
 		 */
 		submit: string
+		errors: {
+			/**
+			 * N​o​v​é​ ​h​e​s​l​o​ ​n​e​s​m​í​ ​b​ý​t​ ​p​r​á​z​d​n​é​.
+			 */
+			blank: string
+			/**
+			 * H​e​s​l​a​ ​s​e​ ​m​u​s​í​ ​s​h​o​d​o​v​a​t​.
+			 */
+			password_mismatch: string
+			/**
+			 * V​a​š​e​ ​h​e​s​l​o​ ​m​u​s​í​ ​o​b​s​a​h​o​v​a​t​ ​a​l​e​s​p​o​ň​ ​1​2​ ​z​n​a​k​ů​ ​a​ ​a​l​e​s​p​o​ň​ ​j​e​d​n​o​ ​č​í​s​l​o​ ​a​ ​s​p​e​c​i​á​l​n​í​ ​z​n​a​k​.
+			 */
+			weak: string
+		}
 	}
 	activities: {
 		/**
@@ -769,6 +783,12 @@ type RootTranslation = {
 		 * U​́​s​t​a​v​ ​j​a​z​y​k​o​v​é​ ​p​ř​i​́​p​r​a​v​y
 		 */
 		UJP: string
+	}
+	server: {
+		/**
+		 * S​e​r​v​e​r​ ​n​e​n​í​ ​d​o​s​t​u​p​n​ý​,​ ​o​p​a​k​u​j​t​e​ ​a​k​c​i​ ​p​o​z​d​ě​j​i​.
+		 */
+		server_down: string
 	}
 }
 
@@ -1372,6 +1392,20 @@ export type TranslationFunctions = {
 		 * Změnit
 		 */
 		submit: () => LocalizedString
+		errors: {
+			/**
+			 * Nové heslo nesmí být prázdné.
+			 */
+			blank: () => LocalizedString
+			/**
+			 * Hesla se musí shodovat.
+			 */
+			password_mismatch: () => LocalizedString
+			/**
+			 * Vaše heslo musí obsahovat alespoň 12 znaků a alespoň jedno číslo a speciální znak.
+			 */
+			weak: () => LocalizedString
+		}
 	}
 	activities: {
 		/**
@@ -1528,6 +1562,12 @@ export type TranslationFunctions = {
 		 * Ústav jazykové přípravy
 		 */
 		UJP: () => LocalizedString
+	}
+	server: {
+		/**
+		 * Server není dostupný, opakujte akci později.
+		 */
+		server_down: () => LocalizedString
 	}
 }
 

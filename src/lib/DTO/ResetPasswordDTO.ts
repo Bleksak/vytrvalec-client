@@ -1,5 +1,4 @@
 import type { ResponseError, ResponseErrorMap } from '$lib/ResponseErrors';
-import type { LoginError } from './UserLoginResponse';
 
 export type ResetPasswordDTO = {
 	password: string;
@@ -7,8 +6,8 @@ export type ResetPasswordDTO = {
 };
 
 export type ResetError = ResponseErrorMap<ResetPasswordDTO> & {
-	//TODO ?
-	reset?: Array<ResponseError>;
+	password?: Array<ResponseError>;
+	server?: Array<ResponseError>;
 };
 
 export type ResetPasswordResponse =
@@ -38,7 +37,7 @@ export const formDataToResetPasswordDTO = (formData: FormData): ResetPasswordRet
 	let errors: ResetError = {};
 
 	if (password !== passwordRepeat) {
-		errors.password = ['different'];
+		errors.password = ['password_mismatch'];
 	}
 
 	if (password === undefined || password === '') {

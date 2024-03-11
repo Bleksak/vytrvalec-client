@@ -212,7 +212,12 @@ const cs = {
 		passwordRepeat: 'Heslo znova',
 		success: 'Heslo bylo změněno',
 		error: 'Nastala chyba při změně hesla',
-		submit: 'Změnit'
+		submit: 'Změnit',
+		errors: {
+			blank: 'Nové heslo nesmí být prázdné.',
+			password_mismatch: 'Hesla se musí shodovat.',
+			weak: 'Vaše heslo musí obsahovat alespoň 12 znaků a alespoň jedno číslo a speciální znak.'
+		}
 	},
 	activities: {
 		'Běh/Chůze': 'Běh a chůze',
@@ -273,6 +278,9 @@ const cs = {
 		NTC: 'Nové technologie - výzkumné centrum',
 		U3V: 'Univerzita třetího věku',
 		UJP: 'Ústav jazykové přípravy'
+	},
+	server: {
+		server_down: "Server není dostupný, opakujte akci později."
 	}
 } satisfies BaseTranslation;
 

@@ -9,7 +9,7 @@ import type {
 	ForgottenPasswordDTO,
 	ForgottenPasswordResponse
 } from '$lib/DTO/ForgottenPasswordDTO';
-import type { ResetPasswordResponse } from '$lib/DTO/ResetPasswordDTO';
+import type { ResetPasswordDTO, ResetPasswordResponse } from '$lib/DTO/ResetPasswordDTO';
 
 export const login = async (loginDTO: UserLoginDTO): Promise<UserLoginResponse> => {
 	const response = await axios.post(`/user/login`, loginDTO).catch((error) => {
@@ -154,6 +154,30 @@ export const requestResetPassword = async (
 	return { type: 'success' };
 };
 
-export const resetPassword = async (data: ForgottenPasswordDTO): Promise<ResetPasswordResponse> => {
-	//TODO
+export const resetPassword = async (resetPasswordDTO: ResetPasswordDTO): Promise<ResetPasswordResponse> => {
+	const response = await axios
+		.post(`/user/reset-password`, resetPasswordDTO)
+		.catch((error) => {
+			if (error.response) {
+				return error.response;
+			}
+
+			return null;
+		});
+	
+	if (response === null) {
+		return {
+			type: 'error',
+			errors: { server: ['server_down'] }
+		};
+	}
+
+	if (response.status !== 200) {
+		return {
+			type: 'error',
+			errors: response?.data ?? {}
+		};
+	}
+
+	return { type: 'success' };
 };

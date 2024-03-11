@@ -212,7 +212,12 @@ const en = {
 		passwordRepeat: 'Password repeat',
 		success: 'Password has been changed',
 		error: 'An error occurred when changing the password',
-		submit: 'Change'
+		submit: 'Change',
+		errors: {
+			blank: 'New password cannot be emptz.',
+			password_mismatch: 'Passwords must match.',
+			weak: 'Your password must be at least 12 characters long and contain at least one number and one special character.'
+		}
 	},
 	activities: {
 		'Běh/Chůze': 'Run and walk',
@@ -270,6 +275,9 @@ const en = {
 		NTC: 'New Technologies - Research Centre',
 		U3V: 'University of Third Age',
 		UJP: 'Institute of Applied Language Studies'
+	},
+	server: {
+		server_down: "Service unavailable, please try again later."
 	}
 } satisfies BaseTranslation;
 

@@ -7,6 +7,7 @@ import { formDataToUserRegisterDTO } from '$lib/DTO/UserRegisterDTO';
 import { type Actions } from '@sveltejs/kit';
 import { formDataToAccountChangeDTO } from '$lib/DTO/AccountChangeDTO';
 import { formDataToForgottenPasswordDTO } from '$lib/DTO/ForgottenPasswordDTO';
+import { formDataToResetPasswordDTO } from '$lib/DTO/ResetPasswordDTO';
 
 const loginAction: Action = async ({ cookies, request }) => {
 	const loginDTO = formDataToUserLoginDTO(await request.formData());
@@ -74,12 +75,13 @@ const forgottenPasswordAction: Action = async ({ request }) => {
 };
 
 const resetAction: Action = async ({ request }) => {
-	const data = formDataToForgottenPasswordDTO(await request.formData());
+	const data = formDataToResetPasswordDTO(await request.formData());
 	if (data.type === 'error') {
 		return fail(400, data.value);
 	}
 
 	const response = await resetPassword(data.value);
+	
 	if (response.type === 'error') {
 		return fail(400, response.errors);
 	}
