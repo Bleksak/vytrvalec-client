@@ -205,6 +205,14 @@ type RootTranslation = {
 				blank: string
 			}
 		}
+		/**
+		 * R​e​g​i​s​t​r​a​c​e​ ​s​e​l​h​a​l​a​.
+		 */
+		error: string
+		/**
+		 * R​e​g​i​s​t​r​a​c​e​ ​p​r​o​b​ě​h​l​a​ ​ú​s​p​ě​š​n​ě​.
+		 */
+		success: string
 	}
 	login: {
 		/**
@@ -956,6 +964,14 @@ export type TranslationFunctions = {
 				blank: () => LocalizedString
 			}
 		}
+		/**
+		 * Registrace selhala.
+		 */
+		error: () => LocalizedString
+		/**
+		 * Registrace proběhla úspěšně.
+		 */
+		success: () => LocalizedString
 	}
 	login: {
 		/**

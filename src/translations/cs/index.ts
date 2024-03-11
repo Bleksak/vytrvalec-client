@@ -74,7 +74,9 @@ const cs = {
 			gdpr: {
 				blank: 'Prosím potvrďte souhlas se zpracováním osobních údajů.'
 			}
-		}
+		},
+		error: 'Registrace selhala.',
+		success: 'Registrace proběhla úspěšně.'
 	},
 	login: {
 		title: 'Přihlášení',

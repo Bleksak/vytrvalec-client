@@ -74,7 +74,9 @@ const en = {
 			gdpr: {
 				blank: 'Please confirm that you agree to our data processing policy.'
 			}
-		}
+		},
+		error: 'Registration failed.',
+		success: 'Registration successful.'
 	},
 	login: {
 		title: 'Login',

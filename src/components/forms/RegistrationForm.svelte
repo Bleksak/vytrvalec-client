@@ -26,7 +26,7 @@
 			if (result.type === 'success') {
 				toastStore.add({
 					type: 'success',
-					message: 'Registrace proběhla úspěšně'
+					message:  $LL.registration.success()
 				});
 				errors = undefined;
 				dialog?.close();
@@ -34,7 +34,7 @@
 				errors = result?.data?.register as RegistrationError;
 				toastStore.add({
 					type: 'error',
-					message: 'Registrace nebyla úspěšná'
+					message: $LL.registration.error()
 				});
 			}
 		};
