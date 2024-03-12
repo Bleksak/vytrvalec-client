@@ -176,7 +176,6 @@
 	.submissions-content {
 		display: flex;
 		flex-direction: column;
-
-		gap: 30px;
+		/* gap: 30px; */
 	}
 </style>

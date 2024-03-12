@@ -11,6 +11,21 @@
 	const submissionStore = createSubmissionStore(season);
 	const context = getAllContexts();
 	const dialogStore = getContext<DialogStore>(Store.DIALOG_STORE);
+
+	const loadNext = (element: Element) => {
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if(entry.isIntersecting) {                  
+                    submissionStore.loadNextPage();
+                } 
+            })
+        })
+        observer.observe(element)
+
+        return {
+            destroy: () => observer.disconnect()
+        }
+    }
 </script>
 
 {#await submissionStore.promise()}
@@ -55,6 +70,7 @@
 			</div>
 		</div>
 	{/each}
+	<div use:loadNext />
 {/await}
 
 <style>
@@ -63,8 +79,7 @@
 		padding: 15px;
 		display: flex;
 		justify-content: flex-start;
-
-		gap: 100px;
+		margin: 10px 0;
 	}
 
 	.submission:hover {

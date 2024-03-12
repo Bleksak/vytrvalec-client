@@ -11,6 +11,7 @@ export type SubmissionFilter = {
 export type SubmissionStore = {
 	get: (id: number) => SubmissionResponseDTO | null;
 	all: () => Array<SubmissionResponseDTO>;
+	loadNextPage: () => void;
 	update: (submission: SubmissionResponseDTO) => void;
 	filter: (filtering: SubmissionFilter) => Array<SubmissionResponseDTO>;
 	promise: () => Promise<Array<SubmissionResponseDTO>>;
@@ -19,7 +20,10 @@ export type SubmissionStore = {
 export const createSubmissionStore = (season: SeasonDTO): SubmissionStore => {
 	let submissions = $state<Array<SubmissionResponseDTO>>([]);
 
-	let submissionsPromise: Promise<Array<SubmissionResponseDTO>> = fetchSubmissionsForSeason(season);
+	let currentPage = 1;
+	let submissionsPromise: Promise<Array<SubmissionResponseDTO>> = fetchSubmissionsForSeason(season, currentPage);
+
+	let canLoadMore = true;
 
 	submissionsPromise.then((result) => {
 		submissions = result;
@@ -52,9 +56,20 @@ export const createSubmissionStore = (season: SeasonDTO): SubmissionStore => {
 	};
 
 	const all = (): Array<SubmissionResponseDTO> => {
-		console.log('submissions :>> ', submissions);
 		return submissions;
 	};
+
+	const loadNextPage = () => {
+		if (!canLoadMore) return;
+
+		currentPage++;
+		fetchSubmissionsForSeason(season, currentPage).then(nextSubmissions => {
+			submissions = [...submissions, ...nextSubmissions];
+			if (nextSubmissions.length === 0) {
+				canLoadMore = false;
+			}
+		})
+	}
 
 	const update = (submission: SubmissionResponseDTO) => {
 		let index = submissions.findIndex((s) => s.id === submission.id);
@@ -67,6 +82,7 @@ export const createSubmissionStore = (season: SeasonDTO): SubmissionStore => {
 	return {
 		get: get,
 		all: all,
+		loadNextPage: loadNextPage,
 		update: update,
 		filter: filter,
 		promise: () => submissionsPromise

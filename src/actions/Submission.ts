@@ -8,6 +8,9 @@ import type {
 } from '$lib/DTO/SubmissionDTO';
 import type { SubmissionStateDTO, SubmissionStateResponse } from '$lib/DTO/SubmissionStateDTO';
 import axios, { type AxiosResponse } from 'axios';
+import { fetchFaculties } from './Faculty';
+import type { Faculty } from '$lib/DTO/Faculty';
+import { fetchActivities } from './Activity';
 
 export const createSubmission = async (dto: SubmissionDTO): Promise<SubmissionCreateResponse> => {
 	const formData = new FormData();
@@ -51,11 +54,17 @@ export const createSubmission = async (dto: SubmissionDTO): Promise<SubmissionCr
 };
 
 export const fetchSubmissionsForSeason = async (
-	season: SeasonDTO
+	season: SeasonDTO,
+	page: number
 ): Promise<SubmissionResponseDTO[]> => {
-	return ((await axios.get(`/season/${season.id}/submissions`).catch(() => null))?.data ?? []).map(
-		(submission: { date: string | Date }) => {
+	const faculties = await fetchFaculties();
+	const activities = await fetchActivities();
+	
+	return ((await axios.get(`/season/${season.id}/submissions`,{params: {page: page}}).catch(() => null))?.data ?? []).map(
+		(submission: { date: string | Date, user: {faculty: number | Faculty}, activity: number | ActivityDTO }) => {
 			submission.date = new Date(submission.date);
+			submission.user.faculty = faculties.find((faculty: Faculty) => faculty.id === submission.user.faculty)!;
+			submission.activity = activities.find((activity: ActivityDTO) => activity.id === submission.activity)!;
 			return submission;
 		}
 	);
