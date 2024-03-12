@@ -85,6 +85,8 @@ const resetAction: Action = async ({ request }) => {
 	if (response.type === 'error') {
 		return fail(400, response.errors);
 	}
+	
+	return redirect(307, '/');
 };
 
 export const actions: Actions = {

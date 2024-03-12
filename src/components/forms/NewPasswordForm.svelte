@@ -17,14 +17,16 @@
 	const onSubmit: SubmitFunction = ({ submitter }) => {
 		submitter?.setAttribute('disabled', 'disabled');
 		return async ({ result, update }) => {
-			if (result.type === 'success') {
+			// NOTE: dočasně změněn retun na redirect protože mi ro přišlo snažší než 
+			// řešit proč goto is not going to
+			if (result.type === 'redirect') {
 				toastStore.add({
 					type: 'success',
 					message: $LL.reset.success()
 				});
                 errors = undefined;
                 // FIXME: goto not going to
-				goto('/');
+				// goto('/');
 			} else if (result.type === 'failure') {
 				submitter?.removeAttribute('disabled');
 				errors = result.data as ResetError;
@@ -38,7 +40,7 @@
 	};
 </script>
 
-<form method="POST" action="/auth?/reset" use:enhance={onSubmit} name="reset">s
+<form method="POST" action="/auth?/reset" use:enhance={onSubmit} name="reset">
     <input type='hidden' name='passwordResetToken' value={resetPasswordToken}/>
   {#each errors?.server ?? [] as error} 
         <span class='error' > {$LL.server[error as keyof typeof $LL.server]()}</span>
