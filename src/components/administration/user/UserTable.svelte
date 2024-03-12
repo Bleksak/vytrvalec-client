@@ -5,9 +5,10 @@
 	import type { UserStore } from '$lib/stores/UserStore.svelte';
 	import Checkbox from '$components/FormComponent/Checkbox.svelte';
 	import type { DialogStore } from '$lib/stores/DialogStore.svelte';
+	import Store from '$lib/enums/Stores';
 
-	const userStore = getContext<UserStore>('userStore');
-	const dialogStore = getContext<DialogStore>('dialogStore');
+	const userStore = getContext<UserStore>(Store.USER_STORE);
+	const dialogStore = getContext<DialogStore>(Store.DIALOG_STORE);
 
 	const context = getAllContexts();
 

@@ -1,4 +1,5 @@
 <script lang="ts">
+	import Store from '$lib/enums/Stores';
 	import type { DialogStore } from '$lib/stores/DialogStore.svelte';
 	import { getContext, type Snippet } from 'svelte';
 	import type { HTMLDialogAttributes } from 'svelte/elements';
@@ -11,7 +12,7 @@
 		}
 	>();
 
-	const dialogStore = getContext<DialogStore>('dialogStore');
+	const dialogStore = getContext<DialogStore>(Store.DIALOG_STORE);
 
 	export function close() {
 		dialogStore.close();

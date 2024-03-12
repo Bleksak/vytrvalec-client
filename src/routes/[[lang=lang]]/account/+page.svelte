@@ -5,6 +5,7 @@
 	import Button from '$components/Button.svelte';
 	import type { AccountChangeErrors } from '$lib/DTO/AccountChangeDTO';
 	import type { UserResponse } from '$lib/DTO/UserResponse';
+	import Store from '$lib/enums/Stores';
 	import type { ToastStore } from '$lib/stores/ToastStore.svelte';
 	import LL from '$translations/i18n-svelte';
 	import type { SubmitFunction } from '@sveltejs/kit';
@@ -16,7 +17,7 @@
 	let oldPassword = $state<string>('');
 	let errors = $state<AccountChangeErrors>({});
 
-	const toastStore = getContext<ToastStore>('toastStore');
+	const toastStore = getContext<ToastStore>(Store.TOAST_STORE);
 
 	const enhancer: SubmitFunction = () => {
 		return async ({ result }) => {

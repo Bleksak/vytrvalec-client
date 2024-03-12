@@ -5,9 +5,10 @@
 	import type { SeasonStore } from '$lib/stores/SeasonStore.svelte';
 	import Accordion from '$components/Accordion.svelte';
 	import { beforeNavigate } from '$app/navigation';
+	import Store from '$lib/enums/Stores';
 
-	const charityStore = getContext<CharityStore>('charityStore');
-	const seasonStore = getContext<SeasonStore>('seasonStore');
+	const charityStore = getContext<CharityStore>(Store.CHARITY_STORE);
+	const seasonStore = getContext<SeasonStore>(Store.SEASON_STORE);
 
 	const routeMap = [
 		'/administration/season/[[id=integer]]',

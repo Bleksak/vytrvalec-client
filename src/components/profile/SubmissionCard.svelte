@@ -7,6 +7,7 @@
 	import type { DialogStore } from '$lib/stores/DialogStore.svelte';
 	import type { ProfileSubmissionResponseDTO } from '$lib/DTO/SubmissionDTO';
 	import SubmissionEditForm from '$components/forms/SubmissionEditForm.svelte';
+	import Store from '$lib/enums/Stores';
 
 	let { submission, submissions } = $props<{
 		submissions: Array<ProfileSubmissionResponseDTO>;
@@ -15,8 +16,8 @@
 
 	const contexts = getAllContexts();
 
-	const dialogStore = getContext<DialogStore>('dialogStore');
-	const toastStore = getContext<ToastStore>('toastStore');
+	const dialogStore = getContext<DialogStore>(Store.DIALOG_STORE);
+	const toastStore = getContext<ToastStore>(Store.TOAST_STORE);
 
 	const isEditable = !submission.reviewed || !submission.accepted;
 

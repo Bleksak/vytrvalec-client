@@ -52,6 +52,7 @@ export const createSubmissionStore = (season: SeasonDTO): SubmissionStore => {
 	};
 
 	const all = (): Array<SubmissionResponseDTO> => {
+		console.log('submissions :>> ', submissions);
 		return submissions;
 	};
 

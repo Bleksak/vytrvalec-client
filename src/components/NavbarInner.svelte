@@ -10,8 +10,9 @@
 	import { getAllContexts, getContext } from 'svelte';
 	import type { DialogStore } from '$lib/stores/DialogStore.svelte';
 	import { detectLocale } from '$translations/i18n-util';
+	import Store from '$lib/enums/Stores';
 
-	const dialogStore = getContext<DialogStore>('dialogStore');
+	const dialogStore = getContext<DialogStore>(Store.DIALOG_STORE);
 	const context = getAllContexts();
 	let currentLocale = $state(detectLocale());
 

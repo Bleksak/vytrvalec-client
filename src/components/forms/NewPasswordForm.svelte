@@ -8,8 +8,9 @@
 	import { goto } from '$app/navigation';
 	import type { ResetError } from '$lib/DTO/ResetPasswordDTO';
     import { page } from '$app/stores'
+	import Store from '$lib/enums/Stores';
 
-    const toastStore = getContext<ToastStore>('toastStore');
+    const toastStore = getContext<ToastStore>(Store.TOAST_STORE);
     const resetPasswordToken = $page.url.pathname.split('/reset-password/')[1];
 
 	let errors = $state<ResetError>();

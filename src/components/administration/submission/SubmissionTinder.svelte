@@ -6,8 +6,9 @@
 	import createUnreviewedSubmissionStore from '$lib/stores/UnreviewedSubmissionStore.svelte';
 	import { getContext } from 'svelte';
 	import { LL } from '$translations/i18n-svelte';
+	import Store from '$lib/enums/Stores';
 
-	const toastStore = getContext<ToastStore>('toastStore');
+	const toastStore = getContext<ToastStore>(Store.TOAST_STORE);
 	const submissionStore = createUnreviewedSubmissionStore();
 
 	let currentSubmission = $state<SubmissionResponseDTO | null>(null);

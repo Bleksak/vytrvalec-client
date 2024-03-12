@@ -12,6 +12,7 @@
 	import { getContext } from 'svelte';
 	import { enhance } from '$app/forms';
 	import { getGlobalContext } from '$lib/stores/GlobalContext.svelte';
+	import Store from '$lib/enums/Stores';
 
 	let { submission, ...props } = $props<
 		{
@@ -95,7 +96,7 @@
 		event.stopPropagation();
 	};
 
-	const toastStore = getContext<ToastStore>('toastStore');
+	const toastStore = getContext<ToastStore>(Store.TOAST_STORE);
 
 	const onSubmit: SubmitFunction = ({ submitter }) => {
 		submitter?.setAttribute('disabled', 'disabled');

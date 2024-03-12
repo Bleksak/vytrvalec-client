@@ -18,14 +18,15 @@
 	import { createCharityStore } from '$lib/stores/CharityStore.svelte';
 	import { createUserStore } from '$lib/stores/UserStore.svelte';
 	import { setContext } from 'svelte';
+	import Store from '$lib/enums/Stores';
 
 	const seasonStore = createSeasonStore();
 	const charityStore = createCharityStore();
 	const userStore = createUserStore();
 
-	setContext('seasonStore', seasonStore);
-	setContext('charityStore', charityStore);
-	setContext('userStore', userStore);
+	setContext(Store.SEASON_STORE, seasonStore);
+	setContext(Store.CHARITY_STORE, charityStore);
+	setContext(Store.USER_STORE, userStore);
 </script>
 
 <svelte:head>

@@ -13,6 +13,7 @@
 	import Select from '$components/FormComponent/Select.svelte';
 	import type { ToastStore } from '$lib/stores/ToastStore.svelte';
 	import type { UserError } from '$lib/DTO/UserEditDTO';
+	import Store from '$lib/enums/Stores';
 
 	const { user, ...props } = $props<{ user: UserResponse } & HTMLDialogAttributes>();
 	let dialog = $state<Dialog>();
@@ -20,9 +21,9 @@
 
 	let editedUser = { ...user };
 
-	const userStore = getContext<UserStore>('userStore');
+	const userStore = getContext<UserStore>(Store.USER_STORE);
 
-	const toastStore = getContext<ToastStore>('toastStore');
+	const toastStore = getContext<ToastStore>(Store.TOAST_STORE);
 
 	let adminChecked = $state<boolean>(editedUser.roles.includes('ROLE_STAFF'));
 	let faculty = $state<number>(editedUser.faculty.id);

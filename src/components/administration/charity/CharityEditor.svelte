@@ -5,8 +5,9 @@
 	import { getContext } from 'svelte';
 	import CharityCreateEditor from './CharityCreateEditor.svelte';
 	import CharityUpdateEditor from './CharityUpdateEditor.svelte';
+	import Store from '$lib/enums/Stores';
 
-	const charityStore = getContext<CharityStore>('charityStore');
+	const charityStore = getContext<CharityStore>(Store.CHARITY_STORE);
 
 	let charity = $state<CharityDTO>();
 

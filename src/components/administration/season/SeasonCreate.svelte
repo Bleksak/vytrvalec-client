@@ -4,15 +4,16 @@
 	import DateInput from '$components/FormComponent/DateInput.svelte';
 	import Select from '$components/FormComponent/Select.svelte';
 	import type { CreateSeasonResponseDTO, SeasonDTO } from '$lib/DTO/SeasonDTO';
+	import Store from '$lib/enums/Stores';
 	import type { CharityStore } from '$lib/stores/CharityStore.svelte';
 	import type { SeasonStore } from '$lib/stores/SeasonStore.svelte';
 	import type { ToastStore } from '$lib/stores/ToastStore.svelte';
 	import type { SubmitFunction } from '@sveltejs/kit';
 	import { getContext } from 'svelte';
 
-	const seasonStore = getContext<SeasonStore>('seasonStore');
-	const charityStore = getContext<CharityStore>('charityStore');
-	const toastStore = getContext<ToastStore>('toastStore');
+	const seasonStore = getContext<SeasonStore>(Store.SEASON_STORE);
+	const charityStore = getContext<CharityStore>(Store.CHARITY_STORE);
+	const toastStore = getContext<ToastStore>(Store.TOAST_STORE);
 	const fourWeeks = 4 * 7 * 24 * 60 * 60 * 1000;
 
 	const today = new Date();

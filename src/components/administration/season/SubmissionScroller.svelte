@@ -5,11 +5,12 @@
 	import createSubmissionStore from '$lib/stores/SubmissionStore.svelte';
 	import { getAllContexts, getContext } from 'svelte';
 	import SubmissionDetail from './SubmissionDetail.svelte';
+	import Store from '$lib/enums/Stores';
 	const { season } = $props<{ season: SeasonDTO }>();
 
 	const submissionStore = createSubmissionStore(season);
 	const context = getAllContexts();
-	const dialogStore = getContext<DialogStore>('dialogStore');
+	const dialogStore = getContext<DialogStore>(Store.DIALOG_STORE);
 </script>
 
 {#await submissionStore.promise()}

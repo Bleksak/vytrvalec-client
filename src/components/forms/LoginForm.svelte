@@ -10,15 +10,16 @@
 	import type { ToastStore } from '$lib/stores/ToastStore.svelte';
 	import ForgottenPasswordForm from './ForgottenPasswordForm.svelte';
 	import type { DialogStore } from '$lib/stores/DialogStore.svelte';
+	import Store from '$lib/enums/Stores';
 
 	let { ...props } = $props<HTMLDialogAttributes>();
 	let dialog = $state<Dialog>();
 
 	let errors = $state<LoginError>();
 
-	const toastStore = getContext<ToastStore>('toastStore');
+	const toastStore = getContext<ToastStore>(Store.TOAST_STORE);
 
-	const dialogStore = getContext<DialogStore>('dialogStore');
+	const dialogStore = getContext<DialogStore>(Store.DIALOG_STORE);
 
     const currentContext = getAllContexts();
 

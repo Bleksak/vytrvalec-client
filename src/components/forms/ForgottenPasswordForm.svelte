@@ -4,6 +4,7 @@
 	import Button from '$components/Button.svelte';
 	import Dialog from '$components/Dialog.svelte';
 	import type { ForgottenPasswordError } from '$lib/DTO/ForgottenPasswordDTO';
+	import Store from '$lib/enums/Stores';
 	import type { ToastStore } from '$lib/stores/ToastStore.svelte';
 	import LL from '$translations/i18n-svelte';
 	import type { SubmitFunction } from '@sveltejs/kit';
@@ -15,7 +16,7 @@
 
 	let errors = $state<ForgottenPasswordError>();
 
-	const toastStore = getContext<ToastStore>('toastStore');
+	const toastStore = getContext<ToastStore>(Store.TOAST_STORE);
 
 	const enhancer: SubmitFunction = ({ submitter }) => {
 		submitter?.setAttribute('disabled', 'disabled');

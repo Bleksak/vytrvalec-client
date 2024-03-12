@@ -1,5 +1,6 @@
 <script lang="ts">
 	import Toast from '$components/Toast.svelte';
+	import Store from '$lib/enums/Stores';
 	import createDialogStore from '$lib/stores/DialogStore.svelte';
 	import { createToastStore } from '$lib/stores/ToastStore.svelte';
 	import { setContext } from 'svelte';
@@ -12,8 +13,8 @@
 	const dialogStore = createDialogStore();
 	const toastStore = createToastStore();
 
-	setContext('toastStore', toastStore);
-	setContext('dialogStore', dialogStore);
+	setContext(Store.TOAST_STORE, toastStore);
+	setContext(Store.DIALOG_STORE, dialogStore);
 </script>
 
 {#if toastStore.toasts().length > 0}

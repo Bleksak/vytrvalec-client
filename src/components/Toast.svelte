@@ -1,11 +1,12 @@
 <script lang="ts">
+	import Store from '$lib/enums/Stores';
 	import type { Toast, ToastStore } from '$lib/stores/ToastStore.svelte';
 	import { getContext } from 'svelte';
 	import { fade } from 'svelte/transition';
 
 	let { toast } = $props<{ toast: Toast }>();
 
-	const toastStore = getContext<ToastStore>('toastStore');
+	const toastStore = getContext<ToastStore>(Store.TOAST_STORE);
 
 	const closeToast = () => {
 		toastStore.remove(toast);

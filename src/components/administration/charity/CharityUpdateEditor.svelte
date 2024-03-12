@@ -3,14 +3,15 @@
 	import { goto } from '$app/navigation';
 	import Button from '$components/Button.svelte';
 	import type { CharityDTO, CharityError } from '$lib/DTO/CharityDTO';
+	import Store from '$lib/enums/Stores';
 	import type { CharityStore } from '$lib/stores/CharityStore.svelte';
 	import type { ToastStore } from '$lib/stores/ToastStore.svelte';
 	import type { SubmitFunction } from '@sveltejs/kit';
 	import { getContext } from 'svelte';
 
 	const { charity } = $props<{ charity: CharityDTO }>();
-	const charityStore = getContext<CharityStore>('charityStore');
-	const toastStore = getContext<ToastStore>('toastStore');
+	const charityStore = getContext<CharityStore>(Store.CHARITY_STORE);
+	const toastStore = getContext<ToastStore>(Store.TOAST_STORE);
 
 	let currentCharity = $state<CharityDTO>({ ...charity });
 

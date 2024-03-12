@@ -11,8 +11,9 @@
 	import type { RegistrationError } from '$lib/DTO/UserRegisterResponse';
 	import { getContext } from 'svelte';
 	import type { ToastStore } from '$lib/stores/ToastStore.svelte';
+	import Store from '$lib/enums/Stores';
 
-	const toastStore = getContext<ToastStore>('toastStore');
+	const toastStore = getContext<ToastStore>(Store.TOAST_STORE);
 
 	let { ...props }: HTMLDialogAttributes = $props();
 	let dialog = $state<Dialog>();

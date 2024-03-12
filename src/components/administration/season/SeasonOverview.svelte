@@ -13,15 +13,16 @@
 	import Button from '$components/Button.svelte';
 	import { goto } from '$app/navigation';
 	import type { ToastStore } from '$lib/stores/ToastStore.svelte';
+	import Store from '$lib/enums/Stores';
 
 	const { season } = $props<{ season: SeasonDTO }>();
 
 	let seasonResult = $state<SeasonResult>();
 
-	const seasonStore = getContext<SeasonStore>('seasonStore');
-	const charityStore = getContext<CharityStore>('charityStore');
-	const userStore = getContext<UserStore>('userStore');
-	const toastStore = getContext<ToastStore>('toastStore');
+	const seasonStore = getContext<SeasonStore>(Store.SEASON_STORE);
+	const charityStore = getContext<CharityStore>(Store.CHARITY_STORE);
+	const userStore = getContext<UserStore>(Store.USER_STORE);
+	const toastStore = getContext<ToastStore>(Store.TOAST_STORE);
 	const charity = $derived(charityStore.get(season.charity));
 
 	let seasonCacheResult = $state<boolean>();

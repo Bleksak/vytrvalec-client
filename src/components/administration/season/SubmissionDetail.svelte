@@ -9,14 +9,15 @@
 	import type { SubmissionStore } from '$lib/stores/SubmissionStore.svelte';
 	import type { SubmissionStateError } from '$lib/DTO/SubmissionStateDTO';
 	import { LL } from '$translations/i18n-svelte';
+	import Store from '$lib/enums/Stores';
 
 	const { currentSubmission } = $props<{ currentSubmission: SubmissionResponseDTO }>();
 
-	const toastStore = getContext<ToastStore>('toastStore');
+	const toastStore = getContext<ToastStore>(Store.TOAST_STORE);
 
     let dialog = $state<Dialog>();
 
-    const submissionStore = getContext<SubmissionStore>('submissionStore');
+    const submissionStore = getContext<SubmissionStore>(Store.SUBMISSION_STORE);
 	let errors = $state<SubmissionStateError>();
 
 	const enhancer: SubmitFunction<{ updated_at: string }> = ({ formData }) => {

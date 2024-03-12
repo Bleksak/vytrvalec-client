@@ -107,7 +107,6 @@ export const createUnreviewedSubmissionStore = (): UnreviewedSubmissionStore => 
 			};
 		}
 
-		console.log('result.data :>> ', result.data);
 		if (result.status !== 200) {
 			return {
 				type: 'error',
