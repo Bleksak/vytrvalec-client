@@ -3,17 +3,19 @@
 	import Button from '$components/Button.svelte';
 	import Dialog from '$components/Dialog.svelte';
 	import type { ToastStore } from '$lib/stores/ToastStore.svelte';
-    import type {SubmissionResponseDTO} from '$lib/DTO/SubmissionDTO';
+    import type {SubmissionResponseAdminDTO} from '$lib/DTO/SubmissionDTO';
     import type {SubmitFunction} from '@sveltejs/kit';
 	import { getContext } from 'svelte';
 	import type { SubmissionStore } from '$lib/stores/SubmissionStore.svelte';
 	import type { SubmissionStateError } from '$lib/DTO/SubmissionStateDTO';
 	import { LL } from '$translations/i18n-svelte';
 	import Store from '$lib/enums/Stores';
+	import type { ActivityStore } from '$lib/stores/ActivityStore.svelte';
 
-	const { currentSubmission } = $props<{ currentSubmission: SubmissionResponseDTO }>();
+	const { currentSubmission } = $props<{ currentSubmission: SubmissionResponseAdminDTO }>();
 
 	const toastStore = getContext<ToastStore>(Store.TOAST_STORE);
+	const activityStore = getContext<ActivityStore>(Store.ACTIVITY_STORE);
 
     let dialog = $state<Dialog>();
 
@@ -53,14 +55,16 @@
 		<img src={currentSubmission.image} alt="Aktivita" />
 		<input type="hidden" name="id" value={currentSubmission.id} />
 		<input type="hidden" name="updated_at" value={currentSubmission.updatedAt} />
-		<!-- FIXME: fixnout s ostatníma ts errorama při refactoru -->
+		
 		{#each errors?.submissionState ?? [] as error}
-				<span class="error">
-					<span class="error">{$LL.submission.errors[error as keyof typeof $LL.submission.errors]()}</span>
-				</span>
-			{/each}
+			<span class="error">
+				<span class="error">{$LL.submission.errors[error as keyof typeof $LL.submission.errors]()}</span>
+			</span>
+		{/each}
 
-		<p><strong>Aktivita:&nbsp;</strong>{currentSubmission.activity.name}</p>
+		{#await activityStore.promise() then}
+			<p><strong>Aktivita:&nbsp;</strong>{activityStore.get(currentSubmission.activity)?.name}</p>
+		{/await}
 		<p><strong>Vzdálenost:&nbsp;</strong>{currentSubmission.distance / 1000} km</p>
 		{#if currentSubmission.elevation}
 			<p><strong>Převýšení:&nbsp;</strong>{currentSubmission.elevation} m</p>

@@ -6,11 +6,15 @@
 	import { getAllContexts, getContext } from 'svelte';
 	import SubmissionDetail from './SubmissionDetail.svelte';
 	import Store from '$lib/enums/Stores';
+	import type { ActivityStore } from '$lib/stores/ActivityStore.svelte';
+	import type { FacultyStore } from '$lib/stores/FacultyStore.svelte';
 	const { season } = $props<{ season: SeasonDTO }>();
 
 	const submissionStore = createSubmissionStore(season);
 	const context = getAllContexts();
 	const dialogStore = getContext<DialogStore>(Store.DIALOG_STORE);
+	const activityStore = getContext<ActivityStore>(Store.ACTIVITY_STORE);
+	const facultyStore = getContext<FacultyStore>(Store.FACULTY_STORE);
 
 	const loadNext = (element: Element) => {
         const observer = new IntersectionObserver((entries) => {
@@ -28,7 +32,7 @@
     }
 </script>
 
-{#await submissionStore.promise()}
+{#await Promise.all([submissionStore.promise(), facultyStore.promise(), activityStore.promise()])}
 	Načítání...
 {:then}
 	{#each submissionStore.all() as submission, i}
@@ -46,7 +50,7 @@
 			<div>
 				<p>
 					<strong>{submission.user.firstName} {submission.user.lastName}&nbsp;</strong>
-					({submission.user.faculty.shortcut})
+					({facultyStore.get(submission.user.faculty)?.shortcut})
 				</p>
 				<p><strong>Nahráno:&nbsp;</strong>{submission.date.toLocaleDateString('cs')}</p>
 				<p>
@@ -62,7 +66,7 @@
 			</div>
 			<div>
 				<p style="user-select: none;">&nbsp;</p>
-				<p><strong>Kategorie:&nbsp;</strong>{submission.activity.name}</p>
+				<p><strong>Kategorie:&nbsp;</strong>{activityStore.get(submission.activity)?.name}</p>
 				<p><strong>Vzdálenost:&nbsp;</strong>{submission.distance / 1000} km</p>
 				{#if submission.elevation}
 					<p><strong>Převýšení:&nbsp;</strong>{submission.elevation} m</p>

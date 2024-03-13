@@ -2,12 +2,15 @@ import type { ResponseError, ResponseErrorMap } from '$lib/ResponseErrors';
 
 export type SubmissionStateDTO = {
 	updated_at: string;
-	state: '1' | '0';
+	state: SubmissionStateType;
 	message?: string;
 };
 
+type SubmissionStateType = '1' | '0'; //NOTE: Nevim jak to pojmenovat
+
 export type SubmissionStateError = ResponseErrorMap<SubmissionStateDTO> & {
 	server?: Array<ResponseError>;
+	submissionState?: Array<ResponseError>;
 };
 
 export type SubmissionStateResponse =
@@ -32,7 +35,7 @@ export type SubmissionStateReturn =
 
 export const formDataToSubmissionStateDTO = (formData: FormData): SubmissionStateReturn => {
 	const updated_at = formData.get('updated_at')?.toString();
-	const state = formData.get('state')?.toString();
+	const state = formData.get('state')?.toString() as SubmissionStateType;
 	const message = formData.get('message')?.toString();
 
 	if (updated_at === null) {

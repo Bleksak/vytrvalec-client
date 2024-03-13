@@ -1,6 +1,6 @@
 import { fetchSubmissionsForSeason } from '$actions/Submission';
 import type { SeasonDTO } from '$lib/DTO/SeasonDTO';
-import type { SubmissionResponseDTO } from '$lib/DTO/SubmissionDTO';
+import type { SubmissionResponseAdminDTO, SubmissionResponseDTO } from '$lib/DTO/SubmissionDTO';
 
 export type SubmissionFilter = {
 	reviewed?: boolean;
@@ -9,19 +9,19 @@ export type SubmissionFilter = {
 };
 
 export type SubmissionStore = {
-	get: (id: number) => SubmissionResponseDTO | null;
-	all: () => Array<SubmissionResponseDTO>;
+	get: (id: number) => SubmissionResponseAdminDTO | null;
+	all: () => Array<SubmissionResponseAdminDTO>;
 	loadNextPage: () => void;
-	update: (submission: SubmissionResponseDTO) => void;
-	filter: (filtering: SubmissionFilter) => Array<SubmissionResponseDTO>;
-	promise: () => Promise<Array<SubmissionResponseDTO>>;
+	update: (submission: SubmissionResponseAdminDTO) => void;
+	filter: (filtering: SubmissionFilter) => Array<SubmissionResponseAdminDTO>;
+	promise: () => Promise<Array<SubmissionResponseAdminDTO>>;
 };
 
 export const createSubmissionStore = (season: SeasonDTO): SubmissionStore => {
-	let submissions = $state<Array<SubmissionResponseDTO>>([]);
+	let submissions = $state<Array<SubmissionResponseAdminDTO>>([]);
 
 	let currentPage = 1;
-	let submissionsPromise: Promise<Array<SubmissionResponseDTO>> = fetchSubmissionsForSeason(season, currentPage);
+	let submissionsPromise: Promise<Array<SubmissionResponseAdminDTO>> = fetchSubmissionsForSeason(season, currentPage);
 
 	let canLoadMore = true;
 
@@ -29,7 +29,7 @@ export const createSubmissionStore = (season: SeasonDTO): SubmissionStore => {
 		submissions = result;
 	});
 
-	const filter = (filtering: SubmissionFilter): Array<SubmissionResponseDTO> => {
+	const filter = (filtering: SubmissionFilter): Array<SubmissionResponseAdminDTO> => {
 		return submissions.filter((submission) => {
 			if (filtering.activity !== undefined && submission.activity !== undefined) {
 				return false;
@@ -47,7 +47,7 @@ export const createSubmissionStore = (season: SeasonDTO): SubmissionStore => {
 		});
 	};
 
-	const get = (id: number): SubmissionResponseDTO | null => {
+	const get = (id: number): SubmissionResponseAdminDTO | null => {
 		if (Number.isNaN(id)) {
 			return null;
 		}
@@ -55,7 +55,7 @@ export const createSubmissionStore = (season: SeasonDTO): SubmissionStore => {
 		return submissions.find((submission) => submission.id === id) ?? null;
 	};
 
-	const all = (): Array<SubmissionResponseDTO> => {
+	const all = (): Array<SubmissionResponseAdminDTO> => {
 		return submissions;
 	};
 
@@ -71,7 +71,7 @@ export const createSubmissionStore = (season: SeasonDTO): SubmissionStore => {
 		})
 	}
 
-	const update = (submission: SubmissionResponseDTO) => {
+	const update = (submission: SubmissionResponseAdminDTO) => {
 		let index = submissions.findIndex((s) => s.id === submission.id);
 
 		if (index !== -1) {

@@ -12,14 +12,15 @@
 	import { getContext } from 'svelte';
 	import type { ToastStore } from '$lib/stores/ToastStore.svelte';
 	import Store from '$lib/enums/Stores';
+	import type { FacultyStore } from '$lib/stores/FacultyStore.svelte';
 
 	const toastStore = getContext<ToastStore>(Store.TOAST_STORE);
 
 	let { ...props }: HTMLDialogAttributes = $props();
 	let dialog = $state<Dialog>();
 
-	let facultiesPromise = fetchFaculties();
-
+	const facultyStore = getContext<FacultyStore>(Store.FACULTY_STORE);
+	
 	let errors = $state<RegistrationError>();
 
 	const enhancer: SubmitFunction = () => {
@@ -48,7 +49,7 @@
 			<label for="faculty">
 				{$LL.registration.faculty()}:
 			</label>
-			{#await facultiesPromise then faculties}
+			{#await facultyStore.promise() then faculties}
 				<Select
 					name="faculty"
 					id="faculty"

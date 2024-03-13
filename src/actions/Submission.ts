@@ -4,7 +4,8 @@ import type { SubmissionCreateResponse } from '$lib/DTO/SubmissionCreateResponse
 import type {
 	SubmissionDTO,
 	SubmissionResponseDTO,
-	ProfileSubmissionResponseDTO
+	ProfileSubmissionResponseDTO,
+	SubmissionResponseAdminDTO
 } from '$lib/DTO/SubmissionDTO';
 import type { SubmissionStateDTO, SubmissionStateResponse } from '$lib/DTO/SubmissionStateDTO';
 import axios, { type AxiosResponse } from 'axios';
@@ -56,16 +57,11 @@ export const createSubmission = async (dto: SubmissionDTO): Promise<SubmissionCr
 export const fetchSubmissionsForSeason = async (
 	season: SeasonDTO,
 	page: number
-): Promise<SubmissionResponseDTO[]> => {
-	const faculties = await fetchFaculties();
-	const activities = await fetchActivities();
-	
+): Promise<SubmissionResponseAdminDTO[]> => {
 	return ((await axios.get(`/season/${season.id}/submissions`,{params: {page: page}}).catch(() => null))?.data ?? []).map(
 		(submission: { date: string | Date, user: {faculty: number | Faculty}, activity: number | ActivityDTO }) => {
 			submission.date = new Date(submission.date);
-			submission.user.faculty = faculties.find((faculty: Faculty) => faculty.id === submission.user.faculty)!;
-			submission.activity = activities.find((activity: ActivityDTO) => activity.id === submission.activity)!;
-			return submission;
+				return submission;
 		}
 	);
 };

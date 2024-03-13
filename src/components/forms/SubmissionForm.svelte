@@ -12,6 +12,7 @@
 	import { enhance } from '$app/forms';
 	import { getGlobalContext } from '$lib/stores/GlobalContext.svelte';
 	import Store from '$lib/enums/Stores';
+	import type { ActivityStore } from '$lib/stores/ActivityStore.svelte';
 
 	let { ...props } = $props<HTMLDialogAttributes>();
 
@@ -26,8 +27,10 @@
 	let dropzoneText = $state<HTMLElement>();
 
 	let uploadedFiles = $state<FileList>();
-
 	let imageUri = $state<string>();
+
+	const toastStore = getContext<ToastStore>(Store.TOAST_STORE);
+	const activityStore = getContext<ActivityStore>(Store.ACTIVITY_STORE);
 
 	const displayImage = (uri: string) => {
 		imageUri = uri;
@@ -75,7 +78,6 @@
 		event.stopPropagation();
 	};
 
-	const toastStore = getContext<ToastStore>(Store.TOAST_STORE);
 
 	const onSubmit: SubmitFunction = ({ submitter }) => {
 		submitter?.setAttribute('disabled', 'disabled');
@@ -175,7 +177,7 @@
 		<label for="activity">
 			{$LL.submission.form.activity()}:
 		</label>
-		{#await fetchActivities()}
+		{#await activityStore.promise()}
 			<span>Načítání</span>
 		{:then activities}
 			<Select

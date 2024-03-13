@@ -1,6 +1,6 @@
 import type { ResponseErrorMap } from '$lib/ResponseErrors';
 import type { ActivityDTO } from './ActivityDTO';
-import type { UserResponse } from './UserResponse';
+import type { UserResponse, UserResponseAdmin } from './UserResponse';
 
 export type SubmissionDTO = {
 	distance: number;
@@ -22,6 +22,10 @@ export type SubmissionResponseDTO = {
 	updatedAt: string;
 	week: number;
 	season: number;
+};
+
+export type SubmissionResponseAdminDTO = Omit<SubmissionResponseDTO, 'user'> & {
+	user: UserResponseAdmin
 };
 
 export type ProfileSubmissionResponseDTO = Omit<SubmissionResponseDTO, 'user' | 'activity'> & {

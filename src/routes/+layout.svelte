@@ -1,7 +1,9 @@
 <script lang="ts">
 	import Toast from '$components/Toast.svelte';
 	import Store from '$lib/enums/Stores';
+	import createActivityStore from '$lib/stores/ActivityStore.svelte';
 	import createDialogStore from '$lib/stores/DialogStore.svelte';
+	import createFacultyStore from '$lib/stores/FacultyStore.svelte';
 	import { createToastStore } from '$lib/stores/ToastStore.svelte';
 	import { setContext } from 'svelte';
 	import { fade } from 'svelte/transition';
@@ -12,9 +14,13 @@
 
 	const dialogStore = createDialogStore();
 	const toastStore = createToastStore();
+	const activityStore = createActivityStore();
+	const facultyStore = createFacultyStore();
 
 	setContext(Store.TOAST_STORE, toastStore);
 	setContext(Store.DIALOG_STORE, dialogStore);
+	setContext(Store.ACTIVITY_STORE, activityStore);
+	setContext(Store.FACULTY_STORE, facultyStore);
 </script>
 
 {#if toastStore.toasts().length > 0}

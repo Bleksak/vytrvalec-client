@@ -12,6 +12,10 @@ export type UserResponse = {
 	faculty: Faculty;
 };
 
+export type UserResponseAdmin = Omit<UserResponse, 'faculty'> & {
+	faculty: number
+};
+
 export type UserUpdateResponse = 
 	| {
 			type: 'success';
