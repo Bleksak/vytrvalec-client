@@ -75,10 +75,10 @@
 
 <style>
 	.submission {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
 		border: 1px solid lightgray;
 		padding: 15px;
-		display: flex;
-		justify-content: flex-start;
 		margin: 10px 0;
 	}
 
