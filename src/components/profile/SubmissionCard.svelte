@@ -121,6 +121,7 @@
 <style>
 	.submission-card {
 		position: relative;
+        max-width: 300px;
 	}
 
 	.submission-preview {
