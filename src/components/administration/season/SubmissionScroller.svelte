@@ -8,6 +8,7 @@
 	import Store from '$lib/enums/Stores';
 	import type { ActivityStore } from '$lib/stores/ActivityStore.svelte';
 	import type { FacultyStore } from '$lib/stores/FacultyStore.svelte';
+	import SubmissionScrollerFilter from './SubmissionScrollerFilter.svelte';
 	const { season } = $props<{ season: SeasonDTO }>();
 
 	const submissionStore = createSubmissionStore(season);
@@ -31,6 +32,8 @@
         }
     }
 </script>
+
+<SubmissionScrollerFilter {submissionStore}/>
 
 {#await Promise.all([submissionStore.promise(), facultyStore.promise(), activityStore.promise()])}
 	Načítání...

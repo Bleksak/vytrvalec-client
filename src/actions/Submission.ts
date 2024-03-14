@@ -56,9 +56,9 @@ export const createSubmission = async (dto: SubmissionDTO): Promise<SubmissionCr
 
 export const fetchSubmissionsForSeason = async (
 	season: SeasonDTO,
-	page: number
+	params: object,
 ): Promise<SubmissionResponseAdminDTO[]> => {
-	return ((await axios.get(`/season/${season.id}/submissions`,{params: {page: page}}).catch(() => null))?.data ?? []).map(
+	return ((await axios.get(`/season/${season.id}/submissions`,{params: params}).catch(() => null))?.data ?? []).map(
 		(submission: { date: string | Date, user: {faculty: number | Faculty}, activity: number | ActivityDTO }) => {
 			submission.date = new Date(submission.date);
 				return submission;
