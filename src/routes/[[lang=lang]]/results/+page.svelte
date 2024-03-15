@@ -124,6 +124,7 @@
 </main>
 
 <style>
+
 	main {
 		display: flex;
 		flex-direction: column;
@@ -157,7 +158,7 @@
 
 	.wrapper {
 		display: grid;
-		grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+		grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
 		gap: 20px;
 		justify-content: center;
 	}
@@ -210,5 +211,14 @@
 
 	.results-table > .row:last-child {
 		border-bottom: none;
+	}
+
+	@media (max-width: 1200px) {
+		h1, h2{
+			text-align: center;
+		}
+		main {
+			padding: 0 30px;
+		}
 	}
 </style>

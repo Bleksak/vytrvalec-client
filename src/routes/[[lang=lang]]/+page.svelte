@@ -67,7 +67,8 @@
 	}
 
 	header > article > section.header > h1 {
-		white-space: nowrap;
+		text-align: center;
+		padding: 0 30px;
 		color: white;
 	}
 

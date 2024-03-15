@@ -88,6 +88,7 @@
 		justify-content: center;
 
 		margin-bottom: 40px;
+		padding: 0 30px;
 	}
 
 	form {

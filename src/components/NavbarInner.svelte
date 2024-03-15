@@ -77,9 +77,11 @@
 	{/if}
 	<li>
 		<form method="POST" action="/auth?/logout" use:enhance>
-			<Button type="submit" class="secondary nav-button">
-				{$LL.navbar.logout()}
-			</Button>
+			<div>
+				<Button type="submit" class="secondary nav-button">
+					{$LL.navbar.logout()}
+				</Button>
+			</div>
 		</form>
 	</li>
 {/if}
