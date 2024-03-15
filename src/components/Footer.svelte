@@ -16,7 +16,7 @@
 			<span>Katedra tělesné výchovy a sportu</span>
 		</div>
 		<div class="special-links">
-			<a href="/{$page.data.lang}/cookies">Cookies</a>
+			<!-- <a href="/{$page.data.lang}/cookies">Cookies</a> -->
 		</div>
 	</div>
 </footer>

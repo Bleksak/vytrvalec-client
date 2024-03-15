@@ -4,15 +4,14 @@
 	import { page } from '$app/stores';
 	import LL from '$translations/i18n-svelte';
 	import type { Locales } from '$translations/i18n-types';
+	import Navbar from '$components/Navbar.svelte';
+	import Footer from '$components/Footer.svelte';
+	// import Cookies from '$components/Cookies.svelte';
 
 	loadAllLocales();
 
 	const lang = ($page.params.lang as Locales) ?? 'cs';
 	setLocale(lang);
-
-	import Navbar from '$components/Navbar.svelte';
-	import Footer from '$components/Footer.svelte';
-	import Cookies from '$components/Cookies.svelte';
 </script>
 
 <svelte:head>
@@ -22,4 +21,4 @@
 <Navbar />
 <slot />
 <Footer />
-<Cookies />
+<!-- <Cookies /> -->
