@@ -42,7 +42,7 @@
 	</div>
 </div>
 <Footer />
-<Cookies />
+<!-- <Cookies /> -->
 
 <style>
 	.slot {
