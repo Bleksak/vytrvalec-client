@@ -37,7 +37,8 @@ export const createSubmissionStore = (season: SeasonDTO): SubmissionStore => {
 	const filter = async (filter: SubmissionFilter) => {
 		currentPage = 1;
 		filters = filter;
-		
+		canLoadMore = true;
+
 		fetchSubmissionsForSeason(season, { page: currentPage, ...filter }).then(result => {
 			submissions = result;
 		})
