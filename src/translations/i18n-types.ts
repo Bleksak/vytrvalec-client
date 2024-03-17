@@ -456,9 +456,13 @@ type RootTranslation = {
 		 */
 		email: string
 		/**
-		 * H​e​s​l​o
+		 * N​o​v​é​ ​h​e​s​l​o
 		 */
 		password: string
+		/**
+		 * N​o​v​é​ ​h​e​s​l​o​ ​z​n​o​v​a
+		 */
+		password_repeat: string
 		/**
 		 * J​m​é​n​o
 		 */
@@ -513,6 +517,12 @@ type RootTranslation = {
 				 * S​o​u​č​a​s​n​e​ ​h​e​s​l​o​ ​n​e​n​í​ ​s​p​r​á​v​n​é
 				 */
 				mismatch: string
+			}
+			password_repeat: {
+				/**
+				 * N​o​v​é​ ​h​e​s​l​a​ ​s​e​ ​m​u​s​í​ ​s​h​o​d​o​v​a​t​.
+				 */
+				password_mismatch: string
 			}
 		}
 	}
@@ -1247,9 +1257,13 @@ export type TranslationFunctions = {
 		 */
 		email: () => LocalizedString
 		/**
-		 * Heslo
+		 * Nové heslo
 		 */
 		password: () => LocalizedString
+		/**
+		 * Nové heslo znova
+		 */
+		password_repeat: () => LocalizedString
 		/**
 		 * Jméno
 		 */
@@ -1304,6 +1318,12 @@ export type TranslationFunctions = {
 				 * Současne heslo není správné
 				 */
 				mismatch: () => LocalizedString
+			}
+			password_repeat: {
+				/**
+				 * Nové hesla se musí shodovat.
+				 */
+				password_mismatch: () => LocalizedString
 			}
 		}
 	}

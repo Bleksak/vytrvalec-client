@@ -166,7 +166,8 @@ const cs = {
 	account: {
 		title: 'Účet',
 		email: 'E-mail',
-		password: 'Heslo',
+		password: 'Nové heslo',
+		password_repeat: 'Nové heslo znova',
 		first_name: 'Jméno',
 		last_name: 'Příjmení',
 		faculty: 'Fakulta',
@@ -185,6 +186,9 @@ const cs = {
 			old_password: {
 				blank: 'Současne heslo nesmí být prázdné',
 				mismatch: 'Současne heslo není správné'
+			},
+			password_repeat: {
+				password_mismatch: 'Nové hesla se musí shodovat.',
 			}
 		}
 	},

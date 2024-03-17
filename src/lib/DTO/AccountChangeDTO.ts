@@ -5,6 +5,7 @@ export type AccountChangeDTO = {
 	email?: string;
 	password?: string;
 	old_password: string;
+	password_repeat?: string;
 };
 
 export type AccountChangeErrors = ResponseErrorMap<AccountChangeDTO> & {
@@ -36,6 +37,7 @@ export const formDataToAccountChangeDTO = (
 ): AccountChangeMaybeDTO => {
 	let email = formData.get('email')?.toString();
 	const password = formData.get('password')?.toString();
+	const password_repeat = formData.get('password_repeat')?.toString();
 	const old_password = formData.get('old_password')?.toString();
 
 	if (!old_password || old_password === '') {
@@ -66,6 +68,15 @@ export const formDataToAccountChangeDTO = (
 			errors: {
 				email: ['blank'],
 				password: ['blank']
+			}
+		};
+	}
+
+	if (password_repeat !== password) {
+		return {
+			type: 'error',
+			errors: {
+				password_repeat: ['password_mismatch'],
 			}
 		};
 	}

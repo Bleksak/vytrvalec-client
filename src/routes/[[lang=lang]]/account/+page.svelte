@@ -14,6 +14,7 @@
 	const currentUser: UserResponse = $page.data.user;
 
 	let password = $state<string>('');
+	let passwordRepeat = $state<string>('');
 	let oldPassword = $state<string>('');
 	let errors = $state<AccountChangeErrors>({});
 
@@ -32,6 +33,7 @@
 			});
 
 			password = '';
+			passwordRepeat = '';
 			oldPassword = '';
 		};
 	};
@@ -56,6 +58,16 @@
 		</div>
 
 		<div class="form-field">
+			<label for="old_password">{$LL.account.old_password()}: </label>
+			{#each errors.old_password ?? [] as error}
+				<span class="error">
+					{$LL.account.errors.old_password[error as keyof typeof $LL.account.errors.old_password]()}
+				</span>
+			{/each}
+			<input type="password" name="old_password" id="old_password" bind:value={oldPassword} />
+		</div>
+
+		<div class="form-field">
 			<label for="password">{$LL.account.password()}: </label>
 			{#each errors.password ?? [] as error}
 				<span class="error">
@@ -66,13 +78,13 @@
 		</div>
 
 		<div class="form-field">
-			<label for="old_password">{$LL.account.old_password()}: </label>
-			{#each errors.old_password ?? [] as error}
+			<label for="password_repeat">{$LL.account.password_repeat()}: </label>
+			{#each errors.password_repeat ?? [] as error}
 				<span class="error">
-					{$LL.account.errors.old_password[error as keyof typeof $LL.account.errors.old_password]()}
+					{$LL.account.errors.password_repeat[error as keyof typeof $LL.account.errors.password_repeat]()}
 				</span>
 			{/each}
-			<input type="password" name="old_password" id="old_password" bind:value={oldPassword} />
+			<input type="password" name="password_repeat" id="password_repeat" bind:value={passwordRepeat}/>
 		</div>
 
 		<span class="note">{$LL.account.invalid_info()}</span>

@@ -166,7 +166,8 @@ const en = {
 	account: {
 		title: 'Account',
 		email: 'E-mail',
-		password: 'Password',
+		password: 'New password',
+		password_repeat: 'New password repeat',
 		first_name: 'First name',
 		last_name: 'Last name',
 		faculty: 'Faculty',
@@ -185,6 +186,9 @@ const en = {
 			old_password: {
 				blank: 'Current password cannot be empty',
 				mismatch: 'Current password is incorrect'
+			},
+			password_repeat: {
+				password_mismatch: 'New passwords must match.'
 			}
 		}
 	},
