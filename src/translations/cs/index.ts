@@ -277,7 +277,10 @@ const cs = {
 		REK: 'Rektorát',
 		NTC: 'Nové technologie - výzkumné centrum',
 		U3V: 'Univerzita třetího věku',
-		UJP: 'Ústav jazykové přípravy'
+		UJP: 'Ústav jazykové přípravy',
+		KNIHOVNA: 'Knihovna',
+		CIV: 'Centrum informatizace a výpočetní techniky',
+		SUZN: 'ŠUZ Nečtiny'
 	},
 	server: {
 		server_down: "Server není dostupný, opakujte akci později."

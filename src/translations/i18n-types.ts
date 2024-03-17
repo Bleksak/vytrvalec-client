@@ -783,6 +783,18 @@ type RootTranslation = {
 		 * U​́​s​t​a​v​ ​j​a​z​y​k​o​v​é​ ​p​ř​i​́​p​r​a​v​y
 		 */
 		UJP: string
+		/**
+		 * K​n​i​h​o​v​n​a
+		 */
+		KNIHOVNA: string
+		/**
+		 * C​e​n​t​r​u​m​ ​i​n​f​o​r​m​a​t​i​z​a​c​e​ ​a​ ​v​ý​p​o​č​e​t​n​í​ ​t​e​c​h​n​i​k​y
+		 */
+		CIV: string
+		/**
+		 * Š​U​Z​ ​N​e​č​t​i​n​y
+		 */
+		SUZN: string
 	}
 	server: {
 		/**
@@ -1562,6 +1574,18 @@ export type TranslationFunctions = {
 		 * Ústav jazykové přípravy
 		 */
 		UJP: () => LocalizedString
+		/**
+		 * Knihovna
+		 */
+		KNIHOVNA: () => LocalizedString
+		/**
+		 * Centrum informatizace a výpočetní techniky
+		 */
+		CIV: () => LocalizedString
+		/**
+		 * ŠUZ Nečtiny
+		 */
+		SUZN: () => LocalizedString
 	}
 	server: {
 		/**

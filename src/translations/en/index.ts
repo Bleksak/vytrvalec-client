@@ -274,7 +274,10 @@ const en = {
 		REK: 'Rectorate',
 		NTC: 'New Technologies - Research Centre',
 		U3V: 'University of Third Age',
-		UJP: 'Institute of Applied Language Studies'
+		UJP: 'Institute of Applied Language Studies',
+		KNIHOVNA: 'Library',
+		CIV: 'Information Technology Centre',
+		SUZN: 'ŠUZ Nečtiny'
 	},
 	server: {
 		server_down: "Service unavailable, please try again later."
