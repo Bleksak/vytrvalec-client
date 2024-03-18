@@ -774,7 +774,7 @@ type RootTranslation = {
 		 */
 		FST: string
 		/**
-		 * F​a​k​u​l​t​a​ ​z​d​r​a​v​o​t​n​í​c​h​ ​s​t​u​d​i​í
+		 * F​a​k​u​l​t​a​ ​z​d​r​a​v​o​t​n​i​c​k​ý​c​h​ ​s​t​u​d​i​í
 		 */
 		FZS: string
 		/**
@@ -1575,7 +1575,7 @@ export type TranslationFunctions = {
 		 */
 		FST: () => LocalizedString
 		/**
-		 * Fakulta zdravotních studií
+		 * Fakulta zdravotnických studií
 		 */
 		FZS: () => LocalizedString
 		/**

@@ -277,7 +277,7 @@ const cs = {
 		FPE: 'Fakulta pedagogická',
 		FPR: 'Fakulta právnická',
 		FST: 'Fakulta strojní',
-		FZS: 'Fakulta zdravotních studií',
+		FZS: 'Fakulta zdravotnických studií',
 		REK: 'Rektorát',
 		NTC: 'Nové technologie - výzkumné centrum',
 		U3V: 'Univerzita třetího věku',
