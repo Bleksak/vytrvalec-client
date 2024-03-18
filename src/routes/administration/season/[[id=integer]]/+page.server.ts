@@ -32,7 +32,7 @@ export const load: PageServerLoad = async ({ params, url }) => {
 	const page = url.searchParams.get('page');
 
     const accepted = state === 'accepted' ? '1' : state === 'rejected' ? '0' : undefined;
-    const reviewed = state === 'pending' ? '0' : undefined;
+    const reviewed = state === 'pending' ? '0' : (state === 'accepted' || state === 'rejected') ? '1' : undefined;
 
 	const filter: SelectedFilter = {
 		user: user && user !== '' ? user : undefined,
