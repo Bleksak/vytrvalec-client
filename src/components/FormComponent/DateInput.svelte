@@ -2,7 +2,7 @@
 	import type { HTMLInputAttributes } from 'svelte/elements';
 
 	let { date, name, id, minDate, maxDate, ...props } = $props<
-		{ date: Date; name: string; id: string; minDate?: Date; maxDate?: Date } & HTMLInputAttributes
+		{ date?: Date; name: string; id: string; minDate?: Date; maxDate?: Date } & HTMLInputAttributes
 	>();
 
 	const toString = (x: Date | undefined) => x?.toISOString().split('T')[0] ?? '';

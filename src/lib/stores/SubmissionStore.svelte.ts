@@ -1,11 +1,15 @@
 import { fetchSubmissionsForSeason } from '$actions/Submission';
 import type { SeasonDTO } from '$lib/DTO/SeasonDTO';
-import type { SubmissionResponseAdminDTO, SubmissionResponseDTO } from '$lib/DTO/SubmissionDTO';
+import type { SubmissionResponseAdminDTO } from '$lib/DTO/SubmissionDTO';
 
 export type SubmissionFilter = {
-	reviewed?: boolean;
-	accepted?: boolean;
+	reviewed?: number;
+	accepted?: number;
 	activity?: number;
+	faculty?: number;
+	user?: string;
+	week?: number;
+	date?: Date;
 };
 
 export type SubmissionStore = {
@@ -13,15 +17,17 @@ export type SubmissionStore = {
 	all: () => Array<SubmissionResponseAdminDTO>;
 	loadNextPage: () => void;
 	update: (submission: SubmissionResponseAdminDTO) => void;
-	filter: (filtering: SubmissionFilter) => Array<SubmissionResponseAdminDTO>;
+	filter: (filtering: SubmissionFilter) => void;
 	promise: () => Promise<Array<SubmissionResponseAdminDTO>>;
+    season: number;
 };
 
 export const createSubmissionStore = (season: SeasonDTO): SubmissionStore => {
 	let submissions = $state<Array<SubmissionResponseAdminDTO>>([]);
+	let filters = $state<object>({})
 
 	let currentPage = 1;
-	let submissionsPromise: Promise<Array<SubmissionResponseAdminDTO>> = fetchSubmissionsForSeason(season, currentPage);
+	let submissionsPromise: Promise<Array<SubmissionResponseAdminDTO>> = fetchSubmissionsForSeason(season, { page: currentPage,...filters });
 
 	let canLoadMore = true;
 
@@ -29,22 +35,14 @@ export const createSubmissionStore = (season: SeasonDTO): SubmissionStore => {
 		submissions = result;
 	});
 
-	const filter = (filtering: SubmissionFilter): Array<SubmissionResponseAdminDTO> => {
-		return submissions.filter((submission) => {
-			if (filtering.activity !== undefined && submission.activity !== undefined) {
-				return false;
-			}
+	const filter = async (filter: SubmissionFilter) => {
+		currentPage = 1;
+		filters = filter;
+		canLoadMore = true;
 
-			if (filtering.reviewed !== undefined && submission.reviewed !== undefined) {
-				return false;
-			}
-
-			if (filtering.accepted !== undefined && submission.accepted !== undefined) {
-				return false;
-			}
-
-			return true;
-		});
+		fetchSubmissionsForSeason(season, { page: currentPage, ...filter }).then(result => {
+			submissions = result;
+		})
 	};
 
 	const get = (id: number): SubmissionResponseAdminDTO | null => {
@@ -63,7 +61,7 @@ export const createSubmissionStore = (season: SeasonDTO): SubmissionStore => {
 		if (!canLoadMore) return;
 
 		currentPage++;
-		fetchSubmissionsForSeason(season, currentPage).then(nextSubmissions => {
+		fetchSubmissionsForSeason(season, { page: currentPage, ...filters }).then(nextSubmissions => {
 			submissions = [...submissions, ...nextSubmissions];
 			if (nextSubmissions.length === 0) {
 				canLoadMore = false;
@@ -85,7 +83,8 @@ export const createSubmissionStore = (season: SeasonDTO): SubmissionStore => {
 		loadNextPage: loadNextPage,
 		update: update,
 		filter: filter,
-		promise: () => submissionsPromise
+		promise: () => submissionsPromise,
+        season: season.id
 	};
 };
 
