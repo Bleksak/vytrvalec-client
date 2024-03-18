@@ -19,7 +19,7 @@
 	const activityStore = getContext<ActivityStore>(Store.ACTIVITY_STORE);
 
 	const states: Array<SubmissionState> = ['accepted', 'rejected', 'pending'];
-	const weeks = [1, 2, 3, 4];
+	const weeks = [0, 1, 2, 3];
 
 	let selectFaculty = $state<Select>();
 	let selectWeek = $state<Select>();
@@ -114,7 +114,7 @@
 		<div class="field">
 			<Select
 				bind:this={selectWeek}
-				keys={[undefined, ...weeks].map((week) => (week ? `${week}. týden` : 'Nevybráno'))}
+				keys={[undefined, ...weeks].map((week) => (week ? `${week + 1}. týden` : 'Nevybráno'))}
 				values={[undefined, ...weeks]}
 				id="week"
 				name="week"
