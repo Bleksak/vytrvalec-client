@@ -90,29 +90,29 @@
 					<h2>{$LL.activities[activity?.name as keyof typeof $LL.activities]().toUpperCase()}</h2>
 				</div>
 				<div class="wrapper">
-					<section class="table">
-						<div class="results-table">
-							<header class="row">
-								<span>{$LL.results.faculty()}</span>
-								<span class="right">{$LL.results.distance()} (km)</span>
-								<span class="right">{$LL.results.points()}</span>
-							</header>
-							{#each result.row as row}
-								{@const faculty = faculties.find((faculty) => faculty.id === row.faculty)}
-								<div class="row">
-									<span>{faculty?.shortcut}</span>
-									<span class="right">{(row.distance / 1000).toFixed(1)}</span>
-									<span class="right">{row.points}</span>
-								</div>
-							{/each}
-						</div>
-					</section>
+					{#key (currentSeason?.id ?? 0) * seasons.length + currentWeek}
+						<section class="table">
+							<div class="results-table">
+								<header class="row">
+									<span>{$LL.results.faculty()}</span>
+									<span class="right">{$LL.results.distance()} (km)</span>
+									<span class="right">{$LL.results.points()}</span>
+								</header>
+								{#each result.row as row}
+									{@const faculty = faculties.find((faculty) => faculty.id === row.faculty)}
+									<div class="row">
+										<span>{faculty?.shortcut}</span>
+										<span class="right">{(row.distance / 1000).toFixed(1)}</span>
+										<span class="right">{row.points}</span>
+									</div>
+								{/each}
+							</div>
+						</section>
 
-					<section class="graph">
-						{#key (currentSeason?.id ?? 0) * seasons.length + currentWeek}
+						<section class="graph">
 							<ResultsChart {faculties} results={result.row} />
-						{/key}
-					</section>
+						</section>
+					{/key}
 				</div>
 			{:else}
 				<div class="title">
@@ -124,7 +124,6 @@
 </main>
 
 <style>
-
 	main {
 		display: flex;
 		flex-direction: column;
@@ -214,7 +213,8 @@
 	}
 
 	@media (max-width: 1200px) {
-		h1, h2{
+		h1,
+		h2 {
 			text-align: center;
 		}
 		main {

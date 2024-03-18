@@ -122,6 +122,7 @@
 			{#if seasonResult?.getTotalDistance() === 0}
 				<Widget title="Odstranit sezónu">
 					<section class="season-delete">
+                        <p>Pokud sezóna neobsahuje žádné aktivity, je možné ji odstranit.</p>
 						<Button type="button" onclick={removeSeason}>Odstranit sezónu</Button>
 						{#if seasonRemoveResult === false}
 							<span class="note">Sezónu nelze odstranit, jelikož již obsahuje aktivity</span>
