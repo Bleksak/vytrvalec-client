@@ -86,6 +86,19 @@ export class SeasonResult {
 
 		let weekResultRows: Array<WeekResultRow> = [];
 
+        // find all faculties that have any results
+        let faculties: Array<number> = [];
+
+        for (const week of this.data) {
+            for (const activity of week.activities) {
+                for (const result of activity.results) {
+                    if (!faculties.includes(result.faculty)) {
+                        faculties.push(result.faculty);
+                    }
+                }
+            }
+        }
+
 		for (const week of this.data) {
 			for (const activity of week.activities) {
 				// 1. create empty object
@@ -95,12 +108,20 @@ export class SeasonResult {
 					row: [] as Array<ResultRow>
 				};
 
+                for(const faculty of faculties) {
+                    weekResultRow.row.push({
+                        faculty,
+                        points: 0,
+                        distance: 0
+                    });
+                }
+
 				// 2. fill rows with sorted data
 				for (const result of activity.results
-					.toSorted((a, b) => a.distance - b.distance)
+					.toSorted((a, b) => b.distance - a.distance)
 					.map((result, i) => {
 						return {
-							points: i + 1,
+							points: faculties.length - i,
 							faculty: result.faculty,
 							distance: result.distance
 						};
@@ -199,7 +220,7 @@ export class SeasonResult {
 			}
 		}
 
-        winners.sort((a, b) => b.points - a.points);
+		winners.sort((a, b) => b.points - a.points);
 
 		return winners;
 	}
