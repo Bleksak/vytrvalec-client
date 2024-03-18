@@ -13,9 +13,9 @@ declare global {
 		removeAccents(): string;
 	}
 
-	declare namespace svelte.JSX {
+	declare namespace svelteHTML {
 		interface HTMLAttributes<T> {
-			outsideclick: (e: CustomEvent) => void
+			'on:outsideclick'?: (e: CustomEvent) => void;
 		}
 	}
 }
