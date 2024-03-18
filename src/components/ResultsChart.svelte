@@ -6,7 +6,7 @@
 	import type { ChartOptions, ChartData } from 'chart.js';
 	import Chart from 'chart.js/auto';
 
-	let { faculties, results } = $props<{ faculties: Faculty[]; results: ResultRow[] }>();
+	let { faculties, results }: { faculties: Faculty[]; results: ResultRow[] } = $props();
 
 	const resultFaculties = results.map((result) =>
 		faculties.find((faculty) => faculty.id === result.faculty)

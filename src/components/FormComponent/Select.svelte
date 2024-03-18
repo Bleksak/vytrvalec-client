@@ -9,14 +9,14 @@
 		name,
 		currentValue,
 		inverted = false
-	} = $props<{
+	} : {
 		keys: string[];
 		values: any[];
 		currentValue?: any;
 		id?: string;
 		name?: string;
 		inverted?: boolean;
-	}>();
+	} = $props();
 
 	let open = $state<boolean>(false);
 

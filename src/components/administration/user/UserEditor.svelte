@@ -15,7 +15,7 @@
 	import type { UserError } from '$lib/DTO/UserEditDTO';
 	import Store from '$lib/enums/Stores';
 
-	const { user, ...props } = $props<{ user: UserResponse } & HTMLDialogAttributes>();
+	const { user, ...props }: { user: UserResponse } & HTMLDialogAttributes = $props();
 	let dialog = $state<Dialog>();
 	let facultiesPromise = fetchFaculties();
 

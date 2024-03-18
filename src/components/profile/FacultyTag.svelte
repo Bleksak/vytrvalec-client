@@ -1,7 +1,7 @@
 <script lang="ts">
 	import { FacultyColorMap } from '$utils/colors';
 
-	let { facultyShortcut } = $props<{ facultyShortcut: string }>();
+	let { facultyShortcut } : { facultyShortcut: string } = $props();
 </script>
 
 <div

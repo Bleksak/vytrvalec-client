@@ -32,6 +32,9 @@ export type ProfileSubmissionResponseDTO = Omit<SubmissionResponseDTO, 'user' | 
 	message?: string;
 	activity: ActivityDTO;
 };
+export type TinderSubmissionResponseDTO = Omit<SubmissionResponseDTO, 'activity'> & {
+	activity: ActivityDTO;
+};
 
 export type SubmissionErrors = ResponseErrorMap<SubmissionDTO>;
 

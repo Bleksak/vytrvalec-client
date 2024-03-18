@@ -14,7 +14,7 @@
 	import Store from '$lib/enums/Stores';
 	import type { ActivityStore } from '$lib/stores/ActivityStore.svelte';
 
-	let { ...props } = $props<HTMLDialogAttributes>();
+	let { ...props } : HTMLDialogAttributes = $props();
 
 	const refetchSubmissions = getGlobalContext<() => void>('refetchSubmissions');
 

@@ -11,7 +11,7 @@
 	import SubmissionScrollerFilter from '$components/administration/season/SubmissionScrollerFilter.svelte';
 	import { fetchSubmissionsForSeason } from '$actions/Submission';
 
-	const { season } = $props<{ season: SeasonDTO }>();
+	const { season }: {season: SeasonDTO} = $props();
 
     let filter = $page.data.filter;
 

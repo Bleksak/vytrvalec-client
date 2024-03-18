@@ -11,7 +11,7 @@
 	import { getContext } from 'svelte';
 	import type { HTMLDialogAttributes } from 'svelte/elements';
 
-	let { ...props } = $props<HTMLDialogAttributes>();
+	let { ...props }: HTMLDialogAttributes = $props();
 	let dialog = $state<Dialog>();
 
 	let errors = $state<ForgottenPasswordError>();

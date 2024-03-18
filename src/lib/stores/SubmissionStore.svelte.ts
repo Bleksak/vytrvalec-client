@@ -17,7 +17,6 @@ export type SubmissionStore = {
 	all: () => Array<SubmissionResponseAdminDTO>;
 	loadNextPage: () => void;
 	update: (submission: SubmissionResponseAdminDTO) => void;
-	filter: (filtering: SubmissionFilter) => void;
 	promise: () => Promise<Array<SubmissionResponseAdminDTO>>;
     season: number;
 };
@@ -34,16 +33,6 @@ export const createSubmissionStore = (season: SeasonDTO): SubmissionStore => {
 	submissionsPromise.then((result) => {
 		submissions = result;
 	});
-
-	const filter = async (filter: SubmissionFilter) => {
-		currentPage = 1;
-		filters = filter;
-		canLoadMore = true;
-
-		fetchSubmissionsForSeason(season, { page: currentPage, ...filter }).then(result => {
-			submissions = result;
-		})
-	};
 
 	const get = (id: number): SubmissionResponseAdminDTO | null => {
 		if (Number.isNaN(id)) {
@@ -82,7 +71,6 @@ export const createSubmissionStore = (season: SeasonDTO): SubmissionStore => {
 		all: all,
 		loadNextPage: loadNextPage,
 		update: update,
-		filter: filter,
 		promise: () => submissionsPromise,
         season: season.id
 	};

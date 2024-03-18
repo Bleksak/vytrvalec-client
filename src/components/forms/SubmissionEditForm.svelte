@@ -14,11 +14,9 @@
 	import { getGlobalContext } from '$lib/stores/GlobalContext.svelte';
 	import Store from '$lib/enums/Stores';
 
-	let { submission, ...props } = $props<
-		{
+	let { submission, ...props } : 	{
 			submission: ProfileSubmissionResponseDTO;
-		} & HTMLDialogAttributes
-	>();
+		} & HTMLDialogAttributes = $props();
 
 	const activitiesPromise = fetchActivities();
 

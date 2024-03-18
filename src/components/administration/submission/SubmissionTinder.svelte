@@ -1,17 +1,17 @@
 <script lang="ts">
 	import Button from '$components/Button.svelte';
-	import type { SubmissionResponseDTO } from '$lib/DTO/SubmissionDTO';
 	import type { SubmissionStateError } from '$lib/DTO/SubmissionStateDTO';
 	import type { ToastStore } from '$lib/stores/ToastStore.svelte';
 	import createUnreviewedSubmissionStore from '$lib/stores/UnreviewedSubmissionStore.svelte';
 	import { getContext } from 'svelte';
 	import { LL } from '$translations/i18n-svelte';
 	import Store from '$lib/enums/Stores';
+	import type { SubmissionResponseDTO, TinderSubmissionResponseDTO } from '$lib/DTO/SubmissionDTO';
 
 	const toastStore = getContext<ToastStore>(Store.TOAST_STORE);
 	const submissionStore = createUnreviewedSubmissionStore();
 
-	let currentSubmission = $state<SubmissionResponseDTO | null>(null);
+	let currentSubmission = $state<TinderSubmissionResponseDTO | null>(null);
 	let errors = $state<SubmissionStateError>();
 
 	$effect(() => {
@@ -57,7 +57,7 @@
 					message: 'Aktivita byla zamítnuta'
 				});
 				popNext();
-				errors = undefined;
+				errors = {};
 			} else if(result.type === 'error'){
 				errors = result.errors as SubmissionStateError;
 				toastStore.add({
@@ -74,11 +74,10 @@
 {:else}
 	<div class="tinder-card">
 		<div class="wrapper">
-			<!-- FIXME typrscript err - later teď se mi nechce -->
-			{#each errors as error} 
+			{#each errors?.submissionState ?? [] as error} 
 				<span class="error">{$LL.submission.errors[error as keyof typeof $LL.submission.errors]()}</span>
 			{/each}
-			{#each errors?.server?? [] as error}
+			{#each errors?.server ?? [] as error}
 				<span class="error">
 					{error}
 				</span>

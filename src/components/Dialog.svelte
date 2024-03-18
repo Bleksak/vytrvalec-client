@@ -4,13 +4,11 @@
 	import { getContext, type Snippet } from 'svelte';
 	import type { HTMLDialogAttributes } from 'svelte/elements';
 
-	let { dialog, header, children, ...props } = $props<
-		HTMLDialogAttributes & {
+	let { dialog, header, children, ...props } : HTMLDialogAttributes & {
 			dialog?: HTMLDialogElement;
 			header: string;
 			children: Snippet;
-		}
-	>();
+		} = $props();
 
 	const dialogStore = getContext<DialogStore>(Store.DIALOG_STORE);
 

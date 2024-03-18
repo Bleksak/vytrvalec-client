@@ -3,7 +3,7 @@
 	import LL from '$translations/i18n-svelte';
 	import type { ProfileSubmissionResponseDTO } from '$lib/DTO/SubmissionDTO';
 
-	let { submission } = $props<{ submission: ProfileSubmissionResponseDTO }>();
+	let { submission } : { submission: ProfileSubmissionResponseDTO } = $props();
 
 	const state = submission.reviewed ? (submission.accepted ? 'accepted' : 'rejected') : 'pending';
 </script>

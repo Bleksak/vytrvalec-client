@@ -9,10 +9,10 @@
 	import SubmissionEditForm from '$components/forms/SubmissionEditForm.svelte';
 	import Store from '$lib/enums/Stores';
 
-	let { submission, submissions } = $props<{
+	let { submission, submissions } : {
 		submissions: Array<ProfileSubmissionResponseDTO>;
 		submission: ProfileSubmissionResponseDTO;
-	}>();
+	} = $props();
 
 	const contexts = getAllContexts();
 

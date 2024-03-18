@@ -2,9 +2,7 @@
 	import type { HTMLButtonAttributes } from 'svelte/elements';
 	import type { Snippet } from 'svelte';
 
-	let { children, name, id, ...props } = $props<
-		HTMLButtonAttributes & { name?: string; id?: string; children: Snippet }
-	>();
+	let { children, name, id, ...props } : HTMLButtonAttributes & { name?: string; id?: string; children: Snippet } = $props();
 </script>
 
 <button {name} {id} {...props}>{@render children()}</button>

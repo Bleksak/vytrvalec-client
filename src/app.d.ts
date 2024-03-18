@@ -12,6 +12,12 @@ declare global {
 	declare interface String {
 		removeAccents(): string;
 	}
+
+	declare namespace svelte.JSX {
+		interface HTMLAttributes<T> {
+			outsideclick: (e: CustomEvent) => void
+		}
+	}
 }
 
 String.prototype.removeAccents = function () {

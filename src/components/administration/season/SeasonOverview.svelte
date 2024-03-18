@@ -15,7 +15,7 @@
 	import type { ToastStore } from '$lib/stores/ToastStore.svelte';
 	import Store from '$lib/enums/Stores';
 
-	const { season } = $props<{ season: SeasonDTO }>();
+	const { season}: {season: SeasonDTO} = $props();
 
 	let seasonResult = $state<SeasonResult>();
 

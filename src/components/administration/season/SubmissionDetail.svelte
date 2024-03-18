@@ -12,7 +12,7 @@
 	import Store from '$lib/enums/Stores';
 	import type { ActivityStore } from '$lib/stores/ActivityStore.svelte';
 
-	const { currentSubmission } = $props<{ currentSubmission: SubmissionResponseAdminDTO }>();
+	const { currentSubmission } : { currentSubmission: SubmissionResponseAdminDTO } = $props();
 
 	const toastStore = getContext<ToastStore>(Store.TOAST_STORE);
 	const activityStore = getContext<ActivityStore>(Store.ACTIVITY_STORE);

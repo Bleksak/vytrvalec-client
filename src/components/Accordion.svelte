@@ -6,7 +6,7 @@
 		opened,
 		className = '',
 		children
-	} = $props<{ opened: boolean; className?: string; children: Snippet }>();
+	} : { opened: boolean; className?: string; children: Snippet } = $props();
 </script>
 
 {#if opened}

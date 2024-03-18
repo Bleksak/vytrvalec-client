@@ -3,20 +3,20 @@ import {
 	fetchUnreviewedSubmissions,
 	rejectSubmission
 } from '$actions/Submission';
-import type { SubmissionResponseDTO } from '$lib/DTO/SubmissionDTO';
+import type { SubmissionResponseDTO, TinderSubmissionResponseDTO } from '$lib/DTO/SubmissionDTO';
 import type { SubmissionStateResponse } from '$lib/DTO/SubmissionStateDTO';
 import type { AxiosError, AxiosResponse } from 'axios';
 
 export type UnreviewedSubmissionStore = {
-	all: () => Array<SubmissionResponseDTO>;
-	pop: () => SubmissionResponseDTO | null;
-	accept: (submission: SubmissionResponseDTO) => Promise<SubmissionStateResponse>;
-	reject: (submission: SubmissionResponseDTO, message: string) => Promise<SubmissionStateResponse>;
+	all: () => Array<TinderSubmissionResponseDTO>;
+	pop: () => TinderSubmissionResponseDTO | null;
+	accept: (submission: TinderSubmissionResponseDTO) => Promise<SubmissionStateResponse>;
+	reject: (submission: TinderSubmissionResponseDTO, message: string) => Promise<SubmissionStateResponse>;
 };
 
 export const createUnreviewedSubmissionStore = (): UnreviewedSubmissionStore => {
-	let submissions = $state<Array<SubmissionResponseDTO>>([]);
-	let swap = $state<Array<SubmissionResponseDTO>>([]);
+	let submissions = $state<Array<TinderSubmissionResponseDTO>>([]);
+	let swap = $state<Array<TinderSubmissionResponseDTO>>([]);
 
 	let initialLoad = true;
 	let index = $state(0);
@@ -56,7 +56,7 @@ export const createUnreviewedSubmissionStore = (): UnreviewedSubmissionStore => 
 		}
 	};
 
-	const accept = async (submission: SubmissionResponseDTO): Promise<SubmissionStateResponse> => {
+	const accept = async (submission: TinderSubmissionResponseDTO): Promise<SubmissionStateResponse> => {
 		const result = await acceptSubmission(submission).catch((error: AxiosError) => {
 			if (error.response) {
 				return error.response;
@@ -90,7 +90,7 @@ export const createUnreviewedSubmissionStore = (): UnreviewedSubmissionStore => 
 		};
 	};
 
-	const reject = async (submission: SubmissionResponseDTO, message: string): Promise<SubmissionStateResponse> => {
+	const reject = async (submission: TinderSubmissionResponseDTO, message: string): Promise<SubmissionStateResponse> => {
 		const result = await rejectSubmission(submission, message).catch((error: AxiosError) => {
 			if (error.response) {
 				return error.response;

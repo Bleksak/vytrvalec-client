@@ -12,7 +12,7 @@
 	import type { DialogStore } from '$lib/stores/DialogStore.svelte';
 	import Store from '$lib/enums/Stores';
 
-	let { ...props } = $props<HTMLDialogAttributes>();
+	let { ...props } : HTMLDialogAttributes = $props();
 	let dialog = $state<Dialog>();
 
 	let errors = $state<LoginError>();

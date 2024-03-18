@@ -7,13 +7,13 @@
 		checked = false,
 		disabled = undefined,
 		children
-	} = $props<{
+	} : {
 		id: string;
 		name: string;
 		checked?: boolean;
 		disabled?: boolean;
 		children?: Snippet;
-	}>();
+	} = $props();
 </script>
 
 <label for={id}>

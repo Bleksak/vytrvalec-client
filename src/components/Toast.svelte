@@ -4,7 +4,7 @@
 	import { getContext } from 'svelte';
 	import { fade } from 'svelte/transition';
 
-	let { toast } = $props<{ toast: Toast }>();
+	let { toast } : { toast: Toast }= $props();
 
 	const toastStore = getContext<ToastStore>(Store.TOAST_STORE);
 

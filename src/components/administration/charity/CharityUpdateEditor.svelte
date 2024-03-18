@@ -9,7 +9,7 @@
 	import type { SubmitFunction } from '@sveltejs/kit';
 	import { getContext } from 'svelte';
 
-	const { charity } = $props<{ charity: CharityDTO }>();
+	const { charity } : { charity: CharityDTO } = $props();
 	const charityStore = getContext<CharityStore>(Store.CHARITY_STORE);
 	const toastStore = getContext<ToastStore>(Store.TOAST_STORE);
 

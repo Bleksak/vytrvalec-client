@@ -5,7 +5,8 @@ import type {
 	SubmissionDTO,
 	SubmissionResponseDTO,
 	ProfileSubmissionResponseDTO,
-	SubmissionResponseAdminDTO
+	SubmissionResponseAdminDTO,
+	TinderSubmissionResponseDTO
 } from '$lib/DTO/SubmissionDTO';
 import type { SubmissionStateDTO, SubmissionStateResponse } from '$lib/DTO/SubmissionStateDTO';
 import axios, { type AxiosResponse } from 'axios';
@@ -103,7 +104,7 @@ export const setSubmissionState = async (
 
 export const fetchUnreviewedSubmissions = async (
 	count: number
-): Promise<Array<SubmissionResponseDTO>> => {
+): Promise<Array<TinderSubmissionResponseDTO>> => {
 	return (await axios.get(`/submission/unresolved/${count}`, {})).data.map(
 		(submission: { date: string | Date }) => {
 			submission.date = new Date(submission.date);
@@ -112,7 +113,7 @@ export const fetchUnreviewedSubmissions = async (
 	);
 };
 
-export const acceptSubmission = async (submission: SubmissionResponseDTO): Promise<AxiosResponse> => {
+export const acceptSubmission = async (submission: TinderSubmissionResponseDTO): Promise<AxiosResponse> => {
 	return await axios.patch(`/submission/${submission.id}/state`, {
 		updated_at: submission.updatedAt,
 		state: true
@@ -120,7 +121,7 @@ export const acceptSubmission = async (submission: SubmissionResponseDTO): Promi
 };
 
 export const rejectSubmission = async (
-	submission: SubmissionResponseDTO,
+	submission: TinderSubmissionResponseDTO,
 	message: string
 ): Promise<AxiosResponse> => {
 	return await axios.patch(`/submission/${submission.id}/state`, {

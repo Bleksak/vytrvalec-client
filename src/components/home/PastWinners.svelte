@@ -76,33 +76,30 @@
 							<div class="winners-wrapper">
 								<div class="winners">
 									{#if winners.length >= 2}
+									{@const faculty = faculties.find((faculty) => faculty.id === winners[1].faculty)!}
 										<div class="winner">
 											<span>
-												{$LL.faculties[
-													faculties.find((faculty) => faculty.id === winners[1].faculty)?.shortcut
-												]()}
+												{$LL.faculties[faculty.shortcut as keyof typeof $LL.faculties]()}
 											</span>
 											<div class="bar bar-medium"></div>
 										</div>
 									{/if}
 
 									{#if winners.length >= 1}
+										{@const faculty = faculties.find((faculty) => faculty.id === winners[0].faculty)!}
 										<div class="winner">
 											<span>
-												{$LL.faculties[
-													faculties.find((faculty) => faculty.id === winners[0].faculty)?.shortcut
-												]()}
+												{$LL.faculties[faculty.shortcut as keyof typeof $LL.faculties]()}
 											</span>
 											<div class="bar bar-large"></div>
 										</div>
 									{/if}
 
 									{#if winners.length >= 3}
+									 {@const faculty = faculties.find((faculty) => faculty.id === winners[2].faculty)!}
 										<div class="winner">
 											<span>
-												{$LL.faculties[
-													faculties.find((faculty) => faculty.id === winners[2].faculty)?.shortcut
-												]()}
+												{$LL.faculties[faculty.shortcut as keyof typeof $LL.faculties]()}
 											</span>
 											<div class="bar bar-small"></div>
 										</div>

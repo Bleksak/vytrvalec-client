@@ -6,7 +6,7 @@
 		children,
 		title = '',
 		...props
-	} = $props<HTMLAttributes<any> & { children: Snippet; title: string }>();
+	} : HTMLAttributes<any> & { children: Snippet; title: string } = $props();
 </script>
 
 <aside {...props}>

@@ -2,7 +2,7 @@
 	import type { UserStatisticsDTO } from '$lib/DTO/StatisticsDTO';
 	import LL from '$translations/i18n-svelte';
 
-	const { userStats } = $props<{ userStats: UserStatisticsDTO }>();
+	const { userStats }: { userStats: UserStatisticsDTO } = $props();
 </script>
 
 <div class="stat">
