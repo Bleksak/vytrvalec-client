@@ -5,7 +5,7 @@ import type {
 	FullSeasonDTO,
 	SeasonDTO
 } from '$lib/DTO/SeasonDTO';
-import { SeasonResult, type SeasonResultDTO } from '$lib/DTO/SeasonResultDTO';
+import { type SeasonResultDTO } from '$lib/DTO/SeasonResultDTO';
 
 export const fetchSeasons = async (): Promise<Array<SeasonDTO>> => {
 	let response = await axios.get('/season').catch(() => null);
@@ -93,8 +93,7 @@ export const fetchPastSeasons = async (): Promise<Array<FullSeasonDTO>> => {
 };
 
 export const deleteSeason = async (season: SeasonDTO): Promise<boolean> => {
-	const response = await axios.delete(`/season/${season.id}`).catch((r) => {
-		console.log(r);
+	const response = await axios.delete(`/season/${season.id}`).catch(() => {
 		return null;
 	});
 
@@ -102,8 +101,9 @@ export const deleteSeason = async (season: SeasonDTO): Promise<boolean> => {
 };
 
 export const fetchCurrentSeason = async (): Promise<SeasonDTO> => {
-	const response = await axios.get('season/current').catch((e) => {
+	const response = await axios.get('season/current').catch(() => {
 		return null;
 	});
+
 	return response ? response.data : response;
 };

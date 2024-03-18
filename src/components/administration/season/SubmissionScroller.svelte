@@ -2,43 +2,61 @@
 	import Checkbox from '$components/FormComponent/Checkbox.svelte';
 	import type { SeasonDTO } from '$lib/DTO/SeasonDTO';
 	import type { DialogStore } from '$lib/stores/DialogStore.svelte';
-	import createSubmissionStore from '$lib/stores/SubmissionStore.svelte';
 	import { getAllContexts, getContext } from 'svelte';
 	import SubmissionDetail from './SubmissionDetail.svelte';
 	import Store from '$lib/enums/Stores';
 	import type { ActivityStore } from '$lib/stores/ActivityStore.svelte';
 	import type { FacultyStore } from '$lib/stores/FacultyStore.svelte';
-	import SubmissionScrollerFilter from './SubmissionScrollerFilter.svelte';
+	import { page } from '$app/stores';
+	import SubmissionScrollerFilter from '$components/administration/season/SubmissionScrollerFilter.svelte';
+	import { fetchSubmissionsForSeason } from '$actions/Submission';
+
 	const { season } = $props<{ season: SeasonDTO }>();
 
-	const submissionStore = createSubmissionStore(season);
+    let filter = $page.data.filter;
+
 	const context = getAllContexts();
 	const dialogStore = getContext<DialogStore>(Store.DIALOG_STORE);
 	const activityStore = getContext<ActivityStore>(Store.ACTIVITY_STORE);
 	const facultyStore = getContext<FacultyStore>(Store.FACULTY_STORE);
 
-	const loadNext = (element: Element) => {
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if(entry.isIntersecting) {                  
-                    submissionStore.loadNextPage();
-                } 
-            })
-        })
-        observer.observe(element)
+	let submissions = $state($page.data.submissions);
 
-        return {
-            destroy: () => observer.disconnect()
-        }
-    }
+    $effect(() => {
+        filter = $page.data.filter;
+        submissions = $page.data.submissions;
+    });
+
+	const loadNext = (element: Element) => {
+		const observer = new IntersectionObserver((entries) => {
+			entries.forEach((entry) => {
+				if (entry.isIntersecting) {
+                    if(!filter.page) {
+                        filter.page = 1;
+                    }
+            
+                    filter.page += 1;
+
+                    fetchSubmissionsForSeason(season, filter).then((newSubmissions) => {
+                        submissions.push(...newSubmissions);
+                    });
+				}
+			});
+		});
+		observer.observe(element);
+
+		return {
+			destroy: () => observer.disconnect()
+		};
+	};
 </script>
 
-<SubmissionScrollerFilter {submissionStore}/>
+<SubmissionScrollerFilter {season} bind:submissions />
 
-{#await Promise.all([submissionStore.promise(), facultyStore.promise(), activityStore.promise()])}
+{#await Promise.all([facultyStore.promise(), activityStore.promise()])}
 	Načítání...
 {:then}
-	{#each submissionStore.all() as submission, i}
+	{#each submissions as submission, i}
 		<div
 			class="submission"
 			onclick={() => {
@@ -82,8 +100,8 @@
 
 <style>
 	.submission {
-        display: grid;
-        grid-template-columns: 1fr 1fr;
+		display: grid;
+		grid-template-columns: 1fr 1fr;
 		border: 1px solid lightgray;
 		padding: 15px;
 		margin: 10px 0;

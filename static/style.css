@@ -270,6 +270,18 @@ label {
 	gap: 5px;
 }
 
+w-100 {
+    width: 100%;
+}
+
+m-0 {
+    margin: 0;
+}
+
+f-1 {
+    flex: 1;
+}
+
 @media screen and (max-width: 1000px) {
 	h1 {
 		font-size: 3rem;

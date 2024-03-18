@@ -1,124 +1,189 @@
 <script lang="ts">
-	import Collapsible from '$components/Collapsible.svelte';
 	import Store from '$lib/enums/Stores';
 	import type { ActivityStore } from '$lib/stores/ActivityStore.svelte';
 	import type { FacultyStore } from '$lib/stores/FacultyStore.svelte';
-	import { getContext } from 'svelte';
+	import { getContext, onMount, untrack } from 'svelte';
 	import { LL } from '$translations/i18n-svelte';
 	import DateInput from '$components/FormComponent/DateInput.svelte';
 	import Button from '$components/Button.svelte';
-	import type { SubmissionFilter, SubmissionStore } from '$lib/stores/SubmissionStore.svelte';
-	import { SubmissionStateEnum } from '$lib/enums/SubmissionStateEnum';
-	import { FilterEnum } from '$lib/enums/FilterEnum';
-	import type { SelectedFilter } from '$lib/DTO/SelectedFilter';
+	import type { SubmissionState } from '$lib/enums/SubmissionState';
+	import Select from '$components/FormComponent/Select.svelte';
+	import type { SeasonDTO } from '$lib/DTO/SeasonDTO';
+	import type { SubmissionDTO } from '$lib/DTO/SubmissionDTO';
+	import { page } from '$app/stores';
+	import { invalidateAll } from '$app/navigation';
 
-	const { submissionStore } = $props<{ submissionStore: SubmissionStore }>();
+	let { season, submissions } = $props<{ season: SeasonDTO; submissions: Array<SubmissionDTO> }>();
 
 	const facultyStore = getContext<FacultyStore>(Store.FACULTY_STORE);
 	const activityStore = getContext<ActivityStore>(Store.ACTIVITY_STORE);
 
-	const states = ['accepted', 'rejected', 'pending'];
+	const states: Array<SubmissionState> = ['accepted', 'rejected', 'pending'];
 	const weeks = [1, 2, 3, 4];
 
-	let selectedFilter = $state<SelectedFilter>({
-		user: undefined,
-		date: undefined,
-		faculty: undefined,
-		state: undefined,
-		week: undefined,
-		activity: undefined
-	});
+	let selectFaculty = $state<Select>();
+	let selectWeek = $state<Select>();
 
+    let filter = $derived($page.data.filter);
 
-	const handleFilter = () => {
-		let filter: SubmissionFilter = {};
-		Object.keys(selectedFilter).forEach((key: string) => {
-			if (selectedFilter[key as keyof typeof selectedFilter]) {
-				if (key === FilterEnum.STATE) {
-					switch (selectedFilter[key as keyof typeof selectedFilter]) {
-						case SubmissionStateEnum.ACCEPTED:
-							filter.accepted = 1;
-							break;
-						case SubmissionStateEnum.REJECTED:
-							filter.accepted = 0;
-							break;
-						case SubmissionStateEnum.PENDING:
-							filter.reviewed = 0;
-							break;
-					}
-				} else {
-					filter[key as keyof typeof filter] = selectedFilter[
-						key as keyof typeof selectedFilter
-					] as any;
-				}
-			}
-		});
+	let email = $state<string>();
+	let date = $state<Date>();
+	let _state = $state<string>();
+	let activityValue = $state<number|string>();
 
-		submissionStore.filter(filter);
-	};
+    onMount(() => {
+        email = filter.user;
+        date = filter.date ? new Date(filter.date) : undefined;
+        _state = filter.accepted === '1' ? 'accepted' : (filter.accepted === '0' ? 'rejected' : 'pending');
+        activityValue = Number(filter.activity);
+    });
 
-	const deselect = (filter: FilterEnum) => {
-		selectedFilter = {
-			...selectedFilter,
-			[filter]: undefined
-		};
-	};
+    $effect(() => {
+        selectFaculty;
+        selectWeek;
+
+        untrack(() => {
+            selectFaculty?.selectValue(Number(filter.faculty));
+            selectWeek?.selectValue(Number(filter.week));
+        })
+    })
+
 </script>
-<!-- TODO: jsem designerska lopata sorry -->
-<Collapsible title="Uživatel">
-	<input type="text" id="email" bind:value={selectedFilter.user} autocomplete="off" />
-	<Button onclick={() => deselect(FilterEnum.USER)}>X</Button>
-</Collapsible>
 
-<Collapsible title="Datum">
-	<!-- FIXME: ts-error -->
-	<DateInput bind:date={selectedFilter.date} id="date" />
-	<Button onclick={() => deselect(FilterEnum.DATE)}>X</Button>
-</Collapsible>
+<form action={$page.url.toString()} method="GET" onsubmit={invalidateAll}>
+	<div class="col">
+		<label for="email">Uživatel (e-mail):</label>
+		<div class="field">
+			<input class="w-100 m-0" name="user" type="text" id="email" autocomplete="off" bind:value={email} />
+			<button type="button" onclick={() => (email = undefined)}>
+				<img class="icon" src="/images/icons/x.svg" alt="Odstranit filtr" />
+			</button>
+		</div>
+	</div>
 
-<Collapsible title="Stav">
-	{#each states as state}
-		<input type="radio" value={state} bind:group={selectedFilter.state} class="radio" />
-		<label for={`state${state}`}>
-			{$LL.submission.state[state as keyof typeof $LL.submission.state]()}
-		</label>
-	{/each}
-	<Button onclick={() => deselect(FilterEnum.STATE)}>X</Button>
-</Collapsible>
+	<div class="col">
+		<label for="date">Datum:</label>
+		<div class="field">
+			<DateInput style="flex:1;" class="f-1" id="date" name="date" bind:date={date} />
+			<button type="button" onclick={() => (date = undefined)}>
+				<img class="icon" src="/images/icons/x.svg" alt="Odstranit filtr" />
+			</button>
+		</div>
+	</div>
 
-<Collapsible title="Týden">
-	{#each weeks as week}
-		<input type="radio" value={week} bind:group={selectedFilter.week} class="radio" />
-		<label for={`week${week}`}>{week}. Týden</label>
-	{/each}
-	<Button onclick={() => deselect(FilterEnum.WEEK)}>X</Button>
-</Collapsible>
+	<div class="col">
+		<label for="state">Stav:</label>
+		<div class="field">
+			<div class="radio-group">
+				{#each states as state}
+					<div>
+						<input type="radio" name="state" value={state} class="radio" id={`state${state}`} bind:group={_state} />
+						<label for={`state${state}`}>
+							{$LL.submission.state[state as keyof typeof $LL.submission.state]()}
+						</label>
+					</div>
+				{/each}
+			</div>
+			<button type="button" onclick={() => (_state = undefined)}>
+				<img class="icon" src="/images/icons/x.svg" alt="Odstranit filtr" />
+			</button>
+		</div>
+	</div>
 
-{#await facultyStore.all() then faculties}
-	<Collapsible title="Fakulta">
-		{#each faculties as faculty}
-			<input type="radio" value={faculty.id} bind:group={selectedFilter.faculty} class="radio" />
-			<label for={`faculty${faculty.id}`}>{faculty.shortcut}</label>
-		{/each}
-		<Button onclick={() => deselect(FilterEnum.FACULTY)}>X</Button>
-	</Collapsible>
-{/await}
+	{#await activityStore.promise() then activities}
+		<div class="col">
+			<label for="activity">Aktivita:</label>
+			<div class="field">
+				<div class="radio-group">
+					{#each activities as activity}
+						<div>
+							<input name="activity" class="radio" type="radio" value={activity.id} id={`activity${activity.id}`} bind:group={activityValue} />
+							<label for={`activity${activity.id}`}>{activity.name}</label>
+						</div>
+					{/each}
+				</div>
+				<button type="button" onclick={() => (activityValue = undefined)}>
+					<img class="icon" src="/images/icons/x.svg" alt="Odstranit filtr" />
+				</button>
+			</div>
+		</div>
+	{/await}
 
-{#await activityStore.all() then activities}
-	<Collapsible title="Aktivita">
-		{#each activities as activity}
-			<input type="radio" value={activity.id} bind:group={selectedFilter.activity} class="radio" />
-			<label for={`activity${activity.id}`}>{activity.name}</label>
-		{/each}
-		<Button onclick={() => deselect(FilterEnum.ACTIVITY)}>X</Button>
-	</Collapsible>
-{/await}
-<Button onclick={handleFilter} class="middle">Vyhledat</Button>
+	<div class="col">
+		<label for="week">Týden:</label>
+		<div class="field">
+			<Select
+				bind:this={selectWeek}
+				keys={[undefined, ...weeks].map((week) => (week ? `${week}. týden` : 'Nevybráno'))}
+				values={[undefined, ...weeks]}
+				id="week"
+				name="week"
+			/>
+			<button type="button" onclick={() => selectWeek?.select(0)}>
+				<img class="icon" src="/images/icons/x.svg" alt="Odstranit filtr" />
+			</button>
+		</div>
+	</div>
+
+	{#await facultyStore.promise() then faculties}
+		<div class="col">
+			<label for="faculty">Fakulta:</label>
+			<div class="field">
+				<Select
+					bind:this={selectFaculty}
+					keys={[undefined, ...faculties].map((f) => f ?$LL.faculties[f.shortcut as keyof typeof $LL.faculties]() : "Nevybráno")}
+					values={[undefined, ...faculties].map((f) => (f ? f.id : undefined))}
+					id="faculty"
+					name="faculty"
+				/>
+				<button type="button" onclick={() => selectFaculty?.select(0)}>
+					<img class="icon" src="/images/icons/x.svg" alt="Odstranit filtr" />
+				</button>
+			</div>
+		</div>
+	{/await}
+
+	<Button type="submit" class="middle">Vyhledat</Button>
+</form>
 
 <style>
 	.radio {
 		width: 20px;
 		aspect-ratio: 1;
 		appearance: auto;
+	}
+
+	.radio-group {
+		display: flex;
+		flex-direction: column;
+	}
+
+	.field {
+		width: 100%;
+		display: grid;
+		grid-template-columns: auto 25px;
+		column-gap: 10px;
+	}
+
+	button {
+		cursor: pointer;
+		min-width: 25px;
+	}
+
+	form {
+		display: grid;
+		grid-template-columns: 1fr 1fr;
+		row-gap: 15px;
+		column-gap: 50px;
+	}
+
+	input {
+		flex: 1;
+	}
+
+	.col {
+		display: flex;
+		flex-direction: column;
+		gap: 10px;
 	}
 </style>

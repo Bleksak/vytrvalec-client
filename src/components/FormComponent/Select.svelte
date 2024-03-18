@@ -25,7 +25,17 @@
 	let selectElement = $state();
 	let optionsElement = $state();
 
-	const select = (idx: number) => {
+    export const selectValue = (value: any) => {
+        const index = values.indexOf(value);
+
+        if (index === -1) {
+            select(0);
+        } else {
+            select(index);
+        }
+    };
+
+	export const select = (idx: number) => {
 		open = false;
 		currentValue = values[idx];
 		currentKey = keys[idx];

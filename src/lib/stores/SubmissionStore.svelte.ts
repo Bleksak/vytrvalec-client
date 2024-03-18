@@ -1,6 +1,6 @@
 import { fetchSubmissionsForSeason } from '$actions/Submission';
 import type { SeasonDTO } from '$lib/DTO/SeasonDTO';
-import type { SubmissionResponseAdminDTO, SubmissionResponseDTO } from '$lib/DTO/SubmissionDTO';
+import type { SubmissionResponseAdminDTO } from '$lib/DTO/SubmissionDTO';
 
 export type SubmissionFilter = {
 	reviewed?: number;
@@ -19,6 +19,7 @@ export type SubmissionStore = {
 	update: (submission: SubmissionResponseAdminDTO) => void;
 	filter: (filtering: SubmissionFilter) => void;
 	promise: () => Promise<Array<SubmissionResponseAdminDTO>>;
+    season: number;
 };
 
 export const createSubmissionStore = (season: SeasonDTO): SubmissionStore => {
@@ -82,7 +83,8 @@ export const createSubmissionStore = (season: SeasonDTO): SubmissionStore => {
 		loadNextPage: loadNextPage,
 		update: update,
 		filter: filter,
-		promise: () => submissionsPromise
+		promise: () => submissionsPromise,
+        season: season.id
 	};
 };
 

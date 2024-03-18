@@ -1,8 +1,10 @@
 export type SelectedFilter = {
     user?: string;
-    faculty?: number;
-    date?: Date;
-    state?: string;
-    week?: number;
-    activity?: number;
+    faculty?: string;
+    date?: string;
+    accepted?: string;
+    reviewed?: string;
+    week?: string;
+    activity?: string;
+    page?: number;
 };

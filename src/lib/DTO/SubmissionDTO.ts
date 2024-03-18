@@ -25,7 +25,7 @@ export type SubmissionResponseDTO = {
 };
 
 export type SubmissionResponseAdminDTO = Omit<SubmissionResponseDTO, 'user'> & {
-	user: UserResponseAdmin
+	user: UserResponseAdmin;
 };
 
 export type ProfileSubmissionResponseDTO = Omit<SubmissionResponseDTO, 'user' | 'activity'> & {
