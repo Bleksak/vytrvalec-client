@@ -23,6 +23,7 @@
 	let dialog = $state<Dialog>();
 
 	let fileInput = $state<HTMLElement>();
+    let dropzone = $state<HTMLElement>();
 	let dropzoneImage = $state<HTMLImageElement>();
 	let dropzoneText = $state<HTMLElement>();
 
@@ -54,6 +55,8 @@
 	});
 
 	const handleDrop = (e: DragEvent) => {
+        e.preventDefault();
+
 		const dt = e.dataTransfer;
 		if (dt === null) {
 			return;
@@ -108,6 +111,14 @@
 			update();
 		};
 	};
+
+	$effect(() => {
+		// NOTE: tohle nejde nastavit na div pomoci HTML tak to musi byt tady
+		dropzone?.addEventListener('dragenter', (e) => e.preventDefault());
+		dropzone?.addEventListener('dragover', (e) => e.preventDefault());
+		dropzone?.addEventListener('dragleave', (e) => e.preventDefault());
+		dropzone?.addEventListener('drop', handleDrop);
+	});
 </script>
 
 <Dialog bind:this={dialog} header={$LL.submission.title()} {...props}>
@@ -119,10 +130,7 @@
 	>
 		<div
 			class="dropzone"
-			on:dragenter|preventDefault
-			on:dragleave|preventDefault
-			on:dragover|preventDefault
-			on:drop|preventDefault={handleDrop}
+            bind:this={dropzone}
 			onclick={() => fileInput?.click()}
 			on:keypress={() => fileInput?.click()}
 			role="button"
