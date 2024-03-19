@@ -6,7 +6,7 @@ export type SubmissionStateDTO = {
 	message?: string;
 };
 
-type SubmissionStateType = '1' | '0'; //NOTE: Nevim jak to pojmenovat
+type SubmissionStateType = '1' | '0';
 
 export type SubmissionStateError = ResponseErrorMap<SubmissionStateDTO> & {
 	server?: Array<ResponseError>;
