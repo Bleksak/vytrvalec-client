@@ -577,6 +577,10 @@ type RootTranslation = {
 		 * B​o​d​y
 		 */
 		points: string
+		/**
+		 * C​e​l​k​e​m
+		 */
+		total: string
 	}
 	profile: {
 		/**
@@ -647,6 +651,10 @@ type RootTranslation = {
 		 * K​o​l​o​ ​a​ ​k​o​l​o​b​ě​ž​k​a
 		 */
 		'Kolo/Koloběžka': string
+		/**
+		 * C​e​l​k​o​v​é​ ​h​o​d​n​o​c​e​n​í
+		 */
+		total: string
 	}
 	icons: {
 		/**
@@ -1378,6 +1386,10 @@ export type TranslationFunctions = {
 		 * Body
 		 */
 		points: () => LocalizedString
+		/**
+		 * Celkem
+		 */
+		total: () => LocalizedString
 	}
 	profile: {
 		/**
@@ -1448,6 +1460,10 @@ export type TranslationFunctions = {
 		 * Kolo a koloběžka
 		 */
 		'Kolo/Koloběžka': () => LocalizedString
+		/**
+		 * Celkové hodnocení
+		 */
+		total: () => LocalizedString
 	}
 	icons: {
 		/**

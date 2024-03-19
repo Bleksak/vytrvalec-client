@@ -86,11 +86,19 @@
 		<div class="title-wrapper">
 			{#each currentSeasonResultsArray as result}
 				{@const activity = activities.find((activity) => activity.id === result.activity)}
-				<div class="title">
-					<h2>{$LL.activities[activity?.name as keyof typeof $LL.activities]().toUpperCase()}</h2>
-				</div>
-				<div class="wrapper">
-					{#key (currentSeason?.id ?? 0) * seasons.length + currentWeek}
+				{@const total = result.row.reduce(
+					(accumulator, current) => {
+						accumulator.distance += current.distance;
+						accumulator.points += current.points;
+						return accumulator;
+					},
+					{ distance: 0, points: 0 }
+				)}
+				{#key (currentSeason?.id ?? 0) * seasons.length + currentWeek}
+					<div class="title">
+						<h2>{result.activity === -1 ? $LL.results.total() : $LL.activities[activity?.name as keyof typeof $LL.activities]().toUpperCase()}</h2>
+					</div>
+					<div class="wrapper">
 						<section class="table">
 							<div class="results-table">
 								<header class="row">
@@ -106,14 +114,20 @@
 										<span class="right">{row.points}</span>
 									</div>
 								{/each}
+
+								<div class="row">
+									<strong>{$LL.results.total()}</strong>
+									<strong class="right">{(total.distance / 1000).toFixed(1)}</strong>
+									<strong class="right">{total.points}</strong>
+								</div>
 							</div>
 						</section>
 
 						<section class="graph">
 							<ResultsChart {faculties} results={result.row} />
 						</section>
-					{/key}
-				</div>
+					</div>
+				{/key}
 			{:else}
 				<div class="title">
 					<h3>{$LL.results.no_results()}</h3>

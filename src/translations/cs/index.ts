@@ -153,7 +153,8 @@ const cs = {
 			rejected: 'Zamítnuto'
 		},
 		errors: {
-			mismatch_updated_at: 'Jiný administrátor změnil tuto aktivitu. Aktualizujte stránku a opakujte akci.'
+			mismatch_updated_at:
+				'Jiný administrátor změnil tuto aktivitu. Aktualizujte stránku a opakujte akci.'
 		}
 	},
 
@@ -188,7 +189,7 @@ const cs = {
 				mismatch: 'Současne heslo není správné'
 			},
 			password_repeat: {
-				password_mismatch: 'Nové hesla se musí shodovat.',
+				password_mismatch: 'Nové hesla se musí shodovat.'
 			}
 		}
 	},
@@ -200,7 +201,8 @@ const cs = {
 		faculty: 'Fakulta',
 		distance: 'Vzdálenost',
 		elevation: 'Převýšení',
-		points: 'Body'
+		points: 'Body',
+		total: 'Celkem'
 	},
 	profile: {
 		submissions: 'Aktivity',
@@ -225,7 +227,8 @@ const cs = {
 	},
 	activities: {
 		'Běh/Chůze': 'Běh a chůze',
-		'Kolo/Koloběžka': 'Kolo a koloběžka'
+		'Kolo/Koloběžka': 'Kolo a koloběžka',
+        total: 'Celkové hodnocení',
 	},
 	icons: {
 		'Běh/Chůze': 'runner',
@@ -287,7 +290,7 @@ const cs = {
 		SUZN: 'ŠUZ Nečtiny'
 	},
 	server: {
-		server_down: "Server není dostupný, opakujte akci později."
+		server_down: 'Server není dostupný, opakujte akci později.'
 	}
 } satisfies BaseTranslation;
 

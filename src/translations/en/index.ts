@@ -153,7 +153,8 @@ const en = {
 			rejected: 'Rejected'
 		},
 		errors: {
-			mismatch_updated_at: 'Another administrator changed this submission. Please refresh the page and try again.'
+			mismatch_updated_at:
+				'Another administrator changed this submission. Please refresh the page and try again.'
 		}
 	},
 
@@ -200,7 +201,8 @@ const en = {
 		faculty: 'Faculty',
 		distance: 'Distance',
 		elevation: 'Elevation',
-		points: 'Points'
+		points: 'Points',
+		total: 'Total'
 	},
 	profile: {
 		submissions: 'Submissions',
@@ -225,7 +227,8 @@ const en = {
 	},
 	activities: {
 		'Běh/Chůze': 'Run and walk',
-		'Kolo/Koloběžka': 'Bike and scooter'
+		'Kolo/Koloběžka': 'Bike and scooter',
+        total: 'Total',
 	},
 	rules: {
 		title: 'Rules',
@@ -284,7 +287,7 @@ const en = {
 		SUZN: 'ŠUZ Nečtiny'
 	},
 	server: {
-		server_down: "Service unavailable, please try again later."
+		server_down: 'Service unavailable, please try again later.'
 	}
 } satisfies BaseTranslation;
 
