@@ -11,9 +11,9 @@
 	import SubmissionScrollerFilter from '$components/administration/season/SubmissionScrollerFilter.svelte';
 	import { fetchSubmissionsForSeason } from '$actions/Submission';
 
-	const { season }: {season: SeasonDTO} = $props();
+	const { season }: { season: SeasonDTO } = $props();
 
-    let filter = $page.data.filter;
+	let filter = $page.data.filter;
 
 	const context = getAllContexts();
 	const dialogStore = getContext<DialogStore>(Store.DIALOG_STORE);
@@ -22,26 +22,34 @@
 
 	let submissions = $state($page.data.submissions);
 
-    $effect(() => {
-        filter = $page.data.filter;
-        submissions = $page.data.submissions;
-    });
+	$effect(() => {
+		filter = $page.data.filter;
+		submissions = $page.data.submissions;
+	});
+
+	let canLoadNext = true;
 
 	const loadNext = (element: Element) => {
 		const observer = new IntersectionObserver((entries) => {
-			entries.forEach((entry) => {
-				if (entry.isIntersecting) {
-                    if(!filter.page) {
-                        filter.page = 1;
-                    }
-            
-                    filter.page += 1;
+			if (canLoadNext) {
+				entries.forEach((entry) => {
+					if (entry.isIntersecting) {
+						if (!filter.page) {
+							filter.page = 1;
+						}
 
-                    fetchSubmissionsForSeason(season, filter).then((newSubmissions) => {
-                        submissions.push(...newSubmissions);
-                    });
-				}
-			});
+						filter.page += 1;
+
+						fetchSubmissionsForSeason(season, filter).then((newSubmissions) => {
+							submissions.push(...newSubmissions);
+
+							if (newSubmissions.length === 0) {
+								canLoadNext = false;
+							}
+						});
+					}
+				});
+			}
 		});
 		observer.observe(element);
 
