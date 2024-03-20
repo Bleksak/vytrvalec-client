@@ -54,6 +54,7 @@
 		max-height: 100vh;
 
 		position: fixed;
+		overflow-y: auto;
 	}
 
 	dialog::backdrop {
@@ -64,10 +65,6 @@
 	.dialog-header {
 		display: flex;
 		justify-content: space-between;
-	}
-
-	section {
-		overflow-y: auto;
 	}
 
 	.dialog-header,
