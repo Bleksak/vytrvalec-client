@@ -2,6 +2,7 @@ FROM alpine:3.19
 
 # ARG origin=https://vytrvalec.kts.zcu.cz
 ENV ORIGIN=https://vytrvalec.kts.zcu.cz
+ENV BODY_SIZE_LIMIT=15000000
 
 RUN apk add --update nodejs npm
 
@@ -18,7 +19,7 @@ RUN { \
         echo 'VITE_INSTAGRAM_URL=https://www.instagram.com/kts.zcu/'; \
         echo 'VITE_SERVER_API_BASE=http://vytrvalec-nginx/api'; \
         echo 'VITE_API_BASE=https://vytrvalec.kts.zcu.cz/api'; \
-        echo 'BODY_SIZE_LIMIT=10000000'; \
+        echo 'BODY_SIZE_LIMIT=15000000'; \
     } > .env
 
 RUN npm run build
