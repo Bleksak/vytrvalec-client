@@ -22,8 +22,6 @@ const isPathname = (current: string, wanted: string): boolean => {
 export const handle: Handle = async ({ event, resolve }): Promise<any> => {
 	// NOTE: When developing with https (server), axios will reject all requests unless we set this environment variable
 
-    console.log(event.url);
-
 	if (dev) {
 		process.env.NODE_TLS_REJECT_UNAUTHORIZED = '0';
 	}
