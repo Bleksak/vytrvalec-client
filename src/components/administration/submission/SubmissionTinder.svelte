@@ -6,7 +6,7 @@
 	import { getContext } from 'svelte';
 	import { LL } from '$translations/i18n-svelte';
 	import Store from '$lib/enums/Stores';
-	import type { SubmissionResponseDTO, TinderSubmissionResponseDTO } from '$lib/DTO/SubmissionDTO';
+	import type { TinderSubmissionResponseDTO } from '$lib/DTO/SubmissionDTO';
 
 	const toastStore = getContext<ToastStore>(Store.TOAST_STORE);
 	const submissionStore = createUnreviewedSubmissionStore();
@@ -28,8 +28,6 @@
 		currentSubmission = submissionStore.pop();
 	};
 
-
-	//Nevim debilnější řešení mi nenapadlo
 	const acceptCurrent = () => {
 		submissionStore.accept(currentSubmission!).then((result) => {
 			if(result.type === 'success') {
@@ -179,7 +177,6 @@
 	.info-column {
 		display: flex;
 		flex-direction: column;
-		align-items: center;
 		gap: 10px;
 	}
 

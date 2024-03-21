@@ -3,9 +3,9 @@ import {
 	fetchUnreviewedSubmissions,
 	rejectSubmission
 } from '$actions/Submission';
-import type { SubmissionResponseDTO, TinderSubmissionResponseDTO } from '$lib/DTO/SubmissionDTO';
+import type { TinderSubmissionResponseDTO } from '$lib/DTO/SubmissionDTO';
 import type { SubmissionStateResponse } from '$lib/DTO/SubmissionStateDTO';
-import type { AxiosError, AxiosResponse } from 'axios';
+import type { AxiosError } from 'axios';
 
 export type UnreviewedSubmissionStore = {
 	all: () => Array<TinderSubmissionResponseDTO>;
