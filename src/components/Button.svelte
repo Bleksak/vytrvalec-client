@@ -17,7 +17,7 @@
 {/if}
 
 <style>
-	button {
+	button, div {
 		cursor: pointer;
 		display: inline-flex;
 		justify-content: center;
