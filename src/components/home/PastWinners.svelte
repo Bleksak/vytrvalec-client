@@ -135,6 +135,7 @@
 	.past-winners-wrapper {
 		background-color: #005cab;
 		width: 100%;
+		
 	}
 
 	.past-winners {
@@ -244,6 +245,9 @@
 
 		.past-winners {
 			padding-inline: 30px;
+		}
+		.winners {
+			max-width: 300px;
 		}
 	}
 </style>
