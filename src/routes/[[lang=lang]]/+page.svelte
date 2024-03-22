@@ -18,8 +18,8 @@
 			</p>
 		</section>
 		<section class="buttons">
-			<a href="/{$page.data.lang}/rules"><Button class="squared secondary">{$LL.rules.title().toUpperCase()}</Button></a>
-			<a href="/{$page.data.lang}/results"><Button class="squared">{$LL.results.results().toLocaleUpperCase()}</Button></a>
+			<a href="/{$page.data.lang}/rules"><Button styleOnly class="secondary">{$LL.rules.title().toUpperCase()}</Button></a>
+			<a href="/{$page.data.lang}/results"><Button styleOnly>{$LL.results.results().toLocaleUpperCase()}</Button></a>
 		</section>
 	</article>
 </header>

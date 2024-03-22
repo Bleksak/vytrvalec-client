@@ -1,11 +1,20 @@
 <script lang="ts">
-	import type { HTMLButtonAttributes } from 'svelte/elements';
+	import type { HTMLAttributes, HTMLButtonAttributes } from 'svelte/elements';
 	import type { Snippet } from 'svelte';
 
-	let { children, name, id, ...props } : HTMLButtonAttributes & { name?: string; id?: string; children: Snippet } = $props();
+	// Asi by to chtělo někam přesunout, ale nějak nevim kam to zařadit, možná že to tu tolik nepřekáží
+	type BtnProps = { name?: string } & HTMLButtonAttributes;
+	type DivProps = { styleOnly: true } & HTMLAttributes<HTMLDivElement>;
+
+	let { children, id, ...props }: (BtnProps | DivProps) & { children: Snippet } = $props();
 </script>
 
-<button {name} {id} {...props}>{@render children()}</button>
+{#if 'styleOnly' in props}
+	{@const {styleOnly, ...rest} = props}
+	<div {id} {...rest}>{@render children()}</div>
+{:else}
+	<button {id} {...props}>{@render children()}</button>
+{/if}
 
 <style>
 	button {
