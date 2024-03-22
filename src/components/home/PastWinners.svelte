@@ -220,7 +220,7 @@
 		display: flex;
 		flex-direction: column;
 		align-items: center;
-		width: 150px;
+		max-width: 150px;
 		gap: 10px;
 	}
 	.winners .winner span {
@@ -245,9 +245,6 @@
 
 		.past-winners {
 			padding-inline: 30px;
-		}
-		.winners {
-			max-width: 300px;
 		}
 	}
 </style>
