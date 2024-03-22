@@ -371,7 +371,7 @@ type RootTranslation = {
 					 */
 					invalid: string
 					/**
-					 * O​b​r​á​z​e​k​ ​j​e​ ​p​ř​í​l​i​š​ ​v​e​l​i​k​ý​,​ ​m​a​x​i​m​á​l​n​í​ ​v​e​l​i​k​o​s​t​ ​o​b​r​á​z​k​u​ ​j​e​ ​4​M​B​.
+					 * O​b​r​á​z​e​k​ ​j​e​ ​p​ř​í​l​i​š​ ​v​e​l​i​k​ý​,​ ​m​a​x​i​m​á​l​n​í​ ​v​e​l​i​k​o​s​t​ ​o​b​r​á​z​k​u​ ​j​e​ ​1​5​M​B​.
 					 */
 					too_large: string
 				}
@@ -1180,7 +1180,7 @@ export type TranslationFunctions = {
 					 */
 					invalid: () => LocalizedString
 					/**
-					 * Obrázek je příliš veliký, maximální velikost obrázku je 4MB.
+					 * Obrázek je příliš veliký, maximální velikost obrázku je 15MB.
 					 */
 					too_large: () => LocalizedString
 				}

@@ -130,7 +130,7 @@ const en = {
 				image: {
 					blank: 'Please upload an image.',
 					invalid: 'Please upload a valid image.',
-					too_large: 'The image is too large. Please upload an image with a size less than 4MB.'
+					too_large: 'The image is too large. Please upload an image with a size less than 15MB.'
 				},
 				distance: {
 					blank: 'Please enter a distance.',

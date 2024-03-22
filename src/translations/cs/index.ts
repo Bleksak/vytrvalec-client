@@ -130,7 +130,7 @@ const cs = {
 				image: {
 					blank: 'Nahrajte prosím obrázek.',
 					invalid: 'Nahrajte prosím platný obrázek.',
-					too_large: 'Obrázek je příliš veliký, maximální velikost obrázku je 4MB.'
+					too_large: 'Obrázek je příliš veliký, maximální velikost obrázku je 15MB.'
 				},
 				distance: {
 					blank: 'Zadejte prosím vzdálenost',

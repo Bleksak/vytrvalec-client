@@ -33,7 +33,7 @@ export const createSubmission = async (dto: SubmissionDTO): Promise<SubmissionCr
 
 			return null;
 		});
-
+	
 	if (response === null) {
 		return {
 			type: 'error',
@@ -41,12 +41,17 @@ export const createSubmission = async (dto: SubmissionDTO): Promise<SubmissionCr
 		};
 	}
 
-	if (response.status !== 201) {
+	if (response.status === 413) {
+		return {
+			type: 'error',
+			errors: { image: ['too_large'] },
+		}
+	} else if (response.status !== 201) {
 		return {
 			type: 'error',
 			errors: response.data
 		};
-	}
+	} 
 
 	return {
 		type: 'success'
@@ -171,12 +176,17 @@ export const patchSubmission = async (dto: SubmissionDTO, data: FormData) => {
 		};
 	}
 
-	if (response.status !== 201) {
+	if (response.status === 413) {
+		return {
+			type: 'error',
+			errors: { image: ['too_large'] },
+		}
+	} else if (response.status !== 201) {
 		return {
 			type: 'error',
 			errors: response.data
 		};
-	}
+	} 
 
 	return {
 		type: 'success'
