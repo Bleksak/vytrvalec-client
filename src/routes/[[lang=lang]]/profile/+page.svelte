@@ -116,9 +116,9 @@
 
 	.submissions {
 		display: grid;
-		grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+		grid-template-columns: repeat(auto-fit, minmax(300px, max-content));
 
-		justify-content: space-between;
+		justify-content: flex-start;
 		gap: 15px;
 	}
 
