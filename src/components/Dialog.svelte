@@ -25,7 +25,7 @@
 	<header class="dialog-header">
 		<h5>{header}</h5>
 
-		<button onclick={close} type="button">
+		<button onclick={close} type="button" class="close-button">
 			<img src="/images/icons/close.svg" alt="Close" />
 		</button>
 	</header>
@@ -38,9 +38,9 @@
 	dialog {
 		top: 50%;
 		left: 50%;
-		-webkit-transform: translateX(-50%) translateY(-50%);
-		-moz-transform: translateX(-50%) translateY(-50%);
-		-ms-transform: translateX(-50%) translateY(-50%);
+		/* -webkit-transform: translateX(-50%) translateY(-50%); */
+		/* -moz-transform: translateX(-50%) translateY(-50%); */
+		/* -ms-transform: translateX(-50%) translateY(-50%); */
 		transform: translateX(-50%) translateY(-50%);
 
 		display: flex;
@@ -74,13 +74,17 @@
 		margin: 0 auto;
 	}
 
-	.controls {
-		display: flex;
-		flex-direction: row;
-		justify-content: flex-end;
-	}
-
 	img:hover {
 		cursor: pointer;
 	}
+
+    @media (max-width: 600px) {
+        dialog {
+            max-height: 90vh;
+        }
+
+        .close-button {
+            padding: 6px;
+        }
+    }
 </style>

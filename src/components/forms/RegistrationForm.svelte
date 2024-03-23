@@ -3,7 +3,6 @@
 	import Dialog from '$components/Dialog.svelte';
 	import { enhance } from '$app/forms';
 	import LL from '$translations/i18n-svelte';
-	import { fetchFaculties } from '$actions/Faculty';
 	import type { SubmitFunction } from '@sveltejs/kit';
 	import type { HTMLDialogAttributes } from 'svelte/elements';
 	import Checkbox from '$components/FormComponent/Checkbox.svelte';
