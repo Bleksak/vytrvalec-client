@@ -58,56 +58,58 @@
 					/>
 				</div>
 				<div class="item">
-					<article class="charity">
-						<header>
-							<h2>{$LL.homepage.charity()}</h2>
-							<h3>{currentSeason?.charity?.name}</h3>
-						</header>
-						<section class="content">
-							<p>
-								{currentSeason?.charity?.description}
-							</p>
-						</section>
-					</article>
-					{#if seasonResults.has(currentSelection!)}
-						{@const  seasonResult = seasonResults.get(currentSelection!)}
-						{@const winners = seasonResult?.getTotalWinners().slice(0, 3) ?? []}
-						{#await facultiesPromise then faculties}
-							<div class="winners-wrapper">
-								<div class="winners">
-									{#if winners.length >= 2}
-									{@const faculty = faculties.find((faculty) => faculty.id === winners[1].faculty)!}
-										<div class="winner">
-											<span>
-												{$LL.faculties[faculty.shortcut as keyof typeof $LL.faculties]()}
-											</span>
-											<div class="bar bar-medium"></div>
-										</div>
-									{/if}
+					{#key currentSelection}
+						<article class="charity">
+							<header>
+								<h2>{$LL.homepage.charity()}</h2>
+								<h3>{currentSeason?.charity?.name}</h3>
+							</header>
+							<section class="content">
+								<p>
+									{currentSeason?.charity?.description}
+								</p>
+							</section>
+						</article>
+						{#if seasonResults.has(currentSelection!)}
+							{@const     seasonResult = seasonResults.get(currentSelection!)}
+							{@const winners = seasonResult?.getTotalWinners().slice(0, 3) ?? []}
+							{#await facultiesPromise then faculties}
+								<div class="winners-wrapper">
+									<div class="winners">
+										{#if winners.length >= 2}
+											{@const    faculty = faculties.find((faculty) => faculty.id === winners[1].faculty)!}
+											<div class="winner">
+												<span>
+													{$LL.faculties[faculty.shortcut as keyof typeof $LL.faculties]()}
+												</span>
+												<div class="bar bar-medium"></div>
+											</div>
+										{/if}
 
-									{#if winners.length >= 1}
-										{@const faculty = faculties.find((faculty) => faculty.id === winners[0].faculty)!}
-										<div class="winner">
-											<span>
-												{$LL.faculties[faculty.shortcut as keyof typeof $LL.faculties]()}
-											</span>
-											<div class="bar bar-large"></div>
-										</div>
-									{/if}
+										{#if winners.length >= 1}
+											{@const    faculty = faculties.find((faculty) => faculty.id === winners[0].faculty)!}
+											<div class="winner">
+												<span>
+													{$LL.faculties[faculty.shortcut as keyof typeof $LL.faculties]()}
+												</span>
+												<div class="bar bar-large"></div>
+											</div>
+										{/if}
 
-									{#if winners.length >= 3}
-									 {@const faculty = faculties.find((faculty) => faculty.id === winners[2].faculty)!}
-										<div class="winner">
-											<span>
-												{$LL.faculties[faculty.shortcut as keyof typeof $LL.faculties]()}
-											</span>
-											<div class="bar bar-small"></div>
-										</div>
-									{/if}
+										{#if winners.length >= 3}
+											{@const    faculty = faculties.find((faculty) => faculty.id === winners[2].faculty)!}
+											<div class="winner">
+												<span>
+													{$LL.faculties[faculty.shortcut as keyof typeof $LL.faculties]()}
+												</span>
+												<div class="bar bar-small"></div>
+											</div>
+										{/if}
+									</div>
 								</div>
-							</div>
-						{/await}
-					{/if}
+							{/await}
+						{/if}
+					{/key}
 				</div>
 			</div>
 		</div>
@@ -135,7 +137,6 @@
 	.past-winners-wrapper {
 		background-color: #005cab;
 		width: 100%;
-		
 	}
 
 	.past-winners {

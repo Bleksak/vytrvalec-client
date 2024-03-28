@@ -9,7 +9,7 @@
 		name,
 		currentValue,
 		inverted = false
-	} : {
+	}: {
 		keys: string[];
 		values: any[];
 		currentValue?: any;
@@ -25,15 +25,15 @@
 	let selectElement = $state();
 	let optionsElement = $state();
 
-    export const selectValue = (value: any) => {
-        const index = values.indexOf(value);
+	export const selectValue = (value: any) => {
+		const index = values.indexOf(value);
 
-        if (index === -1) {
-            select(0);
-        } else {
-            select(index);
-        }
-    };
+		if (index === -1) {
+			select(0);
+		} else {
+			select(index);
+		}
+	};
 
 	export const select = (idx: number) => {
 		open = false;
@@ -69,7 +69,7 @@
 	<span class="select-selected">{currentKey}</span>
 	{#if open}
 		<div class="select-options" transition:slide bind:this={optionsElement}>
-			{#each keys as key, i}
+			{#each keys as key, i (i)}
 				{#if key !== currentKey}
 					<button
 						type="button"

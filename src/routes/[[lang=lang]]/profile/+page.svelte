@@ -61,10 +61,8 @@
 		{$LL.profile.loading.submissions()}
 	{:then}
 		<div class="submissions">
-			{#each submissions as submission}
-				{#key submission.id}
-					<SubmissionCard {submission} bind:submissions />
-				{/key}
+			{#each submissions as submission (submission.id)}
+				<SubmissionCard {submission} bind:submissions />
 			{:else}
 				{$LL.profile.noSubmissions()}
 			{/each}
