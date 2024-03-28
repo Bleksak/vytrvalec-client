@@ -43,6 +43,7 @@ const cs = {
 		email: 'E-mail',
 		password: 'Heslo',
 		password_repeat: 'Heslo znovu',
+		password_strength_label: ["Velmi slabé", "Slabé", "Dostačující", "Silné", "Velmi silné"],
 		first_name: 'Jméno',
 		last_name: 'Příjmení',
 		faculty: 'Fakulta',

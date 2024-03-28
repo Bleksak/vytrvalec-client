@@ -1,3 +1,4 @@
+import { PasswordEstimator } from '$lib/PasswordEstimator';
 import type { ResponseError, ResponseErrorMap } from '$lib/ResponseErrors';
 import type { UserResponse } from './UserResponse';
 
@@ -77,6 +78,16 @@ export const formDataToAccountChangeDTO = (
 			type: 'error',
 			errors: {
 				password_repeat: ['password_mismatch'],
+			}
+		};
+	}
+	const strength = PasswordEstimator.estimateStrength(password);
+
+	if (strength < 2) {
+		return {
+			type: 'error',
+			errors: {
+				password: ['weak'],
 			}
 		};
 	}

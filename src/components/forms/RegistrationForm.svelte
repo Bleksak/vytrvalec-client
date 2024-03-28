@@ -4,7 +4,7 @@
 	import { enhance } from '$app/forms';
 	import LL from '$translations/i18n-svelte';
 	import type { SubmitFunction } from '@sveltejs/kit';
-	import type { HTMLDialogAttributes } from 'svelte/elements';
+	import type { HTMLDialogAttributes, KeyboardEventHandler } from 'svelte/elements';
 	import Checkbox from '$components/FormComponent/Checkbox.svelte';
 	import Select from '$components/FormComponent/Select.svelte';
 	import type { RegistrationError } from '$lib/DTO/UserRegisterResponse';
@@ -12,22 +12,29 @@
 	import type { ToastStore } from '$lib/stores/ToastStore.svelte';
 	import Store from '$lib/enums/Stores';
 	import type { FacultyStore } from '$lib/stores/FacultyStore.svelte';
+	import { PasswordEstimator } from '$lib/PasswordEstimator';
+	import PasswordProgress from '$components/FormComponent/PasswordProgress.svelte';
 
 	const toastStore = getContext<ToastStore>(Store.TOAST_STORE);
 
 	let { ...props }: HTMLDialogAttributes = $props();
 	let dialog = $state<Dialog>();
+	let strength = $state<number>(0);
 
 	const facultyStore = getContext<FacultyStore>(Store.FACULTY_STORE);
-	
+
 	let errors = $state<RegistrationError>();
+
+	const estimatePwdStrength = (event: KeyboardEvent) => {
+		strength = PasswordEstimator.estimateStrength((event.target as HTMLInputElement).value);
+	};
 
 	const enhancer: SubmitFunction = () => {
 		return async ({ result, update }) => {
 			if (result.type === 'success') {
 				toastStore.add({
 					type: 'success',
-					message:  $LL.registration.success()
+					message: $LL.registration.success()
 				});
 				errors = undefined;
 				dialog?.close();
@@ -81,7 +88,8 @@
 			<label for="password">
 				{$LL.registration.password()}:
 			</label>
-			<input type="password" name="password" id="password" />
+			<input type="password" name="password" id="password" onkeyup={estimatePwdStrength} />
+			<PasswordProgress {strength} />
 			{#each errors?.password ?? [] as error}
 				<span class="error">
 					{$LL.registration.errors.password[error as keyof typeof $LL.registration.errors.password]()}

@@ -43,6 +43,7 @@ const en = {
 		email: 'E-mail',
 		password: 'Password',
 		password_repeat: 'Password repeat',
+		password_strength_label: ["Very weak", "Weak", "Sufficient", "Strong", "Very strong"],	
 		first_name: 'First name',
 		last_name: 'Last name',
 		faculty: 'Faculty',

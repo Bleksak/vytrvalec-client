@@ -1,3 +1,4 @@
+import { PasswordEstimator } from '$lib/PasswordEstimator';
 import type { RegistrationError } from './UserRegisterResponse';
 
 export type UserRegisterDTO = {
@@ -10,13 +11,13 @@ export type UserRegisterDTO = {
 
 export type UserRegisterReturn =
 	| {
-			type: 'dto';
-			value: UserRegisterDTO;
-	  }
+		type: 'dto';
+		value: UserRegisterDTO;
+	}
 	| {
-			type: 'error';
-			value: RegistrationError;
-	  };
+		type: 'error';
+		value: RegistrationError;
+	};
 
 export const formDataToUserRegisterDTO = (formData: FormData): UserRegisterReturn => {
 	const email = formData.get('email')?.toString();
@@ -30,6 +31,12 @@ export const formDataToUserRegisterDTO = (formData: FormData): UserRegisterRetur
 
 	if (password === undefined || password === '') {
 		errors['password'] = ['blank'];
+	}
+
+	const strength = PasswordEstimator.estimateStrength(password);
+
+	if (strength < 2) {
+		errors['password'] = ['weak'];
 	}
 
 	const password_repeat = formData.get('password_repeat')?.toString();

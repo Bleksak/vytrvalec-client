@@ -125,6 +125,28 @@ type RootTranslation = {
 		 * H​e​s​l​o​ ​z​n​o​v​u
 		 */
 		password_repeat: string
+		password_strength_label: {
+			/**
+			 * V​e​l​m​i​ ​s​l​a​b​é
+			 */
+			'0': string
+			/**
+			 * S​l​a​b​é
+			 */
+			'1': string
+			/**
+			 * D​o​s​t​a​č​u​j​í​c​í
+			 */
+			'2': string
+			/**
+			 * S​i​l​n​é
+			 */
+			'3': string
+			/**
+			 * V​e​l​m​i​ ​s​i​l​n​é
+			 */
+			'4': string
+		}
 		/**
 		 * J​m​é​n​o
 		 */
@@ -934,6 +956,28 @@ export type TranslationFunctions = {
 		 * Heslo znovu
 		 */
 		password_repeat: () => LocalizedString
+		password_strength_label: {
+			/**
+			 * Velmi slabé
+			 */
+			'0': () => LocalizedString
+			/**
+			 * Slabé
+			 */
+			'1': () => LocalizedString
+			/**
+			 * Dostačující
+			 */
+			'2': () => LocalizedString
+			/**
+			 * Silné
+			 */
+			'3': () => LocalizedString
+			/**
+			 * Velmi silné
+			 */
+			'4': () => LocalizedString
+		}
 		/**
 		 * Jméno
 		 */

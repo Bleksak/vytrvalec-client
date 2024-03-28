@@ -3,8 +3,10 @@
 	import { page } from '$app/stores';
 
 	import Button from '$components/Button.svelte';
+	import PasswordProgress from '$components/FormComponent/PasswordProgress.svelte';
 	import type { AccountChangeErrors } from '$lib/DTO/AccountChangeDTO';
 	import type { UserResponse } from '$lib/DTO/UserResponse';
+	import { PasswordEstimator } from '$lib/PasswordEstimator';
 	import Store from '$lib/enums/Stores';
 	import type { ToastStore } from '$lib/stores/ToastStore.svelte';
 	import LL from '$translations/i18n-svelte';
@@ -17,6 +19,12 @@
 	let passwordRepeat = $state<string>('');
 	let oldPassword = $state<string>('');
 	let errors = $state<AccountChangeErrors>({});
+
+	let strength = $state<number>(0);
+	
+	$effect(() =>{
+		strength = PasswordEstimator.estimateStrength(password);
+	})
 
 	const toastStore = getContext<ToastStore>(Store.TOAST_STORE);
 
@@ -75,6 +83,7 @@
 				</span>
 			{/each}
 			<input type="password" name="password" id="password" bind:value={password} />
+			<PasswordProgress {strength} />
 		</div>
 
 		<div class="form-field">

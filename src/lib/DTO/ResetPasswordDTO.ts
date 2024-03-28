@@ -1,3 +1,4 @@
+import { PasswordEstimator } from '$lib/PasswordEstimator';
 import type { ResponseError, ResponseErrorMap } from '$lib/ResponseErrors';
 
 export type ResetPasswordDTO = {
@@ -42,6 +43,12 @@ export const formDataToResetPasswordDTO = (formData: FormData): ResetPasswordRet
 
 	if (password === undefined || password === '') {
 		errors.password = ['blank'];
+	}
+
+	const strength = PasswordEstimator.estimateStrength(password);
+
+	if (strength < 2) {
+		errors.password = ['weak'];
 	}
 
 	if (Object.keys(errors).length !== 0) {

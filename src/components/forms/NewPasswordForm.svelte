@@ -9,11 +9,18 @@
 	import type { ResetError } from '$lib/DTO/ResetPasswordDTO';
 	import { page } from '$app/stores';
 	import Store from '$lib/enums/Stores';
+	import { PasswordEstimator } from '$lib/PasswordEstimator';
+	import PasswordProgress from '$components/FormComponent/PasswordProgress.svelte';
 
 	const toastStore = getContext<ToastStore>(Store.TOAST_STORE);
 	const resetPasswordToken = $page.url.pathname.split('/reset-password/')[1];
 
 	let errors = $state<ResetError>();
+	let strength = $state<number>(0);
+
+	const estimatePwdStrength = (event: KeyboardEvent) => {
+		strength = PasswordEstimator.estimateStrength((event.target as HTMLInputElement).value);
+	};
 
 	const onSubmit: SubmitFunction = ({ submitter }) => {
 		submitter?.setAttribute('disabled', 'disabled');
@@ -45,7 +52,8 @@
 	<label for="password">
 		{$LL.reset.password()}:
 	</label>
-	<input type="password" name="password" id="password" />
+	<input type="password" name="password" id="password" onkeyup={estimatePwdStrength}/>
+	<PasswordProgress {strength} />
 
 	{#each errors?.password ?? [] as error}
 		<span class="error"> {$LL.reset.errors[error as keyof typeof $LL.reset.errors]()}</span>
