@@ -7,7 +7,7 @@
 </script>
 
 <header>
-	<img src="/images/cyclist2.png" alt="Cyclist" />
+	<img src="/images/cyclist2.webp" alt="Cyclist" />
 	<article>
 		<section class="header">
 			<h1>Měsíční vytrvalec</h1>
@@ -27,7 +27,7 @@
 <main>
 	<div class="about">
 		<div class="left">
-			<img src="/images/runner.png" alt="Runner" />
+			<img src="/images/runner.webp" alt="Runner" />
 		</div>
 		<article>
 			<h2>{$LL.homepage.about.title().toUpperCase()}</h2>
