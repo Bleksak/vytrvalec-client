@@ -43,7 +43,7 @@ const cs = {
 		email: 'E-mail',
 		password: 'Heslo',
 		password_repeat: 'Heslo znovu',
-		password_strength_label: ["Velmi slabé", "Slabé", "Dostačující", "Silné", "Velmi silné"],
+		password_strength_label: ["Velmi slabé", "Slabé", "Dostačující", "Středně silné", "Silné", "Velmi silné"],
 		first_name: 'Jméno',
 		last_name: 'Příjmení',
 		faculty: 'Fakulta',
@@ -57,7 +57,7 @@ const cs = {
 			},
 			password: {
 				blank: 'Heslo nesmí být prázdné.',
-				weak: 'Vaše heslo musí obsahovat alespoň 12 znaků a alespoň jedno číslo a speciální znak.'
+				weak: 'Vaše heslo musí být minimálně "dostačující"'
 			},
 			password_repeat: {
 				password_mismatch: 'Hesla se musí shodovat.'
@@ -183,7 +183,7 @@ const cs = {
 			},
 			password: {
 				blank: 'Heslo nesmí být prázdné',
-				weak: 'Heslo je příliš slabé'
+				weak: 'Vaše heslo musí být minimálně "dostačující"'
 			},
 			old_password: {
 				blank: 'Současne heslo nesmí být prázdné',
@@ -223,7 +223,7 @@ const cs = {
 		errors: {
 			blank: 'Nové heslo nesmí být prázdné.',
 			password_mismatch: 'Hesla se musí shodovat.',
-			weak: 'Vaše heslo musí obsahovat alespoň 12 znaků a alespoň jedno číslo a speciální znak.'
+			weak: 'Vaše heslo musí být minimálně "dostačující"'
 		}
 	},
 	activities: {

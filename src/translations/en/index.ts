@@ -43,7 +43,7 @@ const en = {
 		email: 'E-mail',
 		password: 'Password',
 		password_repeat: 'Password repeat',
-		password_strength_label: ["Very weak", "Weak", "Sufficient", "Strong", "Very strong"],	
+		password_strength_label: ["Very weak", "Weak", "Sufficient", "Medium", "Strong", "Very strong"],	
 		first_name: 'First name',
 		last_name: 'Last name',
 		faculty: 'Faculty',
@@ -57,7 +57,7 @@ const en = {
 			},
 			password: {
 				blank: 'Password cannot be empty.',
-				weak: 'Your password must be at least 12 characters long and contain at least one number and one special character.'
+				weak: 'Your password must be at least "sufficient"'
 			},
 			password_repeat: {
 				password_mismatch: 'Passwords must match.'
@@ -183,7 +183,7 @@ const en = {
 			},
 			password: {
 				blank: 'Password cannot be empty',
-				weak: 'Password is too weak'
+				weak: 'Your password must be at least "sufficient"'
 			},
 			old_password: {
 				blank: 'Current password cannot be empty',
@@ -221,9 +221,9 @@ const en = {
 		error: 'An error occurred when changing the password',
 		submit: 'Change',
 		errors: {
-			blank: 'New password cannot be emptz.',
+			blank: 'New password cannot be empty.',
 			password_mismatch: 'Passwords must match.',
-			weak: 'Your password must be at least 12 characters long and contain at least one number and one special character.'
+			weak: 'Your password must be at least "sufficient"'
 		}
 	},
 	activities: {

@@ -27,15 +27,19 @@
 		background-color: orange
 	}
 	.strength-2 {
-		width: 60%;
+		width: 50%;
 		background-color: greenyellow
 	}
 	.strength-3 {
-		width: 80%;
+		width: 70%;
 		background-color: lime
 	}
 	.strength-4 {
-		width: 100%;
+		width: 90%;
 		background-color: green
+	}
+	.strength-5 {
+		width: 100%;
+		background-color: turquoise;
 	}
 </style>

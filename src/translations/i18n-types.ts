@@ -139,13 +139,17 @@ type RootTranslation = {
 			 */
 			'2': string
 			/**
-			 * S​i​l​n​é
+			 * S​t​ř​e​d​n​ě​ ​s​i​l​n​é
 			 */
 			'3': string
 			/**
-			 * V​e​l​m​i​ ​s​i​l​n​é
+			 * S​i​l​n​é
 			 */
 			'4': string
+			/**
+			 * V​e​l​m​i​ ​s​i​l​n​é
+			 */
+			'5': string
 		}
 		/**
 		 * J​m​é​n​o
@@ -188,7 +192,7 @@ type RootTranslation = {
 				 */
 				blank: string
 				/**
-				 * V​a​š​e​ ​h​e​s​l​o​ ​m​u​s​í​ ​o​b​s​a​h​o​v​a​t​ ​a​l​e​s​p​o​ň​ ​1​2​ ​z​n​a​k​ů​ ​a​ ​a​l​e​s​p​o​ň​ ​j​e​d​n​o​ ​č​í​s​l​o​ ​a​ ​s​p​e​c​i​á​l​n​í​ ​z​n​a​k​.
+				 * V​a​š​e​ ​h​e​s​l​o​ ​m​u​s​í​ ​b​ý​t​ ​m​i​n​i​m​á​l​n​ě​ ​"​d​o​s​t​a​č​u​j​í​c​í​"
 				 */
 				weak: string
 			}
@@ -526,7 +530,7 @@ type RootTranslation = {
 				 */
 				blank: string
 				/**
-				 * H​e​s​l​o​ ​j​e​ ​p​ř​í​l​i​š​ ​s​l​a​b​é
+				 * V​a​š​e​ ​h​e​s​l​o​ ​m​u​s​í​ ​b​ý​t​ ​m​i​n​i​m​á​l​n​ě​ ​"​d​o​s​t​a​č​u​j​í​c​í​"
 				 */
 				weak: string
 			}
@@ -659,7 +663,7 @@ type RootTranslation = {
 			 */
 			password_mismatch: string
 			/**
-			 * V​a​š​e​ ​h​e​s​l​o​ ​m​u​s​í​ ​o​b​s​a​h​o​v​a​t​ ​a​l​e​s​p​o​ň​ ​1​2​ ​z​n​a​k​ů​ ​a​ ​a​l​e​s​p​o​ň​ ​j​e​d​n​o​ ​č​í​s​l​o​ ​a​ ​s​p​e​c​i​á​l​n​í​ ​z​n​a​k​.
+			 * V​a​š​e​ ​h​e​s​l​o​ ​m​u​s​í​ ​b​ý​t​ ​m​i​n​i​m​á​l​n​ě​ ​"​d​o​s​t​a​č​u​j​í​c​í​"
 			 */
 			weak: string
 		}
@@ -970,13 +974,17 @@ export type TranslationFunctions = {
 			 */
 			'2': () => LocalizedString
 			/**
-			 * Silné
+			 * Středně silné
 			 */
 			'3': () => LocalizedString
 			/**
-			 * Velmi silné
+			 * Silné
 			 */
 			'4': () => LocalizedString
+			/**
+			 * Velmi silné
+			 */
+			'5': () => LocalizedString
 		}
 		/**
 		 * Jméno
@@ -1019,7 +1027,7 @@ export type TranslationFunctions = {
 				 */
 				blank: () => LocalizedString
 				/**
-				 * Vaše heslo musí obsahovat alespoň 12 znaků a alespoň jedno číslo a speciální znak.
+				 * Vaše heslo musí být minimálně "dostačující"
 				 */
 				weak: () => LocalizedString
 			}
@@ -1357,7 +1365,7 @@ export type TranslationFunctions = {
 				 */
 				blank: () => LocalizedString
 				/**
-				 * Heslo je příliš slabé
+				 * Vaše heslo musí být minimálně "dostačující"
 				 */
 				weak: () => LocalizedString
 			}
@@ -1490,7 +1498,7 @@ export type TranslationFunctions = {
 			 */
 			password_mismatch: () => LocalizedString
 			/**
-			 * Vaše heslo musí obsahovat alespoň 12 znaků a alespoň jedno číslo a speciální znak.
+			 * Vaše heslo musí být minimálně "dostačující"
 			 */
 			weak: () => LocalizedString
 		}
