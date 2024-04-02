@@ -23,27 +23,23 @@
 		currentSeasonResults?.getResultsForWeek(currentWeek) ?? []
 	);
 
-	let currentSeasonResultsPromise = $derived(
-		currentSeason
-			? Promise.all([activitiesPromise, facultiesPromise, fetchSeasonResult(currentSeason)])
-			: undefined
-	);
-
 	$effect(() => {
-		if (currentSeasonResultsPromise) {
-			currentSeasonResultsPromise
-				.then(([fetchedActivities, fetchedFaculties, results]) => {
-					activities = fetchedActivities;
-					faculties = fetchedFaculties;
-					currentSeasonResults = new SeasonResult(
-						results!,
-						undefined,
-						fetchedActivities,
-						fetchedFaculties
-					);
-				})
-				.catch(() => (currentSeasonResults = undefined));
-		}
+        if(!currentSeason) {
+            return;
+        }
+
+		Promise.all([activitiesPromise, facultiesPromise, fetchSeasonResult(currentSeason)])
+			.then(([fetchedActivities, fetchedFaculties, results]) => {
+				activities = fetchedActivities;
+				faculties = fetchedFaculties;
+				currentSeasonResults = new SeasonResult(
+					results!,
+					undefined,
+					fetchedActivities,
+					fetchedFaculties
+				);
+			})
+			.catch(() => (currentSeasonResults = undefined));
 	});
 
 	const weekPickerKeys = [
@@ -83,8 +79,8 @@
 				bind:currentValue={currentSeason}
 			/>
 		</section>
-		<div class="title-wrapper">
-			{#each currentSeasonResultsArray as result ((currentSeason?.id ?? 0) * seasons.length + currentWeek)}
+		<div class="season-wrapper">
+			{#each currentSeasonResultsArray as result}
 				{@const activity = activities.find((activity) => activity.id === result.activity)}
 				{@const total = result.row.reduce(
 					(accumulator, current) => {
@@ -156,7 +152,7 @@
 		gap: 50px;
 	}
 
-	.title-wrapper {
+	.season-wrapper {
 		margin-block: 20px;
 		display: flex;
 		flex-direction: column;
