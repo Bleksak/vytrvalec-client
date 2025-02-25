@@ -13,8 +13,6 @@
 	import { page } from '$app/stores';
 	import { invalidateAll } from '$app/navigation';
 
-	let { season, submissions } : { season: SeasonDTO; submissions: Array<SubmissionDTO> } = $props();
-
 	const facultyStore = getContext<FacultyStore>(Store.FACULTY_STORE);
 	const activityStore = getContext<ActivityStore>(Store.ACTIVITY_STORE);
 

@@ -7,7 +7,7 @@
 	import { SeasonResult } from '$lib/DTO/SeasonResultDTO';
 	import LL from '$translations/i18n-svelte';
 
-	let seasonResults = $state.frozen<Map<number, SeasonResult>>(new Map());
+	let seasonResults = $state.raw<Map<number, SeasonResult>>(new Map());
 
 	const seasonsPromise = fetchPastSeasons();
 	const activitiesPromise = fetchActivities();

@@ -132,7 +132,7 @@
 			class="dropzone"
             bind:this={dropzone}
 			onclick={() => fileInput?.click()}
-			on:keypress={() => fileInput?.click()}
+			onkeypress={() => fileInput?.click()}
 			role="button"
 			tabindex="0"
 		>

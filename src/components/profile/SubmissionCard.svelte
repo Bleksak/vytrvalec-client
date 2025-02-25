@@ -9,7 +9,7 @@
 	import SubmissionEditForm from '$components/forms/SubmissionEditForm.svelte';
 	import Store from '$lib/enums/Stores';
 
-	let { submission, submissions } : {
+	let { submission, submissions = $bindable() } : {
 		submissions: Array<ProfileSubmissionResponseDTO>;
 		submission: ProfileSubmissionResponseDTO;
 	} = $props();
@@ -74,7 +74,7 @@
 		src={submission.image}
 		alt="Náhled"
 		title="Náhled"
-		on:error={(err) => error = err}
+		onerror={(err) => error = err}
 	/>
 	{/if}
 	<div class="status-bar">

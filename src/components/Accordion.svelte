@@ -3,7 +3,7 @@
 	import { slide } from 'svelte/transition';
 
 	let {
-		opened,
+		opened = $bindable(),
 		className = '',
 		children
 	} : { opened: boolean; className?: string; children: Snippet } = $props();

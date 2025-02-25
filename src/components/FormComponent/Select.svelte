@@ -7,7 +7,7 @@
 		values,
 		id,
 		name,
-		currentValue,
+		currentValue = $bindable(),
 		inverted = false
 	}: {
 		keys: string[];
@@ -52,15 +52,15 @@
 
 <input type="hidden" {id} {name} bind:value={currentValue} />
 <div
-	use:clickOutside
-	on:outsideclick|stopPropagation={closeOnOutsideClick}
+	use:clickOutside={closeOnOutsideClick}
 	class="select"
 	class:open
 	bind:this={selectElement}
 	onclick={() => (open = !open)}
 	role="button"
 	tabindex="0"
-	on:keydown={(e) => {
+	onkeydown={(e) => {
+		e.stopPropagation();
 		if (e.key === 'Enter') {
 			open = !open;
 		}

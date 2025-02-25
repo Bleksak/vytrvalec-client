@@ -59,7 +59,7 @@
 	};
 </script>
 
-<SubmissionScrollerFilter {season} bind:submissions />
+<SubmissionScrollerFilter />
 
 {#await Promise.all([facultyStore.promise(), activityStore.promise()])}
 	Načítání...
@@ -70,7 +70,7 @@
 			onclick={() => {
 				dialogStore.open(SubmissionDetail, { currentSubmission: submission }, context);
 			}}
-			on:keypress={() => {
+			onkeypress={() => {
 				dialogStore.open(SubmissionDetail, { currentSubmission: submission }, context);
 			}}
 			role="button"

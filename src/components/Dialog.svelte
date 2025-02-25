@@ -21,7 +21,7 @@
 	});
 </script>
 
-<dialog bind:this={dialog} {...props} on:close={close}>
+<dialog bind:this={dialog} {...props} onclose={close}>
 	<header class="dialog-header">
 		<h5>{header}</h5>
 
@@ -38,9 +38,6 @@
 	dialog {
 		top: 50%;
 		left: 50%;
-		/* -webkit-transform: translateX(-50%) translateY(-50%); */
-		/* -moz-transform: translateX(-50%) translateY(-50%); */
-		/* -ms-transform: translateX(-50%) translateY(-50%); */
 		transform: translateX(-50%) translateY(-50%);
 
 		display: flex;

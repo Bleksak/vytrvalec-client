@@ -8,6 +8,8 @@
 	import { setContext } from 'svelte';
 	import { fade } from 'svelte/transition';
 
+	let { children } = $props();
+
 	String.prototype.removeAccents = function () {
 		return this.normalize('NFD').replace(/[\u0300-\u036f]/g, '');
 	};
@@ -33,7 +35,7 @@
 	</div>
 {/if}
 
-<slot />
+{@render children()}
 
 <style>
 	.toasts-anchor {

@@ -1,13 +1,13 @@
 <script lang="ts">
 	import { setLocale } from '../../translations/i18n-svelte';
 	import { loadAllLocales } from '../../translations/i18n-util.sync';
-	import { page } from '$app/stores';
+	import { page } from '$app/state';
 	import LL from '$translations/i18n-svelte';
 	import type { Locales } from '$translations/i18n-types';
-
+	let { children } = $props();
 	loadAllLocales();
 
-	const lang = ($page.params.lang as Locales) ?? 'cs';
+	const lang = (page.params.lang as Locales) ?? 'cs';
 	setLocale(lang);
 
 	import Navbar from '$components/Navbar.svelte';
@@ -38,7 +38,7 @@
 <div class="container">
 	<AdminNavbar />
 	<div class="slot">
-		<slot />
+		{@render children()}
 	</div>
 </div>
 <Footer />
