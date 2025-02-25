@@ -1,10 +1,12 @@
-# create-svelte
+# Vytrvalec klient
+
+## Prerequisities
+- Node >=22
 
 ## Developing
 
 Once you've created a project and installed dependencies with `npm install` (or `pnpm install` or `yarn`), start a development server:
 
-````bash
 ```bash
 mv .env.example .env
 ````
