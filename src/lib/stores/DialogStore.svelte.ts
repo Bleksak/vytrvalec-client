@@ -1,8 +1,8 @@
-import type { SvelteComponent, ComponentProps, Component } from 'svelte';
-import { hydrate, unmount } from 'svelte';
+import type { ComponentProps, Component } from 'svelte';
+import { hydrate, mount, unmount } from 'svelte';
 
 export type DialogStore = {
-	open: <T extends SvelteComponent>(
+	open: <T extends Component>(
 		component: Component<T>,
 		props?: ComponentProps<T>,
 		context?: Map<string, any>
@@ -13,7 +13,7 @@ export type DialogStore = {
 const createDialogStore = (): DialogStore => {
 	let currentDialog: Record<string, any> | undefined = undefined;
 
-	const open = <T extends SvelteComponent>(
+	const open = <T extends Component>(
 		component: Component<T>,
 		props: Record<string, any> = {},
 		context: Map<string, any> = new Map()
@@ -22,7 +22,7 @@ const createDialogStore = (): DialogStore => {
             unmount(currentDialog);
         }
 
-        currentDialog = hydrate(component, { 
+        currentDialog = mount(component, { 
 			props, 
 			target: document.body, 
 			context 
