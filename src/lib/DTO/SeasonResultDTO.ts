@@ -140,9 +140,6 @@ export class SeasonResult {
                     }
                 }
 
-                // TODO: check all faculties, if their points for a week is 0,
-                // then check if they had any points in the previous week, if yes, give them at least 1 point
-
                 // 3. add extra points
                 for (const extras of activity.extras) {
                     let facultyResult = weekResultRow.row.find((row) => row.faculty === extras.faculty);
