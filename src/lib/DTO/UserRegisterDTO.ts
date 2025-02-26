@@ -7,6 +7,7 @@ export type UserRegisterDTO = {
 	first_name: string;
 	last_name: string;
 	faculty: number;
+	gdpr: boolean;
 };
 
 export type UserRegisterReturn =
@@ -65,9 +66,11 @@ export const formDataToUserRegisterDTO = (formData: FormData): UserRegisterRetur
 
 	const gdpr = formData.get('gdpr');
 
-	if (gdpr === null || gdpr.toString() != '1') {
+	if (gdpr === null) {
 		errors['gdpr'] = ['blank'];
 	}
+
+	const gdprValue = Boolean(Number(gdpr));
 
 	if (Object.keys(errors).length !== 0) {
 		return { type: 'error', value: errors };
@@ -80,7 +83,8 @@ export const formDataToUserRegisterDTO = (formData: FormData): UserRegisterRetur
 			password: password!,
 			first_name: firstName!,
 			last_name: lastName!,
-			faculty: faculty
+			faculty: faculty,
+			gdpr: gdprValue,
 		}
 	};
 };
