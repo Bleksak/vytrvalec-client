@@ -47,7 +47,10 @@ const cs = {
 		first_name: 'Jméno',
 		last_name: 'Příjmení',
 		faculty: 'Fakulta',
-		gdpr: 'Souhlasím se zpracováním osobních údajů',
+		gdpr: {
+			title: 'Souhlasím se zpracováním osobních údajů',
+			tooltip: 'Vaše jméno a fakulta mohou být zobrazeny v sekci "Výsledky"'
+		},
 		submit: 'Registrovat',
 		errors: {
 			email: {

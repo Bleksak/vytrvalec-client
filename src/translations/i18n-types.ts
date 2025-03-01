@@ -163,10 +163,16 @@ type RootTranslation = {
 		 * F​a​k​u​l​t​a
 		 */
 		faculty: string
-		/**
-		 * S​o​u​h​l​a​s​í​m​ ​s​e​ ​z​p​r​a​c​o​v​á​n​í​m​ ​o​s​o​b​n​í​c​h​ ​ú​d​a​j​ů
-		 */
-		gdpr: string
+		gdpr: {
+			/**
+			 * S​o​u​h​l​a​s​í​m​ ​s​e​ ​z​p​r​a​c​o​v​á​n​í​m​ ​o​s​o​b​n​í​c​h​ ​ú​d​a​j​ů
+			 */
+			title: string
+			/**
+			 * V​a​š​e​ ​j​m​é​n​o​ ​a​ ​f​a​k​u​l​t​a​ ​m​o​h​o​u​ ​b​ý​t​ ​z​o​b​r​a​z​e​n​y​ ​v​ ​s​e​k​c​i​ ​"​V​ý​s​l​e​d​k​y​"
+			 */
+			tooltip: string
+		}
 		/**
 		 * R​e​g​i​s​t​r​o​v​a​t
 		 */
@@ -998,10 +1004,16 @@ export type TranslationFunctions = {
 		 * Fakulta
 		 */
 		faculty: () => LocalizedString
-		/**
-		 * Souhlasím se zpracováním osobních údajů
-		 */
-		gdpr: () => LocalizedString
+		gdpr: {
+			/**
+			 * Souhlasím se zpracováním osobních údajů
+			 */
+			title: () => LocalizedString
+			/**
+			 * Vaše jméno a fakulta mohou být zobrazeny v sekci "Výsledky"
+			 */
+			tooltip: () => LocalizedString
+		}
 		/**
 		 * Registrovat
 		 */
