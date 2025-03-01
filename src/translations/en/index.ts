@@ -118,7 +118,7 @@ const en = {
 			activity: 'Activity',
 			submit: 'Submit',
 			edit: 'Edit',
-			comment: 'Rejection comment',
+			comment: 'Comment',
 			success: 'Uploaded activity successfully',
 			error: 'Error while uploading activity',
 			delete: 'Delete',

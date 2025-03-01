@@ -7,24 +7,24 @@
 	import Store from '$lib/enums/Stores';
 	import type { ActivityStore } from '$lib/stores/ActivityStore.svelte';
 	import type { FacultyStore } from '$lib/stores/FacultyStore.svelte';
-	import { page } from '$app/stores';
+	import { page } from '$app/state';
 	import SubmissionScrollerFilter from '$components/administration/season/SubmissionScrollerFilter.svelte';
 	import { fetchSubmissionsForSeason } from '$actions/Submission';
 
 	const { season }: { season: SeasonDTO } = $props();
 
-	let filter = $page.data.filter;
+	let filter = page.data.filter;
 
 	const context = getAllContexts();
 	const dialogStore = getContext<DialogStore>(Store.DIALOG_STORE);
 	const activityStore = getContext<ActivityStore>(Store.ACTIVITY_STORE);
 	const facultyStore = getContext<FacultyStore>(Store.FACULTY_STORE);
 
-	let submissions = $state($page.data.submissions);
+	let submissions = $state(page.data.submissions);
 
 	$effect(() => {
-		filter = $page.data.filter;
-		submissions = $page.data.submissions;
+		filter = page.data.filter;
+		submissions = page.data.submissions;
 	});
 
 	let canLoadNext = true;
@@ -81,6 +81,11 @@
 					<strong>{submission.user.firstName} {submission.user.lastName}&nbsp;</strong>
 					({facultyStore.get(submission.user.faculty)?.shortcut})
 				</p>
+				{#if submission.message}
+					<p>
+						<strong>Komentář:&nbsp;</strong>{submission.message}
+					</p>
+				{/if}
 				<p><strong>Nahráno:&nbsp;</strong>{submission.date.toLocaleDateString('cs')}</p>
 				<p>
 					<Checkbox id="accepted-view" name="accepted-view" disabled checked={submission.accepted}>

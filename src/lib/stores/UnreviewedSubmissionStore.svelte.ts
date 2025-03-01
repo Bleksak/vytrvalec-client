@@ -10,7 +10,7 @@ import type { AxiosError } from 'axios';
 export type UnreviewedSubmissionStore = {
 	all: () => Array<TinderSubmissionResponseDTO>;
 	pop: () => TinderSubmissionResponseDTO | null;
-	accept: (submission: TinderSubmissionResponseDTO) => Promise<SubmissionStateResponse>;
+	accept: (submission: TinderSubmissionResponseDTO, message: string) => Promise<SubmissionStateResponse>;
 	reject: (submission: TinderSubmissionResponseDTO, message: string) => Promise<SubmissionStateResponse>;
 };
 
@@ -56,8 +56,8 @@ export const createUnreviewedSubmissionStore = (): UnreviewedSubmissionStore => 
 		}
 	};
 
-	const accept = async (submission: TinderSubmissionResponseDTO): Promise<SubmissionStateResponse> => {
-		const result = await acceptSubmission(submission).catch((error: AxiosError) => {
+	const accept = async (submission: TinderSubmissionResponseDTO, message: string): Promise<SubmissionStateResponse> => {
+		const result = await acceptSubmission(submission, message).catch((error: AxiosError) => {
 			if (error.response) {
 				return error.response;
 			}

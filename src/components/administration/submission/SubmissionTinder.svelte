@@ -20,16 +20,15 @@
 		}
 	});
 
-	let message = $state<string>('');
+	let message = $state<string>(currentSubmission?.message ?? "");
 	let imageError = $state<(Event & {currentTarget: EventTarget & Element}) | null>(null);
-
 
 	const popNext = () => {
 		currentSubmission = submissionStore.pop();
 	};
 
 	const acceptCurrent = () => {
-		submissionStore.accept(currentSubmission!).then((result) => {
+		submissionStore.accept(currentSubmission!, message!).then((result) => {
 			if(result.type === 'success') {
 				toastStore.add({
 					type: 'success',
@@ -84,7 +83,7 @@
 				<strong class='image-error'>Obrázek se nepodařilo načíst</strong>
 			{:else }
 				<a href={currentSubmission?.image} target="_blank">
-					<img src={currentSubmission?.image} alt="Aktivita" on:error={(err) => {imageError = err}}/>
+					<img src={currentSubmission?.image} alt="Aktivita" onerror={(err) => {imageError = err}}/>
 				</a>
 			{/if}
 			<div class="info">
@@ -105,8 +104,8 @@
 			</div>
 
 			<div class="message">
-				<label for="message">Zpráva k zamítnutí:</label>
-				<textarea id="message" bind:value={message}></textarea>
+				<label for="message">Komentář:</label>
+				<textarea id="message" name="message" bind:value={message} ></textarea>
 			</div>
 
 			<div class="buttons">
@@ -115,7 +114,6 @@
 					type="button"
 					onclick={() => {
 						rejectCurrent();
-						message = '';
 					}}
 				>
 					Zamítnout

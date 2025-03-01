@@ -357,7 +357,7 @@ type RootTranslation = {
 			 */
 			edit: string
 			/**
-			 * K​o​m​e​n​t​á​ř​ ​k​ ​z​a​m​í​t​n​u​t​í
+			 * K​o​m​e​n​t​á​ř
 			 */
 			comment: string
 			/**
@@ -1198,7 +1198,7 @@ export type TranslationFunctions = {
 			 */
 			edit: () => LocalizedString
 			/**
-			 * Komentář k zamítnutí
+			 * Komentář
 			 */
 			comment: () => LocalizedString
 			/**

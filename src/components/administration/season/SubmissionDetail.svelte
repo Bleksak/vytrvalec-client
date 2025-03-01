@@ -76,15 +76,16 @@
 				aktivita již byla dříve zkontrolována
 			</span>
 
+			<label for="message">Komentář:</label>
+			<textarea name="message" id="message">{currentSubmission.message}</textarea>
+			
 			{#if currentSubmission.accepted}
-				<label for="message">Zpráva pro zamítnutí:</label>
-				<textarea name="message" id="message"></textarea>
 				<Button name="state" value="0" type="submit">Zamítnout</Button>
 			{:else}
 				<Button name="state" value="1" type="submit">Schválit</Button>
 			{/if}
 		{:else}
-			<label for="message">Zpráva pro zamítnutí:</label>
+			<label for="message">Komentář:</label>
 			<textarea name="message" id="message"></textarea>
 			<div class="buttons">
 				<Button class="left" name="state" value="0" type="submit">Zamítnout</Button>

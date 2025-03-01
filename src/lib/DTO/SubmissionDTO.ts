@@ -22,6 +22,7 @@ export type SubmissionResponseDTO = {
 	updatedAt: string;
 	week: number;
 	season: number;
+	message?: string;
 };
 
 export type SubmissionResponseAdminDTO = Omit<SubmissionResponseDTO, 'user'> & {
@@ -29,7 +30,6 @@ export type SubmissionResponseAdminDTO = Omit<SubmissionResponseDTO, 'user'> & {
 };
 
 export type ProfileSubmissionResponseDTO = Omit<SubmissionResponseDTO, 'user' | 'activity'> & {
-	message?: string;
 	activity: ActivityDTO;
 };
 export type TinderSubmissionResponseDTO = Omit<SubmissionResponseDTO, 'activity'> & {

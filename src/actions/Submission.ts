@@ -123,11 +123,13 @@ export const fetchUnreviewedSubmissions = async (
 };
 
 export const acceptSubmission = async (
-	submission: TinderSubmissionResponseDTO
+	submission: TinderSubmissionResponseDTO,
+	message: string
 ): Promise<AxiosResponse> => {
 	return await axios.patch(`/submission/${submission.id}/state`, {
 		updated_at: submission.updatedAt,
-		state: true
+		state: true,
+		message
 	});
 };
 
