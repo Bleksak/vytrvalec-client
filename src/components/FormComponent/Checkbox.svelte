@@ -54,7 +54,7 @@
 		left: 0;
 		height: 25px;
 		width: 25px;
-		background-color: #eee;
+		background-color: #ccc;
 	}
 
 	label:hover input ~ span {
