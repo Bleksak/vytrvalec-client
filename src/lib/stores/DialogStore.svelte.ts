@@ -17,20 +17,25 @@ const createDialogStore = (): DialogStore => {
 		component: Component<T>,
 		props: Record<string, any> = {},
 		context: Map<string, any> = new Map()
-	) =>  {
-        if(currentDialog) {
-            unmount(currentDialog);
-        }
+	) => {
+		if (currentDialog) {
+			unmount(currentDialog);
+		}
 
-        currentDialog = mount(component, { 
-			props, 
-			target: document.body, 
-			context 
+		currentDialog = mount(component, {
+			props,
+			target: document.body,
+			context
 		});
-    }
+	}
 
 
-	const close = () => unmount(currentDialog!);
+	const close = () => {
+		if (currentDialog) {
+			unmount(currentDialog);
+			currentDialog = undefined;
+		}
+	}
 
 	return {
 		open,
