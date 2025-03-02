@@ -1,4 +1,4 @@
-import { accountChange, login, requestResetPassword, resetPassword } from '$actions/Auth';
+import { accountChange, gdprConsentChange, login, requestResetPassword, resetPassword } from '$actions/Auth';
 import { formDataToUserLoginDTO } from '$lib/DTO/UserLoginDTO';
 import { fail, redirect, type Action } from '@sveltejs/kit';
 import axios from 'axios';
@@ -8,6 +8,7 @@ import { type Actions } from '@sveltejs/kit';
 import { formDataToAccountChangeDTO } from '$lib/DTO/AccountChangeDTO';
 import { formDataToForgottenPasswordDTO } from '$lib/DTO/ForgottenPasswordDTO';
 import { formDataToResetPasswordDTO } from '$lib/DTO/ResetPasswordDTO';
+import { formDataToConsentChangeDTO } from '$lib/DTO/ConsentChangeDTO';
 
 const loginAction: Action = async ({ cookies, request }) => {
     const loginDTO = formDataToUserLoginDTO(await request.formData());
@@ -89,11 +90,29 @@ const resetAction: Action = async ({ request }) => {
     return redirect(307, '/');
 };
 
+const consentAction: Action = async ({ request }) => {
+    const data = formDataToConsentChangeDTO(await request.formData());
+
+    if (data.type === 'error') {
+        return fail(400, data.value);
+    }
+
+    const response = await gdprConsentChange(data.value);
+
+    if (response.type === 'error') {
+        return fail(400, response.errors);
+    }
+
+    return { status: response.type };
+};
+
+
 export const actions: Actions = {
     login: loginAction,
     logout: logoutAction,
     register: registerAction,
     account: accountAction,
     forgotten: forgottenPasswordAction,
-    reset: resetAction
+    reset: resetAction,
+    consent: consentAction
 };

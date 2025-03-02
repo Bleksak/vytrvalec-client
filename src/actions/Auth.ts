@@ -10,6 +10,7 @@ import type {
 	ForgottenPasswordResponse
 } from '$lib/DTO/ForgottenPasswordDTO';
 import type { ResetPasswordDTO, ResetPasswordResponse } from '$lib/DTO/ResetPasswordDTO';
+import type { ConsentChangeDTO } from '$lib/DTO/ConsentChangeDTO';
 
 export const login = async (loginDTO: UserLoginDTO): Promise<UserLoginResponse> => {
 	const response = await axios.post(`/user/login`, loginDTO).catch((error) => {
@@ -157,6 +158,34 @@ export const requestResetPassword = async (
 export const resetPassword = async (resetPasswordDTO: ResetPasswordDTO): Promise<ResetPasswordResponse> => {
 	const response = await axios
 		.post(`/user/reset-password`, resetPasswordDTO)
+		.catch((error) => {
+			if (error.response) {
+				return error.response;
+			}
+
+			return null;
+		});
+	
+	if (response === null) {
+		return {
+			type: 'error',
+			errors: { server: ['server_down'] }
+		};
+	}
+
+	if (response.status !== 200) {
+		return {
+			type: 'error',
+			errors: response?.data ?? {}
+		};
+	}
+
+	return { type: 'success' };
+};
+
+export const gdprConsentChange = async (consentDTO: ConsentChangeDTO): Promise<ResetPasswordResponse> => {
+	const response = await axios
+		.post(`/user/gdpr`, consentDTO)
 		.catch((error) => {
 			if (error.response) {
 				return error.response;
