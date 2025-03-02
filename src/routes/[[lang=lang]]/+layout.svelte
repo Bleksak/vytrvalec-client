@@ -11,7 +11,7 @@
 	import type { DialogStore } from '$lib/stores/DialogStore.svelte';
 	import Store from '$lib/enums/Stores';
 	import GdprForm from '$components/forms/GdprForm.svelte';
-	// import Cookies from '$components/Cookies.svelte';
+	import Cookies from '$components/Cookies.svelte';
 	let { children } = $props();
 	const lang = (page.params.lang as Locales) ?? 'cs';
 	const dialogStore = getContext<DialogStore>(Store.DIALOG_STORE);
@@ -47,4 +47,4 @@
 <Navbar />
 {@render children()}
 <Footer />
-<!-- <Cookies /> -->
+<Cookies />
