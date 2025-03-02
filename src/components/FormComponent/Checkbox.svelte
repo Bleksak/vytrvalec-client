@@ -7,7 +7,7 @@
 		checked = false,
 		disabled = undefined,
 		children
-	} : {
+	}: {
 		id: string;
 		name: string;
 		checked?: boolean;
@@ -22,8 +22,12 @@
 	{:else}
 		&nbsp;
 	{/if}
+
+	{#if !checked}
+		<input type="hidden" {name} value="0" />
+	{/if}
 	<input type="checkbox" {id} {name} bind:checked {disabled} value="1" />
-	<input type="hidden" {name} value="0" />
+
 	<span></span>
 </label>
 
