@@ -14,8 +14,8 @@
 	import type { SubmitFunction } from '@sveltejs/kit';
 	import { getAllContexts, getContext } from 'svelte';
 
-	const currentUser: UserResponse = page.data.user;
-    const context = getAllContexts();
+	const currentUser: UserResponse = $derived(page.data.user);
+	const context = getAllContexts();
 
 	let password = $state<string>('');
 	let passwordRepeat = $state<string>('');
@@ -23,15 +23,16 @@
 	let errors = $state<AccountChangeErrors>({});
 
 	let strength = $state<number>(0);
-	
-	$effect(() =>{
+
+	$effect(() => {
 		strength = PasswordEstimator.estimateStrength(password);
-	})
+	});
 
 	const toastStore = getContext<ToastStore>(Store.TOAST_STORE);
 	const dialogStore = getContext<DialogStore>(Store.DIALOG_STORE);
 
-	const openGdprDialog = () => dialogStore.open(GdprForm, {gdpr: currentUser.acceptedGdpr}, context);
+	const openGdprDialog = () =>
+		dialogStore.open(GdprForm, { gdpr: currentUser.acceptedGdpr }, context);
 
 	const enhancer: SubmitFunction = () => {
 		return async ({ result }) => {
@@ -96,10 +97,17 @@
 			<label for="password_repeat">{$LL.account.password_repeat()}: </label>
 			{#each errors.password_repeat ?? [] as error}
 				<span class="error">
-					{$LL.account.errors.password_repeat[error as keyof typeof $LL.account.errors.password_repeat]()}
+					{$LL.account.errors.password_repeat[
+						error as keyof typeof $LL.account.errors.password_repeat
+					]()}
 				</span>
 			{/each}
-			<input type="password" name="password_repeat" id="password_repeat" bind:value={passwordRepeat}/>
+			<input
+				type="password"
+				name="password_repeat"
+				id="password_repeat"
+				bind:value={passwordRepeat}
+			/>
 		</div>
 
 		<span class="note">{$LL.account.invalid_info()}</span>
