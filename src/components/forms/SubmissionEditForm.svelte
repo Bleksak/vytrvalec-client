@@ -14,8 +14,9 @@
 	import { getGlobalContext } from '$lib/stores/GlobalContext.svelte';
 	import Store from '$lib/enums/Stores';
 
-	let { submission, ...props } : 	{
+	let { submission, disabled, ...props } : {
 			submission: ProfileSubmissionResponseDTO;
+			disabled?: boolean;
 		} & HTMLDialogAttributes = $props();
 
 	const activitiesPromise = fetchActivities();
@@ -125,6 +126,13 @@
 			update();
 		};
 	};
+
+	const handleSelectImageClick = () => {
+		if(!disabled) {
+			fileInput?.click()
+		}
+	}
+	
 </script>
 
 <Dialog bind:this={dialog} header={$LL.submission.editingTitle()} {...props}>
@@ -137,14 +145,15 @@
 		<input type="hidden" name="id" value={submission.id} />
 		<input type="hidden" name="updated_at" value={submission.updatedAt} />
 		{#if submission.message}
-			<p class="error">{$LL.submission.form.comment()}:</p>
-			<span class="error">{submission.message}</span>
+			<p>{$LL.submission.form.comment()}:</p>
+			<span>{submission.message}</span>
 		{/if}
 		<div
 			bind:this={dropzone}
 			class="dropzone"
-			onclick={() => fileInput?.click()}
-			onkeypress={() => fileInput?.click()}
+			class:disabled={disabled}
+			onclick={handleSelectImageClick}
+			onkeypress={handleSelectImageClick}
 			role="button"
 			tabindex="0"
 		>
@@ -154,9 +163,11 @@
 					{$LL.submission.form.image()}
 				</div>
 
-				<Button class="rounded small" type="button" onclick={onUploadClick}>
-					{$LL.submission.form.chooseImage()}
-				</Button>
+				{#if !disabled}
+					<Button class="rounded small" type="button" onclick={onUploadClick}>
+						{$LL.submission.form.chooseImage()}
+					</Button>
+				{/if}
 			</div>
 		</div>
 
@@ -177,7 +188,7 @@
 		<label for="distance">
 			{$LL.submission.form.distance()} (km):
 		</label>
-		<input type="text" name="distance" id="distance" value={submission.distance / 1000} />
+		<input type="text" name="distance" id="distance" disabled={disabled} value={submission.distance / 1000} />
 		{#each errors?.distance ?? [] as error}
 			<span class="error">
 				{$LL.submission.form.errors.distance[error as keyof typeof $LL.submission.form.errors.distance]()}
@@ -187,7 +198,7 @@
 		<label for="elevation">
 			{$LL.submission.form.elevation()} (m):
 		</label>
-		<input type="text" name="elevation" id="elevation" value={submission.elevation} />
+		<input type="text" name="elevation" id="elevation" disabled={disabled} value={submission.elevation} />
 		{#each errors?.elevation ?? [] as error}
 			<span class="error">
 				{$LL.submission.form.errors.elevation[error as keyof typeof $LL.submission.form.errors.elevation]()}
@@ -206,12 +217,15 @@
 				keys={activities.map((a) => $LL.activities[a.name as keyof typeof $LL.activities]())}
 				values={activities.map((a) => a.id)}
 				currentValue={submission.activity.id}
+				disabled={disabled}
 			/>
 		{/await}
 
-		<Button class="full-width rounded">
-			{$LL.submission.form.edit()}
-		</Button>
+		{#if !disabled}
+			<Button class="full-width rounded">
+				{$LL.submission.form.edit()}
+			</Button>
+		{/if}
 	</form>
 </Dialog>
 

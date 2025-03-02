@@ -8,7 +8,8 @@
 		id,
 		name,
 		currentValue = $bindable(),
-		inverted = false
+		inverted = false,
+		disabled = false
 	}: {
 		keys: string[];
 		values: any[];
@@ -16,6 +17,7 @@
 		id?: string;
 		name?: string;
 		inverted?: boolean;
+		disabled?: boolean;
 	} = $props();
 
 	let open = $state<boolean>(false);
@@ -48,6 +50,12 @@
 	}
 
 	const closeOnOutsideClick = () => (open = false);
+
+	const toggleDropdown = () => {
+		if (!disabled) {
+			open = !open;
+		}
+	}
 </script>
 
 <input type="hidden" {id} {name} bind:value={currentValue} />
@@ -55,8 +63,9 @@
 	use:clickOutside={closeOnOutsideClick}
 	class="select"
 	class:open
+	class:disabled={disabled}
 	bind:this={selectElement}
-	onclick={() => (open = !open)}
+	onclick={toggleDropdown}
 	role="button"
 	tabindex="0"
 	onkeydown={(e) => {
@@ -104,6 +113,14 @@
 		min-width: fit-content;
 
 		flex: 1;
+	}
+	.select.disabled {
+		cursor: default; 
+		pointer-events: none; 
+	}
+
+	.select.disabled::after {
+		content: none; 
 	}
 
 	.select-selected {

@@ -115,6 +115,12 @@
 				{$LL.submission.form.delete()}
 			</button>
 		</div>
+		{:else}
+		<div class="buttons">
+			<button onclick={() => dialogStore.open(SubmissionEditForm, { submission: submission, disabled: true }, contexts)}>
+				{$LL.submission.form.preview()}
+			</button>
+		</div>
 	{/if}
 </div>
 

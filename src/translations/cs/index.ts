@@ -121,6 +121,7 @@ const cs = {
 			activity: 'Aktivita',
 			submit: 'Nahrát',
 			edit: 'Upravit',
+			preview: 'Náhled',
 			comment: 'Komentář',
 			success: 'Nahrání aktivity proběhlo úspěšně',
 			error: 'Při nahrávání aktivity došlo k chybě',

@@ -118,6 +118,7 @@ const en = {
 			activity: 'Activity',
 			submit: 'Submit',
 			edit: 'Edit',
+			preview: 'Preview',
 			comment: 'Comment',
 			success: 'Uploaded activity successfully',
 			error: 'Error while uploading activity',

@@ -357,6 +357,10 @@ type RootTranslation = {
 			 */
 			edit: string
 			/**
+			 * N​á​h​l​e​d
+			 */
+			preview: string
+			/**
 			 * K​o​m​e​n​t​á​ř
 			 */
 			comment: string
@@ -1197,6 +1201,10 @@ export type TranslationFunctions = {
 			 * Upravit
 			 */
 			edit: () => LocalizedString
+			/**
+			 * Náhled
+			 */
+			preview: () => LocalizedString
 			/**
 			 * Komentář
 			 */
