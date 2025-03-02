@@ -1,19 +1,21 @@
 <script lang="ts">
 	import { enhance } from '$app/forms';
-	import { page } from '$app/stores';
-
+	import { page } from '$app/state';
 	import Button from '$components/Button.svelte';
 	import PasswordProgress from '$components/FormComponent/PasswordProgress.svelte';
+	import GdprForm from '$components/forms/GdprForm.svelte';
 	import type { AccountChangeErrors } from '$lib/DTO/AccountChangeDTO';
 	import type { UserResponse } from '$lib/DTO/UserResponse';
 	import { PasswordEstimator } from '$lib/PasswordEstimator';
 	import Store from '$lib/enums/Stores';
+	import type { DialogStore } from '$lib/stores/DialogStore.svelte';
 	import type { ToastStore } from '$lib/stores/ToastStore.svelte';
 	import LL from '$translations/i18n-svelte';
 	import type { SubmitFunction } from '@sveltejs/kit';
-	import { getContext } from 'svelte';
+	import { getAllContexts, getContext } from 'svelte';
 
-	const currentUser: UserResponse = $page.data.user;
+	const currentUser: UserResponse = page.data.user;
+    const context = getAllContexts();
 
 	let password = $state<string>('');
 	let passwordRepeat = $state<string>('');
@@ -27,6 +29,9 @@
 	})
 
 	const toastStore = getContext<ToastStore>(Store.TOAST_STORE);
+	const dialogStore = getContext<DialogStore>(Store.DIALOG_STORE);
+
+	const openGdprDialog = () => dialogStore.open(GdprForm, {gdpr: currentUser.acceptedGdpr}, context);
 
 	const enhancer: SubmitFunction = () => {
 		return async ({ result }) => {
@@ -55,6 +60,7 @@
 		<strong>{$LL.account.last_name()}: </strong><span>{currentUser.lastName}</span>
 		<strong>{$LL.account.faculty()}: </strong><span>{currentUser.faculty.shortcut}</span>
 
+		<Button onclick={openGdprDialog} class="rounded" styleOnly>{$LL.gdpr.title()}</Button>
 		<div class="form-field">
 			<label for="email">{$LL.account.email()}: </label>
 			{#each errors.email ?? [] as error}

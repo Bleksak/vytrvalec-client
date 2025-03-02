@@ -1,5 +1,6 @@
 
 <script lang="ts">
+	import { goto, invalidate } from '$app/navigation';
 	import Button from '$components/Button.svelte';
 	import Dialog from '$components/Dialog.svelte';
 	import { enhance } from '$app/forms';
@@ -9,7 +10,9 @@
 	import Checkbox from '$components/FormComponent/Checkbox.svelte';
 	import type { ConsentError } from '$lib/DTO/ConsentChangeDTO';
 
-	let { ...props } : HTMLDialogAttributes = $props();
+	let { gdpr ,...props } : HTMLDialogAttributes & {
+        gdpr?: boolean;
+    } = $props();
 
 	let errors = $state<ConsentError>();
 	let dialog = $state<Dialog>();
@@ -17,6 +20,7 @@
 	const enhancer: SubmitFunction = () => {
 		return async ({ result, update }) => {
 			if (result.type === 'success') {
+				//TODO: user reload
 				dialog?.close();
 			} else if (result.type === 'failure') {
 				errors = result.data as ConsentError;
@@ -40,11 +44,16 @@
         </span>
 
 		<div class="form-field">
-            <Checkbox id="gdpr" name="gdpr">
+            <Checkbox id="gdpr" name="gdpr" checked={gdpr}>
                 {$LL.registration.gdpr()}
             </Checkbox>
+            {#each errors?.gdpr ?? [] as error}
+                <span class="error">
+                    {$LL.registration.errors.gdpr[error as keyof typeof $LL.registration.errors.gdpr]()}
+                </span>
+            {/each}
 		</div>
-		<Button type="submit" class="middle">
+		<Button type="submit" class="middle rounded">
 			{$LL.gdpr.submit()}
 		</Button>
 	</form>
