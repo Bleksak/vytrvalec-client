@@ -28,6 +28,28 @@ type RootTranslation = {
 		 */
 		accept: string
 	}
+	gdpr: {
+		/**
+		 * S​o​u​h​l​a​s​ ​s​e​ ​z​p​r​a​c​o​v​á​n​í​m​ ​o​s​o​b​n​í​c​h​ ​ú​d​a​j​ů
+		 */
+		title: string
+		/**
+		 * A​p​l​i​k​a​c​e​ ​u​m​o​ž​ň​u​j​e​ ​z​v​e​ř​e​j​n​ě​n​í​ ​j​m​e​n​ ​ú​č​a​s​t​n​í​k​ů​,​ ​k​t​e​ř​í​ ​z​í​s​k​a​l​i​ ​b​o​n​u​s​o​v​é​ ​b​o​d​y​ ​p​r​o​ ​s​v​o​u​ ​f​a​k​u​l​t​u​ ​n​e​b​o​ ​d​o​s​á​h​l​i​ ​m​i​m​o​ř​á​d​n​ý​c​h​ ​v​ý​s​l​e​d​k​ů​.
+		 */
+		description1: string
+		/**
+		 * P​o​s​k​y​t​n​u​t​í​ ​s​o​u​h​l​a​s​u​ ​j​e​ ​d​o​b​r​o​v​o​l​n​é​.​ ​P​o​k​u​d​ ​s​o​u​h​l​a​s​ ​n​e​u​d​ě​l​í​t​e​,​ ​v​a​š​e​ ​j​m​é​n​o​ ​n​e​b​u​d​e​ ​z​v​e​ř​e​j​n​ě​n​o​ ​a​ ​z​o​b​r​a​z​í​ ​s​e​ ​p​o​u​z​e​ ​n​á​z​e​v​ ​f​a​k​u​l​t​y​.​ ​V​ ​t​a​k​o​v​é​m​ ​p​ř​í​p​a​d​ě​ ​p​o​n​e​c​h​t​e​ ​p​ř​í​s​l​u​š​n​é​ ​p​o​l​e​ ​p​r​á​z​d​n​é​ ​a​ ​p​o​t​v​r​ď​t​e​ ​u​l​o​ž​e​n​í​m​.
+		 */
+		description2: string
+		/**
+		 * S​v​ů​j​ ​s​o​u​h​l​a​s​ ​m​ů​ž​e​t​e​ ​k​d​y​k​o​l​i​ ​z​m​ě​n​i​t​ ​v​ ​n​a​s​t​a​v​e​n​í​ ​p​r​o​f​i​l​u​.
+		 */
+		description3: string
+		/**
+		 * U​l​o​ž​i​t
+		 */
+		submit: string
+	}
 	navbar: {
 		/**
 		 * P​r​a​v​i​d​l​a
@@ -163,16 +185,10 @@ type RootTranslation = {
 		 * F​a​k​u​l​t​a
 		 */
 		faculty: string
-		gdpr: {
-			/**
-			 * S​o​u​h​l​a​s​í​m​ ​s​e​ ​z​p​r​a​c​o​v​á​n​í​m​ ​o​s​o​b​n​í​c​h​ ​ú​d​a​j​ů
-			 */
-			title: string
-			/**
-			 * V​a​š​e​ ​j​m​é​n​o​ ​a​ ​f​a​k​u​l​t​a​ ​m​o​h​o​u​ ​b​ý​t​ ​z​o​b​r​a​z​e​n​y​ ​v​ ​s​e​k​c​i​ ​"​V​ý​s​l​e​d​k​y​"
-			 */
-			tooltip: string
-		}
+		/**
+		 * S​o​u​h​l​a​s​í​m​ ​s​e​ ​z​p​r​a​c​o​v​á​n​í​m​ ​o​s​o​b​n​í​c​h​ ​ú​d​a​j​ů
+		 */
+		gdpr: string
 		/**
 		 * R​e​g​i​s​t​r​o​v​a​t
 		 */
@@ -873,6 +889,28 @@ export type TranslationFunctions = {
 		 */
 		accept: () => LocalizedString
 	}
+	gdpr: {
+		/**
+		 * Souhlas se zpracováním osobních údajů
+		 */
+		title: () => LocalizedString
+		/**
+		 * Aplikace umožňuje zveřejnění jmen účastníků, kteří získali bonusové body pro svou fakultu nebo dosáhli mimořádných výsledků.
+		 */
+		description1: () => LocalizedString
+		/**
+		 * Poskytnutí souhlasu je dobrovolné. Pokud souhlas neudělíte, vaše jméno nebude zveřejněno a zobrazí se pouze název fakulty. V takovém případě ponechte příslušné pole prázdné a potvrďte uložením.
+		 */
+		description2: () => LocalizedString
+		/**
+		 * Svůj souhlas můžete kdykoli změnit v nastavení profilu.
+		 */
+		description3: () => LocalizedString
+		/**
+		 * Uložit
+		 */
+		submit: () => LocalizedString
+	}
 	navbar: {
 		/**
 		 * Pravidla
@@ -1008,16 +1046,10 @@ export type TranslationFunctions = {
 		 * Fakulta
 		 */
 		faculty: () => LocalizedString
-		gdpr: {
-			/**
-			 * Souhlasím se zpracováním osobních údajů
-			 */
-			title: () => LocalizedString
-			/**
-			 * Vaše jméno a fakulta mohou být zobrazeny v sekci "Výsledky"
-			 */
-			tooltip: () => LocalizedString
-		}
+		/**
+		 * Souhlasím se zpracováním osobních údajů
+		 */
+		gdpr: () => LocalizedString
 		/**
 		 * Registrovat
 		 */

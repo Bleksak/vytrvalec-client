@@ -8,6 +8,14 @@ const en = {
 		accept: 'Accept'
 	},
 
+	gdpr: {
+		title: "Consent to the processing of personal data",
+		description1: "The application allows the publication of participants' names who have earned bonus points for their faculty or achieved exceptional results.",
+		description2: "Providing consent is voluntary. If you do not grant consent, your name will not be displayed, and only the faculty name will be shown. In this case, leave the corresponding field empty and confirm by saving.",
+		description3: "You can change your consent at any time in your profile settings.",
+		submit: "Submit"
+	}, 
+
 	navbar: {
 		rules: 'Rules',
 		results: 'Results',

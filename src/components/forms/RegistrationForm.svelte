@@ -14,6 +14,7 @@
 	import type { FacultyStore } from '$lib/stores/FacultyStore.svelte';
 	import { PasswordEstimator } from '$lib/PasswordEstimator';
 	import PasswordProgress from '$components/FormComponent/PasswordProgress.svelte';
+	import Tooltip from '$components/Tooltip.svelte';
 
 	const toastStore = getContext<ToastStore>(Store.TOAST_STORE);
 
@@ -133,46 +134,18 @@
 			{/each}
 		</div>
 
-		<div class="form-field tooltip">
-			<Checkbox id="gdpr" name="gdpr">
-				{$LL.registration.gdpr.title()}
-			</Checkbox>
-			{#each errors?.gdpr ?? [] as error}
-				<span class="error">
-					{$LL.registration.errors.gdpr[error as keyof typeof $LL.registration.errors.gdpr]()}
-				</span>
-			{/each}
-			<span class="tooltip-text">
-				{$LL.registration.gdpr.tooltip()}
-			</span>
+		<div class="form-field">
+			<Tooltip text={`${$LL.gdpr.description1()}${$LL.gdpr.description2()}${$LL.gdpr.description3()}`}>
+				<Checkbox id="gdpr" name="gdpr">
+					{$LL.registration.gdpr()}
+				</Checkbox>
+				{#each errors?.gdpr ?? [] as error}
+					<span class="error">
+						{$LL.registration.errors.gdpr[error as keyof typeof $LL.registration.errors.gdpr]()}
+					</span>
+				{/each}
+			</Tooltip>
 		</div>
 		<Button class="middle">{$LL.registration.submit()}</Button>
 	</form>
 </Dialog>
-
-<style>
-	.tooltip {
-		position: relative;
-		display: flex;
-		align-items: center;
-	}
-
-	.tooltip .tooltip-text {
-		visibility: hidden;
-		position: absolute;
-		background-color: #555;
-		color: #fff;
-		text-align: center;
-		padding: 5px;
-		border-radius: 6px;
-		z-index: 1;
-		opacity: 0;
-		transition: opacity .6s;
-		bottom: 125%;
-	}
-
-	.tooltip:hover .tooltip-text {
-		visibility: visible;
-		opacity: 1;
-	}
-</style>
