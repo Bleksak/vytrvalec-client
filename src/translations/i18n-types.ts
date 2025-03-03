@@ -633,6 +633,14 @@ type RootTranslation = {
 		 * C​e​l​k​e​m
 		 */
 		total: string
+		/**
+		 * Ú​č​a​s​t​n​í​c​i​ ​p​o​d​l​e​ ​f​a​k​u​l​t
+		 */
+		by_faculty: string
+		/**
+		 * P​o​č​e​t
+		 */
+		count: string
 	}
 	profile: {
 		/**
@@ -645,7 +653,7 @@ type RootTranslation = {
 			 */
 			statistics: string
 			/**
-			 * n​a​č​í​t​á​n​í​ ​a​k​t​i​v​i​t​.​.​.
+			 * N​a​č​í​t​á​n​í​ ​a​k​t​i​v​i​t​.​.​.
 			 */
 			submissions: string
 		}
@@ -1494,6 +1502,14 @@ export type TranslationFunctions = {
 		 * Celkem
 		 */
 		total: () => LocalizedString
+		/**
+		 * Účastníci podle fakult
+		 */
+		by_faculty: () => LocalizedString
+		/**
+		 * Počet
+		 */
+		count: () => LocalizedString
 	}
 	profile: {
 		/**
@@ -1506,7 +1522,7 @@ export type TranslationFunctions = {
 			 */
 			statistics: () => LocalizedString
 			/**
-			 * načítání aktivit...
+			 * Načítání aktivit...
 			 */
 			submissions: () => LocalizedString
 		}

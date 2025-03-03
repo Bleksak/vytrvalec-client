@@ -212,13 +212,15 @@ const cs = {
 		distance: 'Vzdálenost',
 		elevation: 'Převýšení',
 		points: 'Body',
-		total: 'Celkem'
+		total: 'Celkem',
+		by_faculty: 'Účastníci podle fakult',
+		count: 'Počet'
 	},
 	profile: {
 		submissions: 'Aktivity',
 		loading: {
 			statistics: 'Načítání statistik...',
-			submissions: 'načítání aktivit...'
+			submissions: 'Načítání aktivit...'
 		},
 		noSubmissions: 'Zatím nemáte žádné aktivity'
 	},

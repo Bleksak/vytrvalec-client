@@ -212,7 +212,9 @@ const en = {
 		distance: 'Distance',
 		elevation: 'Elevation',
 		points: 'Points',
-		total: 'Total'
+		total: 'Total',
+		by_faculty: 'Participants by faculty',
+		count: 'Count'
 	},
 	profile: {
 		submissions: 'Submissions',

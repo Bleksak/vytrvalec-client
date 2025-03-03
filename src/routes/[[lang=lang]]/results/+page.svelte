@@ -9,6 +9,7 @@
 	import { SeasonResult } from '$lib/DTO/SeasonResultDTO';
 	import { fetchActivities } from '$actions/Activity';
 	import { fetchFaculties } from '$actions/Faculty';
+	import { fetchSeasonUsersStatistics } from '$actions/Statistics';
 
 	let currentSeason = $state<SeasonDTO>();
 	let activitiesPromise = fetchActivities();
@@ -131,6 +132,40 @@
 			{/each}
 		</div>
 	{/await}
+	{#if currentSeason && currentWeek === 0}
+		{#await fetchSeasonUsersStatistics(currentSeason?.id)}
+		<!-- Nechci znova nápis loading -->
+		{:then stat} 
+			<div class="wrapper">
+				<section class="table">
+				<!-- TOP 3 -->
+				</section>
+				<section class="table">
+					<div class="title">
+						<h2>{$LL.results.by_faculty()}</h2>
+					</div>
+					<div class="results-table">
+						<header class="row">
+							<span>{$LL.results.faculty()}</span>
+							<span class="right">{$LL.results.count()}</span>
+						</header>
+						{#each stat as row}
+							{@const faculty = faculties.find((faculty) => faculty.id === row.faculty)}
+							<div class="row">
+								<span>{faculty?.shortcut}</span>
+								<span class="right">{row.count}</span>
+							</div>
+						{/each}
+
+						<div class="row">
+							<strong>{$LL.results.total()}</strong>
+							<strong class="right">{stat.reduce((sum, userStat) => sum + userStat.count, 0)}</strong>
+						</div>
+					</div>
+				</section>
+			</div>
+		{/await}
+	{/if}
 </main>
 
 <style>
