@@ -1,21 +1,24 @@
 <script lang="ts">
 	import type { CharityStore } from '$lib/stores/CharityStore.svelte';
 	import { getContext } from 'svelte';
-	import { page } from '$app/stores';
+	import { page } from '$app/state';
 	import type { SeasonStore } from '$lib/stores/SeasonStore.svelte';
 	import Accordion from '$components/Accordion.svelte';
 	import { beforeNavigate } from '$app/navigation';
 	import Store from '$lib/enums/Stores';
+	import type { FacultyStore } from '$lib/stores/FacultyStore.svelte';
 
 	const charityStore = getContext<CharityStore>(Store.CHARITY_STORE);
 	const seasonStore = getContext<SeasonStore>(Store.SEASON_STORE);
+	const facultyStore = getContext<FacultyStore>(Store.FACULTY_STORE);
 
 	const routeMap = [
 		'/administration/season/[[id=integer]]',
-		'/administration/charity/[[id=integer]]'
+		'/administration/charity/[[id=integer]]',
+		'/administration/faculty/[[id=integer]]',
 	];
 
-	let route = $state($page.route.id as string);
+	let route = $state(page.route.id as string);
 	let checkboxes = $derived(routeMap.map((r) => r === route));
 
 	beforeNavigate(({ to }) => {
@@ -46,6 +49,19 @@
 					<li class="accordion-inner">
 						<a href="/administration/charity/{charity.id}">
 							{charity.name}
+						</a>
+					</li>
+				{/each}
+			</Accordion>
+		</li>
+		<li>
+			<a href="/administration/faculty">Fakulty</a>
+			<input type="checkbox" bind:checked={checkboxes[2]} />
+			<Accordion bind:opened={checkboxes[2]}>
+				{#each facultyStore.all() as faculty}
+					<li class="accordion-inner">
+						<a href="/administration/faculty/{faculty.id}">
+							{faculty.name}
 						</a>
 					</li>
 				{/each}

@@ -1,9 +1,102 @@
 import axios, { type AxiosResponse } from 'axios';
-import type { Faculty } from '$lib/DTO/Faculty';
+import type { FacultyCreateDTO, FacultyCreateResponse, FacultyDTO, FacultyEditResponse } from '$lib/DTO/FacultyDTO';
 
-export const fetchFaculties = async (): Promise<Array<Faculty>> => {
+export const fetchFaculties = async (): Promise<Array<FacultyDTO>> => {
 	return await axios
 		.get(`/faculty`)
-		.then((response: AxiosResponse<Array<Faculty>>) => response.data)
-		.catch(() => new Array<Faculty>());
+		.then((response: AxiosResponse<Array<FacultyDTO>>) => response.data)
+		.catch(() => new Array<FacultyDTO>());
+};
+
+export const createFaculty = async (faculty: FacultyCreateDTO): Promise<FacultyCreateResponse> => {
+	console.log("create")
+	const response = await axios.post('/faculty', faculty).catch((error) => {
+		if (error.response) {
+			return error.response;
+		}
+
+		return null;
+	});
+
+	if (response === null) {
+		return {
+			type: 'error',
+			errors: { auth: ['server_down'] }
+		};
+	}
+
+	if (response.status !== 201) {
+		return {
+			type: 'error',
+			errors: response.data
+		};
+	}
+
+	return {
+		type: 'success',
+		data: response.data
+	};
+};
+
+export const updateFaculty = async (
+	id: number,
+	data: FacultyCreateDTO
+): Promise<FacultyEditResponse> => {
+	const response = await axios.patch(`/faculty/${id}`, data).catch((error) => {
+	console.log("asdasdsadsd")
+
+		if (error.response) {
+			return error.response;
+		}
+
+		return null;
+	});
+
+	if (response === null) {
+		return {
+			type: 'error',
+			errors: { auth: ['server_down'] }
+		};
+	}
+
+	if (response.status !== 200) {
+		return {
+			type: 'error',
+			errors: response.data
+		};
+	}
+
+	return {
+		type: 'success'
+	};
+};
+
+export const deleteFaculty = async (
+	id: number,
+): Promise<FacultyEditResponse> => {
+	const response = await axios.delete(`/faculty/${id}`).catch((error) => {
+		if (error.response) {
+			return error.response;
+		}
+
+		return null;
+	});
+
+	if (response === null) {
+		return {
+			type: 'error',
+			errors: { auth: ['server_down'] }
+		};
+	}
+
+	if (response.status !== 200) {
+		return {
+			type: 'error',
+			errors: response.data
+		};
+	}
+
+	return {
+		type: 'success'
+	};
 };

@@ -4,19 +4,19 @@
 	import LL from '$translations/i18n-svelte';
 	import { fetchSeasonResult, fetchSeasons } from '$actions/Season';
 	import type { SeasonDTO } from '$lib/DTO/SeasonDTO';
-	import type { Faculty } from '$lib/DTO/Faculty';
 	import type { ActivityDTO } from '$lib/DTO/ActivityDTO';
 	import { SeasonResult } from '$lib/DTO/SeasonResultDTO';
 	import { fetchActivities } from '$actions/Activity';
 	import { fetchFaculties } from '$actions/Faculty';
 	import { fetchSeasonUsersStatistics } from '$actions/Statistics';
+	import type { FacultyDTO } from '$lib/DTO/FacultyDTO';
 
 	let currentSeason = $state<SeasonDTO>();
 	let activitiesPromise = fetchActivities();
 	let facultiesPromise = fetchFaculties();
 
 	let activities = $state<Array<ActivityDTO>>([]);
-	let faculties = $state<Array<Faculty>>([]);
+	let faculties = $state<Array<FacultyDTO>>([]);
 
 	let currentWeek = $state<number>(0);
 	let currentSeasonResults = $state<SeasonResult>();

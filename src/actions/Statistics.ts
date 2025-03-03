@@ -2,7 +2,6 @@ import axios from 'axios';
 import type { TotalStatisticsDTO, UserStatisticsDTO } from '$lib/DTO/StatisticsDTO';
 import type { ActivityDTO } from '$lib/DTO/ActivityDTO';
 import type { SeasonUsersDTO } from '$lib/DTO/SeasonUsersDTO';
-import type { Faculty } from '$lib/DTO/Faculty';
 
 export const fetchTotalStatistics = async (): Promise<TotalStatisticsDTO> => {
 	const response = await axios.get(`/stats/total`);

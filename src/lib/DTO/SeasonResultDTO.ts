@@ -1,5 +1,5 @@
 import type { ActivityDTO } from './ActivityDTO';
-import type { Faculty } from './Faculty';
+import type { FacultyDTO } from './FacultyDTO';
 import type { UserResponse } from './UserResponse';
 
 export type SeasonResultExtraUser = {
@@ -62,14 +62,14 @@ export class SeasonResult {
     cached: SeasonResultCached;
     users: Array<UserResponse>;
     activities: Array<ActivityDTO>;
-    faculties: Array<Faculty>;
+    faculties: Array<FacultyDTO>;
     results: Array<WeekResultRow>;
 
     constructor(
         data: SeasonResultDTO,
         users: Array<UserResponse> = [],
         activities: Array<ActivityDTO>,
-        faculties: Array<Faculty> = []
+        faculties: Array<FacultyDTO> = []
     ) {
         this.users = users;
         this.faculties = faculties;

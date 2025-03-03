@@ -9,8 +9,8 @@ import type {
 } from '$lib/DTO/SubmissionDTO';
 import type { SubmissionStateDTO, SubmissionStateResponse } from '$lib/DTO/SubmissionStateDTO';
 import axios, { type AxiosResponse } from 'axios';
-import type { Faculty } from '$lib/DTO/Faculty';
 import type { SelectedFilter } from '$lib/DTO/SelectedFilter';
+import type { FacultyDTO } from '$lib/DTO/FacultyDTO';
 
 export const createSubmission = async (dto: SubmissionDTO): Promise<SubmissionCreateResponse> => {
 	const formData = new FormData();
@@ -68,7 +68,7 @@ export const fetchSubmissionsForSeason = async (
 	).map(
 		(submission: {
 			date: string | Date;
-			user: { faculty: number | Faculty };
+			user: { faculty: number | FacultyDTO };
 			activity: number | ActivityDTO;
 		}) => {
 			submission.date = new Date(submission.date);

@@ -1,4 +1,4 @@
-import type { Faculty } from './Faculty';
+import type { FacultyDTO } from './FacultyDTO';
 import type { UserError } from './UserEditDTO';
 import type { UserRole } from './UserRole';
 
@@ -9,7 +9,7 @@ export type UserResponse = {
 	email: string;
 	banned: boolean;
 	roles: UserRole[];
-	faculty: Faculty;
+	faculty: FacultyDTO;
 	acceptedGdpr: boolean | null;
 };
 

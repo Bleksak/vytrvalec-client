@@ -1,5 +1,5 @@
 <script lang="ts">
-	import type { Faculty } from '$lib/DTO/Faculty';
+	import type { FacultyDTO } from '$lib/DTO/FacultyDTO';
 	import type { ResultRow } from '$lib/DTO/SeasonResultDTO';
 	import LL from '$translations/i18n-svelte';
 	import { FacultyColorMap } from '$utils/colors';
@@ -7,7 +7,7 @@
 	import Chart from 'chart.js/auto';
 	import { onMount } from 'svelte';
 
-	let { faculties, results }: { faculties: Faculty[]; results: ResultRow[] } =
+	let { faculties, results }: { faculties: FacultyDTO[]; results: ResultRow[] } =
 		$props();
 
 	const resultFaculties = $derived(results.map((result) =>
