@@ -56,7 +56,7 @@
 		</li>
 		<li>
 			<a href="/administration/faculty">Fakulty</a>
-			<input type="checkbox" bind:checked={checkboxes[2]} />
+			<input id="navbar-faculty" type="checkbox" bind:checked={checkboxes[2]} />
 			<Accordion bind:opened={checkboxes[2]}>
 				{#each facultyStore.all() as faculty}
 					<li class="accordion-inner">

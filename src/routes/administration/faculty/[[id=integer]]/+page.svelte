@@ -15,4 +15,6 @@
 	});
 </script>
 
-<FacultyEditor bind:faculty />
+<div>
+	<FacultyEditor bind:faculty />
+</div>

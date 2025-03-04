@@ -16,8 +16,10 @@
 	});
 </script>
 
+
 {#if charity}
 	<CharityUpdateEditor bind:charity />
 {:else}
 	<CharityCreateEditor />
 {/if}
+

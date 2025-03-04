@@ -82,6 +82,11 @@
 {/await}
 
 <style>
+	 form {
+        width: 50%;
+		justify-self: center;
+    }
+	
 	.header-warning {
 		font-size: 1.3rem;
 	}

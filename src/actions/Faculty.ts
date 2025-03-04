@@ -9,7 +9,6 @@ export const fetchFaculties = async (): Promise<Array<FacultyDTO>> => {
 };
 
 export const createFaculty = async (faculty: FacultyCreateDTO): Promise<FacultyCreateResponse> => {
-	console.log("create")
 	const response = await axios.post('/faculty', faculty).catch((error) => {
 		if (error.response) {
 			return error.response;
@@ -43,8 +42,6 @@ export const updateFaculty = async (
 	data: FacultyCreateDTO
 ): Promise<FacultyEditResponse> => {
 	const response = await axios.patch(`/faculty/${id}`, data).catch((error) => {
-	console.log("asdasdsadsd")
-
 		if (error.response) {
 			return error.response;
 		}

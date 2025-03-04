@@ -3,7 +3,7 @@
 	import type { Snippet } from 'svelte';
 
 	// Asi by to chtělo někam přesunout, ale nějak nevim kam to zařadit, možná že to tu tolik nepřekáží
-	type BtnProps = { name?: string } & HTMLButtonAttributes;
+	type BtnProps = { name?: string, danger?: boolean } & HTMLButtonAttributes;
 	type DivProps = { styleOnly: true } & HTMLAttributes<HTMLDivElement>;
 
 	let { children, id, ...props }: (BtnProps | DivProps) & { children: Snippet } = $props();
@@ -48,6 +48,10 @@
 		background-color: white;
 		color: #005cab;
 		border: 2px solid #005cab;
+	}
+
+	.danger {
+		background-color: red;
 	}
 
 	.full-width {

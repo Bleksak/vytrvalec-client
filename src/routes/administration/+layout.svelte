@@ -4,29 +4,31 @@
 	import { page } from '$app/state';
 	import LL from '$translations/i18n-svelte';
 	import type { Locales } from '$translations/i18n-types';
-	let { children } = $props();
-	loadAllLocales();
-
-	const lang = (page.params.lang as Locales) ?? 'cs';
-	setLocale(lang);
-
 	import Navbar from '$components/Navbar.svelte';
 	import Footer from '$components/Footer.svelte';
-	import Cookies from '$components/Cookies.svelte';
 	import AdminNavbar from '$components/administration/AdminNavbar.svelte';
 	import createSeasonStore from '$lib/stores/SeasonStore.svelte';
 	import { createCharityStore } from '$lib/stores/CharityStore.svelte';
 	import { createUserStore } from '$lib/stores/UserStore.svelte';
 	import { setContext } from 'svelte';
 	import Store from '$lib/enums/Stores';
+	import createFacultyStore from '$lib/stores/FacultyStore.svelte';
+
+	let { children } = $props();
+	loadAllLocales();
+
+	const lang = (page.params.lang as Locales) ?? 'cs';
+	setLocale(lang);
 
 	const seasonStore = createSeasonStore();
 	const charityStore = createCharityStore();
 	const userStore = createUserStore();
+	const facultyStore = createFacultyStore();
 
 	setContext(Store.SEASON_STORE, seasonStore);
 	setContext(Store.CHARITY_STORE, charityStore);
 	setContext(Store.USER_STORE, userStore);
+	setContext(Store.FACULTY_STORE, facultyStore);
 </script>
 
 <svelte:head>

@@ -66,3 +66,10 @@
 
 	<Button type="submit" class="left">Vytvořit</Button>
 </form>
+
+<style>
+	form {
+		width: 50%;
+		justify-self: center;
+	}
+</style>

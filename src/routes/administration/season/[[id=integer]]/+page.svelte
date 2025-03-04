@@ -16,8 +16,11 @@
 	});
 </script>
 
-{#if season}
-	<SeasonOverview {season} />
-{:else}
-	<SeasonCreate />
-{/if}
+<div>
+	{#if season}
+		<SeasonOverview {season} />
+	{:else}
+		<SeasonCreate />
+	{/if}
+</div>
+

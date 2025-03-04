@@ -2,4 +2,7 @@
 	import CharityEditor from '$components/administration/charity/CharityEditor.svelte';
 </script>
 
-<CharityEditor />
+<div>
+	<CharityEditor />
+</div>
+

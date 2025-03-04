@@ -63,6 +63,7 @@
 	});
 </script>
 
+
 <form action="/administration/charity/{charity?.id}?/update" method="post" use:enhance={enhancer}>
 	<label for="name">Název charity:</label>
 	<input type="text" name="name" id="name" bind:value={currentCharity.name} />
@@ -82,7 +83,7 @@
 
 	<div class="buttons">
 		<Button type="submit">Upravit</Button>
-		<Button type="button" onclick={deleteCharity}>Odstranit</Button>
+		<Button type="button" onclick={deleteCharity} class="danger">Odstranit</Button>
 	</div>
 
 	{#if deleteStatus === false}
@@ -90,7 +91,12 @@
 	{/if}
 </form>
 
+
 <style>
+	form {
+		width: 50%;
+		justify-self: center;
+	}
 	.buttons {
 		display: flex;
 		justify-content: flex-start;
