@@ -1,7 +1,3 @@
-<script>
-	import { page } from '$app/stores';
-</script>
-
 <footer>
 	<div class="footer-wrapper">
 		<div class="socials">
@@ -13,10 +9,10 @@
 			</a>
 		</div>
 		<div class="about">
-			<a href={import.meta.env.VITE_WEB_URL}><strong>Ústav tělesné výchovy a sportu ZČU</strong></a>
+			<a href={import.meta.env.VITE_WEB_URL} class="uts"><strong>Ústav tělesné výchovy a sportu ZČU</strong></a>
 		</div>
 		<div class="special-links">
-			<!-- <a href="/{$page.data.lang}/cookies">Cookies</a> -->
+			Web spravuje:&nbsp;<a href="https://www.vave-tech.cz/">Vave-Tech</a>, Kašparová Alena
 		</div>
 	</div>
 </footer>
@@ -43,7 +39,7 @@
 		font-weight: bold;
 	}
 
-	a {
+	.uts {
 		color: white;
 		font-size: 1.5rem;
 	}
