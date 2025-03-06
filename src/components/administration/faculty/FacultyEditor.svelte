@@ -44,7 +44,7 @@
 	const enhancer: SubmitFunction = () => {
 		return async ({ result, update }) => {
 			if (deleteStatus) return;
-			
+
 			if (result.type === 'success') {
 				facultyStore.updateOrCreate(result.data?.id);
 				toastStore.add({
@@ -89,7 +89,7 @@
 		</span>
 	{/if}
 
-	<Checkbox id="visible" name="visible" checked={currentFaculty.visible}>
+	<Checkbox id="visible" name="visible" checked={Boolean(currentFaculty.visible)}>
 		Aktivní
 	</Checkbox>
 

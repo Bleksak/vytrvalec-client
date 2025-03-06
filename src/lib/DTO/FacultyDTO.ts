@@ -4,7 +4,7 @@ export type FacultyDTO = {
     id: number;
     name: string;
     shortcut: string;
-    visible: boolean;
+    visible: string;
     parent: number | null;
 };
 
