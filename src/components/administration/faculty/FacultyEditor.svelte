@@ -43,15 +43,17 @@
 
 	const enhancer: SubmitFunction = () => {
 		return async ({ result, update }) => {
+			if (deleteStatus) return;
+			
 			if (result.type === 'success') {
-				facultyStore.updateOrCreate(currentFaculty);
+				facultyStore.updateOrCreate(result.data?.id);
 				toastStore.add({
 					type: 'success',
 					message: faculty ? 'Fakulta byla úspěšně upravena' : 'Fakulta byla úspěšně vytvořena'
 				});
 				errors = undefined;
 			} else if(result.type === 'failure') {
-				errors = result?.data?.charity as FacultyError;
+				errors = result?.data?.faculty as FacultyError;
 				toastStore.add({
 					type: 'error',
 					message: faculty ? 'Nastala chyba při úpravě fakulty' : 'Nastala chyba při vytváření fakulty'
@@ -67,7 +69,7 @@
 	});
 </script>
 
-<form action={faculty ? `/administration/faculty/${faculty?.id}?/update`: `/administration/faculty?/create`} 
+<form action={faculty ? `/administration/faculty/${faculty?.id}?/update`: "/administration/faculty?/create"} 
 	method="post" 
 	use:enhance={enhancer}
 >
@@ -105,11 +107,11 @@
 	{:catch}
 		<span class="note">Nepodařilo se načíst fakulty</span>
 	{/await}
-	{#each errors?.parent ?? []}
+	{#if errors?.parent}
 		<span class="error">
 			Nelze přiřadit pracoviště pod jiné, které má také nadřazené pracoviště
 		</span>
-	{/each}
+	{/if}
 	
 
 	{#if faculty}

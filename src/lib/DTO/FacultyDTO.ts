@@ -52,7 +52,7 @@ export type FacultyEditResponse =
 export const createFacultyDTO = (formData: FormData): FacultyCreateReturn => {
     const name = formData.get('name') as string;
     const shortcut = formData.get('shortcut') as string;
-    const visible = formData.get('visible');
+    const visible = formData.get('visible')?.toString();
     const parent = formData.get('parent');
 
     let errors: FacultyError = {}
@@ -74,7 +74,7 @@ export const createFacultyDTO = (formData: FormData): FacultyCreateReturn => {
         data: {
             name,
             shortcut,
-            visible: Boolean(Number(visible)),
+            visible: visible!,
             parent: parent ? Number(parent) : null
         }
     };

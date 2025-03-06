@@ -6,13 +6,13 @@ const createAction: Action = async ({ request }) => {
     const facultyDTO = createFacultyDTO(await request.formData());
     
     if (facultyDTO.type === 'error') {
-        return fail(400, { charity: facultyDTO.errors });
+        return fail(400, { faculty: facultyDTO.errors });
     }
 
     const response = await createFaculty(facultyDTO.data);
 
     if (response.type === 'error') {
-        return fail(400, { charity: response.errors });
+        return fail(400, { faculty: response.errors });
     }
 
     return {
@@ -24,7 +24,7 @@ const updateAction: Action = async ({ request, params }) => {
     const facultyDTO = createFacultyDTO(await request.formData());
 
     if (facultyDTO.type === 'error') {
-        return fail(400, { charity: facultyDTO.errors });
+        return fail(400, { faculty: facultyDTO.errors });
     }
 
     const id = Number(params.id);
@@ -32,7 +32,7 @@ const updateAction: Action = async ({ request, params }) => {
     const response = await updateFaculty(id, facultyDTO.data);
 
     if (response.type === 'error') {
-        return fail(400, { charity: response.errors });
+        return fail(400, { faculty: response.errors });
     }
 
     return {
@@ -44,7 +44,7 @@ const deleteAction: Action = async ({ request, params }) => {
     const facultyDTO = createFacultyDTO(await request.formData());
 
     if (facultyDTO.type === 'error') {
-        return fail(400, { charity: facultyDTO.errors });
+        return fail(400, { faculty: facultyDTO.errors });
     }
 
     const id = Number(params.id);
@@ -52,7 +52,7 @@ const deleteAction: Action = async ({ request, params }) => {
     const response = await deleteFaculty(id);
 
     if (response.type === 'error') {
-        return fail(400, { charity: response.errors });
+        return fail(400, { faculty: response.errors });
     }
 
     return {

@@ -29,11 +29,12 @@ const createFacultyStore = (): FacultyStore => {
         return faculties.find((faculty: FacultyDTO) => faculty.id === id) ?? null;
     }
 
-    const updateOrCreate = async(faculty: FacultyDTO) => {
+    const updateOrCreate = async (facultyId: number) => {
         facultiesPromise = fetchFaculties();
         faculties = await facultiesPromise;
-        
-        let index = faculties.findIndex((f) => f.id === faculty.id);
+
+        let index = faculties.findIndex((f) => f.id === facultyId);
+        const faculty = faculties.find((f) => f.id === facultyId)!;
 
         if (index !== -1) {
             faculties[index] = faculty;
