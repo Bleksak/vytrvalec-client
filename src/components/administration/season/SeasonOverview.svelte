@@ -14,8 +14,9 @@
 	import { goto } from '$app/navigation';
 	import type { ToastStore } from '$lib/stores/ToastStore.svelte';
 	import Store from '$lib/enums/Stores';
+	import type { FacultyStore } from '$lib/stores/FacultyStore.svelte';
 
-	const { season}: {season: SeasonDTO} = $props();
+	const { season }: { season: SeasonDTO } = $props();
 
 	let seasonResult = $state<SeasonResult>();
 
@@ -23,6 +24,7 @@
 	const charityStore = getContext<CharityStore>(Store.CHARITY_STORE);
 	const userStore = getContext<UserStore>(Store.USER_STORE);
 	const toastStore = getContext<ToastStore>(Store.TOAST_STORE);
+	const facultyStore = getContext<FacultyStore>(Store.FACULTY_STORE);
 	const charity = $derived(charityStore.get(season.charity));
 
 	let seasonCacheResult = $state<boolean>();
@@ -102,7 +104,9 @@
 					{#each seasonResult?.getExtraPoints() ?? [] as extraPoint}
 						<p>
 							<strong>{extraPoint.user.firstName} {extraPoint.user.lastName}</strong>
-							({extraPoint.user.faculty.shortcut}): {$LL.extraPoints[extraPoint.name as keyof typeof $LL.extraPoints]()}
+							({facultyStore.get(extraPoint.faculty)?.shortcut}): {$LL.extraPoints[
+								extraPoint.name as keyof typeof $LL.extraPoints
+							]()}
 						</p>
 						<p>Počet získaných bodů: {extraPoint.points}</p>
 						<p>V aktivitě: {extraPoint.activity.name}</p>
@@ -122,7 +126,7 @@
 			{#if seasonResult?.getTotalDistance() === 0}
 				<Widget title="Odstranit sezónu">
 					<section class="season-delete">
-                        <p>Pokud sezóna neobsahuje žádné aktivity, je možné ji odstranit.</p>
+						<p>Pokud sezóna neobsahuje žádné aktivity, je možné ji odstranit.</p>
 						<Button type="button" onclick={removeSeason}>Odstranit sezónu</Button>
 						{#if seasonRemoveResult === false}
 							<span class="note">Sezónu nelze odstranit, jelikož již obsahuje aktivity</span>
