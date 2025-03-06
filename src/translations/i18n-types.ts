@@ -104,7 +104,7 @@ type RootTranslation = {
 			users: string
 		}
 		/**
-		 * A​k​c​e​ ​m​ě​s​í​č​n​í​ ​v​y​t​r​v​a​l​e​c​ ​v​z​n​i​k​l​a​ ​b​ě​h​e​m​ ​z​i​m​n​í​h​o​ ​s​e​m​e​s​t​r​u​ ​v​ ​r​o​c​e​ ​2​0​2​0​.​ ​T​u​t​o​ ​p​o​h​y​b​o​v​o​u​ ​s​o​u​t​ě​ž​ ​p​ř​i​p​r​a​v​i​l​a​ ​a​ ​z​o​r​g​a​n​i​z​o​v​a​l​a​ ​K​a​t​e​d​r​a​ ​t​ě​l​e​s​n​é​ ​v​ý​c​h​o​v​y​ ​F​a​k​u​l​t​y​ ​s​t​r​o​j​n​í​ ​Z​á​p​a​d​o​č​e​s​k​é​ ​u​n​i​v​e​r​z​i​t​y​ ​v​ ​P​l​z​n​i​ ​s​ ​ú​m​y​s​l​e​m​ ​r​o​z​h​ý​b​a​t​ ​s​t​u​d​e​n​t​y​ ​b​ě​h​e​m​ ​d​i​s​t​a​n​č​n​í​ ​v​ý​u​k​y​,​ ​k​t​e​r​á​ ​p​r​o​b​í​h​a​l​a​ ​n​a​ ​Z​Č​U​ ​b​ě​h​e​m​ ​k​o​r​o​n​a​v​i​r​o​v​é​ ​p​a​n​d​e​m​i​e​.
+		 * A​k​c​e​ ​m​ě​s​í​č​n​í​ ​v​y​t​r​v​a​l​e​c​ ​v​z​n​i​k​l​a​ ​b​ě​h​e​m​ ​z​i​m​n​í​h​o​ ​s​e​m​e​s​t​r​u​ ​v​ ​r​o​c​e​ ​2​0​2​0​.​ ​T​u​t​o​ ​p​o​h​y​b​o​v​o​u​ ​s​o​u​t​ě​ž​ ​p​ř​i​p​r​a​v​i​l​a​ ​a​ ​z​o​r​g​a​n​i​z​o​v​a​l​ ​Ú​s​t​a​v​ ​t​ě​l​e​s​n​é​ ​v​ý​c​h​o​v​y​ ​a​ ​s​p​o​r​t​u​ ​Z​Č​U​ ​s​ ​ú​m​y​s​l​e​m​ ​r​o​z​h​ý​b​a​t​ ​s​t​u​d​e​n​t​y​ ​b​ě​h​e​m​ ​d​i​s​t​a​n​č​n​í​ ​v​ý​u​k​y​,​ ​k​t​e​r​á​ ​p​r​o​b​í​h​a​l​a​ ​n​a​ ​Z​Č​U​ ​b​ě​h​e​m​ ​k​o​r​o​n​a​v​i​r​o​v​é​ ​p​a​n​d​e​m​i​e​.
 		 */
 		intro: string
 		/**
@@ -1003,7 +1003,7 @@ export type TranslationFunctions = {
 			users: () => LocalizedString
 		}
 		/**
-		 * Akce měsíční vytrvalec vznikla během zimního semestru v roce 2020. Tuto pohybovou soutěž připravila a zorganizovala Katedra tělesné výchovy Fakulty strojní Západočeské univerzity v Plzni s úmyslem rozhýbat studenty během distanční výuky, která probíhala na ZČU během koronavirové pandemie.
+		 * Akce měsíční vytrvalec vznikla během zimního semestru v roce 2020. Tuto pohybovou soutěž připravila a zorganizoval Ústav tělesné výchovy a sportu ZČU s úmyslem rozhýbat studenty během distanční výuky, která probíhala na ZČU během koronavirové pandemie.
 		 */
 		intro: () => LocalizedString
 		/**

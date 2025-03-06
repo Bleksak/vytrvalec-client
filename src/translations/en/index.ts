@@ -35,7 +35,7 @@ const en = {
 			users: 'TOTAL PARTICIPANTS'
 		},
 		intro:
-			'The monthly runner event was created during the winter semester in 2020. This competition was prepared and organized by the Department of Physical Education of the Faculty of Mechanical Engineering of the University of West Bohemia in Pilsen with the intention to make students engage in sports during distance learning, which took place at the University of West Bohemia during the coronavirus pandemic.',
+			'The monthly runner event was created during the winter semester in 2020. This competition was prepared and organized by the Department of Physical Education and Sport of the University of West Bohemia with the intention to make students engage in sports during distance learning, which took place at the University of West Bohemia during the coronavirus pandemic.',
 		past_seasons: 'Past seasons',
 		current_year: 'Season',
 		charity: 'Charity',

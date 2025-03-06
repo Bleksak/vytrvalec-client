@@ -35,7 +35,7 @@ const cs = {
 			users: 'UČASTNÍKŮ'
 		},
 		intro:
-			'Akce měsíční vytrvalec vznikla během zimního semestru v roce 2020. Tuto pohybovou soutěž připravila a zorganizovala Katedra tělesné výchovy Fakulty strojní Západočeské univerzity v Plzni s úmyslem rozhýbat studenty během distanční výuky, která probíhala na ZČU během koronavirové pandemie.',
+			'Akce měsíční vytrvalec vznikla během zimního semestru v roce 2020. Tuto pohybovou soutěž připravila a zorganizoval Ústav tělesné výchovy a sportu ZČU s úmyslem rozhýbat studenty během distanční výuky, která probíhala na ZČU během koronavirové pandemie.',
 		past_seasons: 'Předchozí ročníky',
 		current_year: 'Ročník',
 		charity: 'Charita',

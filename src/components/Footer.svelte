@@ -13,7 +13,7 @@
 			</a>
 		</div>
 		<div class="about">
-			<span>Katedra tělesné výchovy a sportu</span>
+			<a href={import.meta.env.VITE_WEB_URL}><strong>Ústav tělesné výchovy a sportu ZČU</strong></a>
 		</div>
 		<div class="special-links">
 			<!-- <a href="/{$page.data.lang}/cookies">Cookies</a> -->
