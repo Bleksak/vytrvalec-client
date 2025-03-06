@@ -23,6 +23,7 @@
 	let currentSeasonResultsArray = $derived(
 		currentSeasonResults?.getResultsForWeek(currentWeek) ?? []
 	);
+	const isBefore2022 = $derived(currentSeason && currentSeason.end.getTime() < new Date(2022, 0, 1).getTime())
 
 	$effect(() => {
         if(!currentSeason) {
@@ -132,7 +133,7 @@
 			{/each}
 		</div>
 	{/await}
-	{#if currentSeason && currentWeek === 0}
+	{#if currentSeason && !isBefore2022 && currentWeek === 0}
 		{#await fetchSeasonUsersStatistics(currentSeason?.id)}
 		<!-- Nechci znova nápis loading -->
 		{:then stat} 
