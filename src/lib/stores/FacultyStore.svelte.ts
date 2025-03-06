@@ -4,7 +4,7 @@ import type { FacultyDTO } from "$lib/DTO/FacultyDTO";
 export type FacultyStore = {
     all: () => FacultyDTO[];
     get: (id: number) => FacultyDTO | null;
-    updateOrCreate: (faculty: FacultyDTO) => void;
+    updateOrCreate: (facultyId: number) => void;
     remove: (faculty: FacultyDTO) => Promise<boolean>;
     promise: () => Promise<FacultyDTO[]>;
 }
