@@ -3,67 +3,68 @@ import type { FacultyDTO } from './FacultyDTO';
 import type { AnonymizedUser, UserResponse } from './UserResponse';
 
 export type SeasonResultExtraActivity = {
-  user: AnonymizedUser;
-  faculty: number;
-  points: number;
-  name: 'weekly_distance' | 'daily_distance' | 'weekly_elevation';
-  value: number;
-  activity: ActivityDTO;
+    user: AnonymizedUser;
+    faculty: number;
+    points: number;
+    name: 'weekly_distance' | 'daily_distance' | 'weekly_elevation';
+    value: number;
+    activity: ActivityDTO;
 };
 
 export type SeasonResultExtra = {
-  user: AnonymizedUser;
-  faculty: number;
-  points: number;
-  name: 'weekly_distance' | 'daily_distance' | 'weekly_elevation';
-  value: number;
+    user: AnonymizedUser;
+    faculty: number;
+    points: number;
+    name: 'weekly_distance' | 'daily_distance' | 'weekly_elevation';
+    value: number;
 };
 
 export type SeasonResultFaculty = {
-  faculty: number;
-  distance: number;
+    faculty: number;
+    distance: number;
 };
 
 export type SeasonResultActivity = {
-  activity: number;
-  extras: Array<SeasonResultExtra>;
-  results: Array<SeasonResultFaculty>;
+    activity: number;
+    extras: Array<SeasonResultExtra>;
+    results: Array<SeasonResultFaculty>;
 };
 
 export type SeasonResultWeek = {
-  week: number;
-  activities: Array<SeasonResultActivity>;
+    week: number;
+    activities: Array<SeasonResultActivity>;
 };
 
 export type SeasonResultDTO = Array<SeasonResultWeek>;
 
 type SeasonResultCached = {
-  totalDistance: number;
-  extras: Array<SeasonResultExtraActivity>;
+    totalDistance: number;
+    extras: Array<SeasonResultExtraActivity>;
 };
 
 export type ResultRow = {
-  faculty: number;
-  points: number; // including extra points
-  distance: number;
+    faculty: number;
+    points: number; // including extra points
+    distance: number;
 };
 
 export type WeekResultRow = ActivityResultRow & {
-  week: number;
+    week: number;
 };
 
 export type ActivityResultRow = {
-  activity: number;
-  row: Array<ResultRow>;
+    activity: number;   
+    row: Array<ResultRow>;
+    extra: Array<SeasonResultExtra>
 };
 
 export class SeasonResult {
-  data: SeasonResultDTO;
-  cached: SeasonResultCached;
-  users: Array<UserResponse>;
-  activities: Array<ActivityDTO>;
-  faculties: Array<FacultyDTO>;
-  results: Array<WeekResultRow>;
+    data: SeasonResultDTO;
+    cached: SeasonResultCached;
+    users: Array<UserResponse>;
+    activities: Array<ActivityDTO>;
+    faculties: Array<FacultyDTO>;
+    results: Array<WeekResultRow>;
 
   constructor(
     data: SeasonResultDTO,
@@ -105,7 +106,8 @@ export class SeasonResult {
         let weekResultRow = {
           week: week.week,
           activity: activity.activity,
-          row: [] as Array<ResultRow>
+          row: [] as Array<ResultRow>,
+          extra: [] as Array<SeasonResultExtra>
         };
 
         for (const faculty of faculties) {
@@ -148,7 +150,7 @@ export class SeasonResult {
 
         // 4. sort again
         weekResultRow.row.sort((a, b) => b.points - a.points);
-
+        weekResultRow.extra = activity.extras;
         weekResultRows.push(weekResultRow);
       }
     }
@@ -230,7 +232,7 @@ export class SeasonResult {
       return weekData;
     }
 
-    let total: ActivityResultRow = { activity: -1, row: [] };
+    let total: ActivityResultRow = { activity: -1, row: [], extra: [] };
 
     for (const activityRow of weekData) {
       for (const row of activityRow.row) {
@@ -264,8 +266,10 @@ export class SeasonResult {
       const workingActivity = results.find((w) => w.activity === week.activity);
       if (!workingActivity) {
         results.push({
-          activity: week.activity,
-          row: JSON.parse(JSON.stringify(week.row))
+            activity: week.activity,
+            row: JSON.parse(JSON.stringify(week.row)),
+            extra: week.extra
+          
         });
       } else {
         for (const row of week.row) {

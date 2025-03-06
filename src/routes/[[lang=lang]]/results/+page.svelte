@@ -10,6 +10,13 @@
 	import { fetchFaculties } from '$actions/Faculty';
 	import { fetchSeasonUsersStatistics } from '$actions/Statistics';
 	import type { FacultyDTO } from '$lib/DTO/FacultyDTO';
+	import Store from '$lib/enums/Stores';
+	import { getContext } from 'svelte';
+	import type { FacultyStore } from '$lib/stores/FacultyStore.svelte';
+	import type { ActivityStore } from '$lib/stores/ActivityStore.svelte';
+
+	const facultyStore = getContext<FacultyStore>(Store.FACULTY_STORE);
+	const activityStore = getContext<ActivityStore>(Store.ACTIVITY_STORE);
 
 	let currentSeason = $state<SeasonDTO>();
 	let activitiesPromise = fetchActivities();
@@ -132,6 +139,42 @@
 				</div>
 			{/each}
 		</div>
+		{#if currentWeek > 2}
+			<section class="table">
+				<div class="title">
+					<h2>{$LL.results.extras.title()}</h2>
+				</div>
+				<div class="results-table">
+					<header class="row">
+						<span>{$LL.results.extras.name()}</span>
+						<span>{$LL.results.extras.faculty()}</span>
+						<span>{$LL.results.extras.category()}</span>
+						<span>{$LL.results.extras.activity()}</span>
+						<span>{$LL.results.extras.value()}</span>
+						<span>{$LL.results.extras.points()}</span>
+					</header>
+					{#each currentSeasonResultsArray as result}
+						{#each result.extra as extraPoint }
+						{@const activity = activityStore.get(result.activity)!}
+							<div class="row">
+								<span>{extraPoint.user.firstName} {extraPoint.user.lastName}</span>
+								<span>{facultyStore.get(extraPoint.faculty)?.shortcut}</span>
+								<span>{$LL.extraPoints[extraPoint.name as keyof typeof $LL.extraPoints]()}</span>
+								<span>{$LL.activities[activity.name as keyof typeof $LL.activities]()}</span>
+								{#if extraPoint.name === 'weekly_distance'}
+									<span>{extraPoint.value / 1000} km</span>
+										{:else if extraPoint.name === 'daily_distance'}
+									<span>{extraPoint.value / 1000} km</span>
+										{:else if extraPoint.name === 'weekly_elevation'}
+									<span>{extraPoint.value} m</span>
+								{/if}
+								<span>{extraPoint.points}</span>
+							</div>
+						{/each}
+					{/each}
+				</div>
+			</section>
+		{/if}
 	{/await}
 	{#if currentSeason && !isBefore2022 && currentWeek === 0}
 		{#await fetchSeasonUsersStatistics(currentSeason?.id)}
@@ -178,6 +221,10 @@
 		max-width: 1600px;
 		width: 100%;
 		min-height: calc(100vh - 100px - 60px - 1.6 * 1.5rem);
+	}
+
+	.table {
+		margin-bottom: 10px;
 	}
 
 	.pickers {
@@ -234,14 +281,6 @@
 
 	.results-table > .row > * {
 		width: 100%;
-	}
-
-	.results-table > .row > .left {
-		text-align: left;
-	}
-
-	.results-table > .row > .center {
-		text-align: center;
 	}
 
 	.results-table > .row > .right {

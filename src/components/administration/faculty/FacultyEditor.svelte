@@ -113,7 +113,7 @@
 	{#if faculty}
 		<div class="buttons">
 			<Button type="submit">Upravit</Button>
-			<Button type="button"  onclick={removeFaculty} class="danger">Odstranit</Button>
+			<Button type="button" onclick={removeFaculty} class="danger">Odstranit</Button>
 		</div>
 	{:else}
 		<div class="buttons">

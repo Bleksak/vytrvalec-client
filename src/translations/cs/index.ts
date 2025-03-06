@@ -214,7 +214,16 @@ const cs = {
 		points: 'Body',
 		total: 'Celkem',
 		by_faculty: 'Účastníci podle fakult',
-		count: 'Počet'
+		count: 'Počet',
+		extras: {
+			title: "Extra body",
+			name: "Jméno",
+			faculty: "Fakulta",
+			category: "Kategorie",
+			activity: "Aktivita",
+			value: "Výkon",
+			points: "Body"
+		}
 	},
 	profile: {
 		submissions: 'Aktivity',

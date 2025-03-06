@@ -641,6 +641,36 @@ type RootTranslation = {
 		 * P​o​č​e​t
 		 */
 		count: string
+		extras: {
+			/**
+			 * E​x​t​r​a​ ​b​o​d​y
+			 */
+			title: string
+			/**
+			 * J​m​é​n​o
+			 */
+			name: string
+			/**
+			 * F​a​k​u​l​t​a
+			 */
+			faculty: string
+			/**
+			 * K​a​t​e​g​o​r​i​e
+			 */
+			category: string
+			/**
+			 * A​k​t​i​v​i​t​a
+			 */
+			activity: string
+			/**
+			 * V​ý​k​o​n
+			 */
+			value: string
+			/**
+			 * B​o​d​y
+			 */
+			points: string
+		}
 	}
 	profile: {
 		/**
@@ -1510,6 +1540,36 @@ export type TranslationFunctions = {
 		 * Počet
 		 */
 		count: () => LocalizedString
+		extras: {
+			/**
+			 * Extra body
+			 */
+			title: () => LocalizedString
+			/**
+			 * Jméno
+			 */
+			name: () => LocalizedString
+			/**
+			 * Fakulta
+			 */
+			faculty: () => LocalizedString
+			/**
+			 * Kategorie
+			 */
+			category: () => LocalizedString
+			/**
+			 * Aktivita
+			 */
+			activity: () => LocalizedString
+			/**
+			 * Výkon
+			 */
+			value: () => LocalizedString
+			/**
+			 * Body
+			 */
+			points: () => LocalizedString
+		}
 	}
 	profile: {
 		/**

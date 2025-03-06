@@ -214,7 +214,16 @@ const en = {
 		points: 'Points',
 		total: 'Total',
 		by_faculty: 'Participants by faculty',
-		count: 'Count'
+		count: 'Count',
+		extras: {
+			title: "Extra points",
+			name: "Name",
+			faculty: "Faculty",
+			category: "Category",
+			activity: "Activity",
+			value: "Value",
+			points: "Points"
+		}
 	},
 	profile: {
 		submissions: 'Submissions',
