@@ -22,7 +22,6 @@
 
 	const removeFaculty = () => {
         if(!faculty) return;
-
 		facultyStore.remove(faculty).then((status) => {
 			deleteStatus = status;
 
@@ -42,9 +41,7 @@
 	};
 
 	const enhancer: SubmitFunction = () => {
-		return async ({ result, update }) => {
-			if (deleteStatus) return;
-
+		return async ({ result }) => {
 			if (result.type === 'success') {
 				facultyStore.updateOrCreate(result.data?.id);
 				toastStore.add({
@@ -59,7 +56,6 @@
 					message: faculty ? 'Nastala chyba při úpravě fakulty' : 'Nastala chyba při vytváření fakulty'
 				});
 			}
-			update();
 		};
 	};
 
@@ -117,7 +113,7 @@
 	{#if faculty}
 		<div class="buttons">
 			<Button type="submit">Upravit</Button>
-			<Button onclick={removeFaculty} class="danger">Odstranit</Button>
+			<Button type="button"  onclick={removeFaculty} class="danger">Odstranit</Button>
 		</div>
 	{:else}
 		<div class="buttons">
