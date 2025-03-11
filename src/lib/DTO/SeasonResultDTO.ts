@@ -35,7 +35,19 @@ export type SeasonResultWeek = {
     activities: Array<SeasonResultActivity>;
 };
 
-export type SeasonResultDTO = Array<SeasonResultWeek>;
+export type OutlierActivity = {
+	activityId: number;
+	results: Array<{
+		user: AnonymizedUser;
+		facultyId: number;
+		value: number;
+	}>
+}
+
+export type SeasonResultDTO = {
+    results: Array<SeasonResultWeek>;
+	outliers: Array<OutlierActivity>;
+}
 
 type SeasonResultCached = {
     totalDistance: number;
@@ -90,7 +102,7 @@ export class SeasonResult {
     // find all faculties that have any results
     let faculties: Array<number> = [];
 
-    for (const week of this.data) {
+    for (const week of this.data.results) {
       for (const activity of week.activities) {
         for (const result of activity.results) {
           if (!faculties.includes(result.faculty)) {
@@ -100,7 +112,7 @@ export class SeasonResult {
       }
     }
 
-    for (const week of this.data) {
+    for (const week of this.data.results) {
       for (const activity of week.activities) {
         // 1. create empty object
         let weekResultRow = {
@@ -162,7 +174,7 @@ export class SeasonResult {
     let totalDistance = 0;
     let extras = [];
 
-    for (const week of this.data) {
+    for (const week of this.data.results) {
       for (const activity of week.activities) {
         for (const result of activity.results) {
           totalDistance += result.distance;
