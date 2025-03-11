@@ -73,13 +73,23 @@ export const fetchSeasonResult = async (
 };
 
 export const createSeasonCache = async (season: SeasonDTO): Promise<boolean> => {
-	const response = await axios.get(`/cache/season/${season.id}`).catch(() => null);
+	const response = await axios.post(`/cache/season/${season.id}`).catch(() => null);
 
 	if (response === null) {
 		return false;
 	}
 
 	return response.status === 201;
+};
+
+export const getIsSeasonCached = async (season: SeasonDTO): Promise<boolean> => {
+	const response = await axios.get(`/cache/season/${season.id}`).catch(() => null);
+
+	if (response === null) {
+		return false;
+	}
+
+	return response.data;
 };
 
 export const fetchPastSeasons = async (): Promise<Array<FullSeasonDTO>> => {

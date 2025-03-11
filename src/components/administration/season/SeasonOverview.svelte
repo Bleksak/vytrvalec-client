@@ -5,7 +5,7 @@
   import type { SeasonStore } from '$lib/stores/SeasonStore.svelte';
   import { SeasonResult } from '$lib/DTO/SeasonResultDTO';
   import { getContext } from 'svelte';
-  import { createSeasonCache, fetchSeasonResult } from '$actions/Season';
+  import { createSeasonCache, fetchSeasonResult, getIsSeasonCached } from '$actions/Season';
   import LL from '$translations/i18n-svelte';
   import type { UserStore } from '$lib/stores/UserStore.svelte';
   import SubmissionScroller from './SubmissionScroller.svelte';
@@ -19,6 +19,7 @@
   const { season }: { season: SeasonDTO } = $props();
 
   let seasonResult = $state<SeasonResult>();
+  let isSeasonCached = $state<boolean>();
 
   const seasonStore = getContext<SeasonStore>(Store.SEASON_STORE);
   const charityStore = getContext<CharityStore>(Store.CHARITY_STORE);
@@ -57,9 +58,10 @@
   };
 
   $effect(() => {
-    Promise.all([fetchSeasonResult(season), userStore.promise(), fetchActivities()]).then(
-      ([result, users, activities]) => {
+    Promise.all([fetchSeasonResult(season), userStore.promise(), fetchActivities(), getIsSeasonCached(season)]).then(
+      ([result, users, activities, isCached]) => {
         seasonResult = new SeasonResult(result, users, activities);
+        isSeasonCached = isCached;
       }
     );
   });
@@ -86,8 +88,8 @@
           <p><strong>Začátek:&nbsp;</strong>{season.start.toLocaleDateString('cs')}</p>
           <p><strong>Konec:&nbsp;</strong>{season.end.toLocaleDateString('cs')}</p>
           <p><strong>Celková vzdálenost:&nbsp;</strong>{seasonResult?.getTotalDistance()} km</p>
-          {#if season.end <= new Date()}
-            <Button onclick={endSeason}>Uzavřít sezónu</Button>
+          {#if !isSeasonCached || !seasonCacheResult}
+             <Button onclick={endSeason}>Uzavřít sezónu</Button>
             {#if seasonCacheResult !== undefined}
               {#if seasonCacheResult}
                 <span class="note">Sezóna byla uzavřena</span>
