@@ -34,6 +34,7 @@
   const endSeason = () => {
     createSeasonCache(season).then((result: boolean) => {
       seasonCacheResult = result;
+      isSeasonCached = result !== undefined;
     });
   };
 
@@ -88,7 +89,7 @@
           <p><strong>Začátek:&nbsp;</strong>{season.start.toLocaleDateString('cs')}</p>
           <p><strong>Konec:&nbsp;</strong>{season.end.toLocaleDateString('cs')}</p>
           <p><strong>Celková vzdálenost:&nbsp;</strong>{seasonResult?.getTotalDistance()} km</p>
-          {#if !isSeasonCached || !seasonCacheResult}
+          {#if !isSeasonCached }
              <Button onclick={endSeason}>Uzavřít sezónu</Button>
             {#if seasonCacheResult !== undefined}
               {#if seasonCacheResult}
