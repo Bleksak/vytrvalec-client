@@ -30,6 +30,7 @@
 	let currentSeasonResultsArray = $derived(
 		currentSeasonResults?.getResultsForWeek(currentWeek) ?? []
 	);
+	let currentSeasonOutliers = $derived(currentSeasonResults?.data.outliers);
 	const isBefore2022 = $derived(currentSeason && currentSeason.end.getTime() < new Date(2022, 0, 1).getTime())
 
 	$effect(() => {
@@ -181,8 +182,40 @@
 		<!-- Nechci znova nápis loading -->
 		{:then stat} 
 			<div class="wrapper">
-				<section class="table">
-				<!-- TOP 3 -->
+				<section class="multi-tables">
+					<div class="title">
+						<h2>{$LL.results.top3()}</h2>
+					</div>
+					{#if currentSeasonOutliers}
+					{#if currentSeasonOutliers.length === 0}
+						<div class="title">
+							<h5>{$LL.results.no_top()}</h5>
+						</div>
+					{/if}
+						{#each currentSeasonOutliers as outlierActivity}
+						{@const activity = activities.find(a => a.id === outlierActivity.activityId)!}
+							<section class="table">
+								<div class="title">
+									<h5>{$LL.activities[activity.name as keyof typeof $LL.activities]()}</h5>
+								</div>
+								<div class="results-table">
+									<header class="row">
+										<span>{$LL.registration.first_name()}</span>
+										<span>{$LL.results.faculty()}</span>
+										<span class="right">{$LL.results.count()}</span>
+									</header>
+									{#each outlierActivity.results as outlier}
+										{@const faculty = faculties.find((faculty) => faculty.id === outlier.facultyId)}
+										<div class="row">
+											<span>{outlier.user.firstName} {outlier.user.lastName}</span>
+											<span>{faculty?.shortcut}</span>
+											<span class="right">{outlier.value/1000} km</span>
+										</div>
+									{/each}
+								</div>
+							</section>
+						{/each}
+					{/if}
 				</section>
 				<section class="table">
 					<div class="title">

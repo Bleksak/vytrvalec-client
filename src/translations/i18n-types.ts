@@ -641,6 +641,14 @@ type RootTranslation = {
 		 * P​o​č​e​t
 		 */
 		count: string
+		/**
+		 * T​O​P​ ​3​ ​ú​č​a​s​t​n​í​c​i
+		 */
+		top3: string
+		/**
+		 * Z​a​t​í​m​ ​ž​á​d​n​í
+		 */
+		no_top: string
 		extras: {
 			/**
 			 * E​x​t​r​a​ ​b​o​d​y
@@ -1540,6 +1548,14 @@ export type TranslationFunctions = {
 		 * Počet
 		 */
 		count: () => LocalizedString
+		/**
+		 * TOP 3 účastníci
+		 */
+		top3: () => LocalizedString
+		/**
+		 * Zatím žádní
+		 */
+		no_top: () => LocalizedString
 		extras: {
 			/**
 			 * Extra body

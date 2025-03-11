@@ -215,6 +215,8 @@ const cs = {
 		total: 'Celkem',
 		by_faculty: 'Účastníci podle fakult',
 		count: 'Počet',
+		top3: 'TOP 3 účastníci',
+		no_top: "Zatím žádní",
 		extras: {
 			title: "Extra body",
 			name: "Jméno",

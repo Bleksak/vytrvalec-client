@@ -215,6 +215,8 @@ const en = {
 		total: 'Total',
 		by_faculty: 'Participants by faculty',
 		count: 'Count',
+		top3: 'TOP 3 contestants',
+		no_top: "No top contestants yet",
 		extras: {
 			title: "Extra points",
 			name: "Name",
