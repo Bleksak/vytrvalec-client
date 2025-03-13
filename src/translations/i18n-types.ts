@@ -832,7 +832,7 @@ type RootTranslation = {
 				 */
 				title: string
 				/**
-				 * p​r​o​ ​j​e​d​n​o​t​l​i​v​c​e​ ​s​ ​n​e​j​v​ě​t​š​í​m​ ​p​ř​e​v​ý​š​e​n​í​m​ ​z​a​ ​c​e​l​ý​ ​t​ý​d​e​n​ ​v​ ​d​a​n​é​ ​d​i​s​c​i​p​l​í​n​ě​.​ ​C​h​ů​z​e​ ​v​í​c​e​ ​n​e​ž​ ​1​0​0​0​m​ ​a​ ​j​í​z​d​a​ ​v​í​c​e​ ​n​e​ž​ ​1​5​0​0​m​.
+				 * p​r​o​ ​j​e​d​n​o​t​l​i​v​c​e​ ​s​ ​n​e​j​v​ě​t​š​í​m​ ​p​ř​e​v​ý​š​e​n​í​m​ ​v​ ​j​e​d​n​é​ ​a​k​t​i​v​i​t​ě​ ​v​ ​d​a​n​é​ ​d​i​s​c​i​p​l​í​n​ě​.​ ​C​h​ů​z​e​ ​v​í​c​e​ ​n​e​ž​ ​1​0​0​0​m​ ​a​ ​j​í​z​d​a​ ​v​í​c​e​ ​n​e​ž​ ​1​5​0​0​m​.
 				 */
 				extraOne: string
 			}
@@ -1739,7 +1739,7 @@ export type TranslationFunctions = {
 				 */
 				title: () => LocalizedString
 				/**
-				 * pro jednotlivce s největším převýšením za celý týden v dané disciplíně. Chůze více než 1000m a jízda více než 1500m.
+				 * pro jednotlivce s největším převýšením v jedné aktivitě v dané disciplíně. Chůze více než 1000m a jízda více než 1500m.
 				 */
 				extraOne: () => LocalizedString
 			}

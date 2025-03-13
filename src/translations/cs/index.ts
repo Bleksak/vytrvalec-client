@@ -288,7 +288,7 @@ const cs = {
 			fourthWeek: {
 				title: 'Čtvrtý týden',
 				extraOne:
-					'pro jednotlivce s největším převýšením za celý týden v dané disciplíně. Chůze více než 1000m a jízda více než 1500m.'
+					'pro jednotlivce s největším převýšením v jedné aktivitě v dané disciplíně. Chůze více než 1000m a jízda více než 1500m.'
 			},
 			extraPoint: 'Extra bod',
 			extraPoints: 'Extra body'

@@ -285,7 +285,7 @@ const en = {
 			fourthWeek: {
 				title: 'Week Four',
 				extraOne:
-					'for the individual with the highest elevation gain for the entire week in a given discipline. Walking more than 1000m and riding more than 1500m.'
+					'for the individual with the highest elevation gain for one activity in a given discipline. Walking more than 1000m and riding more than 1500m.'
 			},
 			extraPoint: 'Extra point',
 			extraPoints: 'Extra points'
