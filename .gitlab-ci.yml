@@ -32,6 +32,7 @@ deploy test:
   script:
     - wget -O /usr/local/bin/kubectl https://storage.googleapis.com/kubernetes-release/release/$K8S_VERSION/bin/linux/amd64/kubectl
     - chmod +x /usr/local/bin/kubectl
+    - apk --update add gettext
     - cat kube/client.yaml | envsubst | tee kube/client.yaml
     - kubectl apply -f kube
     - kubectl rollout restart -n vytrvalec-kts deployment vytrvalec-nginx
