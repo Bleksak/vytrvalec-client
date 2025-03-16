@@ -23,6 +23,7 @@ build:
   stage: build
   variables:
     DOCKER_TLS_CERTDIR: "/certs"  # Disable TLS for DIND, allowing Docker commands to run in the CI job
+    DOCKER_HOST: "tcp://docker:2375"
   services:
     - name: docker:28.0.1-dind
       alias: docker
