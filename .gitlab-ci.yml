@@ -5,6 +5,7 @@ variables:
   APP: ${CI_REGISTRY_IMAGE}/app:${CI_COMMIT_SHORT_SHA}
   KUSTOMIZE: kustomization/kustomize.yaml
   SECURE_FILES_DOWNLOAD_PATH: '.'
+  DOCKER_HOST: tcp://docker:2376
 
 build application image:
   stage: build
@@ -21,8 +22,9 @@ build application image:
 build:
   image: docker:28.0.1-dind-alpine3.21
   stage: build
-  # services:
-  #   - docker:28.0.1-dind
+  services:
+    - name: docker:28.0.1-dind
+      alias: docker
   before_script:
     - apk --update add curl bash
     - curl --silent "https://gitlab.com/gitlab-org/incubation-engineering/mobile-devops/download-secure-files/-/raw/main/installer" | bash
