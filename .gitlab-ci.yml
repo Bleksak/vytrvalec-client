@@ -27,8 +27,8 @@ build:
     - apk --update add curl bash
     - curl --silent "https://gitlab.com/gitlab-org/incubation-engineering/mobile-devops/download-secure-files/-/raw/main/installer" | bash
   script:
-    - echo "$CI_REGISTRY_PASSWORD" | docker login $CI_REGISTRY -u $CI_REGISTRY_USER --password-stdin
     - unset DOCKER_HOST
+    - echo "$CI_REGISTRY_PASSWORD" | docker login $CI_REGISTRY -u $CI_REGISTRY_USER --password-stdin
     - docker build -t $CI_REGISTRY/group/project/image:latest .
     - docker push $CI_REGISTRY/group/project/image:latest
 
