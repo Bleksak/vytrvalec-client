@@ -21,8 +21,8 @@ build application image:
 build:
   image: docker:28.0.1-dind-alpine3.21
   stage: build
-  services:
-    - docker:28.0.1-dind
+  # services:
+  #   - docker:28.0.1-dind
   before_script:
     - apk --update add curl bash
     - curl --silent "https://gitlab.com/gitlab-org/incubation-engineering/mobile-devops/download-secure-files/-/raw/main/installer" | bash
