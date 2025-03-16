@@ -1,4 +1,4 @@
-# image: alpine:3.21.3
+image: alpine:3.21.3
 
 variables:
   K8S_VERSION: v1.22.5
@@ -10,16 +10,18 @@ stages:
   - build
   - deploy
 
-before_script:
-  - apk --update add curl bash gettext
-  - curl --silent "https://gitlab.com/gitlab-org/incubation-engineering/mobile-devops/download-secure-files/-/raw/main/installer" | bash
-
 build application image:
   stage: build
   image:
     name: gcr.io/kaniko-project/executor:debug
     entrypoint: [""]
+  services:
+    - name: alpine:3.21.3
+      alias: alpine
   before_script:
+    - apk --update add curl bash gettext
+    - curl --silent "https://gitlab.com/gitlab-org/incubation-engineering/mobile-devops/download-secure-files/-/raw/main/installer" | bash
+
   script:
     - mkdir -p /kaniko/.docker
     - echo "{\"auths\":{\"$CI_REGISTRY\":{\"username\":\"$CI_REGISTRY_USER\",\"password\":\"$CI_REGISTRY_PASSWORD\"}}}" > /kaniko/.docker/config.json
