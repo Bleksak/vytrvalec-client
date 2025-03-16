@@ -5,36 +5,20 @@ variables:
   APP: ${CI_REGISTRY_IMAGE}/app:${CI_COMMIT_SHORT_SHA}
   KUSTOMIZE: kustomization/kustomize.yaml
   SECURE_FILES_DOWNLOAD_PATH: '.'
+before_script:
+  - apk --update add curl bash gettext
+  - curl --silent "https://gitlab.com/gitlab-org/incubation-engineering/mobile-devops/download-secure-files/-/raw/main/installer" | bash
 
 build application image:
   stage: build
   image:
     name: gcr.io/kaniko-project/executor:debug
     entrypoint: [""]
-  when: manual
   before_script:
-    - curl --silent "https://gitlab.com/gitlab-org/incubation-engineering/mobile-devops/download-secure-files/-/raw/main/installer" | bash
   script:
     - mkdir -p /kaniko/.docker
     - echo "{\"auths\":{\"$CI_REGISTRY\":{\"username\":\"$CI_REGISTRY_USER\",\"password\":\"$CI_REGISTRY_PASSWORD\"}}}" > /kaniko/.docker/config.json
     - /kaniko/executor --context $CI_PROJECT_DIR --dockerfile Dockerfile --destination $APP --verbosity info
-build:
-  image: docker:28.0.1-dind-alpine3.21
-  stage: build
-  variables:
-    DOCKER_TLS_CERTDIR: "/certs"  # Disable TLS for DIND, allowing Docker commands to run in the CI job
-    DOCKER_HOST: "tcp://docker:2375"
-  services:
-    - name: docker:28.0.1-dind
-      alias: docker
-  before_script:
-    - apk --update add curl bash
-    - curl --silent "https://gitlab.com/gitlab-org/incubation-engineering/mobile-devops/download-secure-files/-/raw/main/installer" | bash
-    - docker info
-  script:
-    - echo "$CI_REGISTRY_PASSWORD" | docker login $CI_REGISTRY -u $CI_REGISTRY_USER --password-stdin
-    - docker build -t $CI_REGISTRY/group/project/image:latest .
-    - docker push $CI_REGISTRY/group/project/image:latest
 
 deploy test:
   stage: deploy
@@ -43,7 +27,6 @@ deploy test:
   script:
     - wget -O /usr/local/bin/kubectl https://storage.googleapis.com/kubernetes-release/release/$K8S_VERSION/bin/linux/amd64/kubectl
     - chmod +x /usr/local/bin/kubectl
-    - apk add gettext
     - cat kube/client.yaml | envsubst | tee kube/client.yaml
     - kubectl apply -f kube
     - kubectl rollout restart -n vytrvalec-kts deployment vytrvalec-nginx
