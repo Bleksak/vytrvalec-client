@@ -17,8 +17,10 @@ build application image:
     entrypoint: [""]
 
   before_script:
-    - apk --update add curl bash gettext
-    - curl --silent "https://gitlab.com/gitlab-org/incubation-engineering/mobile-devops/download-secure-files/-/raw/main/installer" | bash
+    - apk --update add bash gettext
+    - wget "https://gitlab.com/gitlab-org/incubation-engineering/mobile-devops/download-secure-files/-/raw/main/installer"
+    - chmod +x installer
+    - bash installer
 
   script:
     - mkdir -p /kaniko/.docker
