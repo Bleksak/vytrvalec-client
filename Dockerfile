@@ -22,7 +22,7 @@ RUN npm ci
 #         echo 'BODY_SIZE_LIMIT=15000000'; \
 #     } > .env
 
-RUN npm run --env-file .env build
+RUN npm run build
 
 EXPOSE 3000
 CMD [ "npm", "run", "prod" ]
