@@ -21,12 +21,15 @@ build application image:
 build:
   image: docker:28.0.1-dind-alpine3.21
   stage: build
+  variables:
+    DOCKER_TLS_CERTDIR: "/certs"  # Disable TLS for DIND, allowing Docker commands to run in the CI job
   services:
     - name: docker:28.0.1-dind
       alias: docker
   before_script:
     - apk --update add curl bash
     - curl --silent "https://gitlab.com/gitlab-org/incubation-engineering/mobile-devops/download-secure-files/-/raw/main/installer" | bash
+    - docker info
   script:
     - echo "$CI_REGISTRY_PASSWORD" | docker login $CI_REGISTRY -u $CI_REGISTRY_USER --password-stdin
     - docker build -t $CI_REGISTRY/group/project/image:latest .
