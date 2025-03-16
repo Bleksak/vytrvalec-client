@@ -88,6 +88,7 @@
 		box-shadow: 0px 0px 10px #dee2e6;
 		border-radius: 0 20px 0 0;
 		padding-top: 25px;
+		overflow-y: scroll;
 	}
 
 	nav > ul {
