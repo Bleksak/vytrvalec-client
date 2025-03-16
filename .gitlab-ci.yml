@@ -15,6 +15,7 @@ build application image:
   # comment this out on production
   when: manual
   before_script:
+    - apk add curl bash
     - curl --silent "https://gitlab.com/gitlab-org/incubation-engineering/mobile-devops/download-secure-files/-/raw/main/installer" | bash
   script:
     - mkdir -p /kaniko/.docker
