@@ -6,15 +6,10 @@
 	import FacultyEditor from '$components/administration/faculty/FacultyEditor.svelte';
 	import type { FacultyDTO } from '$lib/DTO/FacultyDTO';
 
-	let faculty = $state<FacultyDTO>();
-
 	const facultyStore = getContext<FacultyStore>(Store.FACULTY_STORE);
-
-	$effect(() => {
-		faculty = facultyStore.get(Number(page.params.id)) ?? undefined;
-	});
+	const faculty = $derived(facultyStore.get(Number(page.params.id)) ?? undefined);
 </script>
 
 <div>
-	<FacultyEditor bind:faculty />
+	<FacultyEditor {faculty} />
 </div>
