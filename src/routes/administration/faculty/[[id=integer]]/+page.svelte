@@ -4,7 +4,6 @@
 	import { getContext } from 'svelte';
 	import type { FacultyStore } from '$lib/stores/FacultyStore.svelte';
 	import FacultyEditor from '$components/administration/faculty/FacultyEditor.svelte';
-	import type { FacultyDTO } from '$lib/DTO/FacultyDTO';
 
 	const facultyStore = getContext<FacultyStore>(Store.FACULTY_STORE);
 	const faculty = $derived(facultyStore.get(Number(page.params.id)) ?? undefined);
