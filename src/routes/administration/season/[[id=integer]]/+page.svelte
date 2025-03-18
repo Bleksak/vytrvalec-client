@@ -7,13 +7,9 @@
 	import type { SeasonStore } from '$lib/stores/SeasonStore.svelte';
 	import { getContext } from 'svelte';
 
-	let season = $state<SeasonDTO>();
-
 	const seasonStore = getContext<SeasonStore>(Store.SEASON_STORE);
 
-	$effect(() => {
-		season = seasonStore.get(Number($page.params.id)) ?? undefined;
-	});
+	let season = $derived(seasonStore.get(Number($page.params.id)) ?? undefined);
 </script>
 
 <div>

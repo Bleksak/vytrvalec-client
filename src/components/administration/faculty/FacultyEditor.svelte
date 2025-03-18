@@ -15,10 +15,21 @@
 	const { faculty }: { faculty?: FacultyDTO } = $props();
 	const facultyStore = getContext<FacultyStore>(Store.FACULTY_STORE);
 	const toastStore = getContext<ToastStore>(Store.TOAST_STORE);
-	let currentFaculty = $state<FacultyDTO>(
-		//@ts-ignore
-		faculty || { name: '', shortcut: '', visible: false, parent: null }
-	);
+
+	const initFaculty = (faculty: FacultyDTO | undefined): FacultyDTO => {
+		return faculty
+			? {
+					...faculty
+				}
+			: { id: 0, name: '', shortcut: '', visible: false, parent: null };
+	};
+
+	let currentFaculty = $state<FacultyDTO>(initFaculty(faculty));
+
+	$effect(() => {
+		currentFaculty = initFaculty(faculty);
+	});
+
 	let deleteStatus = $state<boolean>();
 	let errors = $state<FacultyError>();
 
@@ -63,10 +74,10 @@
 		};
 	};
 
-	$effect(() => {
-		//@ts-ignore
-		currentFaculty = faculty || { name: '', shortcut: '', visible: true, parent: null };
-	});
+	// $effect(() => {
+	// 	//@ts-ignore
+	// 	currentFaculty = faculty || { name: '', shortcut: '', visible: true, parent: null };
+	// });
 </script>
 
 <form

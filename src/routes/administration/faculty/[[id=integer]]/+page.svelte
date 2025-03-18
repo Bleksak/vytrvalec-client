@@ -6,7 +6,8 @@
 	import FacultyEditor from '$components/administration/faculty/FacultyEditor.svelte';
 
 	const facultyStore = getContext<FacultyStore>(Store.FACULTY_STORE);
-	const faculty = $derived(facultyStore.get(Number(page.params.id)) ?? undefined);
+	let faculty = $derived(facultyStore.get(Number(page.params.id)) ?? undefined);
+	$inspect(faculty);
 </script>
 
 <div>
