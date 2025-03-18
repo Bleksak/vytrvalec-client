@@ -3,13 +3,13 @@
 	import Button from './Button.svelte';
 	import { browser } from '$app/environment';
 
-    // taken from: https://www.w3schools.com/js/js_cookies.asp
+	// taken from: https://www.w3schools.com/js/js_cookies.asp
 	const setCookie = (cname: string, cvalue: any, exdays: number): void => {
 		const d = new Date();
 		d.setTime(d.getTime() + exdays * 24 * 60 * 60 * 1000);
 		let expires = 'expires=' + d.toUTCString();
 		document.cookie = cname + '=' + cvalue + ';' + expires + ';path=/';
-	}
+	};
 
 	const getCookie = (cname: string): string => {
 		let name = cname + '=';
@@ -25,21 +25,23 @@
 			}
 		}
 		return '';
-	}
+	};
 
-    let cookiesAccepted = $state(browser ? getCookie('cookiesAccepted') === 'true' : true);
+	let cookiesAccepted = $state(browser ? getCookie('cookiesAccepted') === 'true' : true);
 
-    const acceptCookies = () => {
-        setCookie('cookiesAccepted', 'true', 365);
-        cookiesAccepted = true;
-    };
+	const acceptCookies = () => {
+		setCookie('cookiesAccepted', 'true', 365);
+		cookiesAccepted = true;
+	};
 </script>
 
-<div class="container" class:hidden={cookiesAccepted}>
-	<h4>{$LL.cookies.title()}</h4>
-	<p>{$LL.cookies.description()}</p>
-	<Button onclick={acceptCookies} class="rounded">{$LL.cookies.accept()}</Button>
-</div>
+{#if !cookiesAccepted}
+	<div class="container">
+		<h4>{$LL.cookies.title()}</h4>
+		<p>{$LL.cookies.description()}</p>
+		<Button onclick={acceptCookies} class="rounded">{$LL.cookies.accept()}</Button>
+	</div>
+{/if}
 
 <style>
 	.container {
@@ -66,9 +68,5 @@
 
 	h4 {
 		color: #000;
-	}
-
-	.hidden {
-		display: none;
 	}
 </style>
