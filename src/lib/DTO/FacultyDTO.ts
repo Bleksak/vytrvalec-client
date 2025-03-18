@@ -4,7 +4,7 @@ export type FacultyDTO = {
     id: number;
     name: string;
     shortcut: string;
-    visible: string;
+    visible: boolean;
     parent: number | null;
 };
 
@@ -18,41 +18,35 @@ export type FacultyError = ResponseErrorMap<FacultyDTO> & {
     auth?: Array<ResponseError>;
 };
 
-export type FacultyCreateReturn =
-    | {
-            type: 'dto';
-            data: FacultyCreateDTO;
-      }
-    | {
-            type: 'error';
-            errors: FacultyError;
-    };  
+export type FacultyCreateReturn = {
+    type: 'dto';
+    data: FacultyCreateDTO;
+} | {
+    type: 'error';
+    errors: FacultyError;
+};  
 
-export type FacultyCreateResponse =
-    | {
-        type: 'success';
-        data: FacultyDTO
-    }
-    | {
-        type: 'error';
-        errors: FacultyError;
-    };
+export type FacultyCreateResponse = {
+    type: 'success';
+    data: FacultyDTO
+} | {
+    type: 'error';
+    errors: FacultyError;
+};
 
 
-export type FacultyEditResponse =
-    | {
-            type: 'success';
-      }
-    | {
-            type: 'error';
-            errors: FacultyError;
-    };
+export type FacultyEditResponse = {
+    type: 'success';
+} | {
+    type: 'error';
+    errors: FacultyError;
+};
       
 
 export const createFacultyDTO = (formData: FormData): FacultyCreateReturn => {
     const name = formData.get('name') as string;
     const shortcut = formData.get('shortcut') as string;
-    const visible = formData.get('visible')?.toString();
+    const visible = formData.get('visible');
     const parent = formData.get('parent');
 
     let errors: FacultyError = {}
@@ -74,7 +68,7 @@ export const createFacultyDTO = (formData: FormData): FacultyCreateReturn => {
         data: {
             name,
             shortcut,
-            visible: visible!,
+            visible: Boolean(Number(visible)),
             parent: parent ? Number(parent) : null
         }
     };
