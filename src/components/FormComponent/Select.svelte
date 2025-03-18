@@ -56,6 +56,14 @@
 			open = !open;
 		}
 	}
+
+	$effect(() => {
+		const idx = values.indexOf(currentValue);
+		if (idx !== -1) {
+			currentKey = keys[idx];
+		}
+	});
+
 </script>
 
 <input type="hidden" {id} {name} bind:value={currentValue} />

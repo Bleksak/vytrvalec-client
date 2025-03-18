@@ -98,7 +98,7 @@
 			id="parent"
 			keys={keys}
 			values={values}
-			
+			bind:currentValue={currentFaculty.parent}
 		/>
 	{:catch}
 		<span class="note">Nepodařilo se načíst fakulty</span>
