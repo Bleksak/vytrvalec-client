@@ -46,7 +46,7 @@ const createFacultyStore = (): FacultyStore => {
     const remove = async (faculty: FacultyDTO): Promise<boolean> => {
         const result = await deleteFaculty(faculty.id);
 
-        if (result) {
+        if (result.type !== "error") {
             faculties = faculties.filter((f) => f.id !== faculty.id);
         }
 
