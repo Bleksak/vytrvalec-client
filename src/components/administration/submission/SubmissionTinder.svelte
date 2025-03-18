@@ -94,6 +94,7 @@
 						{currentSubmission?.user.lastName}
 					</p>
 					<p><strong>Aktivita:&nbsp;</strong>{currentSubmission?.activity.name}</p>
+					<p><strong>Nahráno:&nbsp;</strong>{new Date(currentSubmission?.updatedAt).toLocaleString()}</p>
 				</div>
 				<div class="info-column">
 					<p><strong>Vzdálenost:&nbsp;</strong>{(currentSubmission?.distance ?? 0) / 1000} km</p>
@@ -137,7 +138,7 @@
 		display: flex;
 		flex-direction: column;
 		justify-content: center;
-		align-items: center;
+		align-items: center; 
 		margin: 0 auto;
 	}
 
