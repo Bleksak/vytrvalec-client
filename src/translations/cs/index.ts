@@ -171,7 +171,7 @@ const cs = {
 	extraPoints: {
 		weekly_distance: 'Vzdálenost za 1 týden',
 		daily_distance: 'Vzdálenost za 1 den',
-		weekly_elevation: 'Převýšení za týden'
+		weekly_elevation: 'Převýšení za aktivitu'
 	},
 
 	account: {

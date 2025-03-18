@@ -494,7 +494,7 @@ type RootTranslation = {
 		 */
 		daily_distance: string
 		/**
-		 * P​ř​e​v​ý​š​e​n​í​ ​z​a​ ​t​ý​d​e​n
+		 * P​ř​e​v​ý​š​e​n​í​ ​z​a​ ​a​k​t​i​v​i​t​u
 		 */
 		weekly_elevation: string
 	}
@@ -1401,7 +1401,7 @@ export type TranslationFunctions = {
 		 */
 		daily_distance: () => LocalizedString
 		/**
-		 * Převýšení za týden
+		 * Převýšení za aktivitu
 		 */
 		weekly_elevation: () => LocalizedString
 	}
