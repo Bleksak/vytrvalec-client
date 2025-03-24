@@ -12,6 +12,8 @@
 	import Store from '$lib/enums/Stores';
 	import GdprForm from '$components/forms/GdprForm.svelte';
 	import Cookies from '$components/Cookies.svelte';
+	import { getCookie } from '$utils/cookies';
+	
 	let { children } = $props();
 	const lang = (page.params.lang as Locales) ?? 'cs';
 	const dialogStore = getContext<DialogStore>(Store.DIALOG_STORE);
@@ -23,14 +25,6 @@
 	loadAllLocales();
 	setLocale(lang);
 
-	const getCookie = (name: string) => {
-        const cookies = document.cookie.split("; ");
-        for (const cookie of cookies) {
-            const [key, value] = cookie.split("=");
-            if (key === name) return value;
-        }
-        return null;
-    }
 
 	onMount(() => {
 		if(!getCookie("gdprPopupShown") && showGdprPopup) {
