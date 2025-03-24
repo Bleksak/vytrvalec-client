@@ -5,15 +5,14 @@
 	import LL from '$translations/i18n-svelte';
 	import type { SubmitFunction } from '@sveltejs/kit';
 	import { getContext } from 'svelte';
-	import { goto } from '$app/navigation';
 	import type { ResetError } from '$lib/DTO/ResetPasswordDTO';
-	import { page } from '$app/stores';
+	import { page } from '$app/state';
 	import Store from '$lib/enums/Stores';
 	import { PasswordEstimator } from '$lib/PasswordEstimator';
 	import PasswordProgress from '$components/FormComponent/PasswordProgress.svelte';
 
 	const toastStore = getContext<ToastStore>(Store.TOAST_STORE);
-	const resetPasswordToken = $page.url.pathname.split('/reset-password/')[1];
+	const resetPasswordToken = page.url.pathname.split('/reset-password/')[1];
 
 	let errors = $state<ResetError>();
 	let strength = $state<number>(0);

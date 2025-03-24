@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { page } from '$app/stores';
+	import { page } from '$app/state';
 	import type { UserResponse } from '$lib/DTO/UserResponse';
 	import FacultyTag from '$components/profile/FacultyTag.svelte';
 	import SubmissionCard from '$components/profile/SubmissionCard.svelte';
@@ -11,7 +11,7 @@
 	import type { ProfileSubmissionResponseDTO } from '$lib/DTO/SubmissionDTO';
 	import { setGlobalContext } from '$lib/stores/GlobalContext.svelte';
 
-	const currentUser: UserResponse = $page.data.user;
+	const currentUser: UserResponse = page.data.user;
 
 	const activitiesPromise = fetchActivities();
 	const userStatisticsPromise = fetchUserStatistics(activitiesPromise);
@@ -41,7 +41,7 @@
 				</h4>
 				<FacultyTag facultyShortcut={currentUser.faculty.shortcut} />
 			</div>
-			<a class="settings" href="/{$page.data.lang}/account">
+			<a class="settings" href="/{page.data.lang}/account">
 				<img class="icon" src="/images/icons/settings.svg" alt="Nastavení" title="Nastavení" />
 			</a>
 		</header>

@@ -4,7 +4,7 @@
 	import RegistrationForm from './forms/RegistrationForm.svelte';
 	import LoginForm from './forms/LoginForm.svelte';
 	import LL from '../translations/i18n-svelte';
-	import { page } from '$app/stores';
+	import { page } from '$app/state';
 	import { enhance } from '$app/forms';
 	import SubmissionForm from './forms/SubmissionForm.svelte';
 	import { getAllContexts, getContext } from 'svelte';
@@ -31,7 +31,7 @@
 		/>
 	</button>
 </li>
-{#if $page.data.user && $page.data.user.roles.includes('ROLE_STAFF')}
+{#if page.data.user && page.data.user.roles.includes('ROLE_STAFF')}
 	<li>
 		<a href="/administration">
 			{$LL.navbar.administration()}
@@ -48,7 +48,7 @@
 		{$LL.navbar.results()}
 	</a>
 </li>
-{#if !$page.data.user}
+{#if !page.data.user}
 	<li>
 		<Button class="nav-button" onclick={() => dialogStore.open(LoginForm, {}, context)}>
 			{$LL.navbar.login()}
@@ -68,7 +68,7 @@
 			{$LL.navbar.profile()}
 		</a>
 	</li>
-	{#if $page.data.currentSeason}
+	{#if page.data.currentSeason}
 		<li>
 			<Button class="nav-button" onclick={() => dialogStore.open(SubmissionForm, {}, context)}>
 				{$LL.navbar.submission()}

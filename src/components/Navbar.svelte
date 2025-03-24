@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { afterNavigate } from '$app/navigation';
-	import { page } from '$app/stores';
+	import { page } from '$app/state';
 	import Accordion from '$components/Accordion.svelte';
 	import NavbarInner from '$components/NavbarInner.svelte';
 
@@ -30,7 +30,7 @@
 <nav>
 	<div class="navigation-wrapper">
 		<div class="navigation">
-			<a href="/{$page.data.lang}">
+			<a href="/{page.data.lang}">
 				<img src="/images/zcu-logo.png" title="Logo ZČU" alt="Logo ZČU" />
 			</a>
 

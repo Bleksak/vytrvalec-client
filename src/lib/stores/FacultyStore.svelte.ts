@@ -4,7 +4,7 @@ import type { FacultyDTO } from "$lib/DTO/FacultyDTO";
 export type FacultyStore = {
     all: () => FacultyDTO[];
     get: (id: number) => FacultyDTO | null;
-    updateOrCreate: (facultyId: number) => void;
+    updateOrCreate: (faculty: FacultyDTO) => void;
     remove: (faculty: FacultyDTO) => Promise<boolean>;
     promise: () => Promise<FacultyDTO[]>;
 }
@@ -29,12 +29,8 @@ const createFacultyStore = (): FacultyStore => {
         return faculties.find((faculty: FacultyDTO) => faculty.id === id) ?? null;
     }
 
-    const updateOrCreate = async (facultyId: number) => {
-        facultiesPromise = fetchFaculties();
-        faculties = await facultiesPromise;
-
-        let index = faculties.findIndex((f) => f.id === facultyId);
-        const faculty = faculties.find((f) => f.id === facultyId)!;
+    const updateOrCreate = async (faculty: FacultyDTO) => {
+        let index = faculties.findIndex((f) => f.id === faculty.id);
 
         if (index !== -1) {
             faculties[index] = faculty;

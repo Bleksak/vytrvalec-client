@@ -56,7 +56,7 @@
 	const enhancer: SubmitFunction = () => {
 		return async ({ result }) => {
 			if (result.type === 'success') {
-				facultyStore.updateOrCreate(result.data?.id ?? currentFaculty.id);
+				facultyStore.updateOrCreate({...currentFaculty, id: result.data?.id ?? currentFaculty.id});
 				toastStore.add({
 					type: 'success',
 					message: faculty ? 'Fakulta byla úspěšně upravena' : 'Fakulta byla úspěšně vytvořena'
@@ -74,10 +74,6 @@
 		};
 	};
 
-	// $effect(() => {
-	// 	//@ts-ignore
-	// 	currentFaculty = faculty || { name: '', shortcut: '', visible: true, parent: null };
-	// });
 </script>
 
 <form

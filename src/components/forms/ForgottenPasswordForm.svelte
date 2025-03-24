@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { enhance } from '$app/forms';
-	import { page } from '$app/stores';
+	import { page } from '$app/state';
 	import Button from '$components/Button.svelte';
 	import Dialog from '$components/Dialog.svelte';
 	import type { ForgottenPasswordError } from '$lib/DTO/ForgottenPasswordDTO';
@@ -51,7 +51,7 @@
 				</span>
 			{/if}
 		</div>
-		<input type="hidden" name="lang" value={$page.data.lang} />
+		<input type="hidden" name="lang" value={page.data.lang} />
 		<span>{$LL.login.forgotten.description()}</span>
 
 		<div class="form-field">

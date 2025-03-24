@@ -32,7 +32,7 @@
 	const dialogStore = getContext<DialogStore>(Store.DIALOG_STORE);
 
 	const openGdprDialog = () =>
-		dialogStore.open(GdprForm, { gdpr: currentUser.acceptedGdpr }, context);
+		dialogStore.open(GdprForm, { gdpr: currentUser.acceptedGdpr ? currentUser.acceptedGdpr : undefined }, context);
 
 	const enhancer: SubmitFunction = () => {
 		return async ({ result }) => {

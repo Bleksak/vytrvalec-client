@@ -1,11 +1,11 @@
-import type { ComponentProps, Component } from 'svelte';
+import type { ComponentProps, Component, MountOptions } from 'svelte';
 import { hydrate, mount, unmount } from 'svelte';
 
 export type DialogStore = {
-	open: <T extends Component>(
-		component: Component<T>,
-		props?: ComponentProps<T>,
-		context?: Map<string, any>
+	open: <Props extends Record<string, any>>(
+		component: Component<Props>,
+		props: {} extends Props ? Partial<Props> : Props,
+		context: Map<any, any>
 	) => void;
 	close: () => void;
 };
@@ -13,22 +13,23 @@ export type DialogStore = {
 const createDialogStore = (): DialogStore => {
 	let currentDialog: Record<string, any> | undefined = undefined;
 
-	const open = <T extends Component>(
-		component: Component<T>,
-		props: Record<string, any> = {},
-		context: Map<string, any> = new Map()
+	const open = <Props extends Record<string, any>>(
+		component: Component<Props>,
+		props: {} extends Props ? Partial<Props> : Props,
+		context: Map<any, any> = new Map()
 	) => {
 		if (currentDialog) {
 			unmount(currentDialog);
 		}
 
-		currentDialog = mount(component, {
-			props,
-			target: document.body,
-			context
-		});
-	}
+		const options: MountOptions<Props> = {
+			props: props as Props,
+			target: document.body as Document | Element | ShadowRoot,
+			context,
+		};
 
+		currentDialog = mount(component, options);
+	};
 
 	const close = () => {
 		if (currentDialog) {

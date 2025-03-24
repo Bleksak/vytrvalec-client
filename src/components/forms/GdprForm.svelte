@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { goto, invalidate, invalidateAll } from '$app/navigation';
+	import { invalidateAll } from '$app/navigation';
 	import Button from '$components/Button.svelte';
 	import Dialog from '$components/Dialog.svelte';
 	import { enhance } from '$app/forms';
@@ -8,8 +8,6 @@
 	import type { HTMLDialogAttributes } from 'svelte/elements';
 	import Checkbox from '$components/FormComponent/Checkbox.svelte';
 	import type { ConsentError } from '$lib/DTO/ConsentChangeDTO';
-	import { onMount } from 'svelte';
-	import { page } from '$app/stores';
 
 	let {
 		gdpr,

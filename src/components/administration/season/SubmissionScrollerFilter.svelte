@@ -8,9 +8,7 @@
 	import Button from '$components/Button.svelte';
 	import type { SubmissionState } from '$lib/enums/SubmissionState';
 	import Select from '$components/FormComponent/Select.svelte';
-	import type { SeasonDTO } from '$lib/DTO/SeasonDTO';
-	import type { SubmissionDTO } from '$lib/DTO/SubmissionDTO';
-	import { page } from '$app/stores';
+	import { page } from '$app/state';
 	import { invalidateAll } from '$app/navigation';
 
 	const facultyStore = getContext<FacultyStore>(Store.FACULTY_STORE);
@@ -22,7 +20,7 @@
 	let selectFaculty = $state<Select>();
 	let selectWeek = $state<Select>();
 
-    let filter = $derived($page.data.filter);
+    let filter = $derived(page.data.filter);
 
 	let email = $state<string>();
 	let date = $state<Date>();
@@ -48,7 +46,7 @@
 
 </script>
 
-<form action={$page.url.toString()} method="GET" onsubmit={invalidateAll}>
+<form action={page.url.toString()} method="GET" onsubmit={invalidateAll}>
 	<div class="col">
 		<label for="email">Uživatel (e-mail):</label>
 		<div class="field">
