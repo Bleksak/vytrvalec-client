@@ -9,7 +9,7 @@
 	import type { SubmitFunction } from '@sveltejs/kit';
 	import { getContext } from 'svelte';
 
-	const { charity = $bindable() } : { charity: CharityDTO } = $props();
+	const { charity = $bindable() }: { charity: CharityDTO } = $props();
 	const charityStore = getContext<CharityStore>(Store.CHARITY_STORE);
 	const toastStore = getContext<ToastStore>(Store.TOAST_STORE);
 
@@ -18,7 +18,6 @@
 	let deleteStatus = $state<boolean>();
 
 	let errors = $state<CharityError>();
-
 
 	const deleteCharity = () => {
 		charityStore.remove(charity).then((status) => {
@@ -34,7 +33,7 @@
 				toastStore.add({
 					type: 'error',
 					message: 'Nastala chyba při odstranění charity'
-				})
+				});
 			}
 		});
 	};
@@ -48,7 +47,7 @@
 					message: 'Charita byla úspěšne upravena'
 				});
 				errors = undefined;
-			} else if(result.type === 'failure'){
+			} else if (result.type === 'failure') {
 				errors = result?.data?.charity as CharityError;
 				toastStore.add({
 					type: 'error',
@@ -63,22 +62,17 @@
 	});
 </script>
 
-
 <form action="/administration/charity/{charity?.id}?/update" method="post" use:enhance={enhancer}>
 	<label for="name">Název charity:</label>
 	<input type="text" name="name" id="name" bind:value={currentCharity.name} />
 	{#if errors?.name}
-		<span class="error">
-			Název charity nesmí být prázdný
-		</span>
+		<span class="error"> Název charity nesmí být prázdný </span>
 	{/if}
 
 	<label for="description">Popisek:</label>
-	<textarea name="description" id="description" bind:value={currentCharity.description} />
+	<textarea name="description" id="description" bind:value={currentCharity.description}></textarea>
 	{#if errors?.description}
-		<span class="error">
-			Popis charity nesmí být prázdný
-		</span>
+		<span class="error"> Popis charity nesmí být prázdný </span>
 	{/if}
 
 	<div class="buttons">
@@ -90,7 +84,6 @@
 		<span class="note">Charitu nelze odstranit, jelikož je k ní navázaná sezóna.</span>
 	{/if}
 </form>
-
 
 <style>
 	form {
