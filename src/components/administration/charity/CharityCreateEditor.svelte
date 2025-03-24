@@ -23,7 +23,7 @@
 		return async ({ result, update }) => {
 			if (result.type === 'success') {
 				charity.id = result.data?.id!;
-				charityStore.updateOrCreate(charity);
+				charityStore.updateOrCreate(charity.id);
 				toastStore.add({
 					type: 'success',
 					message: 'Charita vytvořena'

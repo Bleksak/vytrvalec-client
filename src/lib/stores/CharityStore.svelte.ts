@@ -4,7 +4,7 @@ import type { CharityDTO } from '$lib/DTO/CharityDTO';
 export type CharityStore = {
 	get: (id: number) => CharityDTO | null;
 	all: () => Array<CharityDTO>;
-	updateOrCreate: (charity: CharityDTO) => void;
+	updateOrCreate: (charityId: number) => void;
 	promise: () => Promise<Array<CharityDTO>>;
 	remove: (charity: CharityDTO) => Promise<boolean>;
 };
@@ -30,8 +30,12 @@ export const createCharityStore = (): CharityStore => {
 		return charities;
 	};
 
-	const updateOrCreate = (charity: CharityDTO) => {
+	const updateOrCreate = async (charityId: number) => {
+		charitiesPromise = fetchCharities();
+		charities = await charitiesPromise;
+
 		let index = charities.findIndex((c) => c.id === charity.id);
+        const charity = charities.find((c) => c.id === charityId)!;
 
 		if (index !== -1) {
 			charities[index] = charity;
