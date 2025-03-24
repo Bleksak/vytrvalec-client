@@ -4,7 +4,7 @@
 	let {
 		id,
 		name,
-		checked = false,
+		checked = $bindable(false),
 		disabled = undefined,
 		children
 	}: {
