@@ -549,6 +549,14 @@ type RootTranslation = {
 				 * E​-​m​a​i​l​ ​n​e​s​m​í​ ​b​ý​t​ ​p​r​á​z​d​n​ý
 				 */
 				blank: string
+				/**
+				 * E​-​m​a​i​l​ ​j​e​ ​n​e​p​l​a​t​n​ý
+				 */
+				invalid: string
+				/**
+				 * N​e​n​í​ ​c​o​ ​u​p​r​a​v​i​t
+				 */
+				no_update: string
 			}
 			password: {
 				/**
@@ -911,6 +919,10 @@ type RootTranslation = {
 		 * Š​U​Z​ ​N​e​č​t​i​n​y
 		 */
 		SUZN: string
+		/**
+		 * Ú​s​t​a​v​ ​t​ě​l​e​s​n​é​ ​v​ý​c​h​o​v​y​ ​a​ ​s​p​o​r​t​u
+		 */
+		UTS: string
 	}
 	server: {
 		/**
@@ -1456,6 +1468,14 @@ export type TranslationFunctions = {
 				 * E-mail nesmí být prázdný
 				 */
 				blank: () => LocalizedString
+				/**
+				 * E-mail je neplatný
+				 */
+				invalid: () => LocalizedString
+				/**
+				 * Není co upravit
+				 */
+				no_update: () => LocalizedString
 			}
 			password: {
 				/**
@@ -1818,6 +1838,10 @@ export type TranslationFunctions = {
 		 * ŠUZ Nečtiny
 		 */
 		SUZN: () => LocalizedString
+		/**
+		 * Ústav tělesné výchovy a sportu
+		 */
+		UTS: () => LocalizedString
 	}
 	server: {
 		/**

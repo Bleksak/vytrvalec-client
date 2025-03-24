@@ -188,7 +188,9 @@ const cs = {
 		success: 'Údaje byly úspěšně změněny',
 		errors: {
 			email: {
-				blank: 'E-mail nesmí být prázdný'
+				blank: 'E-mail nesmí být prázdný',
+				invalid: 'E-mail je neplatný',
+				no_update: 'Není co upravit',
 			},
 			password: {
 				blank: 'Heslo nesmí být prázdné',
@@ -310,7 +312,8 @@ const cs = {
 		UJP: 'Ústav jazykové přípravy',
 		KNIHOVNA: 'Knihovna',
 		CIV: 'Centrum informatizace a výpočetní techniky',
-		SUZN: 'ŠUZ Nečtiny'
+		SUZN: 'ŠUZ Nečtiny',
+		'UTS': 'Ústav tělesné výchovy a sportu'
 	},
 	server: {
 		server_down: 'Server není dostupný, opakujte akci později.'

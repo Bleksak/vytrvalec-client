@@ -14,7 +14,7 @@ const en = {
 		description2: "Providing consent is voluntary. If you do not grant consent, your name will not be displayed, and only the faculty name will be shown. In this case, leave the corresponding field empty and confirm by saving.",
 		description3: "You can change your consent at any time in your profile settings.",
 		submit: "Submit"
-	}, 
+	},
 
 	navbar: {
 		rules: 'Rules',
@@ -51,7 +51,7 @@ const en = {
 		email: 'E-mail',
 		password: 'Password',
 		password_repeat: 'Password repeat',
-		password_strength_label: ["Very weak", "Weak", "Sufficient", "Medium", "Strong", "Very strong"],	
+		password_strength_label: ["Very weak", "Weak", "Sufficient", "Medium", "Strong", "Very strong"],
 		first_name: 'First name',
 		last_name: 'Last name',
 		faculty: 'Faculty',
@@ -61,7 +61,7 @@ const en = {
 			email: {
 				blank: 'Email address cannot be empty.',
 				not_unique: 'This email address is already registered.',
-				invalid: 'Invalid email address.'
+				invalid: 'Invalid email address.',
 			},
 			password: {
 				blank: 'Password cannot be empty.',
@@ -188,7 +188,9 @@ const en = {
 		success: 'Account details were successfully updated',
 		errors: {
 			email: {
-				blank: 'E-mail cannot be empty'
+				blank: 'E-mail cannot be empty',
+				invalid: 'E-mail is invalid',
+				no_update: 'There is nothing to update',
 			},
 			password: {
 				blank: 'Password cannot be empty',
@@ -307,7 +309,8 @@ const en = {
 		UJP: 'Institute of Applied Language Studies',
 		KNIHOVNA: 'Library',
 		CIV: 'Information Technology Centre',
-		SUZN: 'ŠUZ Nečtiny'
+		SUZN: 'ŠUZ Nečtiny',
+		'UTS': 'Department of physical education and sport'
 	},
 	server: {
 		server_down: 'Service unavailable, please try again later.'
