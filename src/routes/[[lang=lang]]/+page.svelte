@@ -53,7 +53,7 @@
 		</div>
 
 		<div class="container">
-			<h2>{$LL.homepage.about.title().toUpperCase()}</h2>
+			<h1>{$LL.homepage.about.title().toUpperCase()}</h1>
 			<section class="content">
 				<p>
 					{$LL.homepage.about.content()}
@@ -93,6 +93,11 @@
 	@media (max-width: 1000px) {
 		.main {
 			flex-direction: column;
+			padding: 30px;
+		}
+		
+		h1 {
+			font-size: 2rem;
 		}
 	}
 	
