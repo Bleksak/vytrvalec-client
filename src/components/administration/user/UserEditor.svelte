@@ -14,15 +14,15 @@
 	import type { ToastStore } from '$lib/stores/ToastStore.svelte';
 	import type { UserError } from '$lib/DTO/UserEditDTO';
 	import Store from '$lib/enums/Stores';
+	import type { FacultyStore } from '$lib/stores/FacultyStore.svelte';
 
 	const { user, ...props }: { user: UserResponse } & HTMLDialogAttributes = $props();
 	let dialog = $state<Dialog>();
-	let facultiesPromise = fetchFaculties();
 
-	let editedUser = { ...user };
+	let editedUser = $state({ ...user });
 
+	const facultyStore = getContext<FacultyStore>(Store.FACULTY_STORE);
 	const userStore = getContext<UserStore>(Store.USER_STORE);
-
 	const toastStore = getContext<ToastStore>(Store.TOAST_STORE);
 
 	let adminChecked = $state<boolean>(editedUser.roles.includes('ROLE_STAFF'));
@@ -35,17 +35,15 @@
 				dialog?.close();
 
 				editedUser.roles = adminChecked ? ['ROLE_USER', 'ROLE_STAFF'] : ['ROLE_USER'];
-				facultiesPromise.then((faculties) => {
-					editedUser.faculty = faculties.find((f) => f.id == faculty) ?? faculties[0];
-					userStore.update(editedUser);
-				});
+				editedUser.faculty = facultyStore.get(faculty)!;
+				userStore.update(editedUser);
 
 				toastStore.add({
 					type: 'success',
 					message: 'Uživatel byl úspěšně upraven'
 				});
 				errors = undefined;
-			} else if(result.type === 'failure') {
+			} else if (result.type === 'failure') {
 				errors = result?.data?.errors as UserError;
 				toastStore.add({
 					type: 'error',
@@ -66,7 +64,9 @@
 		<input bind:value={editedUser.firstName} type="text" name="first_name" id="first_name" />
 		{#each errors?.first_name ?? [] as error}
 			<span class="error">
-				{$LL.registration.errors.first_name[error as keyof typeof $LL.registration.errors.first_name]()}
+				{$LL.registration.errors.first_name[
+					error as keyof typeof $LL.registration.errors.first_name
+				]()}
 			</span>
 		{/each}
 
@@ -76,7 +76,9 @@
 		<input bind:value={editedUser.lastName} type="text" name="last_name" id="last_name" />
 		{#each errors?.last_name ?? [] as error}
 			<span class="error">
-				{$LL.registration.errors.last_name[error as keyof typeof $LL.registration.errors.last_name]()}
+				{$LL.registration.errors.last_name[
+					error as keyof typeof $LL.registration.errors.last_name
+				]()}
 			</span>
 		{/each}
 
@@ -99,11 +101,12 @@
 			</span>
 		{/each}
 
-		{#await facultiesPromise then faculties}
+		{#await facultyStore.promise() then faculties}
 			<Select
 				name="faculty"
 				id="faculty"
-				keys={faculties.map((f) =>  $LL.faculties[f.shortcut as keyof typeof $LL.faculties]())}
+				currentValue={editedUser.faculty.id}
+				keys={faculties.map((f) => $LL.faculties[f.shortcut as keyof typeof $LL.faculties]())}
 				values={faculties.map((f) => f.id)}
 			/>
 		{:catch}
