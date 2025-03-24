@@ -22,8 +22,7 @@
 	const enhancer: SubmitFunction<CharityCreateData> = () => {
 		return async ({ result, update }) => {
 			if (result.type === 'success') {
-				charity.id = result.data?.id!;
-				charityStore.updateOrCreate(charity.id);
+				charityStore.updateOrCreate({...charity, id: result.data?.id!});
 				toastStore.add({
 					type: 'success',
 					message: 'Charita vytvořena'
