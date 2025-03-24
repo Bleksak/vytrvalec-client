@@ -34,6 +34,14 @@ const cs = {
 			title: 'Statistiky',
 			users: 'UČASTNÍKŮ'
 		},
+		android: {
+			available: "Dostupné na Google Play",
+			get: "Získat"
+		},
+		mobile_app: {
+			title: "Mobilní aplikace Měsíčního Vytrvalce",
+			download: "Dostupná ke stažení na Google Play i App Store"
+		},
 		intro:
 			'Akce měsíční vytrvalec vznikla během zimního semestru v roce 2020. Tuto pohybovou soutěž připravila a zorganizoval Ústav tělesné výchovy a sportu ZČU s úmyslem rozhýbat studenty během distanční výuky, která probíhala na ZČU během koronavirové pandemie.',
 		past_seasons: 'Předchozí ročníky',

@@ -34,6 +34,14 @@ const en = {
 			title: 'Statistics',
 			users: 'TOTAL PARTICIPANTS'
 		},
+		android: {
+			available: "Available on Google Play",
+			get: "Get"
+		},
+		mobile_app: {
+			title: "Měsíční Vytrvalec mobile app",
+			download: "Available on Google Play and App Store"
+		},
 		intro:
 			'The monthly runner event was created during the winter semester in 2020. This competition was prepared and organized by the Department of Physical Education and Sport of the University of West Bohemia with the intention to make students engage in sports during distance learning, which took place at the University of West Bohemia during the coronavirus pandemic.',
 		past_seasons: 'Past seasons',

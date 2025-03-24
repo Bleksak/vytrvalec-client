@@ -1,16 +1,45 @@
 <script lang="ts">
-	import { page } from '$app/stores';
+	import { page } from '$app/state';
 	import Button from '$components/Button.svelte';
 	import PastWinners from '$components/home/PastWinners.svelte';
 	import Stats from '$components/home/Stats.svelte';
-	import LL from '$translations/i18n-svelte'
+	import { onMount } from 'svelte';
+	import { LL } from '$translations/i18n-svelte';
+
+	const googlePlayLink = "https://play.google.com/store/apps/details?id=cz.magnetka.mv" // To neni citlivý, nebudu dávat do envu
+	const appleStoreLink = "https://apps.apple.com/us/app/6743554661";
+
+	let isMobile = $state(false);
+
+	onMount(() => {
+		if (/Android/i.test(navigator.userAgent) || /iPhone|iPad|iPod/i.test(navigator.userAgent)) {
+      		isMobile = true;
+    	}
+	});
+
 </script>
 
 <main>
+	{#if isMobile}
+		<div class="advert">
+			<h4>{$LL.homepage.mobile_app.title()}</h4>
+			<span>{$LL.homepage.mobile_app.download()}</span>
+			<div class="store-links">
+				<a href={googlePlayLink} target="_blank" rel="noopener noreferrer">
+					<img src="/images/google-play.png" alt="Google Play" class="store-image" />
+				</a>
+				<a href={appleStoreLink} target="_blank" rel="noopener noreferrer">
+					<img src="/images/apple-store.png" alt="App Store" class="store-image" />
+				</a>
+			</div>
+		</div>
+	{/if}
+	
 	<div class="main">
+		
 		<div class="container">
 			<section class="header">
-				<h1>Měsíční vytrvalec</h1>
+				<h1>Měsíční Vytrvalec</h1>
 			</section>
 			<section class="content">
 				<p>
@@ -18,8 +47,8 @@
 				</p>
 			</section>
 			<section class="buttons">
-				<a href="/{$page.data.lang}/rules"><Button styleOnly class="secondary">{$LL.rules.title().toUpperCase()}</Button></a>
-				<a href="/{$page.data.lang}/results"><Button styleOnly>{$LL.results.results().toLocaleUpperCase()}</Button></a>
+				<a href="/{page.data.lang}/rules"><Button styleOnly class="secondary">{$LL.rules.title().toUpperCase()}</Button></a>
+				<a href="/{page.data.lang}/results"><Button styleOnly>{$LL.results.results().toLocaleUpperCase()}</Button></a>
 			</section>
 		</div>
 
@@ -47,6 +76,11 @@
 		padding: 50px;
 	}
 
+	.advert {
+		background-color: white;
+		padding: 30px;
+	}
+
 	.main {
 		background-color: #005cab;
 		display: flex;
@@ -60,5 +94,12 @@
 		.main {
 			flex-direction: column;
 		}
+	}
+	
+	.store-links {
+		display: flex;
+		justify-content: center;
+		gap: 20px;
+		margin-top: 20px;
 	}
 </style>

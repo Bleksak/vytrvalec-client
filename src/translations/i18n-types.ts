@@ -103,6 +103,26 @@ type RootTranslation = {
 			 */
 			users: string
 		}
+		android: {
+			/**
+			 * D​o​s​t​u​p​n​é​ ​n​a​ ​G​o​o​g​l​e​ ​P​l​a​y
+			 */
+			available: string
+			/**
+			 * Z​í​s​k​a​t
+			 */
+			get: string
+		}
+		mobile_app: {
+			/**
+			 * M​o​b​i​l​n​í​ ​a​p​l​i​k​a​c​e​ ​M​ě​s​í​č​n​í​h​o​ ​V​y​t​r​v​a​l​c​e
+			 */
+			title: string
+			/**
+			 * D​o​s​t​u​p​n​á​ ​k​e​ ​s​t​a​ž​e​n​í​ ​n​a​ ​G​o​o​g​l​e​ ​P​l​a​y​ ​i​ ​A​p​p​ ​S​t​o​r​e
+			 */
+			download: string
+		}
 		/**
 		 * A​k​c​e​ ​m​ě​s​í​č​n​í​ ​v​y​t​r​v​a​l​e​c​ ​v​z​n​i​k​l​a​ ​b​ě​h​e​m​ ​z​i​m​n​í​h​o​ ​s​e​m​e​s​t​r​u​ ​v​ ​r​o​c​e​ ​2​0​2​0​.​ ​T​u​t​o​ ​p​o​h​y​b​o​v​o​u​ ​s​o​u​t​ě​ž​ ​p​ř​i​p​r​a​v​i​l​a​ ​a​ ​z​o​r​g​a​n​i​z​o​v​a​l​ ​Ú​s​t​a​v​ ​t​ě​l​e​s​n​é​ ​v​ý​c​h​o​v​y​ ​a​ ​s​p​o​r​t​u​ ​Z​Č​U​ ​s​ ​ú​m​y​s​l​e​m​ ​r​o​z​h​ý​b​a​t​ ​s​t​u​d​e​n​t​y​ ​b​ě​h​e​m​ ​d​i​s​t​a​n​č​n​í​ ​v​ý​u​k​y​,​ ​k​t​e​r​á​ ​p​r​o​b​í​h​a​l​a​ ​n​a​ ​Z​Č​U​ ​b​ě​h​e​m​ ​k​o​r​o​n​a​v​i​r​o​v​é​ ​p​a​n​d​e​m​i​e​.
 		 */
@@ -1021,6 +1041,26 @@ export type TranslationFunctions = {
 			 * UČASTNÍKŮ
 			 */
 			users: () => LocalizedString
+		}
+		android: {
+			/**
+			 * Dostupné na Google Play
+			 */
+			available: () => LocalizedString
+			/**
+			 * Získat
+			 */
+			get: () => LocalizedString
+		}
+		mobile_app: {
+			/**
+			 * Mobilní aplikace Měsíčního Vytrvalce
+			 */
+			title: () => LocalizedString
+			/**
+			 * Dostupná ke stažení na Google Play i App Store
+			 */
+			download: () => LocalizedString
 		}
 		/**
 		 * Akce měsíční vytrvalec vznikla během zimního semestru v roce 2020. Tuto pohybovou soutěž připravila a zorganizoval Ústav tělesné výchovy a sportu ZČU s úmyslem rozhýbat studenty během distanční výuky, která probíhala na ZČU během koronavirové pandemie.
