@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { clickOutside } from '$utils/ClickOutside';
+	import { clickOutside } from '$utils/ClickOutside.svelte';
 	import { slide } from 'svelte/transition';
 
 	let {
@@ -55,7 +55,7 @@
 		if (!disabled) {
 			open = !open;
 		}
-	}
+	};
 
 	$effect(() => {
 		const idx = values.indexOf(currentValue);
@@ -63,15 +63,14 @@
 			currentKey = keys[idx];
 		}
 	});
-
 </script>
 
 <input type="hidden" {id} {name} bind:value={currentValue} />
 <div
-	use:clickOutside={closeOnOutsideClick}
 	class="select"
+	use:clickOutside={closeOnOutsideClick}
 	class:open
-	class:disabled={disabled}
+	class:disabled
 	bind:this={selectElement}
 	onclick={toggleDropdown}
 	role="button"
@@ -123,12 +122,12 @@
 		flex: 1;
 	}
 	.select.disabled {
-		cursor: default; 
-		pointer-events: none; 
+		cursor: default;
+		pointer-events: none;
 	}
 
 	.select.disabled::after {
-		content: none; 
+		content: none;
 	}
 
 	.select-selected {
