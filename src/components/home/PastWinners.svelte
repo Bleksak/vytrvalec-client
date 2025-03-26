@@ -6,8 +6,9 @@
 	import type { FullSeasonDTO } from '$lib/DTO/SeasonDTO';
 	import { SeasonResult } from '$lib/DTO/SeasonResultDTO';
 	import LL from '$translations/i18n-svelte';
+	import { SvelteMap } from 'svelte/reactivity';
 
-	let seasonResults = $state.raw<Map<number, SeasonResult>>(new Map());
+	let seasonResults = $state<SvelteMap<number, SeasonResult>>(new SvelteMap());
 
 	const seasonsPromise = fetchPastSeasons();
 	const activitiesPromise = fetchActivities();
@@ -31,7 +32,6 @@
 
 				fetchSeasonResult(currentSeason).then((result) => {
 					seasonResults.set(currentSelection!, new SeasonResult(result, [], activities, faculties));
-					seasonResults = new Map(seasonResults);
 				});
 			}
 		);
@@ -71,13 +71,15 @@
 							</section>
 						</article>
 						{#if seasonResults.has(currentSelection!)}
-							{@const     seasonResult = seasonResults.get(currentSelection!)}
+							{@const seasonResult = seasonResults.get(currentSelection!)}
 							{@const winners = seasonResult?.getTotalWinners().slice(0, 3) ?? []}
 							{#await facultiesPromise then faculties}
 								<div class="winners-wrapper">
 									<div class="winners">
 										{#if winners.length >= 2}
-											{@const    faculty = faculties.find((faculty) => faculty.id === winners[1].faculty)!}
+											{@const faculty = faculties.find(
+												(faculty) => faculty.id === winners[1].faculty
+											)!}
 											<div class="winner">
 												<span>
 													{$LL.faculties[faculty.shortcut as keyof typeof $LL.faculties]()}
@@ -87,7 +89,9 @@
 										{/if}
 
 										{#if winners.length >= 1}
-											{@const    faculty = faculties.find((faculty) => faculty.id === winners[0].faculty)!}
+											{@const faculty = faculties.find(
+												(faculty) => faculty.id === winners[0].faculty
+											)!}
 											<div class="winner">
 												<span>
 													{$LL.faculties[faculty.shortcut as keyof typeof $LL.faculties]()}
@@ -97,7 +101,9 @@
 										{/if}
 
 										{#if winners.length >= 3}
-											{@const    faculty = faculties.find((faculty) => faculty.id === winners[2].faculty)!}
+											{@const faculty = faculties.find(
+												(faculty) => faculty.id === winners[2].faculty
+											)!}
 											<div class="winner">
 												<span>
 													{$LL.faculties[faculty.shortcut as keyof typeof $LL.faculties]()}
