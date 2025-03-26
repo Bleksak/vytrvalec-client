@@ -30,13 +30,15 @@
 	let currentSeasonResultsArray = $derived(
 		currentSeasonResults?.getResultsForWeek(currentWeek) ?? []
 	);
-	let currentSeasonOutliers = $derived(currentSeasonResults?.data.outliers);
-	const isBefore2022 = $derived(currentSeason && currentSeason.end.getTime() < new Date(2022, 0, 1).getTime())
+	let currentSeasonOutliers = $derived(currentSeasonResults?.data.outliers ?? []);
+	const isBefore2022 = $derived(
+		currentSeason && currentSeason.end.getTime() < new Date(2022, 0, 1).getTime()
+	);
 
 	$effect(() => {
-        if(!currentSeason) {
-            return;
-        }
+		if (!currentSeason) {
+			return;
+		}
 
 		Promise.all([activitiesPromise, facultiesPromise, fetchSeasonResult(currentSeason)])
 			.then(([fetchedActivities, fetchedFaculties, results]) => {
@@ -90,159 +92,162 @@
 			/>
 		</section>
 		<div class="season-wrapper">
-			{#each currentSeasonResultsArray as result}
-				{@const activity = activities.find((activity) => activity.id === result.activity)}
-				{@const total = result.row.reduce(
-					(accumulator, current) => {
-						accumulator.distance += current.distance;
-						accumulator.points += current.points;
-						return accumulator;
-					},
-					{ distance: 0, points: 0 }
-				)}
-				<div class="title">
-					<h2>
-						{result.activity === -1 ? $LL.results.total() : $LL.activities[activity?.name as keyof typeof $LL.activities]().toUpperCase()}
-					</h2>
-				</div>
-				<div class="wrapper">
-					<section class="table">
-						<div class="results-table">
-							<header class="row">
-								<span>{$LL.results.faculty()}</span>
-								<span class="right">{$LL.results.distance()} (km)</span>
-								<span class="right">{$LL.results.points()}</span>
-							</header>
-							{#each result.row as row}
-								{@const faculty = faculties.find((faculty) => faculty.id === row.faculty)}
-								<div class="row">
-									<span>{faculty?.shortcut}</span>
-									<span class="right">{(row.distance / 1000).toFixed(1)}</span>
-									<span class="right">{row.points}</span>
-								</div>
-							{/each}
-
-							<div class="row">
-								<strong>{$LL.results.total()}</strong>
-								<strong class="right">{(total.distance / 1000).toFixed(1)}</strong>
-								<strong class="right">{total.points}</strong>
-							</div>
-						</div>
-					</section>
-
-					<section class="graph">
-						<ResultsChart {faculties} results={result.row} />
-					</section>
-				</div>
-			{:else}
+			{#if currentSeasonResultsArray.length === 0}
 				<div class="title">
 					<h3>{$LL.results.no_results()}</h3>
 				</div>
-			{/each}
-		</div>
-		{#if currentWeek > 2}
-			<section class="table">
-				<div class="title">
-					<h2>{$LL.results.extras.title()}</h2>
-				</div>
-				<div class="results-table">
-					<header class="row">
-						<span>{$LL.results.extras.name()}</span>
-						<span>{$LL.results.extras.faculty()}</span>
-						<span>{$LL.results.extras.category()}</span>
-						<span>{$LL.results.extras.activity()}</span>
-						<span>{$LL.results.extras.value()}</span>
-						<span>{$LL.results.extras.points()}</span>
-					</header>
-					{#each currentSeasonResultsArray as result}
-						{#each result.extra as extraPoint }
-						{@const activity = activityStore.get(result.activity)!}
-							<div class="row">
-								<span>{extraPoint.user.firstName} {extraPoint.user.lastName}</span>
-								<span>{facultyStore.get(extraPoint.faculty)?.shortcut}</span>
-								<span>{$LL.extraPoints[extraPoint.name as keyof typeof $LL.extraPoints]()}</span>
-								<span>{$LL.activities[activity.name as keyof typeof $LL.activities]()}</span>
-								{#if extraPoint.name === 'weekly_distance'}
-									<span>{extraPoint.value / 1000} km</span>
-										{:else if extraPoint.name === 'daily_distance'}
-									<span>{extraPoint.value / 1000} km</span>
-										{:else if extraPoint.name === 'weekly_elevation'}
-									<span>{extraPoint.value} m</span>
-								{/if}
-								<span>{extraPoint.points}</span>
-							</div>
-						{/each}
-					{/each}
-				</div>
-			</section>
-		{/if}
-	{/await}
-	{#if currentSeason && !isBefore2022 && currentWeek === 0}
-		{#await fetchSeasonUsersStatistics(currentSeason?.id)}
-		<!-- Nechci znova nápis loading -->
-		{:then stat} 
-			<div class="wrapper">
-				<section class="multi-tables">
+			{:else}
+				{#each currentSeasonResultsArray as result}
+					{@const activity = activities.find((activity) => activity.id === result.activity)}
+					{@const total = result.row.reduce(
+						(accumulator, current) => {
+							accumulator.distance += current.distance;
+							accumulator.points += current.points;
+							return accumulator;
+						},
+						{ distance: 0, points: 0 }
+					)}
 					<div class="title">
-						<h2>{$LL.results.top3()}</h2>
+						<h2>
+							{result.activity === -1
+								? $LL.results.total()
+								: $LL.activities[activity?.name as keyof typeof $LL.activities]().toUpperCase()}
+						</h2>
 					</div>
-					{#if currentSeasonOutliers}
-					{#if currentSeasonOutliers.length === 0}
+					<div class="wrapper">
+						<section class="table">
+							<div class="results-table">
+								<header class="row">
+									<span>{$LL.results.faculty()}</span>
+									<span class="right">{$LL.results.distance()} (km)</span>
+									<span class="right">{$LL.results.points()}</span>
+								</header>
+								{#each result.row as row}
+									{@const faculty = faculties.find((faculty) => faculty.id === row.faculty)}
+									<div class="row">
+										<span>{faculty?.shortcut}</span>
+										<span class="right">{(row.distance / 1000).toFixed(1)}</span>
+										<span class="right">{row.points}</span>
+									</div>
+								{/each}
+
+								<div class="row">
+									<strong>{$LL.results.total()}</strong>
+									<strong class="right">{(total.distance / 1000).toFixed(1)}</strong>
+									<strong class="right">{total.points}</strong>
+								</div>
+							</div>
+						</section>
+
+						<section class="graph">
+							<ResultsChart {faculties} results={result.row} />
+						</section>
+					</div>
+				{/each}
+
+				{#if currentWeek > 2}
+					<section class="table">
 						<div class="title">
-							<h5>{$LL.results.no_top()}</h5>
+							<h2>{$LL.results.extras.title()}</h2>
 						</div>
-					{/if}
-						{#each currentSeasonOutliers as outlierActivity}
-						{@const activity = activities.find(a => a.id === outlierActivity.activityId)!}
+						<div class="results-table">
+							<header class="row">
+								<span>{$LL.results.extras.name()}</span>
+								<span>{$LL.results.extras.faculty()}</span>
+								<span>{$LL.results.extras.category()}</span>
+								<span>{$LL.results.extras.activity()}</span>
+								<span>{$LL.results.extras.value()}</span>
+								<span>{$LL.results.extras.points()}</span>
+							</header>
+							{#each currentSeasonResultsArray as result}
+								{#each result.extra as extraPoint}
+									{@const activity = activityStore.get(result.activity)!}
+									<div class="row">
+										<span>{extraPoint.user.firstName} {extraPoint.user.lastName}</span>
+										<span>{facultyStore.get(extraPoint.faculty)?.shortcut}</span>
+										<span>
+											{$LL.extraPoints[extraPoint.name as keyof typeof $LL.extraPoints]()}
+										</span>
+										<span>{$LL.activities[activity.name as keyof typeof $LL.activities]()}</span>
+										{#if extraPoint.name === 'weekly_distance'}
+											<span>{extraPoint.value / 1000} km</span>
+										{:else if extraPoint.name === 'daily_distance'}
+											<span>{extraPoint.value / 1000} km</span>
+										{:else if extraPoint.name === 'weekly_elevation'}
+											<span>{extraPoint.value} m</span>
+										{/if}
+										<span>{extraPoint.points}</span>
+									</div>
+								{/each}
+							{/each}
+						</div>
+					</section>
+				{/if}
+
+				{#if currentSeason && !isBefore2022 && currentWeek === 0}
+					{#await fetchSeasonUsersStatistics(currentSeason?.id) then stat}
+						<div class="wrapper">
+							<section>
+								<div class="title">
+									<h2>{$LL.results.top3()}</h2>
+								</div>
+								{#each currentSeasonOutliers as outlierActivity}
+									{@const activity = activities.find((a) => a.id === outlierActivity.activityId)!}
+									<section class="table">
+										<div class="title">
+											<h5>{$LL.activities[activity.name as keyof typeof $LL.activities]()}</h5>
+										</div>
+										<div class="results-table">
+											<header class="row">
+												<span>{$LL.registration.first_name()}</span>
+												<span>{$LL.results.faculty()}</span>
+												<span class="right">{$LL.results.count()}</span>
+											</header>
+											{#each outlierActivity.results as outlier}
+												{@const faculty = faculties.find(
+													(faculty) => faculty.id === outlier.facultyId
+												)}
+												<div class="row">
+													<span>{outlier.user.firstName} {outlier.user.lastName}</span>
+													<span>{faculty?.shortcut}</span>
+													<span class="right">{outlier.value / 1000} km</span>
+												</div>
+											{/each}
+										</div>
+									</section>
+								{/each}
+							</section>
 							<section class="table">
 								<div class="title">
-									<h5>{$LL.activities[activity.name as keyof typeof $LL.activities]()}</h5>
+									<h2>{$LL.results.by_faculty()}</h2>
 								</div>
 								<div class="results-table">
 									<header class="row">
-										<span>{$LL.registration.first_name()}</span>
 										<span>{$LL.results.faculty()}</span>
 										<span class="right">{$LL.results.count()}</span>
 									</header>
-									{#each outlierActivity.results as outlier}
-										{@const faculty = faculties.find((faculty) => faculty.id === outlier.facultyId)}
+									{#each stat as row}
+										{@const faculty = faculties.find((faculty) => faculty.id === row.faculty)}
 										<div class="row">
-											<span>{outlier.user.firstName} {outlier.user.lastName}</span>
 											<span>{faculty?.shortcut}</span>
-											<span class="right">{outlier.value/1000} km</span>
+											<span class="right">{row.count}</span>
 										</div>
 									{/each}
+
+									<div class="row">
+										<strong>{$LL.results.total()}</strong>
+										<strong class="right">
+											{stat.reduce((sum, userStat) => sum + userStat.count, 0)}
+										</strong>
+									</div>
 								</div>
 							</section>
-						{/each}
-					{/if}
-				</section>
-				<section class="table">
-					<div class="title">
-						<h2>{$LL.results.by_faculty()}</h2>
-					</div>
-					<div class="results-table">
-						<header class="row">
-							<span>{$LL.results.faculty()}</span>
-							<span class="right">{$LL.results.count()}</span>
-						</header>
-						{#each stat as row}
-							{@const faculty = faculties.find((faculty) => faculty.id === row.faculty)}
-							<div class="row">
-								<span>{faculty?.shortcut}</span>
-								<span class="right">{row.count}</span>
-							</div>
-						{/each}
-
-						<div class="row">
-							<strong>{$LL.results.total()}</strong>
-							<strong class="right">{stat.reduce((sum, userStat) => sum + userStat.count, 0)}</strong>
 						</div>
-					</div>
-				</section>
-			</div>
-		{/await}
-	{/if}
+					{/await}
+				{/if}
+			{/if}
+		</div>
+	{/await}
 </main>
 
 <style>
