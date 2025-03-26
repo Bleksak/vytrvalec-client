@@ -170,12 +170,17 @@
 		max-height: 160px;
 		overflow-y: auto;
 		border-inline: 5px solid #005cab;
+		border-bottom: 5px solid #005cab;
 	}
 
 	.select-option {
 		padding-block: 10px;
 		border-bottom: 3px solid #005cab;
 		width: 100%;
+	}
+
+	.select-option:last-child {
+		border-bottom: none;
 	}
 
 	.select-options:first-child {
