@@ -57,11 +57,12 @@
 				{$LL.registration.faculty()}:
 			</label>
 			{#await facultyStore.promise() then faculties}
+				{@const registrationFaculties = faculties.filter((faculty) => faculty.visible)}
 				<Select
 					name="faculty"
 					id="faculty"
-					keys={faculties.map((f) => $LL.faculties[f.shortcut as keyof typeof $LL.faculties]())}
-					values={faculties.map((f) => f.id)}
+					keys={registrationFaculties.map((f) => $LL.faculties[f.shortcut as keyof typeof $LL.faculties]())}
+					values={registrationFaculties.map((f) => f.id)}
 				/>
 			{:catch}
 				<span class="note">{$LL.registration.errors.faculty.no_faculties()}</span>
@@ -93,7 +94,9 @@
 			<PasswordProgress {strength} />
 			{#each errors?.password ?? [] as error}
 				<span class="error">
-					{$LL.registration.errors.password[error as keyof typeof $LL.registration.errors.password]()}
+					{$LL.registration.errors.password[
+						error as keyof typeof $LL.registration.errors.password
+					]()}
 				</span>
 			{/each}
 		</div>
@@ -105,7 +108,9 @@
 			<input type="password" name="password_repeat" id="password_repeat" />
 			{#each errors?.password_repeat ?? [] as error}
 				<span class="error">
-					{$LL.registration.errors.password_repeat[error as keyof typeof $LL.registration.errors.password_repeat]()}
+					{$LL.registration.errors.password_repeat[
+						error as keyof typeof $LL.registration.errors.password_repeat
+					]()}
 				</span>
 			{/each}
 		</div>
@@ -117,7 +122,9 @@
 			<input type="text" name="first_name" id="first_name" />
 			{#each errors?.first_name ?? [] as error}
 				<span class="error">
-					{$LL.registration.errors.first_name[error as keyof typeof $LL.registration.errors.first_name]()}
+					{$LL.registration.errors.first_name[
+						error as keyof typeof $LL.registration.errors.first_name
+					]()}
 				</span>
 			{/each}
 		</div>
@@ -129,13 +136,17 @@
 			<input type="text" name="last_name" id="last_name" />
 			{#each errors?.last_name ?? [] as error}
 				<span class="error">
-					{$LL.registration.errors.last_name[error as keyof typeof $LL.registration.errors.last_name]()}
+					{$LL.registration.errors.last_name[
+						error as keyof typeof $LL.registration.errors.last_name
+					]()}
 				</span>
 			{/each}
 		</div>
 
 		<div class="form-field">
-			<Tooltip text={`${$LL.gdpr.description1()}${$LL.gdpr.description2()}${$LL.gdpr.description3()}`}>
+			<Tooltip
+				text={`${$LL.gdpr.description1()}${$LL.gdpr.description2()}${$LL.gdpr.description3()}`}
+			>
 				<Checkbox id="gdpr" name="gdpr">
 					{$LL.registration.gdpr()}
 				</Checkbox>
