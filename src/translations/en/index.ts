@@ -227,6 +227,7 @@ const en = {
 		count: 'Count',
 		top3: 'TOP 3 contestants',
 		no_top: "No top contestants yet",
+		total_gained: "Money raised",
 		extras: {
 			title: "Extra points",
 			name: "Name",

@@ -227,6 +227,7 @@ const cs = {
 		count: 'Počet',
 		top3: 'TOP 3 účastníci',
 		no_top: "Zatím žádní",
+		total_gained: "Celkem vybráno",
 		extras: {
 			title: "Extra body",
 			name: "Jméno",

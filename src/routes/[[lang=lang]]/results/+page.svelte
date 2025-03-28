@@ -14,6 +14,7 @@
 	import { getContext } from 'svelte';
 	import type { FacultyStore } from '$lib/stores/FacultyStore.svelte';
 	import type { ActivityStore } from '$lib/stores/ActivityStore.svelte';
+	import { fetchCharities } from '$actions/Charity';
 
 	const facultyStore = getContext<FacultyStore>(Store.FACULTY_STORE);
 	const activityStore = getContext<ActivityStore>(Store.ACTIVITY_STORE);
@@ -97,7 +98,24 @@
 					<h3>{$LL.results.no_results()}</h3>
 				</div>
 			{:else}
-				{#each currentSeasonResultsArray as result}
+				{#await fetchCharities()}
+				 	<span>{$LL.profile.loading.statistics()}</span>
+				{:then charities}
+					{@const charity = charities.find(ch => ch.id === currentSeason?.charity!)!}
+					{@const totalGained = currentSeasonResultsArray[2].row.reduce(
+						(accumulator, current) => {
+							accumulator.distance += current.distance;
+							accumulator.points += current.points;
+							return accumulator;
+						},
+						{ distance: 0, points: 0 }
+					)}
+					<div class="container">
+						<h3 class="white">{charity.name}</h3>
+						<h4 class="white">{$LL.results.total_gained()}: {(totalGained.distance / 1000).toFixed(0)} Kč</h4>
+					</div>
+				{/await}
+					{#each currentSeasonResultsArray as result}
 					{@const activity = activities.find((activity) => activity.id === result.activity)}
 					{@const total = result.row.reduce(
 						(accumulator, current) => {
@@ -268,7 +286,7 @@
 	.pickers {
 		width: 100%;
 		display: flex;
-		flex-direction: row;
+		/* flex-direction: row; */
 		justify-content: space-between;
 		gap: 50px;
 	}
@@ -329,6 +347,18 @@
 		font-weight: bolder;
 		font-size: 1.5rem;
 		border-block: 4px solid #005cab;
+	}
+
+	.container {
+		background-color: #005cab;
+		display: flex;
+		flex-direction: column;
+		padding: 30px;
+		align-items: center;
+	}
+
+	.white {
+		color: #fff
 	}
 
 	.results-table > .row:last-child {
