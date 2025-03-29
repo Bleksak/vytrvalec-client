@@ -106,7 +106,7 @@
         <section class="extra-points">
           {#each seasonResult?.getExtraPoints() ?? [] as extraPoint}
             <p>
-              <strong>{extraPoint.user.firstName} {extraPoint.user.lastName}</strong>
+              <strong>{extraPoint.user.first_name} {extraPoint.user.last_name}</strong>
               ({facultyStore.get(extraPoint.faculty)?.shortcut}):
             </p>
             <p>

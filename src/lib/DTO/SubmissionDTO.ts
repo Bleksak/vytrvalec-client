@@ -19,7 +19,7 @@ export type SubmissionResponseDTO = {
 	reviewed: boolean;
 	user: UserResponse;
 	date: Date;
-	updatedAt: string;
+	updated_at: string;
 	week: number;
 	season: number;
 	message?: string;
@@ -49,7 +49,7 @@ export type SubmissionReturn =
 	  };
 
 export const formDataToSubmissionDTO = (formData: FormData): SubmissionReturn => {
-	const distanceString = formData.get('distance')?.toString().replace(",",".");
+	const distanceString = formData.get('distance')?.toString().replace(',', '.');
 	const distance = Number(distanceString) * 1000;
 
 	const elevationString = formData.get('elevation')?.toString();

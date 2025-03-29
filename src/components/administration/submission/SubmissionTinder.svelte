@@ -20,8 +20,8 @@
 		}
 	});
 
-	let message = $state<string>(currentSubmission?.message ?? "");
-	let imageError = $state<(Event & {currentTarget: EventTarget & Element}) | null>(null);
+	let message = $state<string>(currentSubmission?.message ?? '');
+	let imageError = $state<(Event & { currentTarget: EventTarget & Element }) | null>(null);
 
 	const popNext = () => {
 		currentSubmission = submissionStore.pop();
@@ -29,18 +29,19 @@
 
 	const acceptCurrent = () => {
 		submissionStore.accept(currentSubmission!, message!).then((result) => {
-			if(result.type === 'success') {
+			if (result.type === 'success') {
 				toastStore.add({
 					type: 'success',
 					message: 'Aktivita byla schválena'
 				});
 				errors = undefined;
 				popNext();
-			} else if(result.type === 'error') {
+			} else if (result.type === 'error') {
 				errors = result.errors as SubmissionStateError;
 				toastStore.add({
 					type: 'error',
-					message: 'Nastala chyba při schvalování aktivity. Aktualizujte stránku a opakujte akci znova.'
+					message:
+						'Nastala chyba při schvalování aktivity. Aktualizujte stránku a opakujte akci znova.'
 				});
 			}
 		});
@@ -48,18 +49,19 @@
 
 	const rejectCurrent = () => {
 		submissionStore.reject(currentSubmission!, message!).then((result) => {
-			if(result.type === 'success') {
+			if (result.type === 'success') {
 				toastStore.add({
 					type: 'success',
 					message: 'Aktivita byla zamítnuta'
 				});
 				popNext();
 				errors = {};
-			} else if(result.type === 'error'){
+			} else if (result.type === 'error') {
 				errors = result.errors as SubmissionStateError;
 				toastStore.add({
 					type: 'error',
-					message: 'Nastala chyba při zamítnutí aktivity. Aktualizujte stránku a opakujte akci znova.'
+					message:
+						'Nastala chyba při zamítnutí aktivity. Aktualizujte stránku a opakujte akci znova.'
 				});
 			}
 		});
@@ -71,8 +73,10 @@
 {:else}
 	<div class="tinder-card">
 		<div class="wrapper">
-			{#each errors?.submissionState ?? [] as error} 
-				<span class="error">{$LL.submission.errors[error as keyof typeof $LL.submission.errors]()}</span>
+			{#each errors?.submission_state ?? [] as error}
+				<span class="error">
+					{$LL.submission.errors[error as keyof typeof $LL.submission.errors]()}
+				</span>
 			{/each}
 			{#each errors?.server ?? [] as error}
 				<span class="error">
@@ -80,21 +84,31 @@
 				</span>
 			{/each}
 			{#if imageError}
-				<strong class='image-error'>Obrázek se nepodařilo načíst</strong>
-			{:else }
+				<strong class="image-error">Obrázek se nepodařilo načíst</strong>
+			{:else}
 				<a href={currentSubmission?.image} target="_blank">
-					<img src={currentSubmission?.image} alt="Aktivita" onerror={(err) => {imageError = err}}/>
+					<img
+						src={currentSubmission?.image}
+						alt="Aktivita"
+						onerror={(err) => {
+							imageError = err;
+						}}
+					/>
 				</a>
 			{/if}
 			<div class="info">
 				<div class="info-column">
 					<p>
 						<strong>Uživatel:&nbsp;</strong>
-						{currentSubmission?.user.firstName}
-						{currentSubmission?.user.lastName}
+						{currentSubmission?.user.first_name}
+						{currentSubmission?.user.last_name}
 					</p>
 					<p><strong>Aktivita:&nbsp;</strong>{currentSubmission?.activity.name}</p>
-					<p><strong>Nahráno:&nbsp;</strong>{new Date(currentSubmission?.updatedAt).toLocaleString()}</p>
+					<p>
+						<strong>Nahráno:&nbsp;</strong>{new Date(
+							currentSubmission?.updated_at
+						).toLocaleString()}
+					</p>
 				</div>
 				<div class="info-column">
 					<p><strong>Vzdálenost:&nbsp;</strong>{(currentSubmission?.distance ?? 0) / 1000} km</p>
@@ -106,7 +120,7 @@
 
 			<div class="message">
 				<label for="message">Komentář:</label>
-				<textarea id="message" name="message" bind:value={message} ></textarea>
+				<textarea id="message" name="message" bind:value={message}></textarea>
 			</div>
 
 			<div class="buttons">
@@ -138,7 +152,7 @@
 		display: flex;
 		flex-direction: column;
 		justify-content: center;
-		align-items: center; 
+		align-items: center;
 		margin: 0 auto;
 	}
 

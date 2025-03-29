@@ -32,7 +32,11 @@
 	const dialogStore = getContext<DialogStore>(Store.DIALOG_STORE);
 
 	const openGdprDialog = () =>
-		dialogStore.open(GdprForm, { gdpr: currentUser.acceptedGdpr ? currentUser.acceptedGdpr : undefined }, context);
+		dialogStore.open(
+			GdprForm,
+			{ gdpr: currentUser.acceptedGdpr ? currentUser.acceptedGdpr : undefined },
+			context
+		);
 
 	const enhancer: SubmitFunction = () => {
 		return async ({ result }) => {
@@ -57,20 +61,11 @@
 	<h1>{$LL.account.title()}</h1>
 
 	<form method="post" action="/auth?/account" use:enhance={enhancer}>
-		<strong>{$LL.account.first_name()}: </strong><span>{currentUser.firstName}</span>
-		<strong>{$LL.account.last_name()}: </strong><span>{currentUser.lastName}</span>
+		<strong>{$LL.account.first_name()}: </strong><span>{currentUser.first_name}</span>
+		<strong>{$LL.account.last_name()}: </strong><span>{currentUser.last_name}</span>
 		<strong>{$LL.account.faculty()}: </strong><span>{currentUser.faculty.shortcut}</span>
 
 		<Button onclick={openGdprDialog} class="rounded" styleOnly>{$LL.gdpr.title()}</Button>
-		<div class="form-field">
-			<label for="email">{$LL.account.email()}: </label>
-			{#each errors.email ?? [] as error}
-				<span class="error">
-					{$LL.account.errors.email[error as keyof typeof $LL.account.errors.email]()}
-				</span>
-			{/each}
-			<input type="email" name="email" id="email" value={currentUser.email} />
-		</div>
 
 		<div class="form-field">
 			<label for="old_password">{$LL.account.old_password()}: </label>

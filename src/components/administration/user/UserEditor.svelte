@@ -64,7 +64,7 @@
 		<label for="first_name">
 			{$LL.registration.first_name()}:
 		</label>
-		<input bind:value={editedUser.firstName} type="text" name="first_name" id="first_name" />
+		<input bind:value={editedUser.first_name} type="text" name="first_name" id="first_name" />
 		{#each errors?.first_name ?? [] as error}
 			<span class="error">
 				{$LL.registration.errors.first_name[
@@ -76,7 +76,7 @@
 		<label for="last_name">
 			{$LL.registration.last_name()}:
 		</label>
-		<input bind:value={editedUser.lastName} type="text" name="last_name" id="last_name" />
+		<input bind:value={editedUser.last_name} type="text" name="last_name" id="last_name" />
 		{#each errors?.last_name ?? [] as error}
 			<span class="error">
 				{$LL.registration.errors.last_name[

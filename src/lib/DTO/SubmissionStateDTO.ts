@@ -10,7 +10,7 @@ type SubmissionStateType = '1' | '0';
 
 export type SubmissionStateError = ResponseErrorMap<SubmissionStateDTO> & {
 	server?: Array<ResponseError>;
-	submissionState?: Array<ResponseError>;
+	submission_state?: Array<ResponseError>;
 };
 
 export type SubmissionStateResponse =

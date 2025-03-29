@@ -33,7 +33,7 @@ export const createSubmission = async (dto: SubmissionDTO): Promise<SubmissionCr
 
 			return null;
 		});
-	
+
 	if (response === null) {
 		return {
 			type: 'error',
@@ -44,14 +44,14 @@ export const createSubmission = async (dto: SubmissionDTO): Promise<SubmissionCr
 	if (response.status === 413) {
 		return {
 			type: 'error',
-			errors: { image: ['too_large'] },
-		}
+			errors: { image: ['too_large'] }
+		};
 	} else if (response.status !== 201) {
 		return {
 			type: 'error',
 			errors: response.data
 		};
-	} 
+	}
 
 	return {
 		type: 'success'
@@ -127,7 +127,7 @@ export const acceptSubmission = async (
 	message: string
 ): Promise<AxiosResponse> => {
 	return await axios.patch(`/submission/${submission.id}/state`, {
-		updated_at: submission.updatedAt,
+		updated_at: submission.updated_at,
 		state: true,
 		message
 	});
@@ -138,7 +138,7 @@ export const rejectSubmission = async (
 	message: string
 ): Promise<AxiosResponse> => {
 	return await axios.patch(`/submission/${submission.id}/state`, {
-		updated_at: submission.updatedAt,
+		updated_at: submission.updated_at,
 		state: false,
 		message
 	});
@@ -181,14 +181,14 @@ export const patchSubmission = async (dto: SubmissionDTO, data: FormData) => {
 	if (response.status === 413) {
 		return {
 			type: 'error',
-			errors: { image: ['too_large'] },
-		}
+			errors: { image: ['too_large'] }
+		};
 	} else if (response.status !== 201) {
 		return {
 			type: 'error',
 			errors: response.data
 		};
-	} 
+	}
 
 	return {
 		type: 'success'

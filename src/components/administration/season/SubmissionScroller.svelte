@@ -78,7 +78,7 @@
 		>
 			<div>
 				<p>
-					<strong>{submission.user.firstName} {submission.user.lastName}&nbsp;</strong>
+					<strong>{submission.user.first_name} {submission.user.last_name}&nbsp;</strong>
 					({facultyStore.get(submission.user.faculty)?.shortcut})
 				</p>
 				{#if submission.message}

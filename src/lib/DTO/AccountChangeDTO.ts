@@ -1,9 +1,7 @@
 import { PasswordEstimator } from '$lib/PasswordEstimator';
 import type { ResponseError, ResponseErrorMap } from '$lib/ResponseErrors';
-import type { UserResponse } from './UserResponse';
 
 export type AccountChangeDTO = {
-	email?: string;
 	password?: string;
 	old_password: string;
 	password_repeat?: string;
@@ -32,11 +30,7 @@ export type AccountChangeResponse =
 			errors: AccountChangeErrors;
 	  };
 
-export const formDataToAccountChangeDTO = (
-	user: UserResponse,
-	formData: FormData
-): AccountChangeMaybeDTO => {
-	let email = formData.get('email')?.toString();
+export const formDataToAccountChangeDTO = (formData: FormData): AccountChangeMaybeDTO => {
 	const password = formData.get('password')?.toString();
 	const password_repeat = formData.get('password_repeat')?.toString();
 	const old_password = formData.get('old_password')?.toString();
@@ -50,24 +44,10 @@ export const formDataToAccountChangeDTO = (
 		};
 	}
 
-	if (!email || email === '') {
+	if (!password) {
 		return {
 			type: 'error',
 			errors: {
-				email: ['blank']
-			}
-		};
-	}
-
-	if (email === user.email) {
-		email = undefined;
-	}
-
-	if (!email && !password) {
-		return {
-			type: 'error',
-			errors: {
-				email: ['blank'],
 				password: ['blank']
 			}
 		};
@@ -77,7 +57,7 @@ export const formDataToAccountChangeDTO = (
 		return {
 			type: 'error',
 			errors: {
-				password_repeat: ['password_mismatch'],
+				password_repeat: ['password_mismatch']
 			}
 		};
 	}
@@ -87,7 +67,7 @@ export const formDataToAccountChangeDTO = (
 		return {
 			type: 'error',
 			errors: {
-				password: ['weak'],
+				password: ['weak']
 			}
 		};
 	}
@@ -95,7 +75,6 @@ export const formDataToAccountChangeDTO = (
 	return {
 		type: 'dto',
 		dto: {
-			email: email,
 			password: password === '' ? undefined : password,
 			old_password
 		}

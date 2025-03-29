@@ -36,8 +36,8 @@
 		<header>
 			<div class="user">
 				<h4 style="width: fit-content;">
-					{currentUser.firstName}
-					{currentUser.lastName}
+					{currentUser.first_name}
+					{currentUser.last_name}
 				</h4>
 				<FacultyTag facultyShortcut={currentUser.faculty.shortcut} />
 			</div>

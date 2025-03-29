@@ -181,7 +181,7 @@
 								{#each result.extra as extraPoint}
 									{@const activity = activityStore.get(result.activity)!}
 									<div class="row">
-										<span>{extraPoint.user.firstName} {extraPoint.user.lastName}</span>
+										<span>{extraPoint.user.first_name} {extraPoint.user.last_name}</span>
 										<span>{facultyStore.get(extraPoint.faculty)?.shortcut}</span>
 										<span>
 											{$LL.extraPoints[extraPoint.name as keyof typeof $LL.extraPoints]()}
@@ -226,7 +226,7 @@
 													(faculty) => faculty.id === outlier.facultyId
 												)}
 												<div class="row">
-													<span>{outlier.user.firstName} {outlier.user.lastName}</span>
+													<span>{outlier.user.first_name} {outlier.user.last_name}</span>
 													<span>{faculty?.shortcut}</span>
 													<span class="right">{outlier.value / 1000} km</span>
 												</div>

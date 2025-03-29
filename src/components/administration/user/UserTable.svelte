@@ -17,15 +17,15 @@
 			let withoutAccents = filterText.toLocaleLowerCase().removeAccents();
 
 			return (
-				user.firstName.toLowerCase().removeAccents().includes(withoutAccents) ||
-				user.lastName.toLowerCase().removeAccents().includes(withoutAccents) ||
+				user.first_name.toLowerCase().removeAccents().includes(withoutAccents) ||
+				user.last_name.toLowerCase().removeAccents().includes(withoutAccents) ||
 				user.email.toLowerCase().includes(filterText.toLowerCase().removeAccents()) ||
 				user.faculty.shortcut.toLowerCase().includes(filterText.toLowerCase()) ||
 				user.faculty.name.toLowerCase().removeAccents().includes(withoutAccents) ||
 				(
-					user.firstName.toLowerCase().removeAccents() +
+					user.first_name.toLowerCase().removeAccents() +
 					' ' +
-					user.lastName.toLowerCase().removeAccents()
+					user.last_name.toLowerCase().removeAccents()
 				).includes(withoutAccents)
 			);
 		});
@@ -61,8 +61,8 @@
 		<tbody>
 			{#each filteredUsers as user}
 				<tr>
-					<td>{user.firstName}</td>
-					<td>{user.lastName}</td>
+					<td>{user.first_name}</td>
+					<td>{user.last_name}</td>
 					<td>{user.email}</td>
 					<td>{user.faculty.shortcut}</td>
 					<td>
