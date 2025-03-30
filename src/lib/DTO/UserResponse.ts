@@ -15,7 +15,7 @@ export type UserResponse = {
 	banned: boolean;
 	roles: UserRole[];
 	faculty: FacultyDTO;
-	acceptedGdpr: boolean | null;
+	accepted_gdpr: boolean | null;
 };
 
 export type UserResponseAdmin = Omit<UserResponse, 'faculty'> & {

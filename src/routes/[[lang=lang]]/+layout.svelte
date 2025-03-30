@@ -13,14 +13,14 @@
 	import GdprForm from '$components/forms/GdprForm.svelte';
 	import Cookies from '$components/Cookies.svelte';
 	import { getCookie } from '$utils/cookies';
-	
+
 	let { children } = $props();
 	const lang = (page.params.lang as Locales) ?? 'cs';
 	const dialogStore = getContext<DialogStore>(Store.DIALOG_STORE);
 	const context = getAllContexts();
 
 	const currentUser: UserResponse = page.data.user;
-	const showGdprPopup = currentUser != null && currentUser.acceptedGdpr == null;
+	const showGdprPopup = currentUser != null && currentUser.accepted_gdpr == null;
 
 	loadAllLocales();
 	setLocale(lang);

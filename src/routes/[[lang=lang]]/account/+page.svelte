@@ -34,7 +34,7 @@
 	const openGdprDialog = () =>
 		dialogStore.open(
 			GdprForm,
-			{ gdpr: currentUser.acceptedGdpr ? currentUser.acceptedGdpr : undefined },
+			{ gdpr: currentUser.accepted_gdpr ? currentUser.accepted_gdpr : undefined },
 			context
 		);
 
