@@ -1,3 +1,7 @@
+<script lang="ts">
+	import { LL } from "$translations/i18n-svelte";
+</script>
+
 <footer>
 	<div class="footer-wrapper">
 		<div class="socials">
@@ -10,9 +14,10 @@
 		</div>
 		<div class="about">
 			<a href={import.meta.env.VITE_WEB_URL} class="uts"><strong>Ústav tělesné výchovy a sportu ZČU</strong></a>
+			<span>{$LL.footer.contact()}</span>
 		</div>
 		<div class="special-links">
-			Web spravuje:&nbsp;<a href="https://www.vave-tech.cz/">Vave-Tech</a>, Kašparová Alena
+			{$LL.footer.managed_by()}:&nbsp;<a href="https://www.vave-tech.cz/">Vave-Tech</a>, Kašparová Alena
 		</div>
 	</div>
 </footer>
@@ -34,11 +39,6 @@
 		width: 100%;
 	}
 
-	footer span {
-		font-size: 1.6rem;
-		font-weight: bold;
-	}
-
 	.uts {
 		color: white;
 		font-size: 1.5rem;
@@ -48,6 +48,8 @@
 		flex: 1;
 		display: flex;
 		justify-content: center;
+		flex-direction: column;
+		align-items: center;
 	}
 
 	.socials {

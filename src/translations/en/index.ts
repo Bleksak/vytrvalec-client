@@ -308,6 +308,10 @@ const en = {
 			extraPoints: 'Extra points'
 		}
 	},
+	footer: {
+		contact: "Contact us via email: vytrvale@ntis.zcu.cz",
+		managed_by: "Managed by"
+	},
 	faculties: {
 		FAV: 'Faculty of Applied Sciences',
 		FDU: 'Ladislav Sutnar Faculty of Design and Art',

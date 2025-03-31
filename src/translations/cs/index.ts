@@ -311,6 +311,10 @@ const cs = {
 			extraPoints: 'Extra body'
 		}
 	},
+	footer: {
+		contact: "Můžete nás kontaktovat na: vytrvale@ntis.zcu.cz",
+		managed_by: "Web spravuje"
+	},
 	faculties: {
 		FAV: 'Fakulta aplikovaných věd',
 		FDU: 'Fakulta designu a umění Ladislava Sutnara',

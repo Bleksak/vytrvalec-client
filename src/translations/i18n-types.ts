@@ -896,6 +896,16 @@ type RootTranslation = {
 			extraPoints: string
 		}
 	}
+	footer: {
+		/**
+		 * M​ů​ž​e​t​e​ ​n​á​s​ ​k​o​n​t​a​k​t​o​v​a​t​ ​n​a​:​ ​v​y​t​r​v​a​l​e​@​n​t​i​s​.​z​c​u​.​c​z
+		 */
+		contact: string
+		/**
+		 * W​e​b​ ​s​p​r​a​v​u​j​e
+		 */
+		managed_by: string
+	}
 	faculties: {
 		/**
 		 * F​a​k​u​l​t​a​ ​a​p​l​i​k​o​v​a​n​ý​c​h​ ​v​ě​d
@@ -1856,6 +1866,16 @@ export type TranslationFunctions = {
 			 */
 			extraPoints: () => LocalizedString
 		}
+	}
+	footer: {
+		/**
+		 * Můžete nás kontaktovat na: vytrvale@ntis.zcu.cz
+		 */
+		contact: () => LocalizedString
+		/**
+		 * Web spravuje
+		 */
+		managed_by: () => LocalizedString
 	}
 	faculties: {
 		/**

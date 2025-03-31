@@ -1,7 +1,7 @@
 <script lang="ts">
 	import type { ChangeEventHandler } from "svelte/elements";
 
-let {
+    let {
 		id,
 		name,
 		checked = $bindable(false),
