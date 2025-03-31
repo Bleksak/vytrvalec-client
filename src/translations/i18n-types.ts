@@ -552,7 +552,7 @@ type RootTranslation = {
 		 */
 		old_password: string
 		/**
-		 * P​o​k​u​d​ ​n​ě​k​t​e​r​é​ ​ú​d​a​j​e​ ​n​e​s​e​d​í​,​ ​k​o​n​t​a​k​t​u​j​t​e​ ​p​r​o​s​í​m​ ​a​d​m​i​n​i​s​t​r​á​t​o​r​a
+		 * P​o​k​u​d​ ​n​ě​k​t​e​r​é​ ​ú​d​a​j​e​ ​n​e​s​e​d​í​,​ ​k​o​n​t​a​k​t​u​j​t​e​ ​n​á​s​ ​n​a​ ​e​m​a​i​l​ ​v​y​t​r​v​a​l​e​@​n​t​i​s​.​z​c​u​.​c​z
 		 */
 		invalid_info: string
 		/**
@@ -563,6 +563,24 @@ type RootTranslation = {
 		 * Ú​d​a​j​e​ ​b​y​l​y​ ​ú​s​p​ě​š​n​ě​ ​z​m​ě​n​ě​n​y
 		 */
 		success: string
+		emailing: {
+			/**
+			 * P​ř​e​j​i​ ​s​i​ ​d​o​s​t​á​v​a​t​ ​e​m​a​i​l​y
+			 */
+			description: string
+			/**
+			 * O​d​e​b​í​r​á​n​í​ ​e​m​a​i​l​ů​ ​ú​s​p​ě​š​n​ě​ ​z​m​ě​n​ě​n​o
+			 */
+			success: string
+			/**
+			 * N​a​s​t​a​l​a​ ​c​h​y​b​a​ ​p​ř​i​ ​ú​p​r​a​v​ě​ ​o​d​b​ě​r​u​ ​e​m​a​i​l​ů
+			 */
+			error: string
+		}
+		/**
+		 * Z​m​ě​n​a​ ​h​e​s​l​a
+		 */
+		password_change: string
 		errors: {
 			email: {
 				/**
@@ -1495,7 +1513,7 @@ export type TranslationFunctions = {
 		 */
 		old_password: () => LocalizedString
 		/**
-		 * Pokud některé údaje nesedí, kontaktujte prosím administrátora
+		 * Pokud některé údaje nesedí, kontaktujte nás na email vytrvale@ntis.zcu.cz
 		 */
 		invalid_info: () => LocalizedString
 		/**
@@ -1506,6 +1524,24 @@ export type TranslationFunctions = {
 		 * Údaje byly úspěšně změněny
 		 */
 		success: () => LocalizedString
+		emailing: {
+			/**
+			 * Přeji si dostávat emaily
+			 */
+			description: () => LocalizedString
+			/**
+			 * Odebírání emailů úspěšně změněno
+			 */
+			success: () => LocalizedString
+			/**
+			 * Nastala chyba při úpravě odběru emailů
+			 */
+			error: () => LocalizedString
+		}
+		/**
+		 * Změna hesla
+		 */
+		password_change: () => LocalizedString
 		errors: {
 			email: {
 				/**

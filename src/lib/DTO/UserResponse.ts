@@ -16,6 +16,7 @@ export type UserResponse = {
 	roles: UserRole[];
 	faculty: FacultyDTO;
 	accepted_gdpr: boolean | null;
+	mailing: boolean;
 };
 
 export type UserResponseAdmin = Omit<UserResponse, 'faculty'> & {

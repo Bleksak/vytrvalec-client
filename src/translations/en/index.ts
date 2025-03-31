@@ -191,9 +191,15 @@ const en = {
 		last_name: 'Last name',
 		faculty: 'Faculty',
 		old_password: 'Current password',
-		invalid_info: "If there's any incorrect info, please contact the administrator.",
+		invalid_info: "If there's any incorrect info, please contact us via email vytrvale@ntis.zcu.cz",
 		save: 'Save',
 		success: 'Account details were successfully updated',
+		emailing: {
+			description: "I wish to receive emails",
+			success: "Email subscribtion changed successfully",
+			error: "An error occured while changing email subscribtion"
+		},
+		password_change: "Password change",
 		errors: {
 			email: {
 				blank: 'E-mail cannot be empty',

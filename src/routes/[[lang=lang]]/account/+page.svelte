@@ -1,9 +1,12 @@
 <script lang="ts">
+	import { emailSubscribeChange } from '$actions/Auth';
 	import { enhance } from '$app/forms';
 	import { page } from '$app/state';
 	import Button from '$components/Button.svelte';
 	import PasswordProgress from '$components/FormComponent/PasswordProgress.svelte';
+	import Switch from '$components/Switch.svelte';
 	import GdprForm from '$components/forms/GdprForm.svelte';
+	import FacultyTag from '$components/profile/FacultyTag.svelte';
 	import type { AccountChangeErrors } from '$lib/DTO/AccountChangeDTO';
 	import type { UserResponse } from '$lib/DTO/UserResponse';
 	import { PasswordEstimator } from '$lib/PasswordEstimator';
@@ -32,11 +35,25 @@
 	const dialogStore = getContext<DialogStore>(Store.DIALOG_STORE);
 
 	const openGdprDialog = () =>
-		dialogStore.open(
-			GdprForm,
-			{ gdpr: currentUser.accepted_gdpr ? currentUser.accepted_gdpr : undefined },
-			context
-		);
+		dialogStore.open(GdprForm, { gdpr: currentUser.accepted_gdpr ? currentUser.accepted_gdpr : undefined }, context);
+
+
+	const handleSubscribtionChange = async (event: Event & { currentTarget: EventTarget & HTMLInputElement; }) => {
+		event.preventDefault();
+
+		const response = await emailSubscribeChange(event.currentTarget.checked);
+		if(response.errors) {
+			toastStore.add({
+				type: 'error',
+				message: $LL.account.emailing.error()
+			});
+		} else {
+			toastStore.add({
+				type: 'success',
+				message: $LL.account.emailing.success()
+			});
+		}
+	}
 
 	const enhancer: SubmitFunction = () => {
 		return async ({ result }) => {
@@ -57,75 +74,97 @@
 	};
 </script>
 
-<div class="account-settings">
-	<h1>{$LL.account.title()}</h1>
-
-	<form method="post" action="/auth?/account" use:enhance={enhancer}>
-		<strong>{$LL.account.first_name()}: </strong><span>{currentUser.first_name}</span>
-		<strong>{$LL.account.last_name()}: </strong><span>{currentUser.last_name}</span>
-		<strong>{$LL.account.faculty()}: </strong><span>{currentUser.faculty.shortcut}</span>
-
-		<Button onclick={openGdprDialog} class="rounded" styleOnly>{$LL.gdpr.title()}</Button>
-
-		<div class="form-field">
-			<label for="old_password">{$LL.account.old_password()}: </label>
-			{#each errors.old_password ?? [] as error}
-				<span class="error">
-					{$LL.account.errors.old_password[error as keyof typeof $LL.account.errors.old_password]()}
-				</span>
-			{/each}
-			<input type="password" name="old_password" id="old_password" bind:value={oldPassword} />
+<div class="account-settings section">
+	<div class="container section">
+		<div class="section">
+			<div class="user">
+				<h4>
+					{currentUser.first_name}
+					{currentUser.last_name}
+				</h4>
+				<FacultyTag facultyShortcut={currentUser.faculty.shortcut} />
+			</div>
+				<strong>{$LL.account.email()}:</strong><span>{` ${currentUser.email}`}</span>
+			<div class="mailing">
+				<strong>{$LL.account.emailing.description()}: </strong>
+				<Switch checked={currentUser.mailing} onChange={handleSubscribtionChange} />
+			</div>
+			<Button onclick={openGdprDialog} class="rounded">{$LL.gdpr.title()}</Button>	
 		</div>
+		
 
-		<div class="form-field">
-			<label for="password">{$LL.account.password()}: </label>
-			{#each errors.password ?? [] as error}
-				<span class="error">
-					{$LL.account.errors.password[error as keyof typeof $LL.account.errors.password]()}
-				</span>
-			{/each}
-			<input type="password" name="password" id="password" bind:value={password} />
-			<PasswordProgress {strength} />
-		</div>
+		<form method="post" action="/auth?/account" use:enhance={enhancer}>
+			<h5>{$LL.account.password_change()}</h5>
+			<div class="form-field">
+				<label for="old_password">{$LL.account.old_password()}: </label>
+				{#each errors.old_password ?? [] as error}
+					<span class="error">
+						{$LL.account.errors.old_password[error as keyof typeof $LL.account.errors.old_password]()}
+					</span>
+				{/each}
+				<input type="password" name="old_password" id="old_password" bind:value={oldPassword} />
+			</div>
 
-		<div class="form-field">
-			<label for="password_repeat">{$LL.account.password_repeat()}: </label>
-			{#each errors.password_repeat ?? [] as error}
-				<span class="error">
-					{$LL.account.errors.password_repeat[
-						error as keyof typeof $LL.account.errors.password_repeat
-					]()}
-				</span>
-			{/each}
-			<input
-				type="password"
-				name="password_repeat"
-				id="password_repeat"
-				bind:value={passwordRepeat}
-			/>
-		</div>
+			<div class="form-field">
+				<label for="password">{$LL.account.password()}: </label>
+				{#each errors.password ?? [] as error}
+					<span class="error">
+						{$LL.account.errors.password[error as keyof typeof $LL.account.errors.password]()}
+					</span>
+				{/each}
+				<input type="password" name="password" id="password" bind:value={password} />
+				<PasswordProgress {strength} />
+			</div>
 
-		<span class="note">{$LL.account.invalid_info()}</span>
-		<Button type="submit">{$LL.account.save()}</Button>
-	</form>
+			<div class="form-field">
+				<label for="password_repeat">{$LL.account.password_repeat()}: </label>
+				{#each errors.password_repeat ?? [] as error}
+					<span class="error">
+						{$LL.account.errors.password_repeat[
+							error as keyof typeof $LL.account.errors.password_repeat
+						]()}
+					</span>
+				{/each}
+				<input
+					type="password"
+					name="password_repeat"
+					id="password_repeat"
+					bind:value={passwordRepeat}
+				/>
+			</div>
+
+			<span class="note">{$LL.account.invalid_info()}</span>
+			<Button class="rounded" type="submit">{$LL.account.save()}</Button>
+		</form>
+	</div>
 </div>
 
 <style>
 	.account-settings {
-		display: flex;
-		flex-direction: column;
 		align-items: center;
 		justify-content: center;
-
 		margin-bottom: 40px;
 		padding: 0 30px;
 	}
 
-	form {
+	.user {
+		display: flex;
+		gap: 10px;
+		align-items: center;
+		align-self: flex-start;
+	}
+
+	.mailing {
+		display: flex;
+		align-items: center;
+	}
+
+	.section {
 		display: flex;
 		flex-direction: column;
-		justify-content: center;
-		max-width: 550px;
-		width: 100%;
+	}
+
+	.container {
+		gap: 50px;
 	}
 </style>

@@ -210,3 +210,31 @@ export const gdprConsentChange = async (consentDTO: ConsentChangeDTO): Promise<R
 
 	return { type: 'success' };
 };
+
+export const emailSubscribeChange = async (value: boolean) => {
+	const response = await axios
+		.patch(`/emailing`, {mailing: value})
+		.catch((error) => {
+			if (error.response) {
+				return error.response;
+			}
+
+			return null;
+		});
+	
+	if (response === null) {
+		return {
+			type: 'error',
+			errors: { server: ['server_down'] }
+		};
+	}
+
+	if (response.status !== 200) {
+		return {
+			type: 'error',
+			errors: response?.data ?? {}
+		};
+	}
+
+	return { type: 'success' };
+};

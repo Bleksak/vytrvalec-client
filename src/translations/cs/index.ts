@@ -191,9 +191,15 @@ const cs = {
 		last_name: 'Příjmení',
 		faculty: 'Fakulta',
 		old_password: 'Současné heslo',
-		invalid_info: 'Pokud některé údaje nesedí, kontaktujte prosím administrátora',
+		invalid_info: 'Pokud některé údaje nesedí, kontaktujte nás na email vytrvale@ntis.zcu.cz',
 		save: 'Uložit',
 		success: 'Údaje byly úspěšně změněny',
+		emailing: {
+			description: "Přeji si dostávat emaily",
+			success: "Odebírání emailů úspěšně změněno",
+			error: "Nastala chyba při úpravě odběru emailů"
+		},
+		password_change: "Změna hesla",
 		errors: {
 			email: {
 				blank: 'E-mail nesmí být prázdný',
