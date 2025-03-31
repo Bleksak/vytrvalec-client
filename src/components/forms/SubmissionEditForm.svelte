@@ -143,7 +143,7 @@
 		use:enhance={onSubmit}
 	>
 		<input type="hidden" name="id" value={submission.id} />
-		<input type="hidden" name="updated_at" value={submission.updatedAt} />
+		<input type="hidden" name="updated_at" value={submission.updated_at} />
 		{#if submission.message}
 			<p>{$LL.submission.form.comment()}:</p>
 			<span>{submission.message}</span>

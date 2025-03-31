@@ -27,7 +27,7 @@
 			if (result.type === 'success') {
 				currentSubmission!.reviewed! = true;
 				currentSubmission!.accepted! = formData.get('state')?.toString() === '1';
-				currentSubmission!.updatedAt! = result!.data!.updated_at!;
+				currentSubmission!.updated_at! = result!.data!.updated_at!;
 
 				submissionStore?.update(currentSubmission!);
 
@@ -54,9 +54,9 @@
 	<form action="/submission?/state" method="POST" use:enhance={enhancer}>
 		<img src={currentSubmission.image} alt="Aktivita" />
 		<input type="hidden" name="id" value={currentSubmission.id} />
-		<input type="hidden" name="updated_at" value={currentSubmission.updatedAt} />
+		<input type="hidden" name="updated_at" value={currentSubmission.updated_at} />
 		
-		{#each errors?.submissionState ?? [] as error}
+		{#each errors?.submission_state ?? [] as error}
 			<span class="error">
 				<span class="error">{$LL.submission.errors[error as keyof typeof $LL.submission.errors]()}</span>
 			</span>
