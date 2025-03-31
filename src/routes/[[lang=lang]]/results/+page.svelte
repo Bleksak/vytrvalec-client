@@ -77,7 +77,8 @@
 		{@const seasonKeys = seasons.map((season) =>
 			season.start.toLocaleDateString('cs', { year: 'numeric', month: 'long' })
 		)}
-
+		
+		{@const season = seasons.find(s => s.id === currentSeason?.id)!}
 		<section class="pickers">
 			<Select
 				id="week_picker"
@@ -92,6 +93,10 @@
 				bind:currentValue={currentSeason}
 			/>
 		</section>
+			<h5>
+				{season.start.toLocaleDateString('cs', { day: 'numeric', month: 'long' })} - 
+				{season.end.toLocaleDateString('cs', { day: 'numeric', month: 'long' })}
+			</h5>
 		<div class="season-wrapper">
 			{#if currentSeasonResultsArray.length === 0}
 				<div class="title">
