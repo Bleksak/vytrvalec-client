@@ -17,7 +17,7 @@
 			<span>{$LL.footer.contact()}</span>
 		</div>
 		<div class="special-links">
-			{$LL.footer.managed_by()}:&nbsp;<a href="https://www.vave-tech.cz/">Vave-Tech</a>, Kašparová Alena
+			{$LL.footer.managed_by()}:&nbsp;Jiří Velek, Kašparová Alena
 		</div>
 	</div>
 </footer>
