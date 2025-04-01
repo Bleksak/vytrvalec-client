@@ -36,4 +36,4 @@ deploy:
     - apk --update add gettext
     - cat kube/client.yaml | envsubst | tee kube/client.yaml
     - kubectl apply -f kube
-    - kubectl rollout restart -n vytrvalec-kts deployment vytrvalec-nginx
+    # - kubectl rollout restart -n vytrvalec-kts deployment vytrvalec-nginx
