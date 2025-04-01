@@ -16,10 +16,10 @@ export const createSubmission = async (dto: SubmissionDTO): Promise<SubmissionCr
 	const formData = new FormData();
 	formData.append('activity', dto.activity.toString());
 	formData.append('image', dto.image);
-	formData.append('distance', dto.distance.toString());
+	formData.append('distance', dto.distance.toString().replaceAll(/\,/g, '.'));
 
 	if (dto.elevation) {
-		formData.append('elevation', dto.elevation.toString());
+		formData.append('elevation', dto.elevation.toString().replaceAll(/\,/g, '.'));
 	}
 
 	const response = await axios
