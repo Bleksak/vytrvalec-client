@@ -41,4 +41,4 @@
 <Navbar />
 {@render children()}
 <Footer />
-<Cookies />
+<!-- <Cookies /> -->
