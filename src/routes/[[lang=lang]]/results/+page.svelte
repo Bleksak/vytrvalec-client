@@ -229,7 +229,7 @@
 											<div class="row">
 												<span>{outlier.user.first_name} {outlier.user.last_name}</span>
 												<span>{faculty?.shortcut}</span>
-												<span class="right">{outlier.value / 1000} km</span>
+												<span class="right">{(outlier.value / 1000).toFixed(1)} km</span>
 											</div>
 										{/each}
 									</div>
