@@ -34,9 +34,9 @@
 			</div>
 		</div>
 	{/if}
-	
+
 	<div class="main">
-		
+
 		<div class="container">
 			<section class="header">
 				<h1>Měsíční Vytrvalec</h1>
@@ -47,8 +47,8 @@
 				</p>
 			</section>
 			<section class="buttons">
-				<a href="/{page.data.lang}/rules"><Button styleOnly class="secondary">{$LL.rules.title().toUpperCase()}</Button></a>
-				<a href="/{page.data.lang}/results"><Button styleOnly>{$LL.results.results().toLocaleUpperCase()}</Button></a>
+				<a href="/{page.data.lang}/rules"><Button class="secondary">{$LL.rules.title().toUpperCase()}</Button></a>
+				<a href="/{page.data.lang}/results"><Button>{$LL.results.results().toLocaleUpperCase()}</Button></a>
 			</section>
 		</div>
 
@@ -95,12 +95,12 @@
 			flex-direction: column;
 			padding: 30px;
 		}
-		
+
 		h1 {
 			font-size: 2rem;
 		}
 	}
-	
+
 	.store-links {
 		display: flex;
 		justify-content: center;

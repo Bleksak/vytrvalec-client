@@ -2,22 +2,15 @@
 	import type { HTMLAttributes, HTMLButtonAttributes } from 'svelte/elements';
 	import type { Snippet } from 'svelte';
 
-	// Asi by to chtělo někam přesunout, ale nějak nevim kam to zařadit, možná že to tu tolik nepřekáží
-	type BtnProps = { name?: string, danger?: boolean } & HTMLButtonAttributes;
-	type DivProps = { styleOnly: true } & HTMLAttributes<HTMLDivElement>;
+	type BtnProps = { name?: string; danger?: boolean } & HTMLButtonAttributes;
 
-	let { children, id, ...props }: (BtnProps | DivProps) & { children: Snippet } = $props();
+	let { children, id, ...props }: BtnProps & { children: Snippet } = $props();
 </script>
 
-{#if 'styleOnly' in props}
-	{@const {styleOnly, ...rest} = props}
-	<div {id} {...rest}>{@render children()}</div>
-{:else}
-	<button {id} {...props}>{@render children()}</button>
-{/if}
+<button {id} {...props}>{@render children()}</button>
 
 <style>
-	button, div {
+	button {
 		cursor: pointer;
 		display: inline-flex;
 		justify-content: center;
