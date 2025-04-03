@@ -4,12 +4,8 @@
 	import LL from '$translations/i18n-svelte';
 	import { fetchSeasonResult, fetchSeasons } from '$actions/Season';
 	import type { SeasonDTO } from '$lib/DTO/SeasonDTO';
-	import type { ActivityDTO } from '$lib/DTO/ActivityDTO';
 	import { SeasonResult } from '$lib/DTO/SeasonResultDTO';
-	import { fetchActivities } from '$actions/Activity';
-	import { fetchFaculties } from '$actions/Faculty';
 	import { fetchSeasonUsersStatistics } from '$actions/Statistics';
-	import type { FacultyDTO } from '$lib/DTO/FacultyDTO';
 	import Store from '$lib/enums/Stores';
 	import { getContext } from 'svelte';
 	import type { FacultyStore } from '$lib/stores/FacultyStore.svelte';
@@ -20,11 +16,6 @@
 	const activityStore = getContext<ActivityStore>(Store.ACTIVITY_STORE);
 
 	let currentSeason = $state<SeasonDTO>();
-	let activitiesPromise = fetchActivities();
-	let facultiesPromise = fetchFaculties();
-
-	let activities = $state<Array<ActivityDTO>>([]);
-	let faculties = $state<Array<FacultyDTO>>([]);
 
 	let currentWeek = $state<number>(0);
 	let currentSeasonResults = $state<SeasonResult>();
@@ -41,10 +32,8 @@
 			return;
 		}
 
-		Promise.all([activitiesPromise, facultiesPromise, fetchSeasonResult(currentSeason)])
+		Promise.all([activityStore.promise(), facultyStore.promise(), fetchSeasonResult(currentSeason)])
 			.then(([fetchedActivities, fetchedFaculties, results]) => {
-				activities = fetchedActivities;
-				faculties = fetchedFaculties;
 				currentSeasonResults = new SeasonResult(
 					results!,
 					undefined,
@@ -77,8 +66,8 @@
 		{@const seasonKeys = seasons.map((season) =>
 			season.start.toLocaleDateString('cs', { year: 'numeric', month: 'long' })
 		)}
-		
-		{@const season = seasons.find(s => s.id === currentSeason?.id)!}
+
+		{@const season = seasons.find((s) => s.id === currentSeason?.id)!}
 		<section class="pickers">
 			<Select
 				id="week_picker"
@@ -93,10 +82,10 @@
 				bind:currentValue={currentSeason}
 			/>
 		</section>
-			<h5>
-				{season.start.toLocaleDateString('cs', { day: 'numeric', month: 'long' })} - 
-				{season.end.toLocaleDateString('cs', { day: 'numeric', month: 'long' })}
-			</h5>
+		<h5>
+			{season.start.toLocaleDateString('cs', { day: 'numeric', month: 'long' })} -
+			{season.end.toLocaleDateString('cs', { day: 'numeric', month: 'long' })}
+		</h5>
 		<div class="season-wrapper">
 			{#if currentSeasonResultsArray.length === 0}
 				<div class="title">
@@ -104,9 +93,9 @@
 				</div>
 			{:else}
 				{#await fetchCharities()}
-				 	<span>{$LL.profile.loading.statistics()}</span>
+					<span>{$LL.profile.loading.statistics()}</span>
 				{:then charities}
-					{@const charity = charities.find(ch => ch.id === currentSeason?.charity!)!}
+					{@const charity = charities.find((ch) => ch.id === currentSeason?.charity!)!}
 					{@const totalGained = currentSeasonResultsArray[2].row.reduce(
 						(accumulator, current) => {
 							accumulator.distance += current.distance;
@@ -117,11 +106,15 @@
 					)}
 					<div class="container">
 						<h3 class="white">{charity.name}</h3>
-						<h4 class="white">{$LL.results.total_gained()}: {(totalGained.distance / 1000).toFixed(0)} Kč</h4>
+						<h4 class="white">
+							{$LL.results.total_gained()}: {(totalGained.distance / 1000).toFixed(0)} Kč
+						</h4>
 					</div>
 				{/await}
-					{#each currentSeasonResultsArray as result}
-					{@const activity = activities.find((activity) => activity.id === result.activity)}
+				{#each currentSeasonResultsArray as result}
+					{@const activity = activityStore
+						.all()
+						.find((activity) => activity.id === result.activity)}
 					{@const total = result.row.reduce(
 						(accumulator, current) => {
 							accumulator.distance += current.distance;
@@ -146,7 +139,9 @@
 									<span class="right">{$LL.results.points()}</span>
 								</header>
 								{#each result.row as row}
-									{@const faculty = faculties.find((faculty) => faculty.id === row.faculty)}
+									{@const faculty = facultyStore
+										.all()
+										.find((faculty) => faculty.id === row.faculty)}
 									<div class="row">
 										<span>{faculty?.shortcut}</span>
 										<span class="right">{(row.distance / 1000).toFixed(1)}</span>
@@ -163,7 +158,7 @@
 						</section>
 
 						<section class="graph">
-							<ResultsChart {faculties} results={result.row} />
+							<ResultsChart faculties={facultyStore.all()} results={result.row} />
 						</section>
 					</div>
 				{/each}
@@ -208,49 +203,53 @@
 				{/if}
 
 				{#if currentSeason && !isBefore2022 && currentWeek === 0}
-					{#await fetchSeasonUsersStatistics(currentSeason?.id) then stat}
-						<div class="wrapper">
-							<section>
-								<div class="title">
-									<h2>{$LL.results.top3()}</h2>
-								</div>
-								{#each currentSeasonOutliers as outlierActivity}
-									{@const activity = activities.find((a) => a.id === outlierActivity.activityId)!}
-									<section class="table">
-										<div class="title">
-											<h5>{$LL.activities[activity.name as keyof typeof $LL.activities]()}</h5>
-										</div>
-										<div class="results-table">
-											<header class="row">
-												<span>{$LL.registration.first_name()}</span>
-												<span>{$LL.results.faculty()}</span>
-												<span class="right">{$LL.results.count()}</span>
-											</header>
-											{#each outlierActivity.results as outlier}
-												{@const faculty = faculties.find(
-													(faculty) => faculty.id === outlier.facultyId
-												)}
-												<div class="row">
-													<span>{outlier.user.first_name} {outlier.user.last_name}</span>
-													<span>{faculty?.shortcut}</span>
-													<span class="right">{outlier.value / 1000} km</span>
-												</div>
-											{/each}
-										</div>
-									</section>
-								{/each}
-							</section>
-							<section class="table">
-								<div class="title">
-									<h2>{$LL.results.by_faculty()}</h2>
-								</div>
+					<div class="wrapper">
+						<section>
+							<div class="title">
+								<h2>{$LL.results.top3()}</h2>
+							</div>
+							{#each currentSeasonOutliers as outlierActivity}
+								{@const activity = activityStore
+									.all()
+									.find((a) => a.id === outlierActivity.activity_id)!}
+								<section class="table">
+									<div class="title">
+										<h5>{$LL.activities[activity.name as keyof typeof $LL.activities]()}</h5>
+									</div>
+									<div class="results-table">
+										<header class="row">
+											<span>{$LL.registration.first_name()}</span>
+											<span>{$LL.results.faculty()}</span>
+											<span class="right">{$LL.results.count()}</span>
+										</header>
+										{#each outlierActivity.results as outlier}
+											{@const faculty = facultyStore
+												.all()
+												.find((faculty) => faculty.id === outlier.faculty_id)}
+											<div class="row">
+												<span>{outlier.user.first_name} {outlier.user.last_name}</span>
+												<span>{faculty?.shortcut}</span>
+												<span class="right">{outlier.value / 1000} km</span>
+											</div>
+										{/each}
+									</div>
+								</section>
+							{/each}
+						</section>
+						<section class="table">
+							<div class="title">
+								<h2>{$LL.results.by_faculty()}</h2>
+							</div>
+							{#await fetchSeasonUsersStatistics(currentSeason?.id!) then stat}
 								<div class="results-table">
 									<header class="row">
 										<span>{$LL.results.faculty()}</span>
 										<span class="right">{$LL.results.count()}</span>
 									</header>
 									{#each stat as row}
-										{@const faculty = faculties.find((faculty) => faculty.id === row.faculty)}
+										{@const faculty = facultyStore
+											.all()
+											.find((faculty) => faculty.id === row.faculty)}
 										<div class="row">
 											<span>{faculty?.shortcut}</span>
 											<span class="right">{row.count}</span>
@@ -264,9 +263,9 @@
 										</strong>
 									</div>
 								</div>
-							</section>
-						</div>
-					{/await}
+							{/await}
+						</section>
+					</div>
 				{/if}
 			{/if}
 		</div>
@@ -363,7 +362,7 @@
 	}
 
 	.white {
-		color: #fff
+		color: #fff;
 	}
 
 	.results-table > .row:last-child {

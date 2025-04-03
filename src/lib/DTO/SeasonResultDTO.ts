@@ -36,10 +36,10 @@ export type SeasonResultWeek = {
 };
 
 export type OutlierActivity = {
-	activityId: number;
+	activity_id: number;
 	results: Array<{
 		user: AnonymizedUser;
-		facultyId: number;
+		faculty_id: number;
 		value: number;
 	}>;
 };
