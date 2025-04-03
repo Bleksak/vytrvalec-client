@@ -577,6 +577,40 @@ type RootTranslation = {
 			 */
 			error: string
 		}
+		'delete': {
+			/**
+			 * S​m​a​z​a​t​ ​ú​č​e​t
+			 */
+			title: string
+			/**
+			 * S​m​a​z​á​n​í​ ​ú​č​t​u​ ​j​e​ ​n​e​v​r​a​t​n​é​.​ ​T​a​t​o​ ​a​k​c​e​ ​n​e​l​z​e​ ​v​z​í​t​ ​z​p​ě​t​.
+			 */
+			desc1: string
+			/**
+			 * P​o​ ​s​t​i​s​k​n​u​t​í​ ​t​l​a​č​í​t​k​a​ ​o​d​s​t​r​a​n​i​t​ ​b​u​d​e​ ​v​á​š​ ​ú​č​e​t​ ​o​k​a​m​ž​i​t​ě​ ​z​p​r​a​c​o​v​á​n​ ​k​e​ ​s​m​a​z​á​n​í​ ​a​ ​v​š​e​c​h​n​a​ ​d​a​t​a​ ​b​u​d​o​u​ ​t​r​v​a​l​e​ ​o​d​s​t​r​a​n​ě​n​a​.
+			 */
+			desc2: string
+			/**
+			 * J​a​k​m​i​l​e​ ​ú​č​e​t​ ​s​m​a​ž​e​t​e​,​ ​j​i​ž​ ​h​o​ ​n​e​l​z​e​ ​o​b​n​o​v​i​t​.
+			 */
+			desc3: string
+			/**
+			 * M​ě​s​í​č​n​í​ ​V​y​t​r​v​a​l​e​c​ ​s​i​ ​b​u​d​e​ ​n​a​d​á​l​e​ ​u​c​h​o​v​á​v​a​t​ ​V​a​š​e​ ​s​d​í​l​e​n​é​ ​a​k​t​i​v​i​t​y​ ​z​a​ ​ú​č​e​l​e​m​ ​u​c​h​o​v​á​n​í​ ​s​t​a​t​i​s​t​i​k​ ​u​p​l​y​n​u​l​ý​c​h​ ​r​o​č​n​í​k​ů​ ​s​o​u​t​ě​ž​e​.​ ​N​e​b​u​d​o​u​ ​o​v​š​e​m​ ​n​i​j​a​k​ ​s​p​o​j​e​n​y​ ​s​ ​v​a​š​í​m​ ​s​t​á​v​a​j​í​c​í​m​ ​ú​č​t​e​m​.
+			 */
+			desc4: string
+			/**
+			 * O​d​s​t​r​a​n​i​t
+			 */
+			submit: string
+			/**
+			 * Ú​č​e​t​ ​o​d​s​t​r​a​n​ě​n
+			 */
+			success: string
+			/**
+			 * N​a​s​t​a​l​a​ ​c​h​y​b​a​ ​p​ř​i​ ​o​d​s​t​r​a​ň​o​v​á​n​í​ ​ú​č​t​u
+			 */
+			error: string
+		}
 		/**
 		 * Z​m​ě​n​a​ ​h​e​s​l​a
 		 */
@@ -1545,6 +1579,40 @@ export type TranslationFunctions = {
 			success: () => LocalizedString
 			/**
 			 * Nastala chyba při úpravě odběru emailů
+			 */
+			error: () => LocalizedString
+		}
+		'delete': {
+			/**
+			 * Smazat účet
+			 */
+			title: () => LocalizedString
+			/**
+			 * Smazání účtu je nevratné. Tato akce nelze vzít zpět.
+			 */
+			desc1: () => LocalizedString
+			/**
+			 * Po stisknutí tlačítka odstranit bude váš účet okamžitě zpracován ke smazání a všechna data budou trvale odstraněna.
+			 */
+			desc2: () => LocalizedString
+			/**
+			 * Jakmile účet smažete, již ho nelze obnovit.
+			 */
+			desc3: () => LocalizedString
+			/**
+			 * Měsíční Vytrvalec si bude nadále uchovávat Vaše sdílené aktivity za účelem uchování statistik uplynulých ročníků soutěže. Nebudou ovšem nijak spojeny s vaším stávajícím účtem.
+			 */
+			desc4: () => LocalizedString
+			/**
+			 * Odstranit
+			 */
+			submit: () => LocalizedString
+			/**
+			 * Účet odstraněn
+			 */
+			success: () => LocalizedString
+			/**
+			 * Nastala chyba při odstraňování účtu
 			 */
 			error: () => LocalizedString
 		}

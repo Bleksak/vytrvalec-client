@@ -1,5 +1,6 @@
 import {
 	accountChange,
+	accountDelete,
 	gdprConsentChange,
 	login,
 	requestResetPassword,
@@ -112,6 +113,16 @@ const consentAction: Action = async ({ request }) => {
 	return { status: response.type };
 };
 
+const deleteAccountAction: Action = async () => {
+	const response = await accountDelete();
+
+	if (response.type === 'error') {
+		return fail(400, response.errors);
+	}
+
+	return 	redirect(307, '/');
+};
+
 export const actions: Actions = {
 	login: loginAction,
 	logout: logoutAction,
@@ -119,5 +130,6 @@ export const actions: Actions = {
 	account: accountAction,
 	forgotten: forgottenPasswordAction,
 	reset: resetAction,
-	consent: consentAction
+	consent: consentAction,
+	delete: deleteAccountAction
 };

@@ -199,6 +199,16 @@ const cs = {
 			success: "Odebírání emailů úspěšně změněno",
 			error: "Nastala chyba při úpravě odběru emailů"
 		},
+		delete: {
+			title: "Smazat účet",
+			desc1: "Smazání účtu je nevratné. Tato akce nelze vzít zpět.",
+			desc2: "Po stisknutí tlačítka odstranit bude váš účet okamžitě zpracován ke smazání a všechna data budou trvale odstraněna.",
+			desc3: "Jakmile účet smažete, již ho nelze obnovit.",
+			desc4: "Měsíční Vytrvalec si bude nadále uchovávat Vaše sdílené aktivity za účelem uchování statistik uplynulých ročníků soutěže. Nebudou ovšem nijak spojeny s vaším stávajícím účtem.",
+			submit: "Odstranit",
+			success: "Účet odstraněn",
+			error: "Nastala chyba při odstraňování účtu"
+		},
 		password_change: "Změna hesla",
 		errors: {
 			email: {

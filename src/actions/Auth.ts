@@ -238,3 +238,31 @@ export const emailSubscribeChange = async (value: boolean) => {
 
 	return { type: 'success' };
 };
+
+export const accountDelete = async () => {
+	const response = await axios
+		.delete(`/user`)
+		.catch((error) => {
+			if (error.response) {
+				return error.response;
+			}
+
+			return null;
+		});
+	
+	if (response === null) {
+		return {
+			type: 'error',
+			errors: { server: ['server_down'] }
+		};
+	}
+
+	if (response.status !== 200) {
+		return {
+			type: 'error',
+			errors: response?.data ?? {}
+		};
+	}
+
+	return { type: 'success' };
+};

@@ -5,6 +5,7 @@
 	import Button from '$components/Button.svelte';
 	import PasswordProgress from '$components/FormComponent/PasswordProgress.svelte';
 	import Switch from '$components/Switch.svelte';
+	import DeleteAccountForm from '$components/forms/DeleteAccountForm.svelte';
 	import GdprForm from '$components/forms/GdprForm.svelte';
 	import FacultyTag from '$components/profile/FacultyTag.svelte';
 	import type { AccountChangeErrors } from '$lib/DTO/AccountChangeDTO';
@@ -37,7 +38,9 @@
 	const openGdprDialog = () =>
 		dialogStore.open(GdprForm, { gdpr: currentUser.accepted_gdpr ? currentUser.accepted_gdpr : undefined }, context);
 
-
+	const openDeleteAccDialog = () => 
+		dialogStore.open(DeleteAccountForm, {}, context);
+		
 	const handleSubscribtionChange = async (event: Event & { currentTarget: EventTarget & HTMLInputElement; }) => {
 		event.preventDefault();
 
@@ -89,7 +92,10 @@
 				<strong>{$LL.account.emailing.description()}: </strong>
 				<Switch checked={currentUser.mailing} onChange={handleSubscribtionChange} />
 			</div>
-			<Button onclick={openGdprDialog} class="rounded">{$LL.gdpr.title()}</Button>	
+			<div class="section btn-container">
+				<Button onclick={openGdprDialog} class="rounded">{$LL.gdpr.title()}</Button>	
+				<Button onclick={openDeleteAccDialog} class="rounded danger">{$LL.account.delete.title()}</Button>	
+			</div>
 		</div>
 		
 
@@ -166,5 +172,9 @@
 
 	.container {
 		gap: 50px;
+	}
+
+	.btn-container {
+		gap: 10px
 	}
 </style>
