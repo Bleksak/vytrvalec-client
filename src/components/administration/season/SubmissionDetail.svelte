@@ -3,8 +3,8 @@
 	import Button from '$components/Button.svelte';
 	import Dialog from '$components/Dialog.svelte';
 	import type { ToastStore } from '$lib/stores/ToastStore.svelte';
-    import type {SubmissionResponseAdminDTO} from '$lib/DTO/SubmissionDTO';
-    import type {SubmitFunction} from '@sveltejs/kit';
+	import type { SubmissionResponseAdminDTO } from '$lib/DTO/SubmissionDTO';
+	import type { SubmitFunction } from '@sveltejs/kit';
 	import { getContext } from 'svelte';
 	import type { SubmissionStore } from '$lib/stores/SubmissionStore.svelte';
 	import type { SubmissionStateError } from '$lib/DTO/SubmissionStateDTO';
@@ -12,14 +12,14 @@
 	import Store from '$lib/enums/Stores';
 	import type { ActivityStore } from '$lib/stores/ActivityStore.svelte';
 
-	const { currentSubmission } : { currentSubmission: SubmissionResponseAdminDTO } = $props();
+	const { currentSubmission }: { currentSubmission: SubmissionResponseAdminDTO } = $props();
 
 	const toastStore = getContext<ToastStore>(Store.TOAST_STORE);
 	const activityStore = getContext<ActivityStore>(Store.ACTIVITY_STORE);
 
-    let dialog = $state<Dialog>();
+	let dialog = $state<Dialog>();
 
-    const submissionStore = getContext<SubmissionStore>(Store.SUBMISSION_STORE);
+	const submissionStore = getContext<SubmissionStore>(Store.SUBMISSION_STORE);
 	let errors = $state<SubmissionStateError>();
 
 	const enhancer: SubmitFunction<{ updated_at: string }> = ({ formData }) => {
@@ -55,10 +55,12 @@
 		<img src={currentSubmission.image} alt="Aktivita" />
 		<input type="hidden" name="id" value={currentSubmission.id} />
 		<input type="hidden" name="updated_at" value={currentSubmission.updated_at} />
-		
+
 		{#each errors?.submission_state ?? [] as error}
 			<span class="error">
-				<span class="error">{$LL.submission.errors[error as keyof typeof $LL.submission.errors]()}</span>
+				<span class="error"
+					>{$LL.submission.errors[error as keyof typeof $LL.submission.errors]()}</span
+				>
 			</span>
 		{/each}
 
@@ -78,19 +80,34 @@
 
 			<label for="message">Komentář:</label>
 			<textarea name="message" id="message">{currentSubmission.message}</textarea>
-			
-			{#if currentSubmission.accepted}
-				<Button name="state" value="0" type="submit">Zamítnout</Button>
-			{:else}
-				<Button name="state" value="1" type="submit">Schválit</Button>
-			{/if}
+
+			<div class="send-buttons">
+				{#if currentSubmission.accepted}
+					<Button class="left danger" name="state" value="0" type="submit">Zamítnout</Button>
+					<Button class="right secondary" name="state" value="1" type="submit">
+						Upravit zprávu
+					</Button>
+				{:else}
+					<Button class="left" name="state" value="1" type="submit">Schválit</Button>
+					<Button class="right secondary" name="state" value="0" type="submit">
+						Upravit zprávu
+					</Button>
+				{/if}
+			</div>
 		{:else}
 			<label for="message">Komentář:</label>
 			<textarea name="message" id="message"></textarea>
-			<div class="buttons">
-				<Button class="left" name="state" value="0" type="submit">Zamítnout</Button>
+			<div class="send-buttons">
+				<Button class="left danger" name="state" value="0" type="submit">Zamítnout</Button>
 				<Button class="right" name="state" value="1" type="submit">Schválit</Button>
 			</div>
 		{/if}
 	</form>
 </Dialog>
+
+<style>
+	.send-buttons {
+		width: 100%;
+		display: flex;
+	}
+</style>
