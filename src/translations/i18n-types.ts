@@ -28,9 +28,9 @@ type RootTranslation = {
 		 */
 		accept: string
 	}
-	gdpr: {
+	anonym: {
 		/**
-		 * S​o​u​h​l​a​s​ ​s​e​ ​z​p​r​a​c​o​v​á​n​í​m​ ​o​s​o​b​n​í​c​h​ ​ú​d​a​j​ů
+		 * U​p​r​a​v​i​t​ ​p​ř​e​d​v​o​l​b​u​ ​a​n​o​n​y​m​i​z​a​c​e
 		 */
 		title: string
 		/**
@@ -45,6 +45,10 @@ type RootTranslation = {
 		 * S​v​ů​j​ ​s​o​u​h​l​a​s​ ​m​ů​ž​e​t​e​ ​k​d​y​k​o​l​i​ ​z​m​ě​n​i​t​ ​v​ ​n​a​s​t​a​v​e​n​í​ ​p​r​o​f​i​l​u​.
 		 */
 		description3: string
+		/**
+		 * S​o​u​h​l​a​s​í​m​ ​s​e​ ​z​v​e​ř​e​j​n​ě​n​í​m​ ​c​e​l​é​h​o​ ​j​m​é​n​a​ ​v​ ​s​e​k​c​i​ ​V​ý​s​l​e​d​k​y
+		 */
+		label: string
 		/**
 		 * U​l​o​ž​i​t
 		 */
@@ -209,6 +213,10 @@ type RootTranslation = {
 		 * S​o​u​h​l​a​s​í​m​ ​s​e​ ​z​p​r​a​c​o​v​á​n​í​m​ ​o​s​o​b​n​í​c​h​ ​ú​d​a​j​ů
 		 */
 		gdpr: string
+		/**
+		 * J​m​é​n​o​,​ ​p​ř​í​j​m​e​n​í​ ​a​ ​e​m​a​i​l​o​v​á​ ​a​d​r​e​s​a​ ​j​s​o​u​ ​z​p​r​a​c​o​v​á​v​á​n​y​ ​p​o​u​z​e​ ​p​r​o​ ​n​e​z​b​y​t​n​é​ ​f​u​n​g​o​v​á​n​í​ ​a​p​l​i​k​a​c​e​ ​a​ ​n​e​j​s​o​u​ ​s​d​í​l​e​n​y​ ​s​ ​ž​á​d​n​o​u​ ​t​ř​e​t​í​ ​s​t​r​a​n​o​u
+		 */
+		gdpr_tooltip: string
 		/**
 		 * R​e​g​i​s​t​r​o​v​a​t
 		 */
@@ -1033,9 +1041,9 @@ export type TranslationFunctions = {
 		 */
 		accept: () => LocalizedString
 	}
-	gdpr: {
+	anonym: {
 		/**
-		 * Souhlas se zpracováním osobních údajů
+		 * Upravit předvolbu anonymizace
 		 */
 		title: () => LocalizedString
 		/**
@@ -1050,6 +1058,10 @@ export type TranslationFunctions = {
 		 * Svůj souhlas můžete kdykoli změnit v nastavení profilu.
 		 */
 		description3: () => LocalizedString
+		/**
+		 * Souhlasím se zveřejněním celého jména v sekci Výsledky
+		 */
+		label: () => LocalizedString
 		/**
 		 * Uložit
 		 */
@@ -1214,6 +1226,10 @@ export type TranslationFunctions = {
 		 * Souhlasím se zpracováním osobních údajů
 		 */
 		gdpr: () => LocalizedString
+		/**
+		 * Jméno, příjmení a emailová adresa jsou zpracovávány pouze pro nezbytné fungování aplikace a nejsou sdíleny s žádnou třetí stranou
+		 */
+		gdpr_tooltip: () => LocalizedString
 		/**
 		 * Registrovat
 		 */

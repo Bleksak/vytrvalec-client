@@ -64,13 +64,13 @@ export const formDataToUserRegisterDTO = (formData: FormData): UserRegisterRetur
 		errors['faculty'] = ['invalid'];
 	}
 
-	const gdpr = formData.get('gdpr');
-
-	if (gdpr === null) {
+	const gdpr = formData.get("gdpr");
+	if (gdpr === null || !Boolean(Number(gdpr))) {
 		errors['gdpr'] = ['blank'];
 	}
 
-	const gdprValue = Boolean(Number(gdpr));
+	const anonym = formData.get('anonym');
+	const anonymize = Boolean(Number(anonym));
 
 	if (Object.keys(errors).length !== 0) {
 		return { type: 'error', value: errors };
@@ -84,7 +84,7 @@ export const formDataToUserRegisterDTO = (formData: FormData): UserRegisterRetur
 			first_name: firstName!,
 			last_name: lastName!,
 			faculty: faculty,
-			gdpr: gdprValue,
+			gdpr: anonymize,
 		}
 	};
 };

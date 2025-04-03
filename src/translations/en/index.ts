@@ -8,11 +8,12 @@ const en = {
 		accept: 'Accept'
 	},
 
-	gdpr: {
-		title: "Consent to the processing of personal data",
+	anonym: {
+		title: "Edit anonymization preference",
 		description1: "The application allows the publication of participants' names who have earned bonus points for their faculty or achieved exceptional results.",
 		description2: "Providing consent is voluntary. If you do not grant consent, your name will not be displayed, and only the faculty name will be shown. In this case, leave the corresponding field empty and confirm by saving.",
 		description3: "You can change your consent at any time in your profile settings.",
+		label: "I agree to the publication of my full name in the Results section",
 		submit: "Submit"
 	},
 
@@ -64,6 +65,7 @@ const en = {
 		last_name: 'Last name',
 		faculty: 'Faculty',
 		gdpr: 'I consent to the processing of my personal data in accordance with GDPR.',
+		gdpr_tooltip: "First name, last name, and email address are processed only for the necessary functioning of the application and are not shared with any third party.",
 		submit: 'Register',
 		errors: {
 			email: {

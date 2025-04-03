@@ -15,6 +15,7 @@
 	import { PasswordEstimator } from '$lib/PasswordEstimator';
 	import PasswordProgress from '$components/FormComponent/PasswordProgress.svelte';
 	import Tooltip from '$components/Tooltip.svelte';
+	import Required from '$components/FormComponent/Required.svelte';
 
 	const toastStore = getContext<ToastStore>(Store.TOAST_STORE);
 
@@ -54,7 +55,7 @@
 	<form method="POST" action="/auth?/register" use:enhance={enhancer}>
 		<div class="form-field">
 			<label for="faculty">
-				{$LL.registration.faculty()}:
+				{$LL.registration.faculty()}:<Required/>
 			</label>
 			{#await facultyStore.promise() then faculties}
 				{@const registrationFaculties = faculties.filter((faculty) => faculty.visible)}
@@ -76,7 +77,7 @@
 
 		<div class="form-field">
 			<label for="email">
-				{$LL.registration.email()}:
+				{$LL.registration.email()}:<Required/>
 			</label>
 			<input type="email" name="email" id="email" />
 			{#each errors?.email ?? [] as error}
@@ -88,7 +89,7 @@
 
 		<div class="form-field">
 			<label for="password">
-				{$LL.registration.password()}:
+				{$LL.registration.password()}:<Required/>
 			</label>
 			<input type="password" name="password" id="password" onkeyup={estimatePwdStrength} />
 			<PasswordProgress {strength} />
@@ -103,7 +104,7 @@
 
 		<div class="form-field">
 			<label for="password_repeat">
-				{$LL.registration.password_repeat()}:
+				{$LL.registration.password_repeat()}:<Required/>
 			</label>
 			<input type="password" name="password_repeat" id="password_repeat" />
 			{#each errors?.password_repeat ?? [] as error}
@@ -117,7 +118,7 @@
 
 		<div class="form-field">
 			<label for="first_name">
-				{$LL.registration.first_name()}:
+				{$LL.registration.first_name()}:<Required/>
 			</label>
 			<input type="text" name="first_name" id="first_name" />
 			{#each errors?.first_name ?? [] as error}
@@ -131,7 +132,7 @@
 
 		<div class="form-field">
 			<label for="last_name">
-				{$LL.registration.last_name()}:
+				{$LL.registration.last_name()}:<Required/>
 			</label>
 			<input type="text" name="last_name" id="last_name" />
 			{#each errors?.last_name ?? [] as error}
@@ -139,23 +140,33 @@
 					{$LL.registration.errors.last_name[
 						error as keyof typeof $LL.registration.errors.last_name
 					]()}
-				</span>
+			</span>
 			{/each}
 		</div>
 
 		<div class="form-field">
 			<Tooltip
-				text={`${$LL.gdpr.description1()}${$LL.gdpr.description2()}${$LL.gdpr.description3()}`}
+				text={`${$LL.anonym.description1()}${$LL.anonym.description2()}${$LL.anonym.description3()}`}
+			>
+				<Checkbox id="anonym" name="anonym">
+					{$LL.anonym.label()}
+				</Checkbox>
+			</Tooltip>
+		</div>
+
+		<div class="form-field">
+			<Tooltip
+				text={$LL.registration.gdpr_tooltip()}
 			>
 				<Checkbox id="gdpr" name="gdpr">
-					{$LL.registration.gdpr()}
+					{$LL.registration.gdpr()}<Required/>
 				</Checkbox>
-				{#each errors?.gdpr ?? [] as error}
-					<span class="error">
-						{$LL.registration.errors.gdpr[error as keyof typeof $LL.registration.errors.gdpr]()}
-					</span>
-				{/each}
 			</Tooltip>
+			{#each errors?.gdpr ?? [] as error}
+				<span class="error">
+					{$LL.registration.errors.gdpr[error as keyof typeof $LL.registration.errors.gdpr]()}
+				</span>
+			{/each}
 		</div>
 		<Button class="middle">{$LL.registration.submit()}</Button>
 	</form>

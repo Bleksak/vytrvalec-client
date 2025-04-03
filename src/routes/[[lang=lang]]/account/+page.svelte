@@ -93,7 +93,7 @@
 				<Switch checked={currentUser.mailing} onChange={handleSubscribtionChange} />
 			</div>
 			<div class="section btn-container">
-				<Button onclick={openGdprDialog} class="rounded">{$LL.gdpr.title()}</Button>	
+				<Button onclick={openGdprDialog} class="rounded">{$LL.anonym.title()}</Button>	
 				<Button onclick={openDeleteAccDialog} class="rounded danger">{$LL.account.delete.title()}</Button>	
 			</div>
 		</div>

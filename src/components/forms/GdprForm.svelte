@@ -32,7 +32,7 @@
 	};
 </script>
 
-<Dialog bind:this={dialog} header={$LL.gdpr.title()}>
+<Dialog bind:this={dialog} header={$LL.anonym.title()}>
 	<form
 		method="POST"
 		action="/auth?/consent"
@@ -41,18 +41,18 @@
 		onsubmit={invalidateAll}
 	>
 		<span>
-			{$LL.gdpr.description1()}
+			{$LL.anonym.description1()}
 		</span>
 		<span>
-			{$LL.gdpr.description2()}
+			{$LL.anonym.description2()}
 		</span>
 		<span>
-			{$LL.gdpr.description3()}
+			{$LL.anonym.description3()}
 		</span>
 
 		<div class="form-field">
 			<Checkbox id="gdpr" name="gdpr" checked={gdpr}>
-				{$LL.registration.gdpr()}
+				{$LL.anonym.label()}
 			</Checkbox>
 			{#each errors?.gdpr ?? [] as error}
 				<span class="error">
@@ -61,7 +61,7 @@
 			{/each}
 		</div>
 		<Button type="submit" class="middle rounded">
-			{$LL.gdpr.submit()}
+			{$LL.anonym.submit()}
 		</Button>
 	</form>
 </Dialog>

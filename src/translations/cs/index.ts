@@ -8,11 +8,12 @@ const cs = {
 		accept: 'Souhlasím'
 	},
 
-	gdpr: {
-		title: "Souhlas se zpracováním osobních údajů",
+	anonym: {
+		title: "Upravit předvolbu anonymizace",
 		description1: "Aplikace umožňuje zveřejnění jmen účastníků, kteří získali bonusové body pro svou fakultu nebo dosáhli mimořádných výsledků.",
 		description2: "Poskytnutí souhlasu je dobrovolné. Pokud souhlas neudělíte, vaše jméno nebude zveřejněno a zobrazí se pouze název fakulty. V takovém případě ponechte příslušné pole prázdné a potvrďte uložením.",
 		description3: "Svůj souhlas můžete kdykoli změnit v nastavení profilu.",
+		label: "Souhlasím se zveřejněním celého jména v sekci Výsledky",
 		submit: "Uložit"
 	},
 
@@ -64,6 +65,7 @@ const cs = {
 		last_name: 'Příjmení',
 		faculty: 'Fakulta',
 		gdpr: 'Souhlasím se zpracováním osobních údajů',
+		gdpr_tooltip: "Jméno, příjmení a emailová adresa jsou zpracovávány pouze pro nezbytné fungování aplikace a nejsou sdíleny s žádnou třetí stranou",
 		submit: 'Registrovat',
 		errors: {
 			email: {
