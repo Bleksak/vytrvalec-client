@@ -277,7 +277,7 @@ const en = {
 	},
 	activities: {
 		'Běh/Chůze': 'Run and walk',
-		'Kolo/Koloběžka': 'Bike and scooter',
+		'Kolo/Koloběžka': 'Bike, scooter and inline skates',
         total: 'Total',
 	},
 	rules: {

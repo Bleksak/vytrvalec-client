@@ -830,7 +830,7 @@ type RootTranslation = {
 		 */
 		'Běh/Chůze': string
 		/**
-		 * K​o​l​o​ ​a​ ​k​o​l​o​b​ě​ž​k​a
+		 * K​o​l​o​,​ ​k​o​l​o​b​ě​ž​k​a​ ​a​ ​b​r​u​s​l​e
 		 */
 		'Kolo/Koloběžka': string
 		/**
@@ -1835,7 +1835,7 @@ export type TranslationFunctions = {
 		 */
 		'Běh/Chůze': () => LocalizedString
 		/**
-		 * Kolo a koloběžka
+		 * Kolo, koloběžka a brusle
 		 */
 		'Kolo/Koloběžka': () => LocalizedString
 		/**

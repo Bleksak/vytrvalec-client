@@ -277,7 +277,7 @@ const cs = {
 	},
 	activities: {
 		'Běh/Chůze': 'Běh a chůze',
-		'Kolo/Koloběžka': 'Kolo a koloběžka',
+		'Kolo/Koloběžka': 'Kolo, koloběžka a brusle',
         total: 'Celkové hodnocení',
 	},
 	icons: {
