@@ -20,6 +20,7 @@
 
   let seasonResult = $state<SeasonResult>();
   let isSeasonCached = $state<boolean>();
+  const isSeasonRunning = season.end.getTime() > new Date().getTime();
 
   const seasonStore = getContext<SeasonStore>(Store.SEASON_STORE);
   const charityStore = getContext<CharityStore>(Store.CHARITY_STORE);
@@ -89,7 +90,7 @@
           <p><strong>Začátek:&nbsp;</strong>{season.start.toLocaleDateString('cs')}</p>
           <p><strong>Konec:&nbsp;</strong>{season.end.toLocaleDateString('cs')}</p>
           <p><strong>Celková vzdálenost:&nbsp;</strong>{seasonResult?.getTotalDistance()} km</p>
-          {#if !isSeasonCached }
+          {#if !isSeasonCached && !isSeasonRunning}
              <Button onclick={endSeason}>Uzavřít sezónu</Button>
           {/if}
           {#if seasonCacheResult !== undefined}
@@ -106,7 +107,7 @@
         <section class="extra-points">
           {#each seasonResult?.getExtraPoints() ?? [] as extraPoint}
             <p>
-              <strong>{extraPoint.user.first_name} {extraPoint.user.last_name}</strong>
+              <strong>{extraPoint.user?.first_name} {extraPoint.user?.last_name}</strong>
               ({facultyStore.get(extraPoint.faculty)?.shortcut}):
             </p>
             <p>
