@@ -1,4 +1,4 @@
-<script lang='ts'>
+<script lang="ts">
 	import LL from '$translations/i18n-svelte';
 </script>
 
@@ -27,6 +27,14 @@
 		</section>
 
 		<section>
+			<h4>{$LL.rules.target_activities.title()}</h4>
+			<ul class="list-style">
+				<li>{$LL.rules.target_activities.body()}</li>
+				<li>{$LL.rules.target_activities.supplement()}</li>
+			</ul>
+		</section>
+
+		<section>
 			<h4>{$LL.rules.extraPoints.title()}</h4>
 			<p>{$LL.rules.extraPoints.intro()}</p>
 			<ul class="list-style">
@@ -34,7 +42,7 @@
 					{$LL.rules.extraPoints.thirdWeek.title()}
 					<ul class="list-style">
 						<li>
-							1 <strong>{$LL.rules.extraPoints.extraPoint().toUpperCase()}</strong> 
+							1 <strong>{$LL.rules.extraPoints.extraPoint().toUpperCase()}</strong>
 							{$LL.rules.extraPoints.thirdWeek.extraOne()}
 						</li>
 						<li>
@@ -47,7 +55,7 @@
 					{$LL.rules.extraPoints.fourthWeek.title()}
 					<ul class="list-style">
 						<li>
-							1 <strong>{$LL.rules.extraPoints.extraPoint().toUpperCase()}</strong> 
+							1 <strong>{$LL.rules.extraPoints.extraPoint().toUpperCase()}</strong>
 							{$LL.rules.extraPoints.fourthWeek.extraOne()}
 						</li>
 					</ul>

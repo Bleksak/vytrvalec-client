@@ -887,7 +887,7 @@ type RootTranslation = {
 			 */
 			title: string
 			/**
-			 * U​ž​i​v​a​t​e​l​é​ ​z​a​z​n​a​m​e​n​á​v​a​j​í​ ​s​v​é​ ​p​o​h​y​b​o​v​é​ ​a​k​t​i​v​i​t​y​ ​p​r​o​s​t​ř​e​d​n​i​c​t​v​í​m​ ​n​ě​k​t​e​r​é​ ​m​o​b​i​l​n​í​ ​a​p​l​i​k​a​c​e​ ​n​a​ ​s​v​ů​j​ ​t​e​l​e​f​o​n​ ​a​ ​n​a​h​r​a​j​í​ ​j​e​ ​n​a​ ​t​e​n​t​o​ ​p​o​r​t​á​l​.
+			 * U​ž​i​v​a​t​e​l​é​ ​z​a​z​n​a​m​e​n​á​v​a​j​í​ ​s​v​é​ ​c​í​l​e​n​é​ ​p​o​h​y​b​o​v​é​ ​a​k​t​i​v​i​t​y​ ​p​r​o​s​t​ř​e​d​n​i​c​t​v​í​m​ ​n​ě​k​t​e​r​é​ ​m​o​b​i​l​n​í​ ​a​p​l​i​k​a​c​e​ ​n​a​ ​s​v​ů​j​ ​t​e​l​e​f​o​n​ ​a​ ​n​a​h​r​a​j​í​ ​j​e​ ​n​a​ ​t​e​n​t​o​ ​p​o​r​t​á​l​.​ ​P​r​o​ ​z​a​z​n​a​m​e​n​á​v​á​n​í​ ​c​í​l​o​v​ý​c​h​ ​a​k​t​i​v​i​t​ ​m​ů​ž​e​t​e​ ​v​y​u​ž​í​t​ ​n​a​p​ř​.​ ​a​p​l​i​k​a​c​i​ ​G​a​r​m​i​n​ ​C​o​n​n​e​c​t​,​ ​n​e​b​o​ ​S​t​r​a​v​a​.
 			 */
 			content1: string
 			/**
@@ -936,6 +936,20 @@ type RootTranslation = {
 			 * E​x​t​r​a​ ​b​o​d​y
 			 */
 			extraPoints: string
+		}
+		target_activities: {
+			/**
+			 * C​í​l​o​v​á​ ​p​o​h​y​b​o​v​á​ ​a​k​t​i​v​i​t​a
+			 */
+			title: string
+			/**
+			 * J​d​u​ ​s​i​ ​z​a​b​ě​h​a​t​,​ ​z​a​p​n​u​ ​s​i​ ​a​k​t​i​v​i​t​u​ ​a​ ​v​y​p​n​u​ ​s​i​ ​a​k​t​i​v​i​t​u​.​ ​J​d​u​ ​s​e​ ​p​r​o​j​í​t​,​ ​z​a​p​n​u​ ​s​i​ ​a​k​t​i​v​i​t​u​ ​a​ ​v​y​p​n​u​ ​s​i​ ​a​k​t​i​v​i​t​u​.​ ​J​e​d​u​ ​n​a​ ​k​o​l​e​,​ ​z​a​p​n​u​ ​s​i​ ​a​k​t​i​v​i​t​u​ ​a​ ​v​y​p​n​u​ ​s​i​ ​a​k​t​i​v​i​t​u​.
+			 */
+			body: string
+			/**
+			 * C​í​l​o​v​á​ ​p​o​h​y​b​o​v​á​ ​a​k​t​i​v​i​t​a​ ​N​E​N​Í​ ​s​o​u​č​e​t​ ​n​a​c​h​o​z​e​n​ý​c​h​ ​k​i​l​o​m​e​t​r​ů​ ​z​a​ ​d​e​n​.​ ​P​r​o​ ​z​a​z​n​a​m​e​n​á​v​á​n​í​ ​c​í​l​o​v​ý​c​h​ ​a​k​t​i​v​i​t​ ​m​ů​ž​e​t​e​ ​v​y​u​ž​í​t​ ​n​a​p​ř​.​ ​a​p​l​i​k​a​c​i​ ​G​a​r​m​i​n​ ​C​o​n​n​e​c​t​,​ ​n​e​b​o​ ​S​t​r​a​v​a​.
+			 */
+			supplement: string
 		}
 	}
 	footer: {
@@ -1900,7 +1914,7 @@ export type TranslationFunctions = {
 			 */
 			title: () => LocalizedString
 			/**
-			 * Uživatelé zaznamenávají své pohybové aktivity prostřednictvím některé mobilní aplikace na svůj telefon a nahrají je na tento portál.
+			 * Uživatelé zaznamenávají své cílené pohybové aktivity prostřednictvím některé mobilní aplikace na svůj telefon a nahrají je na tento portál. Pro zaznamenávání cílových aktivit můžete využít např. aplikaci Garmin Connect, nebo Strava.
 			 */
 			content1: () => LocalizedString
 			/**
@@ -1949,6 +1963,20 @@ export type TranslationFunctions = {
 			 * Extra body
 			 */
 			extraPoints: () => LocalizedString
+		}
+		target_activities: {
+			/**
+			 * Cílová pohybová aktivita
+			 */
+			title: () => LocalizedString
+			/**
+			 * Jdu si zaběhat, zapnu si aktivitu a vypnu si aktivitu. Jdu se projít, zapnu si aktivitu a vypnu si aktivitu. Jedu na kole, zapnu si aktivitu a vypnu si aktivitu.
+			 */
+			body: () => LocalizedString
+			/**
+			 * Cílová pohybová aktivita NENÍ součet nachozených kilometrů za den. Pro zaznamenávání cílových aktivit můžete využít např. aplikaci Garmin Connect, nebo Strava.
+			 */
+			supplement: () => LocalizedString
 		}
 	}
 	footer: {

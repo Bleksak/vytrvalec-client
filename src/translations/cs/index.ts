@@ -301,7 +301,7 @@ const cs = {
 		progress: {
 			title: 'Průběh soutěže',
 			content1:
-				'Uživatelé zaznamenávají své pohybové aktivity prostřednictvím některé mobilní aplikace na svůj telefon a nahrají je na tento portál.',
+				'Uživatelé zaznamenávají své cílené pohybové aktivity prostřednictvím některé mobilní aplikace na svůj telefon a nahrají je na tento portál. Pro zaznamenávání cílových aktivit můžete využít např. aplikaci Garmin Connect, nebo Strava.',
 			content2:
 				'Každý týden se vyhodnocuje počet uražených kilometrů v daných disciplínách. První tým dostane v každé disciplíně např. 15 bodů (podle počtu zůčastněných fakult a pracovišť), druhý 14 bodu, třetí 13 bodů, apod. Celkovým vítězem výzvy se stane tým, který získá nejvíce bodů za 4 týdny v součtu obou disciplín.'
 		},
@@ -321,6 +321,11 @@ const cs = {
 			},
 			extraPoint: 'Extra bod',
 			extraPoints: 'Extra body'
+		},
+		target_activities: {
+			title: "Cílová pohybová aktivita",
+			body: "Jdu si zaběhat, zapnu si aktivitu a vypnu si aktivitu. Jdu se projít, zapnu si aktivitu a vypnu si aktivitu. Jedu na kole, zapnu si aktivitu a vypnu si aktivitu.",
+			supplement: "Cílová pohybová aktivita NENÍ součet nachozených kilometrů za den. Pro zaznamenávání cílových aktivit můžete využít např. aplikaci Garmin Connect, nebo Strava."
 		}
 	},
 	footer: {

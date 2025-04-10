@@ -297,7 +297,7 @@ const en = {
 		progress: {
 			title: 'The course of the competition',
 			content1:
-				'Users record their physical activities through a mobile app on their phone and upload them to this portal.',
+				'Users record their target physical activities through a mobile app on their phone and upload them to this portal. To record target activities, you can use apps like Garmin Connect or Strava.',
 			content2:
 				'Each week the number of kilometres covered in the given disciplines is evaluated. The first team gets 15 points in each discipline (depending on the number of participating faculties and departments), the second 14 points, the third 13 points, etc. The overall winner of the challenge will be the team that scores the most points over the 4 weeks in the sum of both disciplines.'
 		},
@@ -318,6 +318,11 @@ const en = {
 			},
 			extraPoint: 'Extra point',
 			extraPoints: 'Extra points'
+		},
+		target_activities: {
+			title: "Target physical activity",
+			body: "I go for a run, I start the activity and stop the activity. I go for a walk, I start the activity and stop the activity. I ride my bike, I start the activity and stop the activity.",
+			supplement: "The target physical activity is NOT the total number of kilometers walked in a day. To record target activities, you can use apps like Garmin Connect or Strava."
 		}
 	},
 	footer: {
