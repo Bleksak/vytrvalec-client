@@ -60,7 +60,7 @@
 				</span>
 			{/each}
 		</div>
-		<Button type="submit" class="middle rounded">
+		<Button type="submit">
 			{$LL.anonym.submit()}
 		</Button>
 	</form>

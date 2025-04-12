@@ -142,7 +142,7 @@
 					{$LL.submission.form.image()}
 				</div>
 
-				<Button class="rounded small" type="button" onclick={onUploadClick}>
+				<Button type="button" onclick={onUploadClick}>
 					{$LL.submission.form.chooseImage()}
 				</Button>
 			</div>
@@ -196,7 +196,7 @@
 			/>
 		{/await}
 
-		<Button class="full-width rounded">
+		<Button>
 			{$LL.submission.form.submit()}
 		</Button>
 	</form>

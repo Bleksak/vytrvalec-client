@@ -38,9 +38,9 @@
 	const openGdprDialog = () =>
 		dialogStore.open(GdprForm, { gdpr: currentUser.accepted_gdpr ? currentUser.accepted_gdpr : undefined }, context);
 
-	const openDeleteAccDialog = () => 
+	const openDeleteAccDialog = () =>
 		dialogStore.open(DeleteAccountForm, {}, context);
-		
+
 	const handleSubscribtionChange = async (event: Event & { currentTarget: EventTarget & HTMLInputElement; }) => {
 		event.preventDefault();
 
@@ -93,11 +93,11 @@
 				<Switch checked={currentUser.mailing} onChange={handleSubscribtionChange} />
 			</div>
 			<div class="section btn-container">
-				<Button onclick={openGdprDialog} class="rounded">{$LL.anonym.title()}</Button>	
-				<Button onclick={openDeleteAccDialog} class="rounded danger">{$LL.account.delete.title()}</Button>	
+				<Button onclick={openGdprDialog}>{$LL.anonym.title()}</Button>
+				<Button onclick={openDeleteAccDialog} class="danger">{$LL.account.delete.title()}</Button>
 			</div>
 		</div>
-		
+
 
 		<form method="post" action="/auth?/account" use:enhance={enhancer}>
 			<h5>{$LL.account.password_change()}</h5>
@@ -140,7 +140,7 @@
 			</div>
 
 			<span class="note">{$LL.account.invalid_info()}</span>
-			<Button class="rounded" type="submit">{$LL.account.save()}</Button>
+			<Button type="submit">{$LL.account.save()}</Button>
 		</form>
 	</div>
 </div>

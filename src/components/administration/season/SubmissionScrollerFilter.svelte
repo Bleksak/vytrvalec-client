@@ -139,7 +139,7 @@
 		</div>
 	{/await}
 
-	<Button type="submit" class="middle">Vyhledat</Button>
+	<Button type="submit">Vyhledat</Button>
 </form>
 
 <style>

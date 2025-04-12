@@ -63,7 +63,7 @@
 	</label>
 	<input type="password" name="passwordRepeat" id="passwordRepeat" />
 
-	<Button class="middle">
+	<Button>
 		{$LL.reset.submit()}
 	</Button>
 </form>

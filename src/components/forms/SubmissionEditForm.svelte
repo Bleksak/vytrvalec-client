@@ -132,7 +132,7 @@
 			fileInput?.click()
 		}
 	}
-	
+
 </script>
 
 <Dialog bind:this={dialog} header={$LL.submission.editingTitle()} {...props}>
@@ -164,7 +164,7 @@
 				</div>
 
 				{#if !disabled}
-					<Button class="rounded small" type="button" onclick={onUploadClick}>
+					<Button type="button" onclick={onUploadClick}>
 						{$LL.submission.form.chooseImage()}
 					</Button>
 				{/if}
@@ -222,7 +222,7 @@
 		{/await}
 
 		{#if !disabled}
-			<Button class="full-width rounded">
+			<Button>
 				{$LL.submission.form.edit()}
 			</Button>
 		{/if}

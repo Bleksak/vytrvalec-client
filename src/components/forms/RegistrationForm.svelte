@@ -55,14 +55,16 @@
 	<form method="POST" action="/auth?/register" use:enhance={enhancer}>
 		<div class="form-field">
 			<label for="faculty">
-				{$LL.registration.faculty()}:<Required/>
+				{$LL.registration.faculty()}:<Required />
 			</label>
 			{#await facultyStore.promise() then faculties}
 				{@const registrationFaculties = faculties.filter((faculty) => faculty.visible)}
 				<Select
 					name="faculty"
 					id="faculty"
-					keys={registrationFaculties.map((f) => $LL.faculties[f.shortcut as keyof typeof $LL.faculties]())}
+					keys={registrationFaculties.map((f) =>
+						$LL.faculties[f.shortcut as keyof typeof $LL.faculties]()
+					)}
 					values={registrationFaculties.map((f) => f.id)}
 				/>
 			{:catch}
@@ -77,7 +79,7 @@
 
 		<div class="form-field">
 			<label for="email">
-				{$LL.registration.email()}:<Required/>
+				{$LL.registration.email()}:<Required />
 			</label>
 			<input type="email" name="email" id="email" />
 			{#each errors?.email ?? [] as error}
@@ -89,7 +91,7 @@
 
 		<div class="form-field">
 			<label for="password">
-				{$LL.registration.password()}:<Required/>
+				{$LL.registration.password()}:<Required />
 			</label>
 			<input type="password" name="password" id="password" onkeyup={estimatePwdStrength} />
 			<PasswordProgress {strength} />
@@ -104,7 +106,7 @@
 
 		<div class="form-field">
 			<label for="password_repeat">
-				{$LL.registration.password_repeat()}:<Required/>
+				{$LL.registration.password_repeat()}:<Required />
 			</label>
 			<input type="password" name="password_repeat" id="password_repeat" />
 			{#each errors?.password_repeat ?? [] as error}
@@ -118,7 +120,7 @@
 
 		<div class="form-field">
 			<label for="first_name">
-				{$LL.registration.first_name()}:<Required/>
+				{$LL.registration.first_name()}:<Required />
 			</label>
 			<input type="text" name="first_name" id="first_name" />
 			{#each errors?.first_name ?? [] as error}
@@ -132,7 +134,7 @@
 
 		<div class="form-field">
 			<label for="last_name">
-				{$LL.registration.last_name()}:<Required/>
+				{$LL.registration.last_name()}:<Required />
 			</label>
 			<input type="text" name="last_name" id="last_name" />
 			{#each errors?.last_name ?? [] as error}
@@ -140,7 +142,7 @@
 					{$LL.registration.errors.last_name[
 						error as keyof typeof $LL.registration.errors.last_name
 					]()}
-			</span>
+				</span>
 			{/each}
 		</div>
 
@@ -155,11 +157,9 @@
 		</div>
 
 		<div class="form-field">
-			<Tooltip
-				text={$LL.registration.gdpr_tooltip()}
-			>
+			<Tooltip text={$LL.registration.gdpr_tooltip()}>
 				<Checkbox id="gdpr" name="gdpr">
-					{$LL.registration.gdpr()}<Required/>
+					{$LL.registration.gdpr()}<Required />
 				</Checkbox>
 			</Tooltip>
 			{#each errors?.gdpr ?? [] as error}
@@ -168,6 +168,6 @@
 				</span>
 			{/each}
 		</div>
-		<Button class="middle">{$LL.registration.submit()}</Button>
+		<Button>{$LL.registration.submit()}</Button>
 	</form>
 </Dialog>

@@ -119,6 +119,6 @@
 		<Checkbox id="banned" name="banned" bind:checked={banned}>Zablokovaný</Checkbox>
 		<Checkbox id="admin" name="admin" bind:checked={adminChecked}>Administrátor</Checkbox>
 
-		<Button class="full-width">Upravit</Button>
+		<Button>Upravit</Button>
 	</form>
 </Dialog>

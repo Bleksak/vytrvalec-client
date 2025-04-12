@@ -24,7 +24,7 @@
 	<div class="container">
 		<h4>{$LL.cookies.title()}</h4>
 		<p>{$LL.cookies.description()}</p>
-		<Button onclick={acceptCookies} class="rounded">{$LL.cookies.accept()}</Button>
+		<Button onclick={acceptCookies}>{$LL.cookies.accept()}</Button>
 	</div>
 {/if}
 

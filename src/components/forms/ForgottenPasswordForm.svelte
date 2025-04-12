@@ -61,6 +61,6 @@
 			<input type="email" name="email" id="email" />
 		</div>
 
-		<Button class="middle">{$LL.login.forgotten.submit()}</Button>
+		<Button>{$LL.login.forgotten.submit()}</Button>
 	</form>
 </Dialog>

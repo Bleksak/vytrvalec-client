@@ -82,7 +82,7 @@
 			{$LL.login.forgotten.prompt()}
 		</button>
 
-		<Button type="submit" class="middle">
+		<Button type="submit">
 			{$LL.login.submit()}
 		</Button>
 	</form>
