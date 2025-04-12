@@ -11,22 +11,23 @@
 
 <style>
 	button {
-		cursor: pointer;
 		display: inline-flex;
+		align-items: center;
 		justify-content: center;
-		text-align: center;
-		min-width: 150px;
-		height: 50px;
+		padding: 0.5rem 1rem;
+		font-weight: 500;
+		border-radius: 0.375rem;
+		cursor: pointer;
+		transition: all 0.2s;
+
 		background-color: #005cab;
 		color: white;
-		font-size: 1.3rem;
-		transition: all 0.3s ease-out;
-		padding: 0.5rem;
-		border: 2px solid transparent;
+		border: 1px solid transparent;
 	}
 
-	.middle {
-		margin: 0 auto;
+	button:disabled {
+		opacity: 0.5;
+		cursor: not-allowed;
 	}
 
 	.left {
@@ -38,37 +39,22 @@
 	}
 
 	.secondary {
-		background-color: white;
+		background-color: transparent;
+		border: 1px solid #005cab;
 		color: #005cab;
-		border: 2px solid #005cab;
+	}
+
+	.secondary:hover:not(:disabled) {
+		background-color: rgba(0, 92, 171, 0.1);
 	}
 
 	.danger {
 		background-color: red;
 	}
 
-	.full-width {
-		width: 100%;
-	}
-
-	.rounded {
-		border-radius: 10px;
-	}
-
-	.small {
-		height: 35px;
-		font-size: 0.8rem;
-	}
-
-	button:hover {
-		background-color: white;
+	.secondary {
+		background-color: transparent;
+		border: 1px solid #005cab;
 		color: #005cab;
-		border: 2px solid #005cab;
-	}
-
-	button.secondary:hover {
-		background-color: #005cab;
-		border: 2px solid transparent;
-		color: white;
 	}
 </style>

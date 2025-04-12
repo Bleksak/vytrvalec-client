@@ -1,6 +1,15 @@
-:where(:not(iframe, canvas, input[type='checkbox'], img, svg, video):not(svg, symbol)) {
+/* :where(:not(canvas)) { */
+	/* all: unset; */
+	/* display: revert; */
+/* } */
+
+/* :not(svg) { */
+  /* all: unset; */
+  /* display: revert; */
+/* } */
+
+button, dialog {
 	all: unset;
-	display: revert;
 }
 
 * {
