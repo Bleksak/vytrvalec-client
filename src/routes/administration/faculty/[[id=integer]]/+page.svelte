@@ -7,7 +7,6 @@
 
 	const facultyStore = getContext<FacultyStore>(Store.FACULTY_STORE);
 	let faculty = $derived(facultyStore.get(Number(page.params.id)) ?? undefined);
-	$inspect(faculty);
 </script>
 
 <div>
