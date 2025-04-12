@@ -1,14 +1,17 @@
 /* :where(:not(canvas)) { */
-	/* all: unset; */
-	/* display: revert; */
+/* all: unset; */
+/* display: revert; */
 /* } */
 
 /* :not(svg) { */
-  /* all: unset; */
-  /* display: revert; */
+/* all: unset; */
+/* display: revert; */
 /* } */
 
-button, dialog {
+button,
+dialog,
+input,
+textarea {
 	all: unset;
 }
 
@@ -100,16 +103,19 @@ a:visited {
 	src: url(../fonts/RobotoCondensed-Regular.ttf);
 	font-weight: normal;
 }
+
 @font-face {
 	font-family: Roboto Condensed;
 	src: url(../fonts/RobotoCondensed-Light.ttf);
 	font-weight: lighter;
 }
+
 @font-face {
 	font-family: Roboto Condensed;
 	src: url(../fonts/RobotoCondensed-Bold.ttf);
 	font-weight: bold;
 }
+
 @font-face {
 	font-family: Roboto Condensed;
 	src: url(../fonts/RobotoCondensed-Medium.ttf);
@@ -205,11 +211,11 @@ ol.list-style {
 	list-style-type: decimal;
 }
 
-ul > li {
+ul>li {
 	counter-increment: item;
 }
 
-ol > li {
+ol>li {
 	counter-increment: item;
 }
 
@@ -280,15 +286,15 @@ label {
 }
 
 w-100 {
-    width: 100%;
+	width: 100%;
 }
 
 m-0 {
-    margin: 0;
+	margin: 0;
 }
 
 f-1 {
-    flex: 1;
+	flex: 1;
 }
 
 @media screen and (max-width: 1000px) {
