@@ -225,16 +225,6 @@ const en = {
 			success: "Account deleted",
 			error: "An error occurred while deleting the account"
 		},
-		delete: {
-			title: "Delete account",
-			desc1: "Deleting your account is irreversible. This action cannot be undone.",
-			desc2: "Once you submit this, your account will be processed for deletion immediately, and all data will be permanently removed.",
-			desc3: "Once you delete your account, it cannot be restored.",
-			desc4: "Monthly Challenger will continue to retain your shared activities for the purpose of preserving statistics from past competition years. However, they will not be linked to your current account in any way.",
-			submit: "Delete",
-			success: "Account deleted",
-			error: "An error occurred while deleting the account"
-		},
 		password_change: "Password change",
 		errors: {
 			email: {

@@ -36,9 +36,7 @@
 			.then(([fetchedActivities, fetchedFaculties, results]) => {
 				currentSeasonResults = new SeasonResult(
 					results!,
-					undefined,
 					fetchedActivities,
-					fetchedFaculties
 				);
 			})
 			.catch(() => (currentSeasonResults = undefined));
