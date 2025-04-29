@@ -36,12 +36,12 @@ const cs = {
 			users: 'UČASTNÍKŮ'
 		},
 		android: {
-			available: "Dostupné na Google Play",
-			get: "Získat"
+			available: 'Dostupné na Google Play',
+			get: 'Získat'
 		},
 		mobile_app: {
-			title: "Mobilní aplikace Měsíčního Vytrvalce",
-			download: "Dostupná ke stažení na Google Play i App Store"
+			title: 'Mobilní aplikace Měsíčního Vytrvalce',
+			download: 'Dostupná ke stažení na Google Play i App Store'
 		},
 		intro:
 			'Akce měsíční vytrvalec vznikla během zimního semestru v roce 2020. Tuto pohybovou soutěž připravila a zorganizoval Ústav tělesné výchovy a sportu ZČU s úmyslem rozhýbat studenty během distanční výuky, která probíhala na ZČU během koronavirové pandemie.',
@@ -55,12 +55,33 @@ const cs = {
 		}
 	},
 
+	season_detail: {
+		title: 'Detail Sezóny',
+		date_range: '{start: Date|long_date} - {end: Date|long_date}',
+		ordinal: {
+			first: 'První místo: {name: string}',
+			second: 'Druhé místo: {name: string}',
+			third: 'Třetí místo: {name: string}'
+		},
+		raised: 'Vybráno {raised: number|currency}',
+		no_description: 'Charita nemá žádný popisek',
+		no_image: 'Charita nemá obrázek',
+		visit_charity: 'Navštivte web charity'
+	},
+
 	registration: {
 		title: 'Registrace',
 		email: 'E-mail',
 		password: 'Heslo',
 		password_repeat: 'Heslo znovu',
-		password_strength_label: ["Velmi slabé", "Slabé", "Dostačující", "Středně silné", "Silné", "Velmi silné"],
+		password_strength_label: [
+			'Velmi slabé',
+			'Slabé',
+			'Dostačující',
+			'Středně silné',
+			'Silné',
+			'Velmi silné'
+		],
 		first_name: 'Jméno',
 		last_name: 'Příjmení',
 		faculty: 'Fakulta',
@@ -197,9 +218,19 @@ const cs = {
 		save: 'Uložit',
 		success: 'Údaje byly úspěšně změněny',
 		emailing: {
-			description: "Přeji si dostávat emaily",
-			success: "Odebírání emailů úspěšně změněno",
-			error: "Nastala chyba při úpravě odběru emailů"
+			description: 'Přeji si dostávat emaily',
+			success: 'Odebírání emailů úspěšně změněno',
+			error: 'Nastala chyba při úpravě odběru emailů'
+		},
+		delete: {
+			title: "Smazat účet",
+			desc1: "Smazání účtu je nevratné. Tato akce nelze vzít zpět.",
+			desc2: "Po stisknutí tlačítka odstranit bude váš účet okamžitě zpracován ke smazání a všechna data budou trvale odstraněna.",
+			desc3: "Jakmile účet smažete, již ho nelze obnovit.",
+			desc4: "Měsíční Vytrvalec si bude nadále uchovávat Vaše sdílené aktivity za účelem uchování statistik uplynulých ročníků soutěže. Nebudou ovšem nijak spojeny s vaším stávajícím účtem.",
+			submit: "Odstranit",
+			success: "Účet odstraněn",
+			error: "Nastala chyba při odstraňování účtu"
 		},
 		delete: {
 			title: "Smazat účet",
@@ -216,7 +247,7 @@ const cs = {
 			email: {
 				blank: 'E-mail nesmí být prázdný',
 				invalid: 'E-mail je neplatný',
-				no_update: 'Není co upravit',
+				no_update: 'Není co upravit'
 			},
 			password: {
 				blank: 'Heslo nesmí být prázdné',
@@ -244,16 +275,16 @@ const cs = {
 		by_faculty: 'Účastníci podle fakult',
 		count: 'Počet',
 		top3: 'TOP 3 účastníci',
-		no_top: "Zatím žádní",
-		total_gained: "Celkem vybráno",
+		no_top: 'Zatím žádní',
+		total_gained: 'Celkem vybráno',
 		extras: {
-			title: "Extra body",
-			name: "Jméno",
-			faculty: "Fakulta",
-			category: "Kategorie",
-			activity: "Aktivita",
-			value: "Výkon",
-			points: "Body"
+			title: 'Extra body',
+			name: 'Jméno',
+			faculty: 'Fakulta',
+			category: 'Kategorie',
+			activity: 'Aktivita',
+			value: 'Výkon',
+			points: 'Body'
 		}
 	},
 	profile: {
@@ -329,8 +360,8 @@ const cs = {
 		}
 	},
 	footer: {
-		contact: "Můžete nás kontaktovat na: vytrvale@ntis.zcu.cz",
-		managed_by: "Web spravuje"
+		contact: 'Můžete nás kontaktovat na: vytrvale@ntis.zcu.cz',
+		managed_by: 'Web spravuje'
 	},
 	faculties: {
 		FAV: 'Fakulta aplikovaných věd',
@@ -349,7 +380,7 @@ const cs = {
 		KNIHOVNA: 'Knihovna',
 		CIV: 'Centrum informatizace a výpočetní techniky',
 		SUZN: 'ŠUZ Nečtiny',
-		'UTS': 'Ústav tělesné výchovy a sportu'
+		UTS: 'Ústav tělesné výchovy a sportu'
 	},
 	server: {
 		server_down: 'Server není dostupný, opakujte akci později.'
@@ -357,3 +388,7 @@ const cs = {
 } satisfies BaseTranslation;
 
 export default cs;
+
+
+
+

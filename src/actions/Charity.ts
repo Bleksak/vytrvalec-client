@@ -2,6 +2,7 @@ import type {
 	CharityCreateDTO,
 	CharityCreateResponse,
 	CharityDTO,
+	CharityUpdateDTO,
 	CharityUpdateResponse
 } from '$lib/DTO/CharityDTO';
 import axios from 'axios';
@@ -51,7 +52,7 @@ export const createCharity = async (charity: CharityCreateDTO): Promise<CharityC
 
 export const updateCharity = async (
 	id: number,
-	data: CharityCreateDTO
+	data: CharityUpdateDTO
 ): Promise<CharityUpdateResponse> => {
 	const response = await axios.patch(`/charity/${id}`, data).catch((error) => {
 		if (error.response) {
@@ -69,6 +70,7 @@ export const updateCharity = async (
 	}
 
 	if (response.status !== 200) {
+		console.log(response.data);
 		return {
 			type: 'error',
 			errors: response.data
@@ -76,7 +78,8 @@ export const updateCharity = async (
 	}
 
 	return {
-		type: 'success'
+		type: 'success',
+		data: data
 	};
 };
 

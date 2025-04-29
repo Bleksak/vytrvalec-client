@@ -1,10 +1,10 @@
 import { createCharity, updateCharity } from '$actions/Charity';
-import { createCharityDTO } from '$lib/DTO/CharityDTO';
+import { createCharityDTO, createCharityUpdateDTO } from '$lib/DTO/CharityDTO';
 import { fail, type Actions, type Action } from '@sveltejs/kit';
 
 const createAction: Action = async ({ request }) => {
 	const charityDTO = createCharityDTO(await request.formData());
-	
+
 	if (charityDTO.type === 'error') {
 		return fail(400, { charity: charityDTO.errors });
 	}
@@ -15,13 +15,11 @@ const createAction: Action = async ({ request }) => {
 		return fail(400, { charity: response.errors });
 	}
 
-	return {
-		id: response.data.id
-	};
+	return response.data;
 };
 
 const updateAction: Action = async ({ request, params }) => {
-	const charityDTO = createCharityDTO(await request.formData());
+	const charityDTO = createCharityUpdateDTO(await request.formData());
 
 	if (charityDTO.type === 'error') {
 		return fail(400, { charity: charityDTO.errors });
