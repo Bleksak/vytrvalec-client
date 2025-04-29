@@ -1,5 +1,4 @@
 <script lang="ts">
-	import { fetchActivities } from '$actions/Activity';
 	import Dialog from '$components/Dialog.svelte';
 	import Button from '$components/Button.svelte';
 	import LL from '$translations/i18n-svelte';
@@ -13,8 +12,9 @@
 	import { getGlobalContext } from '$lib/stores/GlobalContext.svelte';
 	import Store from '$lib/enums/Stores';
 	import type { ActivityStore } from '$lib/stores/ActivityStore.svelte';
+	import ImageForm from './ImageForm.svelte';
 
-	let { ...props } : HTMLDialogAttributes = $props();
+	let { ...props }: HTMLDialogAttributes = $props();
 
 	const refetchSubmissions = getGlobalContext<() => void>('refetchSubmissions');
 
@@ -22,68 +22,14 @@
 
 	let dialog = $state<Dialog>();
 
-	let fileInput = $state<HTMLElement>();
-    let dropzone = $state<HTMLElement>();
-	let dropzoneImage = $state<HTMLImageElement>();
-	let dropzoneText = $state<HTMLElement>();
-
-	let uploadedFiles = $state<FileList>();
-	let imageUri = $state<string>();
+	let imageUuid = $state<string | null>(null);
 
 	const toastStore = getContext<ToastStore>(Store.TOAST_STORE);
 	const activityStore = getContext<ActivityStore>(Store.ACTIVITY_STORE);
 
-	const displayImage = (uri: string) => {
-		imageUri = uri;
-		dropzoneImage!.src = uri;
-		dropzoneImage!.style.display = 'block';
-		dropzoneText!.style.display = 'none';
-	};
-
-	const updateImagePreview = (file: File) => {
-		let reader = new FileReader();
-		reader.readAsDataURL(file);
-		reader.onloadend = () => {
-			displayImage(reader.result as string);
-		};
-	};
-
-	$effect(() => {
-		if (uploadedFiles?.length !== undefined) {
-			updateImagePreview(uploadedFiles[0]);
-		}
-	});
-
-	const handleDrop = (e: DragEvent) => {
-        e.preventDefault();
-
-		const dt = e.dataTransfer;
-		if (dt === null) {
-			return;
-		}
-
-		const files = dt.files;
-		if (files.length === 0) {
-			return;
-		}
-
-		const file = files[0];
-
-		let fileList = new DataTransfer();
-		fileList.items.add(file);
-		uploadedFiles = fileList.files;
-
-		updateImagePreview(file);
-	};
-
-	const onUploadClick = (event: MouseEvent) => {
-		fileInput?.click();
-		event.stopPropagation();
-	};
-
-
-	const onSubmit: SubmitFunction = ({ submitter }) => {
+	const onSubmit: SubmitFunction = ({ submitter, formData }) => {
 		submitter?.setAttribute('disabled', 'disabled');
+		formData.set('image_uuid', imageUuid ?? '');
 
 		return async ({ result, update }) => {
 			if (result.type === 'failure') {
@@ -111,14 +57,6 @@
 			update();
 		};
 	};
-
-	$effect(() => {
-		// NOTE: tohle nejde nastavit na div pomoci HTML tak to musi byt tady
-		dropzone?.addEventListener('dragenter', (e) => e.preventDefault());
-		dropzone?.addEventListener('dragover', (e) => e.preventDefault());
-		dropzone?.addEventListener('dragleave', (e) => e.preventDefault());
-		dropzone?.addEventListener('drop', handleDrop);
-	});
 </script>
 
 <Dialog bind:this={dialog} header={$LL.submission.title()} {...props}>
@@ -128,35 +66,8 @@
 		enctype="multipart/form-data"
 		use:enhance={onSubmit}
 	>
-		<div
-			class="dropzone"
-            bind:this={dropzone}
-			onclick={() => fileInput?.click()}
-			onkeypress={() => fileInput?.click()}
-			role="button"
-			tabindex="0"
-		>
-			<div class="inner" class:no-image={!imageUri}>
-				<img bind:this={dropzoneImage} src="/images/icons/file-input-icon.svg" alt="File input" />
-				<div bind:this={dropzoneText} class="dropzone-text">
-					{$LL.submission.form.image()}
-				</div>
-
-				<Button type="button" onclick={onUploadClick}>
-					{$LL.submission.form.chooseImage()}
-				</Button>
-			</div>
-		</div>
-
-		<input
-			bind:this={fileInput}
-			bind:files={uploadedFiles}
-			type="file"
-			name="image"
-			id="image"
-			accept="image/*"
-		/>
-		{#each errors?.image ?? [] as error}
+		<ImageForm bind:imageUuid />
+		{#each errors?.image_uuid ?? [] as error}
 			<span class="error">
 				{$LL.submission.form.errors.image[error as keyof typeof $LL.submission.form.errors.image]()}
 			</span>
@@ -168,7 +79,9 @@
 		<input type="text" name="distance" id="distance" />
 		{#each errors?.distance ?? [] as error}
 			<span class="error">
-				{$LL.submission.form.errors.distance[error as keyof typeof $LL.submission.form.errors.distance]()}
+				{$LL.submission.form.errors.distance[
+					error as keyof typeof $LL.submission.form.errors.distance
+				]()}
 			</span>
 		{/each}
 
@@ -178,7 +91,9 @@
 		<input type="text" name="elevation" id="elevation" />
 		{#each errors?.elevation ?? [] as error}
 			<span class="error">
-				{$LL.submission.form.errors.elevation[error as keyof typeof $LL.submission.form.errors.elevation]()}
+				{$LL.submission.form.errors.elevation[
+					error as keyof typeof $LL.submission.form.errors.elevation
+				]()}
 			</span>
 		{/each}
 
@@ -195,51 +110,10 @@
 				values={activities.map((a) => a.id)}
 			/>
 		{/await}
-
-		<Button>
+		<Button disabled={!imageUuid}>
 			{$LL.submission.form.submit()}
 		</Button>
 	</form>
 </Dialog>
 
-<style>
-	.dropzone {
-		display: flex;
-		justify-content: center;
-		align-items: center;
-		width: 100%;
-	}
 
-	.no-image {
-		padding: 15px;
-		border: 2px solid #8099b44d;
-		border-radius: 10px;
-	}
-
-	.no-image > img {
-		height: 50px;
-		width: 50px;
-	}
-
-	.dropzone-text {
-		width: 60%;
-		text-align: center;
-	}
-
-	.inner {
-		display: flex;
-		flex-direction: column;
-		align-items: center;
-		width: 100%;
-		justify-content: space-between;
-		gap: 15px;
-	}
-
-	img {
-		max-height: 300px;
-	}
-
-	input[type='file'] {
-		display: none;
-	}
-</style>

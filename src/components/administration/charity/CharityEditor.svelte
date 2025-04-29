@@ -9,17 +9,11 @@
 
 	const charityStore = getContext<CharityStore>(Store.CHARITY_STORE);
 
-	let charity = $state<CharityDTO>();
-
-	$effect(() => {
-		charity = charityStore.get(Number(page.params.id)) ?? undefined;
-	});
+	const charity = $derived<CharityDTO | null>(charityStore.get(Number(page.params.id)));
 </script>
 
-
 {#if charity}
-	<CharityUpdateEditor bind:charity />
+	<CharityUpdateEditor {charity} />
 {:else}
 	<CharityCreateEditor />
 {/if}
-

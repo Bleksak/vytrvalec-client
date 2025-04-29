@@ -13,19 +13,8 @@ import type { SelectedFilter } from '$lib/DTO/SelectedFilter';
 import type { FacultyDTO } from '$lib/DTO/FacultyDTO';
 
 export const createSubmission = async (dto: SubmissionDTO): Promise<SubmissionCreateResponse> => {
-	const formData = new FormData();
-	formData.append('activity', dto.activity.toString());
-	formData.append('image', dto.image);
-	formData.append('distance', dto.distance.toString().replaceAll(/\,/g, '.'));
-
-	if (dto.elevation) {
-		formData.append('elevation', dto.elevation.toString().replaceAll(/\,/g, '.'));
-	}
-
 	const response = await axios
-		.post(`/submission`, formData, {
-			headers: { 'Content-Type': 'multipart/form-data' }
-		})
+		.post(`/submission`, dto)
 		.catch((error) => {
 			if (error.response) {
 				return error.response;
@@ -41,12 +30,7 @@ export const createSubmission = async (dto: SubmissionDTO): Promise<SubmissionCr
 		};
 	}
 
-	if (response.status === 413) {
-		return {
-			type: 'error',
-			errors: { image: ['too_large'] }
-		};
-	} else if (response.status !== 201) {
+	if (response.status !== 201) {
 		return {
 			type: 'error',
 			errors: response.data
@@ -145,29 +129,14 @@ export const rejectSubmission = async (
 };
 
 export const patchSubmission = async (dto: SubmissionDTO, data: FormData) => {
-	const formData = new FormData();
-	const updated_at = data.get('updated_at')!;
-	formData.append('activity', dto.activity.toString());
-	formData.append('image', dto.image);
-	formData.append('distance', dto.distance.toString());
-
-	formData.append('updated_at', updated_at);
-
-	if (dto.elevation) {
-		formData.append('elevation', dto.elevation.toString());
-	}
 	const id = data.get('id');
 
-	//Fking kill me already
 	const response = await axios
-		.postForm(`/submission/${id}`, formData, {
-			headers: { 'Content-Type': 'multipart/form-data', 'X-HTTP-Method-Override': 'PATCH' }
-		})
+		.patch(`/submission/${id}`, dto)
 		.catch((error) => {
 			if (error.response) {
 				return error.response;
 			}
-
 			return null;
 		});
 

@@ -5,8 +5,9 @@ import type { UserResponse, UserResponseAdmin } from './UserResponse';
 export type SubmissionDTO = {
 	distance: number;
 	elevation?: number;
-	image: File;
-	activity: number;
+	image_uuid?: string;
+	activity_id: number;
+	updated_at?: string;
 };
 
 export type SubmissionResponseDTO = {
@@ -51,20 +52,18 @@ export type SubmissionReturn =
 export const formDataToSubmissionDTO = (formData: FormData): SubmissionReturn => {
 	const distanceString = formData.get('distance')?.toString().replace(',', '.');
 	const distance = Number(distanceString) * 1000;
-
 	const elevationString = formData.get('elevation')?.toString();
 	const elevation = Number(elevationString);
-
 	const activity = Number(formData.get('activity')?.toString());
-
-	const image: File = formData.get('image')?.valueOf() as File;
+	const image_uuid = formData.get('image_uuid')?.toString();
+	const updated_at = formData.get('updated_at')?.toString();
 
 	let valid = true;
 	let errors: SubmissionErrors = {
 		distance: [],
 		elevation: [],
-		activity: [],
-		image: []
+		activity_id: [],
+		image_uuid: [],
 	};
 
 	if (distanceString === undefined || distanceString === '' || distanceString === null) {
@@ -96,18 +95,12 @@ export const formDataToSubmissionDTO = (formData: FormData): SubmissionReturn =>
 
 	if (activity === undefined || activity === null) {
 		valid = false;
-		errors.activity?.push('invalid');
+		errors.activity_id?.push('invalid');
 	}
 
-	if (
-		image === undefined ||
-		image === null ||
-		image.name === undefined ||
-		image.size === undefined ||
-		image.type === undefined
-	) {
+	if (image_uuid === undefined) {
 		valid = false;
-		errors.image?.push('invalid');
+		errors.image_uuid?.push('invalid');
 	}
 
 	if (!valid) {
@@ -122,8 +115,9 @@ export const formDataToSubmissionDTO = (formData: FormData): SubmissionReturn =>
 		value: {
 			elevation: elevation,
 			distance: distance!,
-			activity: activity!,
-			image: image!
+			activity_id: activity!,
+			image_uuid: image_uuid == '' ? undefined : image_uuid,
+			updated_at: updated_at!
 		}
 	};
 };

@@ -11,7 +11,7 @@ export type FacultyStore = {
 
 const createFacultyStore = (): FacultyStore => {
     let faculties = $state<FacultyDTO[]>([]);
-    let facultiesPromise = fetchFaculties();
+    const facultiesPromise = fetchFaculties();
 
     facultiesPromise.then((result: FacultyDTO[]) => {
         faculties = result;
@@ -30,7 +30,7 @@ const createFacultyStore = (): FacultyStore => {
     }
 
     const updateOrCreate = async (faculty: FacultyDTO) => {
-        let index = faculties.findIndex((f) => f.id === faculty.id);
+        const index = faculties.findIndex((f) => f.id === faculty.id);
 
         if (index !== -1) {
             faculties[index] = faculty;

@@ -1,6 +1,5 @@
 import type { ActivityDTO } from './ActivityDTO';
-import type { FacultyDTO } from './FacultyDTO';
-import type { AnonymizedUser, UserResponse } from './UserResponse';
+import type { AnonymizedUser } from './UserResponse';
 
 export type SeasonResultExtraActivity = {
 	user: AnonymizedUser;
@@ -82,19 +81,10 @@ function sortFn(a: ResultRow, b: ResultRow) {
 export class SeasonResult {
 	data: SeasonResultDTO;
 	cached: SeasonResultCached;
-	users: Array<UserResponse>;
 	activities: Array<ActivityDTO>;
-	faculties: Array<FacultyDTO>;
 	results: Array<WeekResultRow>;
 
-	constructor(
-		data: SeasonResultDTO,
-		users: Array<UserResponse> = [],
-		activities: Array<ActivityDTO>,
-		faculties: Array<FacultyDTO> = []
-	) {
-		this.users = users;
-		this.faculties = faculties;
+	constructor(data: SeasonResultDTO, activities: Array<ActivityDTO>) {
 		this.activities = activities;
 		this.data = data;
 		this.cached = this.calculateCache();
@@ -102,10 +92,6 @@ export class SeasonResult {
 	}
 
 	calculateResults() {
-		if (this.faculties.length === 0) {
-			return [];
-		}
-
 		let weekResultRows: Array<WeekResultRow> = [];
 
 		// find all faculties that have any results

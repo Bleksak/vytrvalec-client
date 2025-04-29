@@ -1,5 +1,5 @@
-import type { ComponentProps, Component, MountOptions } from 'svelte';
-import { hydrate, mount, unmount } from 'svelte';
+import type { Component, MountOptions } from 'svelte';
+import { mount, unmount } from 'svelte';
 
 export type DialogStore = {
 	open: <Props extends Record<string, any>>(
@@ -25,7 +25,7 @@ const createDialogStore = (): DialogStore => {
 		const options: MountOptions<Props> = {
 			props: props as Props,
 			target: document.body as Document | Element | ShadowRoot,
-			context,
+			context
 		};
 
 		currentDialog = mount(component, options);
@@ -36,7 +36,7 @@ const createDialogStore = (): DialogStore => {
 			unmount(currentDialog);
 			currentDialog = undefined;
 		}
-	}
+	};
 
 	return {
 		open,

@@ -36,12 +36,12 @@ const en = {
 			users: 'TOTAL PARTICIPANTS'
 		},
 		android: {
-			available: "Available on Google Play",
-			get: "Get"
+			available: 'Available on Google Play',
+			get: 'Get'
 		},
 		mobile_app: {
-			title: "Měsíční Vytrvalec mobile app",
-			download: "Available on Google Play and App Store"
+			title: 'Měsíční Vytrvalec mobile app',
+			download: 'Available on Google Play and App Store'
 		},
 		intro:
 			'The monthly runner event was created during the winter semester in 2020. This competition was prepared and organized by the Department of Physical Education and Sport of the University of West Bohemia with the intention to make students engage in sports during distance learning, which took place at the University of West Bohemia during the coronavirus pandemic.',
@@ -55,12 +55,26 @@ const en = {
 		}
 	},
 
+	season_detail: {
+		title: 'Season Detail',
+		date_range: '{start: Date|long_date} - {end: Date|long_date}',
+		ordinal: {
+			first: 'First place: {name: string}',
+			second: 'Second place: {name: string}',
+			third: 'Third place: {name: string}'
+		},
+		raised: 'Raised {raised: number|currency}',
+		no_description: 'This charity has no description',
+		no_image: 'This charity has no image',
+		visit_charity: 'Visit Charity Website'
+	},
+
 	registration: {
 		title: 'Registration',
 		email: 'E-mail',
 		password: 'Password',
 		password_repeat: 'Password repeat',
-		password_strength_label: ["Very weak", "Weak", "Sufficient", "Medium", "Strong", "Very strong"],
+		password_strength_label: ['Very weak', 'Weak', 'Sufficient', 'Medium', 'Strong', 'Very strong'],
 		first_name: 'First name',
 		last_name: 'Last name',
 		faculty: 'Faculty',
@@ -71,7 +85,7 @@ const en = {
 			email: {
 				blank: 'Email address cannot be empty.',
 				not_unique: 'This email address is already registered.',
-				invalid: 'Invalid email address.',
+				invalid: 'Invalid email address.'
 			},
 			password: {
 				blank: 'Password cannot be empty.',
@@ -197,9 +211,19 @@ const en = {
 		save: 'Save',
 		success: 'Account details were successfully updated',
 		emailing: {
-			description: "I wish to receive emails",
-			success: "Email subscribtion changed successfully",
-			error: "An error occured while changing email subscribtion"
+			description: 'I wish to receive emails',
+			success: 'Email subscribtion changed successfully',
+			error: 'An error occured while changing email subscribtion'
+		},
+		delete: {
+			title: "Delete account",
+			desc1: "Deleting your account is irreversible. This action cannot be undone.",
+			desc2: "Once you submit this, your account will be processed for deletion immediately, and all data will be permanently removed.",
+			desc3: "Once you delete your account, it cannot be restored.",
+			desc4: "Monthly Challenger will continue to retain your shared activities for the purpose of preserving statistics from past competition years. However, they will not be linked to your current account in any way.",
+			submit: "Delete",
+			success: "Account deleted",
+			error: "An error occurred while deleting the account"
 		},
 		delete: {
 			title: "Delete account",
@@ -216,7 +240,7 @@ const en = {
 			email: {
 				blank: 'E-mail cannot be empty',
 				invalid: 'E-mail is invalid',
-				no_update: 'There is nothing to update',
+				no_update: 'There is nothing to update'
 			},
 			password: {
 				blank: 'Password cannot be empty',
@@ -244,16 +268,16 @@ const en = {
 		by_faculty: 'Participants by faculty',
 		count: 'Count',
 		top3: 'TOP 3 contestants',
-		no_top: "No top contestants yet",
-		total_gained: "Money raised",
+		no_top: 'No top contestants yet',
+		total_gained: 'Money raised',
 		extras: {
-			title: "Extra points",
-			name: "Name",
-			faculty: "Faculty",
-			category: "Category",
-			activity: "Activity",
-			value: "Value",
-			points: "Points"
+			title: 'Extra points',
+			name: 'Name',
+			faculty: 'Faculty',
+			category: 'Category',
+			activity: 'Activity',
+			value: 'Value',
+			points: 'Points'
 		}
 	},
 	profile: {
@@ -326,8 +350,8 @@ const en = {
 		}
 	},
 	footer: {
-		contact: "Contact us via email: vytrvale@ntis.zcu.cz",
-		managed_by: "Managed by"
+		contact: 'Contact us via email: vytrvale@ntis.zcu.cz',
+		managed_by: 'Managed by'
 	},
 	faculties: {
 		FAV: 'Faculty of Applied Sciences',
@@ -346,7 +370,7 @@ const en = {
 		KNIHOVNA: 'Library',
 		CIV: 'Information Technology Centre',
 		SUZN: 'ŠUZ Nečtiny',
-		'UTS': 'Department of physical education and sport'
+		UTS: 'Department of physical education and sport'
 	},
 	server: {
 		server_down: 'Service unavailable, please try again later.'
@@ -354,3 +378,7 @@ const en = {
 } satisfies BaseTranslation;
 
 export default en;
+
+
+
+
