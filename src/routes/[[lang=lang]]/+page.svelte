@@ -34,8 +34,11 @@
 		</div>
 	{/if}
 
+	<div class="sponzor">
+		<img src="/images/decathlon-logo.png" title="Decathlon" alt="Decathlon" width="500"/>
+		<h3>Sponzor akce</h3>
+	</div>
 	<div class="main">
-
 		<div class="container">
 			<section class="header">
 				<h1>Měsíční Vytrvalec</h1>
