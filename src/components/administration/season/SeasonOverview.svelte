@@ -60,9 +60,9 @@
   };
 
   $effect(() => {
-    Promise.all([fetchSeasonResult(season), userStore.promise(), fetchActivities(), getIsSeasonCached(season)]).then(
-      ([result, users, activities, isCached]) => {
-        seasonResult = new SeasonResult(result, users, activities);
+    Promise.all([fetchSeasonResult(season), fetchActivities(), getIsSeasonCached(season)]).then(
+      ([result, activities, isCached]) => {
+        seasonResult = new SeasonResult(result, activities);
         isSeasonCached = isCached;
       }
     );
