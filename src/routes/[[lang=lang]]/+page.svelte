@@ -35,7 +35,9 @@
 	{/if}
 
 	<div class="sponzor">
-		<img src="/images/decathlon-logo.png" title="Decathlon" alt="Decathlon" width="500"/>
+		<a href="https://www.decathlon.cz/">
+			<img src="/images/decathlon-logo.png" title="Decathlon" alt="Decathlon" width="500"/>
+		</a>
 		<h3>Sponzor akce</h3>
 	</div>
 	<div class="main">
