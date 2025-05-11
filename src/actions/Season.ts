@@ -29,7 +29,7 @@ export const createSeason = async (season: CreateSeasonDTO): Promise<CreateSeaso
 	const data = {
 		start: season.start.toISOString(),
 		end: season.end.toISOString(),
-		charity: season.charity
+		charity_id: season.charity_id
 	};
 
 	const response = await axios.post('/season', data).catch((err) => {

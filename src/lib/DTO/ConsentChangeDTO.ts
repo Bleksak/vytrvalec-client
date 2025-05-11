@@ -1,7 +1,7 @@
 import type { ResponseError, ResponseErrorMap } from '$lib/ResponseErrors';
 
 export type ConsentChangeDTO = {
-	gdpr: boolean;
+	anonymize: boolean;
 };
 
 export type ConsentError = ResponseErrorMap<ConsentChangeDTO> & {
@@ -21,10 +21,10 @@ export type ConsentChangeReturn =
 export const formDataToConsentChangeDTO = (formData: FormData): ConsentChangeReturn => {
 	let errors: ConsentError = {};
 
-	const gdpr = formData.get('gdpr')?.toString();
+	const anonymize = formData.get('anonymize')?.toString();
 
-	if (!gdpr) {
-		errors['gdpr'] = ['blank'];
+	if (!anonymize) {
+		errors['anonymize'] = ['blank'];
 	}
 
 	if (Object.keys(errors).length !== 0) {
@@ -34,7 +34,7 @@ export const formDataToConsentChangeDTO = (formData: FormData): ConsentChangeRet
 	return {
 		type: 'dto',
 		value: {
-			gdpr: Boolean(gdpr)
+			anonymize: !Boolean(anonymize)
 		}
 	};
 };

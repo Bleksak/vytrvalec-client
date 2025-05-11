@@ -15,7 +15,7 @@ export type UserResponse = {
 	banned: boolean;
 	roles: UserRole[];
 	faculty: FacultyDTO;
-	accepted_gdpr: boolean | null;
+	anonymize: boolean | null;
 	mailing: boolean;
 };
 

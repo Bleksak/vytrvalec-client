@@ -12,7 +12,7 @@
 	import type { DialogStore } from '$lib/stores/DialogStore.svelte';
 	import Store from '$lib/enums/Stores';
 
-	let { ...props } : HTMLDialogAttributes = $props();
+	let { ...props }: HTMLDialogAttributes = $props();
 	let dialog = $state<Dialog>();
 
 	let errors = $state<LoginError>();
@@ -21,7 +21,7 @@
 
 	const dialogStore = getContext<DialogStore>(Store.DIALOG_STORE);
 
-    const currentContext = getAllContexts();
+	const currentContext = getAllContexts();
 
 	const enhancer: SubmitFunction = () => {
 		return async ({ result, update }) => {

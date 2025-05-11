@@ -6,7 +6,7 @@
 	import PasswordProgress from '$components/FormComponent/PasswordProgress.svelte';
 	import Switch from '$components/Switch.svelte';
 	import DeleteAccountForm from '$components/forms/DeleteAccountForm.svelte';
-	import GdprForm from '$components/forms/GdprForm.svelte';
+	import AnonymizationForm from '$components/forms/AnonymizationForm.svelte';
 	import FacultyTag from '$components/profile/FacultyTag.svelte';
 	import type { AccountChangeErrors } from '$lib/DTO/AccountChangeDTO';
 	import type { UserResponse } from '$lib/DTO/UserResponse';
@@ -35,17 +35,22 @@
 	const toastStore = getContext<ToastStore>(Store.TOAST_STORE);
 	const dialogStore = getContext<DialogStore>(Store.DIALOG_STORE);
 
-	const openGdprDialog = () =>
-		dialogStore.open(GdprForm, { gdpr: currentUser.accepted_gdpr ? currentUser.accepted_gdpr : undefined }, context);
+	const openAnonymizationDialog = () =>
+		dialogStore.open(
+			AnonymizationForm,
+			{ anonymize: currentUser.anonymize ? currentUser.anonymize : undefined },
+			context
+		);
 
-	const openDeleteAccDialog = () =>
-		dialogStore.open(DeleteAccountForm, {}, context);
+	const openDeleteAccDialog = () => dialogStore.open(DeleteAccountForm, {}, context);
 
-	const handleSubscribtionChange = async (event: Event & { currentTarget: EventTarget & HTMLInputElement; }) => {
+	const handleSubscribtionChange = async (
+		event: Event & { currentTarget: EventTarget & HTMLInputElement }
+	) => {
 		event.preventDefault();
 
 		const response = await emailSubscribeChange(event.currentTarget.checked);
-		if(response.errors) {
+		if (response.errors) {
 			toastStore.add({
 				type: 'error',
 				message: $LL.account.emailing.error()
@@ -56,7 +61,7 @@
 				message: $LL.account.emailing.success()
 			});
 		}
-	}
+	};
 
 	const enhancer: SubmitFunction = () => {
 		return async ({ result }) => {
@@ -87,17 +92,16 @@
 				</h4>
 				<FacultyTag facultyShortcut={currentUser.faculty.shortcut} />
 			</div>
-				<strong>{$LL.account.email()}:</strong><span>{` ${currentUser.email}`}</span>
+			<strong>{$LL.account.email()}:</strong><span>{` ${currentUser.email}`}</span>
 			<div class="mailing">
 				<strong>{$LL.account.emailing.description()}: </strong>
 				<Switch checked={currentUser.mailing} onChange={handleSubscribtionChange} />
 			</div>
 			<div class="section btn-container">
-				<Button onclick={openGdprDialog}>{$LL.anonym.title()}</Button>
+				<Button onclick={openAnonymizationDialog}>{$LL.anonym.title()}</Button>
 				<Button onclick={openDeleteAccDialog} class="danger">{$LL.account.delete.title()}</Button>
 			</div>
 		</div>
-
 
 		<form method="post" action="/auth?/account" use:enhance={enhancer}>
 			<h5>{$LL.account.password_change()}</h5>
@@ -105,7 +109,9 @@
 				<label for="old_password">{$LL.account.old_password()}: </label>
 				{#each errors.old_password ?? [] as error}
 					<span class="error">
-						{$LL.account.errors.old_password[error as keyof typeof $LL.account.errors.old_password]()}
+						{$LL.account.errors.old_password[
+							error as keyof typeof $LL.account.errors.old_password
+						]()}
 					</span>
 				{/each}
 				<input type="password" name="old_password" id="old_password" bind:value={oldPassword} />
@@ -175,6 +181,6 @@
 	}
 
 	.btn-container {
-		gap: 10px
+		gap: 10px;
 	}
 </style>

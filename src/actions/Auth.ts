@@ -165,7 +165,7 @@ export const resetPassword = async (resetPasswordDTO: ResetPasswordDTO): Promise
 
 			return null;
 		});
-	
+
 	if (response === null) {
 		return {
 			type: 'error',
@@ -183,9 +183,9 @@ export const resetPassword = async (resetPasswordDTO: ResetPasswordDTO): Promise
 	return { type: 'success' };
 };
 
-export const gdprConsentChange = async (consentDTO: ConsentChangeDTO): Promise<ResetPasswordResponse> => {
+export const anonymizationChange = async (consentDTO: ConsentChangeDTO): Promise<ResetPasswordResponse> => {
 	const response = await axios
-		.post(`/user/gdpr`, consentDTO)
+		.post(`/user/anonymize`, consentDTO)
 		.catch((error) => {
 			if (error.response) {
 				return error.response;
@@ -193,7 +193,7 @@ export const gdprConsentChange = async (consentDTO: ConsentChangeDTO): Promise<R
 
 			return null;
 		});
-	
+
 	if (response === null) {
 		return {
 			type: 'error',
@@ -221,7 +221,7 @@ export const emailSubscribeChange = async (value: boolean) => {
 
 			return null;
 		});
-	
+
 	if (response === null) {
 		return {
 			type: 'error',
@@ -249,7 +249,7 @@ export const accountDelete = async () => {
 
 			return null;
 		});
-	
+
 	if (response === null) {
 		return {
 			type: 'error',

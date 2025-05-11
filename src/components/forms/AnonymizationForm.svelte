@@ -10,10 +10,9 @@
 	import type { ConsentError } from '$lib/DTO/ConsentChangeDTO';
 
 	let {
-		gdpr,
-		...props
+		anonymize
 	}: HTMLDialogAttributes & {
-		gdpr?: boolean;
+		anonymize?: boolean;
 	} = $props();
 
 	let errors = $state<ConsentError>();
@@ -35,9 +34,9 @@
 <Dialog bind:this={dialog} header={$LL.anonym.title()}>
 	<form
 		method="POST"
-		action="/auth?/consent"
+		action="/auth?/anonymize"
 		use:enhance={enhancer}
-		name="gdpr"
+		name="anonymize"
 		onsubmit={invalidateAll}
 	>
 		<span>
@@ -51,10 +50,10 @@
 		</span>
 
 		<div class="form-field">
-			<Checkbox id="gdpr" name="gdpr" checked={gdpr}>
+			<Checkbox id="anonymize" name="anonymize" checked={anonymize}>
 				{$LL.anonym.label()}
 			</Checkbox>
-			{#each errors?.gdpr ?? [] as error}
+			{#each errors?.anonymize ?? [] as error}
 				<span class="error">
 					{$LL.registration.errors.gdpr[error as keyof typeof $LL.registration.errors.gdpr]()}
 				</span>
