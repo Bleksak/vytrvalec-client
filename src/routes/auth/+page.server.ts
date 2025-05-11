@@ -1,7 +1,7 @@
 import {
 	accountChange,
 	accountDelete,
-	gdprConsentChange,
+	anonymizationChange,
 	login,
 	requestResetPassword,
 	resetPassword
@@ -97,14 +97,14 @@ const resetAction: Action = async ({ request }) => {
 	return redirect(307, '/');
 };
 
-const consentAction: Action = async ({ request }) => {
+const anonymizeAction: Action = async ({ request }) => {
 	const data = formDataToConsentChangeDTO(await request.formData());
 
 	if (data.type === 'error') {
 		return fail(400, data.value);
 	}
 
-	const response = await gdprConsentChange(data.value);
+	const response = await anonymizationChange(data.value);
 
 	if (response.type === 'error') {
 		return fail(400, response.errors);
@@ -120,7 +120,7 @@ const deleteAccountAction: Action = async () => {
 		return fail(400, response.errors);
 	}
 
-	return 	redirect(307, '/');
+	return redirect(307, '/');
 };
 
 export const actions: Actions = {
@@ -130,6 +130,6 @@ export const actions: Actions = {
 	account: accountAction,
 	forgotten: forgottenPasswordAction,
 	reset: resetAction,
-	consent: consentAction,
+	anonymize: anonymizeAction,
 	delete: deleteAccountAction
 };

@@ -4,7 +4,7 @@
 	import { enhance } from '$app/forms';
 	import LL from '$translations/i18n-svelte';
 	import type { SubmitFunction } from '@sveltejs/kit';
-	import type { HTMLDialogAttributes, KeyboardEventHandler } from 'svelte/elements';
+	import type { HTMLDialogAttributes } from 'svelte/elements';
 	import Checkbox from '$components/FormComponent/Checkbox.svelte';
 	import Select from '$components/FormComponent/Select.svelte';
 	import type { RegistrationError } from '$lib/DTO/UserRegisterResponse';
@@ -32,7 +32,7 @@
 	};
 
 	const enhancer: SubmitFunction = () => {
-		return async ({ result, update }) => {
+		return async ({ result }) => {
 			if (result.type === 'success') {
 				toastStore.add({
 					type: 'success',
@@ -150,7 +150,7 @@
 			<Tooltip
 				text={`${$LL.anonym.description1()}${$LL.anonym.description2()}${$LL.anonym.description3()}`}
 			>
-				<Checkbox id="anonym" name="anonym">
+				<Checkbox id="anonymize" name="anonymize">
 					{$LL.anonym.label()}
 				</Checkbox>
 			</Tooltip>

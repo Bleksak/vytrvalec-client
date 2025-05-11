@@ -27,7 +27,7 @@
 	let adminChecked = $state<boolean>(editedUser.roles.includes('ROLE_STAFF'));
 	let banned = $state<boolean>(editedUser.banned);
 
-	let faculty = $state<number>(editedUser.faculty.id);
+	let facultyId = $state<number>(editedUser.faculty.id);
 	let errors = $state<UserError>();
 
 	const enhancer: SubmitFunction = () => {
@@ -36,7 +36,7 @@
 				dialog?.close();
 
 				editedUser.roles = adminChecked ? ['ROLE_USER', 'ROLE_STAFF'] : ['ROLE_USER'];
-				editedUser.faculty = facultyStore.get(faculty)!;
+				editedUser.faculty = facultyStore.get(facultyId)!;
 				editedUser.banned = banned;
 
 				userStore.update(editedUser);
@@ -95,10 +95,10 @@
 			</span>
 		{/each}
 
-		<label for="faculty">
+		<label for="faculty_id">
 			{$LL.registration.faculty()}:
 		</label>
-		{#each errors?.faculty ?? [] as error}
+		{#each errors?.faculty_id ?? [] as error}
 			<span class="error">
 				{$LL.registration.errors.faculty[error as keyof typeof $LL.registration.errors.faculty]()}
 			</span>
@@ -106,9 +106,9 @@
 
 		{#await facultyStore.promise() then faculties}
 			<Select
-				name="faculty"
-				id="faculty"
-				bind:currentValue={faculty}
+				name="faculty_id"
+				id="faculty_id"
+				bind:currentValue={facultyId}
 				keys={faculties.map((f) => $LL.faculties[f.shortcut as keyof typeof $LL.faculties]())}
 				values={faculties.map((f) => f.id)}
 			/>

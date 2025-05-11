@@ -70,7 +70,6 @@ export const updateCharity = async (
 	}
 
 	if (response.status !== 200) {
-		console.log(response.data);
 		return {
 			type: 'error',
 			errors: response.data

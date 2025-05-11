@@ -124,12 +124,4 @@
 		background-color: rgb(245, 245, 245);
 	}
 
-	.buttons {
-		display: flex;
-	}
-
-	img {
-		max-height: 450px;
-		height: 100%;
-	}
 </style>

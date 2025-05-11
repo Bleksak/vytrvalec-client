@@ -7,18 +7,18 @@ export type UserRegisterDTO = {
 	first_name: string;
 	last_name: string;
 	faculty: number;
-	gdpr: boolean;
+	anonymize: boolean;
 };
 
 export type UserRegisterReturn =
 	| {
-		type: 'dto';
-		value: UserRegisterDTO;
-	}
+			type: 'dto';
+			value: UserRegisterDTO;
+	  }
 	| {
-		type: 'error';
-		value: RegistrationError;
-	};
+			type: 'error';
+			value: RegistrationError;
+	  };
 
 export const formDataToUserRegisterDTO = (formData: FormData): UserRegisterReturn => {
 	const email = formData.get('email')?.toString();
@@ -64,13 +64,12 @@ export const formDataToUserRegisterDTO = (formData: FormData): UserRegisterRetur
 		errors['faculty'] = ['invalid'];
 	}
 
-	const gdpr = formData.get("gdpr");
+	const gdpr = formData.get('gdpr');
 	if (gdpr === null || !Boolean(Number(gdpr))) {
 		errors['gdpr'] = ['blank'];
 	}
 
-	const anonym = formData.get('anonym');
-	const anonymize = Boolean(Number(anonym));
+	const anonymize = Boolean(formData.get('anonymize'));
 
 	if (Object.keys(errors).length !== 0) {
 		return { type: 'error', value: errors };
@@ -84,7 +83,7 @@ export const formDataToUserRegisterDTO = (formData: FormData): UserRegisterRetur
 			first_name: firstName!,
 			last_name: lastName!,
 			faculty: faculty,
-			gdpr: anonymize,
+			anonymize: !anonymize
 		}
 	};
 };

@@ -15,7 +15,11 @@ export type FullSeasonDTO = {
 	charity: CharityDTO;
 };
 
-export type CreateSeasonDTO = Omit<SeasonDTO, 'id'>;
+export type CreateSeasonDTO = {
+	start: Date;
+	end: Date;
+	charity_id: number;
+};
 
 export type CreateSeasonResponseDTO = {
 	id: number;
@@ -38,11 +42,11 @@ export type CreateSeasonResponse =
 export const createSeasonDTO = (formData: FormData): CreateSeasonDTO => {
 	const start = formData.get('start')?.toString() ?? '';
 	const end = formData.get('end')?.toString() ?? '';
-	const charity = Number(formData.get('charity')?.toString());
+	const charity_id = Number(formData.get('charity'));
 
 	return {
 		start: new Date(start),
 		end: new Date(end),
-		charity: Number(charity)
+		charity_id
 	};
 };
