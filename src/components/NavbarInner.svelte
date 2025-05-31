@@ -116,10 +116,5 @@
 		a:not(:has(.nav-button)):hover {
 			background-color: rgb(200, 200, 200);
 		}
-
-		.nav-button:not(.hamburger) {
-			margin: 0 auto;
-			width: 50%;
-		}
 	}
 </style>

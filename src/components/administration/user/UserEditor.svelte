@@ -14,6 +14,7 @@
 	import type { UserError } from '$lib/DTO/UserEditDTO';
 	import Store from '$lib/enums/Stores';
 	import type { FacultyStore } from '$lib/stores/FacultyStore.svelte';
+	import { UserRole } from '$lib/DTO/UserRole';
 
 	const { user, ...props }: { user: UserResponse } & HTMLDialogAttributes = $props();
 	let dialog = $state<Dialog>();
@@ -24,7 +25,7 @@
 	const userStore = getContext<UserStore>(Store.USER_STORE);
 	const toastStore = getContext<ToastStore>(Store.TOAST_STORE);
 
-	let adminChecked = $state<boolean>(editedUser.roles.includes('ROLE_STAFF'));
+	let adminChecked = $state<boolean>(editedUser.roles.includes(UserRole.Staff));
 	let banned = $state<boolean>(editedUser.banned);
 
 	let facultyId = $state<number>(editedUser.faculty.id);
@@ -35,7 +36,7 @@
 			if (result.type === 'success') {
 				dialog?.close();
 
-				editedUser.roles = adminChecked ? ['ROLE_USER', 'ROLE_STAFF'] : ['ROLE_USER'];
+				editedUser.roles = adminChecked ? [UserRole.User, UserRole.Staff] : [UserRole.User];
 				editedUser.faculty = facultyStore.get(facultyId)!;
 				editedUser.banned = banned;
 

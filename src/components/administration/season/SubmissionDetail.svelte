@@ -65,7 +65,7 @@
 		{/each}
 
 		{#await activityStore.promise() then}
-			<p><strong>Aktivita:&nbsp;</strong>{activityStore.get(currentSubmission.activity)?.name}</p>
+			<p><strong>Aktivita:&nbsp;</strong>{activityStore.get(currentSubmission.activity_id)?.name}</p>
 		{/await}
 		<p><strong>Vzdálenost:&nbsp;</strong>{currentSubmission.distance / 1000} km</p>
 		{#if currentSubmission.elevation}

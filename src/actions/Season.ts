@@ -110,8 +110,8 @@ export const deleteSeason = async (season: SeasonDTO): Promise<boolean> => {
 	return response !== null;
 };
 
-export const fetchCurrentSeason = async (): Promise<SeasonDTO> => {
-	const response = await axios.get('season/current').catch(() => {
+export const fetchCurrentSeason = async (): Promise<SeasonDTO | null> => {
+	const response = await axios.get<SeasonDTO>('season/current').catch(() => {
 		return null;
 	});
 

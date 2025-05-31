@@ -6,8 +6,10 @@ export const load: LayoutLoad = async ({ data }) => {
 	axios.defaults.headers.common.Authorization = `Bearer ${data.jwt}`;
 
 	return {
+		ws: import.meta.env.VITE_WS_BASE,
 		user: data.user,
 		currentSeason: data.currentSeason,
-		lang: data.lang
+		lang: data.lang,
+		jwt: data.jwt
 	};
 };
