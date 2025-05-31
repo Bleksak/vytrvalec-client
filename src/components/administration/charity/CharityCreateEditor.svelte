@@ -166,8 +166,7 @@
 		}
 	}
 
-	.user,
-	.date {
+	.user {
 		display: flex;
 		align-items: center;
 		gap: 0.5rem;
@@ -177,12 +176,6 @@
 		font-weight: 500;
 	}
 
-	.date-text {
-		font-size: 0.875rem;
-		color: #1b2230;
-		font-weight: bold;
-	}
-
 	/* Details styling */
 	.card-details {
 		padding-block: 1rem;
@@ -190,60 +183,6 @@
 		display: flex;
 		flex-direction: column;
 		gap: 1rem;
-	}
-
-	.stats-grid {
-		display: grid;
-		grid-template-columns: 1fr;
-		gap: 0.75rem;
-	}
-
-	@media (min-width: 640px) {
-		.stats-grid {
-			grid-template-columns: repeat(3, 1fr);
-		}
-	}
-
-	.stat-card {
-		display: flex;
-		flex-direction: column;
-		gap: 0.25rem;
-		padding: 0.75rem;
-		border-radius: 0.5rem;
-		background-color: rgba(0, 92, 171, 0.05);
-	}
-
-	.stat-label {
-		font-size: 0.875rem;
-		color: #6b7280;
-	}
-
-	.stat-value {
-		display: flex;
-		align-items: center;
-		gap: 0.5rem;
-		font-weight: 500;
-	}
-
-	.badge {
-		background-color: #005cab;
-		color: white;
-		padding: 0.25rem 0.5rem;
-		border-radius: 9999px;
-		font-size: 0.75rem;
-		font-weight: 500;
-	}
-
-	.metric {
-		color: #005cab;
-		font-weight: 700;
-	}
-
-	.separator {
-		height: 1px;
-		width: 100%;
-		background-color: #e5e7eb;
-		margin: 0.5rem 0;
 	}
 
 	/* Message input styling */

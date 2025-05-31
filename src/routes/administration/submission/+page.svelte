@@ -1,61 +1,27 @@
 <script lang="ts">
 	import SubmissionReview from '$components/administration/submission/SubmissionReview.svelte';
-	import type { TinderSubmissionResponseDTO } from '$lib/DTO/SubmissionDTO';
-	import Store from '$lib/enums/Stores';
-	import type { ToastStore } from '$lib/stores/ToastStore.svelte';
-	import createUnreviewedSubmissionStore from '$lib/stores/UnreviewedSubmissionStore.svelte';
-	import { getContext } from 'svelte';
+	import UnreviewedSubmissionStore from '$lib/stores/UnreviewedSubmissionStore.svelte';
+	import { onMount } from 'svelte';
+	import type { PageProps } from './$types';
+	import { browser } from '$app/environment';
 
-	const toastStore = getContext<ToastStore>(Store.TOAST_STORE);
-	const submissionStore = createUnreviewedSubmissionStore();
+	let { data }: PageProps = $props();
 
-	let currentSubmission = $state<TinderSubmissionResponseDTO | null>(null);
+	let submissionStore = $state<UnreviewedSubmissionStore>();
 
-	$effect(() => {
-		if (currentSubmission === null && submissionStore.all().length > 0) {
-			currentSubmission = submissionStore.pop();
+	onMount(() => {
+		if (browser) {
+			submissionStore = new UnreviewedSubmissionStore(data.ws, data.jwt!);
 		}
 	});
 
-	const onAccept = (submission: TinderSubmissionResponseDTO, message: string) => {
-		submissionStore.accept(submission, message).then((result) => {
-			if (result.type === 'success') {
-				toastStore.add({
-					type: 'success',
-					message: 'Aktivita byla schválena'
-				});
-				currentSubmission = submissionStore.pop();
-			} else if (result.type === 'error') {
-				toastStore.add({
-					type: 'error',
-					message:
-						'Nastala chyba při schvalování aktivity. Aktualizujte stránku a opakujte akci znova.'
-				});
-			}
-		});
-	};
-
-	const onReject = (submission: TinderSubmissionResponseDTO, message: string) => {
-		submissionStore.reject(submission, message).then((result) => {
-			if (result.type === 'success') {
-				toastStore.add({
-					type: 'success',
-					message: 'Aktivita byla zamítnuta'
-				});
-				currentSubmission = submissionStore.pop();
-			} else if (result.type === 'error') {
-				toastStore.add({
-					type: 'error',
-					message:
-						'Nastala chyba při zamítnutí aktivity. Aktualizujte stránku a opakujte akci znova.'
-				});
-			}
-		});
-	};
+	$effect(() => {
+		console.log(submissionStore?.currentData?.user?.first_name);
+	});
 </script>
 
-{#if currentSubmission !== null}
-	<SubmissionReview {currentSubmission} {onAccept} {onReject} />
+{#if submissionStore?.currentData && !submissionStore.noSubmissionsMarked}
+	<SubmissionReview {submissionStore} activities={data.activities} />
 {:else}
 	<h1>Nejsou žádné nové příspěvky.</h1>
 {/if}

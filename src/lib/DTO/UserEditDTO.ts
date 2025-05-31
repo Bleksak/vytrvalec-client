@@ -1,5 +1,5 @@
 import type { ResponseError, ResponseErrorMap } from '$lib/ResponseErrors';
-import type { UserRole } from './UserRole';
+import { UserRole } from './UserRole';
 
 export type UserEditDTO = {
 	email?: string;
@@ -34,7 +34,7 @@ export const formDataToUserEditDTO = (formData: FormData): UserEditReturn => {
 	const banned = Boolean(formData.get('banned'));
 
 	const roles: UserRole[] =
-		formData.get('admin') === '1' ? ['ROLE_STAFF', 'ROLE_USER'] : ['ROLE_USER'];
+		formData.get('admin') === '1' ? [UserRole.Staff, UserRole.User] : [UserRole.User];
 
 	if (!email || email === '') {
 		errors['email'] = ['blank'];
@@ -46,7 +46,7 @@ export const formDataToUserEditDTO = (formData: FormData): UserEditReturn => {
 		errors['last_name'] = ['blank'];
 	}
 	if (faculty_id === Number.NaN || !Number.isInteger(faculty_id)) {
-		errors['faculty'] = ['invalid'];
+		errors['faculty_id'] = ['invalid'];
 	}
 	if (Object.keys(errors).length !== 0) {
 		return { type: 'error', errors: errors };

@@ -1,25 +1,37 @@
 <script lang="ts">
 	import Button from '$components/Button.svelte';
-	import type { TinderSubmissionResponseDTO } from '$lib/DTO/SubmissionDTO';
+	import type { ActivityDTO } from '$lib/DTO/ActivityDTO';
+	import type UnreviewedSubmissionStore from '$lib/stores/UnreviewedSubmissionStore.svelte';
 	import { Activity, Calendar, Ruler, TrendingUp, User } from '@lucide/svelte';
 
-	const { currentSubmission, onAccept, onReject } = $props<{
-		currentSubmission: TinderSubmissionResponseDTO;
-		onAccept: (submission: TinderSubmissionResponseDTO, message: string) => void;
-		onReject: (submission: TinderSubmissionResponseDTO, message: string) => void;
-	}>();
+	const {
+		submissionStore,
+		activities
+	}: {
+		submissionStore: UnreviewedSubmissionStore;
+		activities: Map<number, ActivityDTO>;
+	} = $props();
 
-	let message = $state<string>(currentSubmission?.message ?? '');
+	const currentSubmission = $derived(submissionStore.currentData?.submission!);
+	const currentUser = $derived(submissionStore.currentData?.user!);
+
+	let message = $state<string>('');
 
 	function localOnAccept() {
-		onAccept(currentSubmission, message);
+		submissionStore.accept(message);
 		message = '';
 	}
 
 	function localOnReject() {
-		onReject(currentSubmission, message);
+		submissionStore.reject(message);
 		message = '';
 	}
+
+	$effect(() => {
+		message = currentSubmission.message ?? '';
+	});
+
+	const activity = $derived(activities.get(currentSubmission.activity_id)!);
 </script>
 
 <div class="card">
@@ -28,8 +40,7 @@
 			<a href={currentSubmission.image} target="_blank">
 				<img
 					src={currentSubmission.image}
-					alt="{currentSubmission.activity.name} zaslaná uživatelem {currentSubmission.user
-						.first_name} {currentSubmission.user.last_name}"
+					alt="{activity.name} zaslaná uživatelem {currentUser.first_name} {currentUser.last_name}"
 				/>
 			</a>
 		</div>
@@ -40,8 +51,8 @@
 					<div class="user">
 						<User class="submission-review-icon" />
 						<span class="name">
-							{currentSubmission.user.first_name}
-							{currentSubmission.user.last_name}
+							{currentUser.first_name}
+							{currentUser.last_name}
 						</span>
 					</div>
 					<div class="date">
@@ -66,7 +77,7 @@
 						<div class="stat-label">Aktivita</div>
 						<div class="stat-value">
 							<Activity class="submission-review-icon" />
-							<span class="badge">{currentSubmission.activity.name}</span>
+							<span class="badge">{activity.name}</span>
 						</div>
 					</div>
 

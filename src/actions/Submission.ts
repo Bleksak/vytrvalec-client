@@ -5,7 +5,7 @@ import type {
 	SubmissionDTO,
 	ProfileSubmissionResponseDTO,
 	SubmissionResponseAdminDTO,
-	TinderSubmissionResponseDTO
+	SubmissionResponseDTO
 } from '$lib/DTO/SubmissionDTO';
 import type { SubmissionStateDTO, SubmissionStateResponse } from '$lib/DTO/SubmissionStateDTO';
 import axios, { type AxiosResponse } from 'axios';
@@ -13,15 +13,13 @@ import type { SelectedFilter } from '$lib/DTO/SelectedFilter';
 import type { FacultyDTO } from '$lib/DTO/FacultyDTO';
 
 export const createSubmission = async (dto: SubmissionDTO): Promise<SubmissionCreateResponse> => {
-	const response = await axios
-		.post(`/submission`, dto)
-		.catch((error) => {
-			if (error.response) {
-				return error.response;
-			}
+	const response = await axios.post(`/submission`, dto).catch((error) => {
+		if (error.response) {
+			return error.response;
+		}
 
-			return null;
-		});
+		return null;
+	});
 
 	if (response === null) {
 		return {
@@ -95,19 +93,8 @@ export const setSubmissionState = async (
 	};
 };
 
-export const fetchUnreviewedSubmissions = async (
-	count: number
-): Promise<Array<TinderSubmissionResponseDTO>> => {
-	return (await axios.get(`/submission/unresolved/${count}`, {})).data.map(
-		(submission: { date: string | Date }) => {
-			submission.date = new Date(submission.date);
-			return submission;
-		}
-	);
-};
-
 export const acceptSubmission = async (
-	submission: TinderSubmissionResponseDTO,
+	submission: SubmissionResponseDTO,
 	message: string
 ): Promise<AxiosResponse> => {
 	return await axios.patch(`/submission/${submission.id}/state`, {
@@ -118,7 +105,7 @@ export const acceptSubmission = async (
 };
 
 export const rejectSubmission = async (
-	submission: TinderSubmissionResponseDTO,
+	submission: SubmissionResponseDTO,
 	message: string
 ): Promise<AxiosResponse> => {
 	return await axios.patch(`/submission/${submission.id}/state`, {
@@ -131,14 +118,12 @@ export const rejectSubmission = async (
 export const patchSubmission = async (dto: SubmissionDTO, data: FormData) => {
 	const id = data.get('id');
 
-	const response = await axios
-		.patch(`/submission/${id}`, dto)
-		.catch((error) => {
-			if (error.response) {
-				return error.response;
-			}
-			return null;
-		});
+	const response = await axios.patch(`/submission/${id}`, dto).catch((error) => {
+		if (error.response) {
+			return error.response;
+		}
+		return null;
+	});
 
 	if (response === null) {
 		return {

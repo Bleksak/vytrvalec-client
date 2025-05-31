@@ -1,142 +1,160 @@
-import {
-	acceptSubmission,
-	fetchUnreviewedSubmissions,
-	rejectSubmission
-} from '$actions/Submission';
-import type { TinderSubmissionResponseDTO } from '$lib/DTO/SubmissionDTO';
-import type { SubmissionStateResponse } from '$lib/DTO/SubmissionStateDTO';
-import type { AxiosError } from 'axios';
+import { SubmissionResponseDto } from '$lib/DTO/SubmissionDTO';
+import { UserResponseDto } from '$lib/DTO/UserResponse';
+import { type } from 'arktype';
 
-export type UnreviewedSubmissionStore = {
-	all: () => Array<TinderSubmissionResponseDTO>;
-	pop: () => TinderSubmissionResponseDTO | null;
-	accept: (submission: TinderSubmissionResponseDTO, message: string) => Promise<SubmissionStateResponse>;
-	reject: (submission: TinderSubmissionResponseDTO, message: string) => Promise<SubmissionStateResponse>;
-};
+enum WebsocketMessageType {
+	InitializeRequest = 'initialize',
+	SubmissionRequest = 'request_submission',
+	SubmissionReviewRequest = 'review_submission',
+	Success = 'ok',
+	Fail = 'nok'
+}
 
-export const createUnreviewedSubmissionStore = (): UnreviewedSubmissionStore => {
-	let submissions = $state<Array<TinderSubmissionResponseDTO>>([]);
-	let swap = $state<Array<TinderSubmissionResponseDTO>>([]);
+const WebsocketMessage = type({
+	type: type.valueOf(WebsocketMessageType),
+	'response_to?': type.or(type.valueOf(WebsocketMessageType), type.null, type.undefined),
+	'payload?': type.or(type.null, type.object, type.undefined)
+});
 
-	let initialLoad = true;
-	let index = $state(0);
-	let ids = $state<Array<number>>([]);
+const WebsocketSubmissionUserPair = type({
+	user: type(UserResponseDto),
+	submission: type(SubmissionResponseDto)
+});
 
-	const count = 25;
+type WebsocketMessageInfer = typeof WebsocketMessage.infer;
+type WebsocketSubmissionUserPairInfer = typeof WebsocketSubmissionUserPair.infer;
 
-	$effect(() => {
-		if (initialLoad) {
-			initialLoad = false;
+export default class UnreviewedSubmissionStore {
+	private ws: WebSocket;
+	private jwt: string;
 
-			fetchUnreviewedSubmissions(count).then((result) => {
-				submissions = result;
-				ids = result.map((submission) => submission.id);
-			});
-		}
-	});
+	public initialized = $state(false);
+	public currentData = $state<WebsocketSubmissionUserPairInfer | null>(null);
 
-	const refetchIfNeeded = async () => {
-		if (index % submissions.length === submissions.length - 1) {
-			const result = await fetchUnreviewedSubmissions(count + 1);
+	public noSubmissionsMarked = $state(false);
 
-			if (result.length > 0) {
-				swap = result.filter((submission) => !ids.includes(submission.id));
-				ids = result.map((submission) => submission.id);
-			} else {
-				swap = [];
-				ids = [];
-			}
-		}
-	};
+	constructor(wsUrl: string, jwt: string) {
+		this.ws = new WebSocket(wsUrl);
+		this.jwt = jwt;
 
-	const swapIfNeeded = () => {
-		if (index % submissions.length === 0 && !initialLoad) {
-			submissions = swap;
-			index = 0;
-		}
-	};
-
-	const accept = async (submission: TinderSubmissionResponseDTO, message: string): Promise<SubmissionStateResponse> => {
-		const result = await acceptSubmission(submission, message).catch((error: AxiosError) => {
-			if (error.response) {
-				return error.response;
-			}
-
-			return null;
-		});
-
-		if (result === null) {
-			return {
-				type: 'error',
-				errors: {
-					server: ['server_down']
-				}
-			};
-		}
-
-		if (result.status !== 200) {
-			return {
-				type: 'error',
-				errors: result?.data ?? {}
-			};
-		}
-
-		await refetchIfNeeded();
-		swapIfNeeded();
-
-		return {
-			type: 'success',
-			date: result.data
+		this.ws.onopen = (_event: Event): any => {
+			this.initialize();
 		};
-	};
 
-	const reject = async (submission: TinderSubmissionResponseDTO, message: string): Promise<SubmissionStateResponse> => {
-		const result = await rejectSubmission(submission, message).catch((error: AxiosError) => {
-			if (error.response) {
-				return error.response;
+		this.ws.onclose = UnreviewedSubmissionStore.onWsClose;
+
+		this.ws.onmessage = (event: MessageEvent) => {
+			this.onWsMessage(event);
+		};
+
+		this.ws.onerror = UnreviewedSubmissionStore.onWsError;
+	}
+
+	private initialize(): any {
+		this.send({
+			type: WebsocketMessageType.InitializeRequest,
+			payload: {
+				jwt: this.jwt
+			}
+		});
+	}
+
+	private static onWsClose(this: WebSocket, event: Event): any {
+		console.log('WS closed');
+		console.log(event);
+	}
+
+	private onWsMessage(event: MessageEvent): any {
+		console.log('Got message');
+		console.log(event);
+
+		const message = WebsocketMessage(JSON.parse(event.data));
+
+		if (message instanceof type.errors) {
+			console.log(message.summary);
+			return;
+		}
+
+		if (message.type === WebsocketMessageType.Fail) {
+			this.handleFail(message);
+			return;
+		}
+
+		if (message.response_to === null) {
+			console.log('response to should not be null');
+			return;
+		}
+
+		if (message.response_to === WebsocketMessageType.InitializeRequest) {
+			this.requestSubmission();
+
+			return;
+		}
+
+		if (message.response_to === WebsocketMessageType.SubmissionRequest) {
+			const pair = WebsocketSubmissionUserPair(message.payload);
+
+			if (pair instanceof type.errors) {
+				console.log(pair.summary);
+				return;
 			}
 
-			return null;
+			this.currentData = pair;
+
+			return;
+		}
+
+		if (message.response_to === WebsocketMessageType.SubmissionReviewRequest) {
+			console.log('review response');
+			console.log('ok');
+
+			this.requestSubmission();
+
+			return;
+		}
+	}
+
+	private handleFail(message: WebsocketMessageInfer) {
+		if (message.response_to === WebsocketMessageType.SubmissionRequest) {
+			// no more submissions
+			this.noSubmissionsMarked = true;
+		}
+	}
+
+	private static onWsError(this: WebSocket, event: Event): any {
+		console.error('WS Error');
+		console.error(event);
+	}
+
+	private send(message: WebsocketMessageInfer) {
+		this.ws.send(JSON.stringify(message));
+	}
+
+	public requestSubmission(): void {
+		console.log('requesting submission');
+
+		this.send({
+			type: WebsocketMessageType.SubmissionRequest
 		});
-		if (result === null) {
-			return {
-				type: 'error',
-				errors: {
-					server: ['server_down']
-				}
-			};
-		}
+	}
 
-		if (result.status !== 200) {
-			return {
-				type: 'error',
-				errors: result?.data ?? {}
-			};
-		}
+	public accept(message: string): void {
+		this.send({
+			type: WebsocketMessageType.SubmissionReviewRequest,
+			payload: {
+				accepted: true,
+				message
+			}
+		});
+	}
 
-		await refetchIfNeeded();
-		swapIfNeeded();
-
-		return {
-			type: 'success',
-			date: result.data
-		};
-	};
-
-	const all = () => submissions;
-	const pop = () => {
-		const value = submissions.at(index % count) ?? null;
-		index += 1;
-
-		return value;
-	};
-
-	return {
-		all: all,
-		pop: pop,
-		accept: accept,
-		reject: reject
-	};
-};
-
-export default createUnreviewedSubmissionStore;
+	public reject(message: string): void {
+		this.send({
+			type: WebsocketMessageType.SubmissionReviewRequest,
+			payload: {
+				accepted: false,
+				message
+			}
+		});
+	}
+}

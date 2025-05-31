@@ -1,11 +1,26 @@
-import type { FacultyDTO } from './FacultyDTO';
+import { type } from 'arktype';
+import { FacultyDto, type FacultyDTO } from './FacultyDTO';
 import type { UserError } from './UserEditDTO';
-import type { UserRole } from './UserRole';
+import { UserRole } from './UserRole';
 
 export type AnonymizedUser = {
 	first_name: string;
 	last_name: string | null;
 };
+
+export const UserResponseDto = type({
+	id: 'number',
+	first_name: 'string',
+	last_name: 'string',
+	email: 'string',
+	banned: 'boolean',
+	roles: type.valueOf(UserRole).array(),
+	faculty: type(FacultyDto),
+	anonymize: 'boolean | null',
+	mailing: 'boolean'
+});
+
+export type UserResponseDtoInfer = typeof UserResponseDto.infer;
 
 export type UserResponse = {
 	id: number;

@@ -11,7 +11,7 @@
 		imageUrl = $bindable(),
 		disabled = false
 	}: {
-		imageUuid: string | undefined;
+		imageUuid: string | undefined | null;
 		imageUrl?: string | null | undefined;
 		disabled?: boolean;
 	} = $props();

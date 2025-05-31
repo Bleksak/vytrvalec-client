@@ -1,6 +1,8 @@
 import type { ResponseErrorMap } from '$lib/ResponseErrors';
 import type { ActivityDTO } from './ActivityDTO';
-import type { UserResponse, UserResponseAdmin } from './UserResponse';
+import type { UserResponseAdmin } from './UserResponse';
+
+import { type } from 'arktype';
 
 export type SubmissionDTO = {
 	distance: number;
@@ -10,20 +12,38 @@ export type SubmissionDTO = {
 	updated_at?: string;
 };
 
+export const SubmissionResponseDto = type({
+	id: 'number',
+	distance: 'number',
+	'elevation?': 'number',
+	image: 'string',
+	activity_id: 'number',
+	accepted: 'boolean',
+	reviewed: 'boolean',
+	user_id: 'number',
+	date: type('string.date').pipe((s) => new Date(s)),
+	updated_at: 'string',
+	week: 'number',
+	season_id: 'number',
+	message: 'string'
+});
+
+export type SubmissionResponseDtoInfer = typeof SubmissionResponseDto.infer;
+
 export type SubmissionResponseDTO = {
 	id: number;
 	distance: number;
 	elevation?: number;
 	image: string;
-	activity: number;
+	activity_id: number;
 	accepted: boolean;
 	reviewed: boolean;
-	user: UserResponse;
+	user_id: number;
 	date: Date;
 	updated_at: string;
 	week: number;
-	season: number;
-	message?: string;
+	season_id: number;
+	message: string;
 };
 
 export type SubmissionResponseAdminDTO = Omit<SubmissionResponseDTO, 'user'> & {
@@ -31,9 +51,6 @@ export type SubmissionResponseAdminDTO = Omit<SubmissionResponseDTO, 'user'> & {
 };
 
 export type ProfileSubmissionResponseDTO = Omit<SubmissionResponseDTO, 'user' | 'activity'> & {
-	activity: ActivityDTO;
-};
-export type TinderSubmissionResponseDTO = Omit<SubmissionResponseDTO, 'activity'> & {
 	activity: ActivityDTO;
 };
 
@@ -63,7 +80,7 @@ export const formDataToSubmissionDTO = (formData: FormData): SubmissionReturn =>
 		distance: [],
 		elevation: [],
 		activity_id: [],
-		image_uuid: [],
+		image_uuid: []
 	};
 
 	if (distanceString === undefined || distanceString === '' || distanceString === null) {

@@ -1,6 +1,7 @@
 import { getCurrentUser } from '$actions/Auth';
 import { fetchCurrentSeason } from '$actions/Season';
 import { dev } from '$app/environment';
+import { UserRole } from '$lib/DTO/UserRole';
 import { locales } from '$translations/i18n-util';
 import { error, redirect, type Handle } from '@sveltejs/kit';
 import axios from 'axios';
@@ -48,7 +49,7 @@ export const handle: Handle = async ({ event, resolve }): Promise<any> => {
 	}
 
 	if (isPathname(event.url.pathname, '/administration')) {
-		if (!event.locals.user || !event.locals.user.roles.includes('ROLE_STAFF')) {
+		if (!event.locals.user || !event.locals.user.roles.includes(UserRole.Staff)) {
 			error(404);
 		}
 	}

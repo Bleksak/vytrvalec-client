@@ -6,6 +6,7 @@
 	import Checkbox from '$components/FormComponent/Checkbox.svelte';
 	import type { DialogStore } from '$lib/stores/DialogStore.svelte';
 	import Store from '$lib/enums/Stores';
+	import { UserRole } from '$lib/DTO/UserRole';
 
 	const userStore = getContext<UserStore>(Store.USER_STORE);
 	const dialogStore = getContext<DialogStore>(Store.DIALOG_STORE);
@@ -72,7 +73,7 @@
 						<Checkbox
 							id="admin-view"
 							name="admin-view"
-							checked={user.roles.includes('ROLE_STAFF')}
+							checked={user.roles.includes(UserRole.Staff)}
 							disabled
 						/>
 					</td>

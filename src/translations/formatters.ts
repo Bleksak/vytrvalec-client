@@ -24,4 +24,3 @@ export const initFormatters: FormattersInitializer<Locales, Formatters> = (local
 
 	return formatters;
 };
-
