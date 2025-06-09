@@ -53,8 +53,5 @@ download-env:
     paths:
       - preview.env
     expire_in: 1 minutes
-  secrets:
-    secure_files:
-      - name: .env
   rules:
     - when: manual
