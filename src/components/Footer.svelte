@@ -6,10 +6,16 @@
 	<div class="footer-wrapper">
 		<div class="socials">
 			<a class="icon" href={import.meta.env.VITE_FACEBOOK_URL}>
-				<img class="icon" src="/images/facebook.svg" alt="Facebook" />
+				<img class="icon" src="/images/icons/facebook.svg" alt="Facebook" />
 			</a>
 			<a class="icon" href={import.meta.env.VITE_INSTAGRAM_URL}>
-				<img class="icon" src="/images/instagram.svg" alt="Instagram" />
+				<img class="icon" src="/images/icons/instagram.svg" alt="Instagram" />
+			</a>
+			<a class="icon" href={import.meta.env.VITE_UTS_WEB_URL}>
+				<img class="icon" src="/images/icons/web.svg" alt="Web" />
+			</a>
+			<a class="icon" href={import.meta.env.VITE_DISCORD_URL}>
+				<img class="icon" src="/images/icons/discord.svg" alt="Discord" />
 			</a>
 		</div>
 		<div class="about">
