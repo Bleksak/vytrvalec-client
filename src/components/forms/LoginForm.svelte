@@ -58,7 +58,7 @@
 			<label for="email">
 				{$LL.login.email()}:
 			</label>
-			<input type="email" name="email" id="email" />
+			<input type="email" name="email" id="email" autocomplete="email" />
 			{#each errors?.email ?? [] as error}
 				<span class="error">
 					{$LL.login.errors.email[error as keyof typeof $LL.login.errors.email]()}
@@ -70,7 +70,7 @@
 			<label for="password">
 				{$LL.login.password()}:
 			</label>
-			<input type="password" name="password" id="password" />
+			<input type="password" name="password" id="password" autocomplete="current-password" />
 			{#each errors?.password ?? [] as error}
 				<span class="error">
 					{$LL.login.errors.password[error as keyof typeof $LL.login.errors.password]()}
