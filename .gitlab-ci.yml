@@ -41,3 +41,20 @@ deploy:
     - cat kube/client.yaml | envsubst | tee kube/client.yaml
     - kubectl apply -f kube
     # - kubectl rollout restart -n vytrvalec-kts deployment vytrvalec-nginx
+
+download-env:
+  image: alpine
+  stage: build
+  before_script:
+    - curl --silent "https://gitlab.com/gitlab-org/incubation-engineering/mobile-devops/download-secure-files/-/raw/main/installer" | bash
+  script:
+    - cp "$CI_PROJECT_DIR/.env" preview.env
+  artifacts:
+    paths:
+      - preview.env
+    expire_in: 1 minutes
+  secrets:
+    secure_files:
+      - name: .env
+  rules:
+    - when: manual
