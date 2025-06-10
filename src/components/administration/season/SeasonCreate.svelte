@@ -14,7 +14,7 @@
 	const seasonStore = getContext<SeasonStore>(Store.SEASON_STORE);
 	const charityStore = getContext<CharityStore>(Store.CHARITY_STORE);
 	const toastStore = getContext<ToastStore>(Store.TOAST_STORE);
-	const fourWeeks = 4 * 7 * 24 * 60 * 60 * 1000;
+	const fourWeeks = 27 * 24 * 60 * 60 * 1000;
 
 	const today = new Date();
 	const minEnd = new Date(today.getTime() + fourWeeks);
@@ -73,7 +73,7 @@
 			<DateInput bind:date={season.end} minDate={minEnd} name="end" id="end" />
 
 			<span class="note">
-				<b>Poznámka:&nbsp;</b>výchozí datum konce sezóny je začátek + 4 týdny
+				<b>Poznámka:&nbsp;</b>výchozí datum konce sezóny je začátek + 27 dní (doba trvání sezóny je tedy 28 dní)
 			</span>
 
 			<Button class="left" type="submit">Vytvořit</Button>
@@ -86,7 +86,7 @@
         width: 50%;
 		justify-self: center;
     }
-	
+
 	.header-warning {
 		font-size: 1.3rem;
 	}
