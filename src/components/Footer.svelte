@@ -1,29 +1,31 @@
 <script lang="ts">
-	import { LL } from "$translations/i18n-svelte";
+	import { LL } from '$translations/i18n-svelte';
 </script>
 
 <footer>
 	<div class="footer-wrapper">
 		<div class="socials">
 			<a class="icon" href={import.meta.env.VITE_FACEBOOK_URL}>
-				<img class="icon" src="/images/icons/facebook.svg" alt="Facebook" />
+				<img class="icon" src="/images/icons/facebook.svg" alt="Facebook" title="Facebook" />
 			</a>
 			<a class="icon" href={import.meta.env.VITE_INSTAGRAM_URL}>
-				<img class="icon" src="/images/icons/instagram.svg" alt="Instagram" />
+				<img class="icon" src="/images/icons/instagram.svg" alt="Instagram" title="Instagram" />
 			</a>
-			<a class="icon" href={import.meta.env.VITE_UTS_WEB_URL}>
-				<img class="icon" src="/images/icons/web.svg" alt="Web" />
+			<a class="icon" href={import.meta.env.VITE_WEB_URL}>
+				<img class="icon" src="/images/icons/web.svg" alt="Web" title="Web" />
 			</a>
 			<a class="icon" href={import.meta.env.VITE_DISCORD_URL}>
-				<img class="icon" src="/images/icons/discord.svg" alt="Discord" />
+				<img class="icon" src="/images/icons/discord.svg" alt="Discord" title="Discord" />
 			</a>
 		</div>
 		<div class="about">
-			<a href={import.meta.env.VITE_WEB_URL} class="uts"><strong>Ústav tělesné výchovy a sportu ZČU</strong></a>
+			<a href={import.meta.env.VITE_WEB_URL} class="uts">
+				<strong>Ústav tělesné výchovy a sportu ZČU</strong>
+			</a>
 			<span>{$LL.footer.contact()}</span>
 		</div>
 		<div class="special-links">
-			{$LL.footer.managed_by()}:&nbsp;Jiří Velek, Kašparová Alena
+			{$LL.footer.managed_by()}:&nbsp;Jiří Velek, Alena Kašparová
 		</div>
 	</div>
 </footer>
