@@ -13,15 +13,21 @@ const config = {
 		// If your environment is not supported or you settled on a specific environment, switch out the adapter.
 		// See https://kit.svelte.dev/docs/adapters for more information about adapters.
 		adapter: adapter(),
+		// experimental: {
+		// 	remoteFunctions: true
+		// },
 		alias: {
 			$actions: 'src/actions',
 			$components: 'src/components',
 			$translations: 'src/translations',
 			$utils: 'src/utils'
-		}
+		},
 	},
 	compilerOptions: {
-		runes: true
+		runes: true,
+		experimental: {
+			async: true,
+		}
 	}
 };
 

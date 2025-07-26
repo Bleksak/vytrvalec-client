@@ -7,15 +7,18 @@
 	import { beforeNavigate } from '$app/navigation';
 	import Store from '$lib/enums/Stores';
 	import type { FacultyStore } from '$lib/stores/FacultyStore.svelte';
+	import type { ActivityStore } from '$lib/stores/ActivityStore.svelte';
 
 	const charityStore = getContext<CharityStore>(Store.CHARITY_STORE);
 	const seasonStore = getContext<SeasonStore>(Store.SEASON_STORE);
 	const facultyStore = getContext<FacultyStore>(Store.FACULTY_STORE);
+	const activityStore = getContext<ActivityStore>(Store.ACTIVITY_STORE);
 
 	const routeMap = [
 		'/administration/season/[[id=integer]]',
 		'/administration/charity/[[id=integer]]',
 		'/administration/faculty/[[id=integer]]',
+		'/administration/activity/[[id=integer]]',
 	];
 
 	let route = $state(page.route.id as string);
@@ -28,6 +31,19 @@
 
 <nav>
 	<ul>
+		<li>
+			<a href="/administration/activity">Aktivity</a>
+			<input id="navbar-season" bind:checked={checkboxes[0]} type="checkbox" />
+			<Accordion bind:opened={checkboxes[3]}>
+				{#each activityStore.all() as activity}
+					<li class="accordion-inner">
+						<a href="/administration/activity/{activity.id}">
+							{activity.name}
+						</a>
+					</li>
+				{/each}
+			</Accordion>
+		</li>
 		<li>
 			<a href="/administration/season">Sezóny</a>
 			<input id="navbar-season" bind:checked={checkboxes[0]} type="checkbox" />

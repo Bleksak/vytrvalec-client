@@ -30,7 +30,10 @@ export const handle: Handle = async ({ event, resolve }): Promise<any> => {
 	event.locals.jwt = event.cookies.get('jwt') ?? null;
 
 	axios.defaults.baseURL = import.meta.env.VITE_SERVER_API_BASE || import.meta.env.VITE_API_BASE;
-	axios.defaults.headers.common.Authorization = `Bearer ${event.locals.jwt}`;
+
+	if (event.locals.jwt !== null) {
+		axios.defaults.headers.common.Authorization = `Bearer ${event.locals.jwt}`;
+	}
 
 	const result = await getCurrentUser();
 

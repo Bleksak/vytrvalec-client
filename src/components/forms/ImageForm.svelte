@@ -9,11 +9,13 @@
 	let {
 		imageUuid = $bindable(),
 		imageUrl = $bindable(),
-		disabled = false
+		disabled = false,
+		id = undefined,
 	}: {
 		imageUuid: string | undefined | null;
 		imageUrl?: string | null | undefined;
 		disabled?: boolean;
+		id?: string | undefined;
 	} = $props();
 
 	const toastStore = getContext<ToastStore>(Store.TOAST_STORE);
@@ -136,9 +138,9 @@
 <input
 	bind:this={fileInput}
 	bind:files={uploadedFiles}
+	id={id}
 	type="file"
 	name="image"
-	id="image"
 	accept="image/*"
 />
 
