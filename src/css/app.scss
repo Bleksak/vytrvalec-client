@@ -1,0 +1,5 @@
+@use '@picocss/pico/scss/pico' with (
+	$enable-semantic-container: true,
+	$enable-classes: true,
+	$semantic-root-element: "#root"
+);

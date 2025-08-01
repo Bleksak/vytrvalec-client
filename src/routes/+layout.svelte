@@ -1,4 +1,6 @@
 <script lang="ts">
+	import '$css/app.scss';
+
 	import Toast from '$components/Toast.svelte';
 	import Store from '$lib/enums/Stores';
 	import createActivityStore from '$lib/stores/ActivityStore.svelte';
@@ -9,6 +11,7 @@
 	import { createToastStore } from '$lib/stores/ToastStore.svelte';
 	import { setContext } from 'svelte';
 	import { fade } from 'svelte/transition';
+	import '$lib/DTO/CommonArkType';
 
 	let { children } = $props();
 

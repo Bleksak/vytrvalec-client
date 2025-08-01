@@ -1,4 +1,4 @@
-FROM alpine:3.19
+FROM node:24-alpine3.22
 
 # ARG origin=https://vytrvalec.kts.zcu.cz
 ENV ORIGIN=https://vytrvalec.uts.zcu.cz

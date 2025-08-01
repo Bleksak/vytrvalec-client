@@ -19,6 +19,8 @@
 </svelte:head>
 
 <Navbar />
-{@render children()}
+<main>
+	{@render children()}
+</main>
 <Footer />
 <!-- <Cookies /> -->

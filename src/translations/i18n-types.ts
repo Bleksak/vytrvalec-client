@@ -64,15 +64,15 @@ type RootTranslation = {
 		 */
 		results: string
 		/**
-		 * P​ř​i​h​l​á​s​i​t​ ​s​e
+		 * P​ř​i​h​l​á​š​e​n​í
 		 */
 		login: string
 		/**
-		 * R​e​g​i​s​t​r​o​v​a​t
+		 * R​e​g​i​s​t​r​a​c​e
 		 */
 		register: string
 		/**
-		 * O​d​h​l​á​s​i​t​ ​s​e
+		 * O​d​h​l​á​s​i​t
 		 */
 		logout: string
 		/**
@@ -145,7 +145,7 @@ type RootTranslation = {
 		charity: string
 		about: {
 			/**
-			 * O​ ​v​ý​z​v​ě
+			 * O​ ​V​ý​z​v​ě
 			 */
 			title: string
 			/**
@@ -878,6 +878,18 @@ type RootTranslation = {
 			weak: string
 		}
 	}
+	activity: {
+		errors: {
+			min_elevation: {
+			}
+			'name,cz': {
+			}
+			'name,en': {
+			}
+			image: {
+			}
+		}
+	}
 	activities: {
 		/**
 		 * B​ě​h​ ​a​ ​c​h​ů​z​e
@@ -1000,11 +1012,11 @@ type RootTranslation = {
 	}
 	footer: {
 		/**
-		 * M​ů​ž​e​t​e​ ​n​á​s​ ​k​o​n​t​a​k​t​o​v​a​t​ ​n​a​:​ ​v​y​t​r​v​a​l​e​@​n​t​i​s​.​z​c​u​.​c​z
+		 * K​o​n​t​a​k​t​u​j​t​e​ ​n​á​s​:
 		 */
 		contact: string
 		/**
-		 * W​e​b​ ​s​p​r​a​v​u​j​e
+		 * S​p​r​á​v​a​ ​w​e​b​u
 		 */
 		managed_by: string
 	}
@@ -1137,15 +1149,15 @@ export type TranslationFunctions = {
 		 */
 		results: () => LocalizedString
 		/**
-		 * Přihlásit se
+		 * Přihlášení
 		 */
 		login: () => LocalizedString
 		/**
-		 * Registrovat
+		 * Registrace
 		 */
 		register: () => LocalizedString
 		/**
-		 * Odhlásit se
+		 * Odhlásit
 		 */
 		logout: () => LocalizedString
 		/**
@@ -1218,7 +1230,7 @@ export type TranslationFunctions = {
 		charity: () => LocalizedString
 		about: {
 			/**
-			 * O výzvě
+			 * O Výzvě
 			 */
 			title: () => LocalizedString
 			/**
@@ -1945,6 +1957,18 @@ export type TranslationFunctions = {
 			weak: () => LocalizedString
 		}
 	}
+	activity: {
+		errors: {
+			min_elevation: {
+			}
+			'name,cz': {
+			}
+			'name,en': {
+			}
+			image: {
+			}
+		}
+	}
 	activities: {
 		/**
 		 * Běh a chůze
@@ -2067,11 +2091,11 @@ export type TranslationFunctions = {
 	}
 	footer: {
 		/**
-		 * Můžete nás kontaktovat na: vytrvale@ntis.zcu.cz
+		 * Kontaktujte nás:
 		 */
 		contact: () => LocalizedString
 		/**
-		 * Web spravuje
+		 * Správa webu
 		 */
 		managed_by: () => LocalizedString
 	}

@@ -9,20 +9,22 @@ const cs = {
 	},
 
 	anonym: {
-		title: "Upravit předvolbu anonymizace",
-		description1: "Aplikace umožňuje zveřejnění jmen účastníků, kteří získali bonusové body pro svou fakultu nebo dosáhli mimořádných výsledků.",
-		description2: "Poskytnutí souhlasu je dobrovolné. Pokud souhlas neudělíte, vaše jméno nebude zveřejněno a zobrazí se pouze název fakulty. V takovém případě ponechte příslušné pole prázdné a potvrďte uložením.",
-		description3: "Svůj souhlas můžete kdykoli změnit v nastavení profilu.",
-		label: "Souhlasím se zveřejněním celého jména v sekci Výsledky",
-		submit: "Uložit"
+		title: 'Upravit předvolbu anonymizace',
+		description1:
+			'Aplikace umožňuje zveřejnění jmen účastníků, kteří získali bonusové body pro svou fakultu nebo dosáhli mimořádných výsledků.',
+		description2:
+			'Poskytnutí souhlasu je dobrovolné. Pokud souhlas neudělíte, vaše jméno nebude zveřejněno a zobrazí se pouze název fakulty. V takovém případě ponechte příslušné pole prázdné a potvrďte uložením.',
+		description3: 'Svůj souhlas můžete kdykoli změnit v nastavení profilu.',
+		label: 'Souhlasím se zveřejněním celého jména v sekci Výsledky',
+		submit: 'Uložit'
 	},
 
 	navbar: {
 		rules: 'Pravidla',
 		results: 'Výsledky',
-		login: 'Přihlásit se',
-		register: 'Registrovat',
-		logout: 'Odhlásit se',
+		login: 'Přihlášení',
+		register: 'Registrace',
+		logout: 'Odhlásit',
 		administration: 'Administrace',
 		submission: 'Nahrát aktivitu',
 		profile: 'Profil',
@@ -49,7 +51,7 @@ const cs = {
 		current_year: 'Ročník',
 		charity: 'Charita',
 		about: {
-			title: 'O výzvě',
+			title: 'O Výzvě',
 			content:
 				'Účastníci bojují čtyři týdny za svoje týmy (fakulta, VŠ ústav / rektorátní pracoviště / U3V) v počtu naběhaných a naježděných kilometrů. Ty se v rámci týmů sčítají a v závěru týdne určují počet bodů, které daný tým získá a podle toho se umístí v celkovém pořadí.'
 		}
@@ -86,7 +88,8 @@ const cs = {
 		last_name: 'Příjmení',
 		faculty: 'Fakulta',
 		gdpr: 'Souhlasím se zpracováním osobních údajů',
-		gdpr_tooltip: "Jméno, příjmení a emailová adresa jsou zpracovávány pouze pro nezbytné fungování aplikace a nejsou sdíleny s žádnou třetí stranou",
+		gdpr_tooltip:
+			'Jméno, příjmení a emailová adresa jsou zpracovávány pouze pro nezbytné fungování aplikace a nejsou sdíleny s žádnou třetí stranou',
 		submit: 'Registrovat',
 		errors: {
 			email: {
@@ -223,16 +226,18 @@ const cs = {
 			error: 'Nastala chyba při úpravě odběru emailů'
 		},
 		delete: {
-			title: "Smazat účet",
-			desc1: "Smazání účtu je nevratné. Tato akce nelze vzít zpět.",
-			desc2: "Po stisknutí tlačítka odstranit bude váš účet okamžitě zpracován ke smazání a všechna data budou trvale odstraněna.",
-			desc3: "Jakmile účet smažete, již ho nelze obnovit.",
-			desc4: "Měsíční Vytrvalec si bude nadále uchovávat Vaše sdílené aktivity za účelem uchování statistik uplynulých ročníků soutěže. Nebudou ovšem nijak spojeny s vaším stávajícím účtem.",
-			submit: "Odstranit",
-			success: "Účet odstraněn",
-			error: "Nastala chyba při odstraňování účtu"
+			title: 'Smazat účet',
+			desc1: 'Smazání účtu je nevratné. Tato akce nelze vzít zpět.',
+			desc2:
+				'Po stisknutí tlačítka odstranit bude váš účet okamžitě zpracován ke smazání a všechna data budou trvale odstraněna.',
+			desc3: 'Jakmile účet smažete, již ho nelze obnovit.',
+			desc4:
+				'Měsíční Vytrvalec si bude nadále uchovávat Vaše sdílené aktivity za účelem uchování statistik uplynulých ročníků soutěže. Nebudou ovšem nijak spojeny s vaším stávajícím účtem.',
+			submit: 'Odstranit',
+			success: 'Účet odstraněn',
+			error: 'Nastala chyba při odstraňování účtu'
 		},
-		password_change: "Změna hesla",
+		password_change: 'Změna hesla',
 		errors: {
 			email: {
 				blank: 'E-mail nesmí být prázdný',
@@ -298,10 +303,27 @@ const cs = {
 			weak: 'Vaše heslo musí být minimálně "dostačující"'
 		}
 	},
+	activity: {
+		errors: {
+			min_elevation: {
+				'string.integer.parse': 'Převýšení musí být celočíselná hodnota',
+				negative: 'Převýšení musí být kladné číslo'
+			},
+			'name,cz': {
+				min_length: 'Název nesmí být prázdný'
+			},
+			'name,en': {
+				min_length: 'Název nesmí být prázdný'
+			},
+			image: {
+
+			}
+		}
+	},
 	activities: {
 		'Běh/Chůze': 'Běh a chůze',
 		'Kolo/Koloběžka': 'Kolo, koloběžka a brusle',
-        total: 'Celkové hodnocení',
+		total: 'Celkové hodnocení'
 	},
 	icons: {
 		'Běh/Chůze': 'runner',
@@ -344,14 +366,15 @@ const cs = {
 			extraPoints: 'Extra body'
 		},
 		target_activities: {
-			title: "Cílová pohybová aktivita",
-			body: "Jdu si zaběhat, zapnu si aktivitu a vypnu si aktivitu. Jdu se projít, zapnu si aktivitu a vypnu si aktivitu. Jedu na kole, zapnu si aktivitu a vypnu si aktivitu.",
-			supplement: "Cílová pohybová aktivita NENÍ součet nachozených kilometrů za den. Pro zaznamenávání cílových aktivit můžete využít např. aplikaci Garmin Connect, nebo Strava."
+			title: 'Cílová pohybová aktivita',
+			body: 'Jdu si zaběhat, zapnu si aktivitu a vypnu si aktivitu. Jdu se projít, zapnu si aktivitu a vypnu si aktivitu. Jedu na kole, zapnu si aktivitu a vypnu si aktivitu.',
+			supplement:
+				'Cílová pohybová aktivita NENÍ součet nachozených kilometrů za den. Pro zaznamenávání cílových aktivit můžete využít např. aplikaci Garmin Connect, nebo Strava.'
 		}
 	},
 	footer: {
-		contact: 'Můžete nás kontaktovat na: vytrvale@ntis.zcu.cz',
-		managed_by: 'Web spravuje'
+		contact: 'Kontaktujte nás:',
+		managed_by: 'Správa webu'
 	},
 	faculties: {
 		FAV: 'Fakulta aplikovaných věd',
@@ -378,7 +401,3 @@ const cs = {
 } satisfies BaseTranslation;
 
 export default cs;
-
-
-
-

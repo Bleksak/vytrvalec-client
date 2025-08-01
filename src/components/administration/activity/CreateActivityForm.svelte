@@ -1,48 +1,57 @@
 <script lang="ts">
-	import { enhance } from '$app/forms';
-	import Button from '$components/Button.svelte';
 	import ImageForm from '$components/forms/ImageForm.svelte';
-	import Store from '$lib/enums/Stores';
-	import type { ToastStore } from '$lib/stores/ToastStore.svelte';
-	import { redirect, type SubmitFunction } from '@sveltejs/kit';
-	import { getContext } from 'svelte';
-
-	const toastStore = getContext<ToastStore>(Store.TOAST_STORE);
+	import { createActivityAction } from '$remote/activity.remote';
+	import { locales } from '$translations/i18n-util';
 
 	let imageUuid = $state(null);
-	let iconUrl = $state(null);
 
-	let name = $state('');
-	let minElevation = $state(0);
+	let errors: Record<string, string> | undefined = $state();
 
-	const enhancer: SubmitFunction = () => {
-		return async ({ result }) => {
-			if (result.type === 'failure') {
-				// errors = result.data as AccountChangeErrors;
-				toastStore.add({
-					type: 'error',
-					message: 'Nepodarilo se pridat aktivitu'
-				});
-				return;
-			}
-
-			toastStore.add({
-				type: 'success',
-				message: 'Uspesne pridano'
-			});
-
-			redirect(303, '/administration/activity');
-		};
-	};
+	const enhancer = createActivityAction.enhance(async ({ form, submit }) => {
+		try {
+			await submit();
+			form.reset();
+		} catch (data: any) {
+			const body = data.body as App.Error;
+			errors = body.errors;
+			console.log(errors);
+		}
+	});
 </script>
 
-<form method="post" action="/administration/activity?/create" use:enhance={enhancer}>
-	<label for="name">Název aktivity</label>
-	<input bind:value={name} type="text" id="name" />
+<section>
 	<label for="image">Ikonka aktivity</label>
-	<ImageForm bind:imageUuid id="image" bind:imageUrl={iconUrl} />
-	<label for="min-elevation">Minimální převýšení pro udělení extra bodů (metry)</label>
-	<input bind:value={minElevation} type="number" id="min-elevation" />
+	<ImageForm bind:imageUuid id="image" />
+</section>
 
-	<Button type="submit">Vytvořit</Button>
-</form>
+<section>
+	<input type="hidden" name="image" value={imageUuid} />
+	<form {...enhancer} enctype="multipart/form-data">
+		{#each locales as locale}
+			{@const error_condition = errors && errors[`name,${locale}`]}
+			{@const aria_value = error_condition ? 'true' : undefined}
+			<fieldset>
+				<label for="name_{locale}">Název aktivity ({locale})</label>
+				<input type="text" id="name_{locale}" name="name[{locale}]" aria-invalid={aria_value} />
+				{#if errors && errors[`name,${locale}`]}
+					<small>{errors[`name,${locale}`]}</small>
+				{/if}
+			</fieldset>
+		{/each}
+
+		<fieldset>
+			<label for="min-elevation">Minimální převýšení pro udělení extra bodů (metry)</label>
+			<input
+				type="number"
+				id="min-elevation"
+				name="min_elevation"
+				aria-invalid={errors && errors.min_elevation ? 'true' : undefined}
+			/>
+			{#if errors && errors.min_elevation}
+				<small>{errors.min_elevation}</small>
+			{/if}
+		</fieldset>
+
+		<button type="submit">Vytvořit</button>
+	</form>
+</section>

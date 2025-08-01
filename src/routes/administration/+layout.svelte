@@ -6,7 +6,6 @@
 	import type { Locales } from '$translations/i18n-types';
 	import Navbar from '$components/Navbar.svelte';
 	import Footer from '$components/Footer.svelte';
-	import AdminNavbar from '$components/administration/AdminNavbar.svelte';
 	import createSeasonStore from '$lib/stores/SeasonStore.svelte';
 	import { createCharityStore } from '$lib/stores/CharityStore.svelte';
 	import { createUserStore } from '$lib/stores/UserStore.svelte';
@@ -37,40 +36,45 @@
 
 <Navbar />
 
-<div class="container">
-	<AdminNavbar />
-	<div class="slot">
-		{@render children()}
-	</div>
-</div>
+<main>
+	<section class="grid">
+		<aside class="col-3">
+			<nav>
+				<ul>
+					<li>
+						<a href="/administration/activity">Aktivity</a>
+					</li>
+					<li>
+						<a href="/administration/season">Sezóny</a>
+					</li>
+					<li>
+						<a href="/administration/charity">Charity</a>
+					</li>
+					<li>
+						<a href="/administration/faculty">Fakulty</a>
+					</li>
+					<li>
+						<a href="/administration/user">Uživatelé</a>
+					</li>
+					<li>
+						<a href="/administration/submission">Uživatelské příspěvky</a>
+					</li>
+				</ul>
+			</nav>
+		</aside>
+		<article class="col-9">
+			<hgroup>
+				{@render children()}
+			</hgroup>
+		</article>
+	</section>
+</main>
 <Footer />
+
 <!-- <Cookies /> -->
 
 <style>
-	.slot {
-		background-color: white;
-
-		box-shadow: 0px 0px 10px #dee2e6;
-		border-radius: 20px 0 0 0;
-
-		padding: 35px;
-		flex: 5;
-	}
-
-	.container {
-		margin-top: 10px;
-		display: flex;
-		gap: 20px;
-	}
-
-	@media (max-width: 1000px) {
-		.container {
-			flex-direction: column;
-		}
-
-		.slot {
-			margin-inline: 100px;
-			border-radius: 20px 20px 0 0;
-		}
+	.grid {
+		grid-template-columns: 240px 1fr;
 	}
 </style>

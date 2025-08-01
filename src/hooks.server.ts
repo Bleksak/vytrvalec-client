@@ -5,6 +5,7 @@ import { UserRole } from '$lib/DTO/UserRole';
 import { locales } from '$translations/i18n-util';
 import { error, redirect, type Handle } from '@sveltejs/kit';
 import axios from 'axios';
+import '$lib/DTO/CommonArkType';
 
 const isPathname = (current: string, wanted: string): boolean => {
 	if (current == wanted) {
