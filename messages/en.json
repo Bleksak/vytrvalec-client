@@ -1,0 +1,26 @@
+{
+	"$schema": "https://inlang.com/schema/inlang-message-format",
+	"forms": {
+		"activity": {
+			"errors": {
+				"min_elevation": {
+					"string.integer.parse": "Elevation must be an integer",
+					"negative": "Elevation must be non-negative integer"
+				},
+				"name,cz": {
+					"min_length": "Name cannot be empty"
+				},
+				"name,en": {
+					"min_length": "Name cannot be empty"
+				},
+				"image": {
+					"string": {
+						"uuid": {
+							"v7": "Invalid image"
+						}
+					}
+				}
+			}
+		}
+	}
+}

@@ -1,0 +1,26 @@
+{
+	"$schema": "https://inlang.com/schema/inlang-message-format",
+	"forms": {
+		"activity": {
+			"errors": {
+				"min_elevation": {
+					"string.integer.parse": "Převýšení musí být celočíselná hodnota",
+					"negative": "Převýšení musí být kladné číslo"
+				},
+				"name,cz": {
+					"min_length": "Název nesmí být prázdný"
+				},
+				"name,en": {
+					"min_length": "Název nesmí být prázdný"
+				},
+				"image": {
+					"string": {
+						"uuid": {
+							"v7": "Neplatný obrázek"
+						}
+					}
+				}
+			}
+		}
+	}
+}
