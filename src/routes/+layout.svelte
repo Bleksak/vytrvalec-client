@@ -12,6 +12,8 @@
 	import { setContext } from 'svelte';
 	import { fade } from 'svelte/transition';
 	import '$lib/DTO/CommonArkType';
+	import { locales, localizeHref } from '$paraglide/runtime';
+	import { page } from '$app/state';
 
 	let { children } = $props();
 
@@ -45,6 +47,12 @@
 {/if}
 
 {@render children()}
+
+<div style="display:none">
+	{#each locales as locale}
+		<a href={localizeHref(page.url.pathname, { locale })}>{locale}</a>
+	{/each}
+</div>
 
 <style>
 	.toasts-anchor {

@@ -6,6 +6,7 @@ import { locales } from '$translations/i18n-util';
 import { error, redirect, type Handle } from '@sveltejs/kit';
 import axios from 'axios';
 import '$lib/DTO/CommonArkType';
+import { paraglideMiddleware } from '$paraglide/server';
 
 const isPathname = (current: string, wanted: string): boolean => {
 	if (current == wanted) {
@@ -22,6 +23,15 @@ const isPathname = (current: string, wanted: string): boolean => {
 };
 
 export const handle: Handle = async ({ event, resolve }): Promise<any> => {
+	paraglideMiddleware(event.request, ({ request: localizedRequest, locale }) => {
+		event.request = localizedRequest;
+		return resolve(event, {
+			transformPageChunk: ({ html }) => {
+				return html.replace('%lang%', locale);
+			}
+		});
+	});
+
 	// NOTE: When developing with https (server), axios will reject all requests unless we set this environment variable
 
 	if (dev) {

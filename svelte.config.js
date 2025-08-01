@@ -22,7 +22,8 @@ const config = {
 			$translations: 'src/translations',
 			$utils: 'src/utils',
 			$remote: 'src/routes/remote',
-			$css: 'src/css'
+			$css: 'src/css',
+			$paraglide: 'src/paraglide'
 		},
 	},
 	compilerOptions: {
