@@ -37,7 +37,7 @@ export const UpdateActivityType = type({
 	id: type('string.integer.parse').narrow((n, ctx) => {
 		if (n < 0) {
 			return ctx.reject({
-				message: 'negative',
+				message: 'negative'
 			});
 		}
 

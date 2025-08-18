@@ -17,9 +17,12 @@ export const fetchCharities = async (api: AxiosInstance = axios): Promise<Array<
 	return response.data;
 };
 
-export const fetchCharity = async (charity: number): Promise<CharityDTO | null> => {
-	return (await axios.get(`/charity/${charity}`).catch(() => null))?.data;
-};
+export async function fetchCharity(
+	api: AxiosInstance,
+	charity: number
+): Promise<CharityDTO | null> {
+	return (await api.get(`/charity/${charity}`).catch(() => null))?.data;
+}
 
 export async function createCharity(
 	api: AxiosInstance = axios,

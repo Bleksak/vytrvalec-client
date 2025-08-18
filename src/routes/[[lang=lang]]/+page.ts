@@ -8,7 +8,7 @@ export const load: PageLoad = async ({ parent }) => {
 
 	const totalStatistics = await fetchTotalStatistics(api);
 
-	const lastSeason = seasons.at(0) ?? null;
+	const lastSeason = seasons.values().next().value ?? null;
 	const lastSeasonResult = lastSeason
 		? new SeasonResult(await fetchSeasonResult(api, lastSeason), activities)
 		: null;

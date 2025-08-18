@@ -45,7 +45,15 @@ export const FacultyCreateType = type({
 });
 
 export const FacultyUpdateType = type({
-	'id?': 'number'
+	id: type('string.integer.parse').narrow((n, ctx) => {
+		if (n < 0) {
+			return ctx.reject({
+				message: 'negative'
+			});
+		}
+
+		return true;
+	}),
 	'translations?': FacultyUpdateTranslationType,
 	'shortcut?': '0 < string < 10',
 	'visible?': BooleanType,
@@ -71,6 +79,7 @@ export const FacultyUpdateType = type({
 
 export type FacultyDTO = typeof FacultyType.infer;
 export type FacultyCreateDTO = typeof FacultyCreateType.infer;
+export type FacultyUpdateDTO = typeof FacultyUpdateType.infer;
 
 export type FacultyCreateError = ResponseErrorMap<FacultyCreateDTO> & {
 	auth?: Array<ResponseError>;
@@ -86,11 +95,11 @@ export type FacultyCreateResponse =
 			errors: FacultyCreateError;
 	  };
 
-// export type FacultyEditResponse =
-// 	| {
-// 			type: 'success';
-// 	  }
-// 	| {
-// 			type: 'error';
-// 			errors: FacultyError;
-// 	  };
+export type FacultyUpdateResponse =
+	| {
+			type: 'success';
+	  }
+	| {
+			type: 'error';
+			errors: FacultyCreateError;
+	  };

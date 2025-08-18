@@ -3,6 +3,8 @@ import type {
 	FacultyCreateDTO,
 	FacultyCreateResponse,
 	FacultyDTO,
+	FacultyUpdateDTO,
+	FacultyUpdateResponse
 	// FacultyEditResponse
 } from '$lib/DTO/FacultyDTO';
 
@@ -45,36 +47,37 @@ export const createFaculty = async (
 	};
 };
 
-// export const updateFaculty = async (
-// 	id: number,
-// 	data: FacultyCreateDTO
-// ): Promise<FacultyEditResponse> => {
-// 	const response = await axios.patch(`/faculty/${id}`, data).catch((error) => {
-// 		if (error.response) {
-// 			return error.response;
-// 		}
+export const updateFaculty = async (
+	api: AxiosInstance = axios,
+	id: number,
+	data: FacultyUpdateDTO
+): Promise<FacultyUpdateResponse> => {
+	const response = await api.patch(`/faculty/${id}`, data).catch((error) => {
+		if (error.response) {
+			return error.response;
+		}
 
-// 		return null;
-// 	});
+		return null;
+	});
 
-// 	if (response === null) {
-// 		return {
-// 			type: 'error',
-// 			errors: { auth: ['server_down'] }
-// 		};
-// 	}
+	if (response === null) {
+		return {
+			type: 'error',
+			errors: { auth: ['server_down'] }
+		};
+	}
 
-// 	if (response.status !== 200) {
-// 		return {
-// 			type: 'error',
-// 			errors: response.data
-// 		};
-// 	}
+	if (response.status !== 200) {
+		return {
+			type: 'error',
+			errors: response.data
+		};
+	}
 
-// 	return {
-// 		type: 'success'
-// 	};
-// };
+	return {
+		type: 'success'
+	};
+};
 
 // export const deleteFaculty = async (id: number): Promise<FacultyEditResponse> => {
 // 	const response = await axios.delete(`/faculty/${id}`).catch((error) => {

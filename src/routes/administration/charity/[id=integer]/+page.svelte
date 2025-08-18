@@ -1,8 +1,7 @@
 <script lang="ts">
-	import CharityEditor from '$components/administration/charity/CharityEditor.svelte';
+	import CharityUpdateForm from '$components/administration/charity/CharityUpdateForm.svelte';
+
+	const { data } = $props();
 </script>
 
-<div>
-	<CharityEditor />
-</div>
-
+<CharityUpdateForm charity={data.charity} />

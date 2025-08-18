@@ -1,7 +1,7 @@
 <script lang="ts">
 	import { locales } from '$paraglide/runtime';
 	import { m } from '$paraglide/messages';
-	import { createFacultyAction } from '$remote/faculty.remote';
+	import { updateFacultyAction } from '$remote/faculty.remote';
 	import type { SvelteMap } from 'svelte/reactivity';
 	import type { FacultyDTO } from '$lib/DTO/FacultyDTO';
 	import Checkbox from '$components/FormComponent/Checkbox.svelte';
@@ -12,7 +12,7 @@
 	let errors: Record<string, string> = $state({});
 	let submitButtonDisabled = $state(false);
 
-	const enhancer = createFacultyAction.enhance(async ({ form, submit }) => {
+	const enhancer = updateFacultyAction.enhance(async ({ form, submit }) => {
 		try {
 			submitButtonDisabled = true;
 			await submit();
@@ -20,7 +20,6 @@
 		} catch (data: any) {
 			const body = data.body as App.Error;
 			errors = body.errors ?? {};
-			console.log(errors);
 		}
 
 		submitButtonDisabled = false;
@@ -29,6 +28,7 @@
 
 <section>
 	<form {...enhancer}>
+		<input type="hidden" name="id" value={faculty.id} />
 		{#each locales as locale}
 			<fieldset>
 				<label for="name_{locale}">Název fakulty ({locale})</label>
@@ -94,7 +94,7 @@
 		</fieldset>
 
 		<button aria-busy={submitButtonDisabled} disabled={submitButtonDisabled} type="submit">
-			Vytvořit
+			Upravit
 		</button>
 	</form>
 </section>

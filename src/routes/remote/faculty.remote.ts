@@ -1,6 +1,6 @@
-import { createFaculty } from '$actions/Faculty';
+import { createFaculty, updateFaculty } from '$actions/Faculty';
 import { form, getRequestEvent } from '$app/server';
-import { FacultyCreateType, type FacultyDTO } from '$lib/DTO/FacultyDTO';
+import { FacultyCreateType, FacultyUpdateType, type FacultyDTO } from '$lib/DTO/FacultyDTO';
 import { error, redirect, type RemoteForm } from '@sveltejs/kit';
 import { ArkErrors } from 'arktype';
 import qs from 'qs';
@@ -30,7 +30,7 @@ export const createFacultyAction: RemoteForm<FacultyDTO> = form<FacultyDTO>(asyn
 	redirect(307, '/administration/faculty');
 });
 
-export const updateActivityAction: RemoteForm<FacultyDTO> = form<FacultyDTO>(async (formData) => {
+export const updateFacultyAction: RemoteForm<FacultyDTO> = form<FacultyDTO>(async (formData) => {
 	const value = qs.parse(new URLSearchParams(formData as any).toString());
 	const data = FacultyUpdateType(value);
 
@@ -41,7 +41,7 @@ export const updateActivityAction: RemoteForm<FacultyDTO> = form<FacultyDTO>(asy
 	}
 
 	const api = getRequestEvent().locals.axios;
-	const result = await updateActivity(api, data.id, data);
+	const result = await updateFaculty(api, data.id, data);
 
 	if (result.type === 'error') {
 		error(422, {
@@ -51,5 +51,5 @@ export const updateActivityAction: RemoteForm<FacultyDTO> = form<FacultyDTO>(asy
 		});
 	}
 
-	return redirect(307, '/administration/activity');
+	return redirect(307, '/administration/faculty');
 });
