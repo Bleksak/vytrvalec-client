@@ -1,6 +1,6 @@
 import type { ResponseError, ResponseErrorMap } from '$lib/ResponseErrors';
 import { type } from 'arktype';
-import { TranslationObjectType } from './TranslationObjectDTO';
+import { TranslationObjectPartialType, TranslationObjectType } from './TranslationObjectDTO';
 
 export const CharityType = type({
 	id: 'number.integer > 0',
@@ -15,19 +15,36 @@ export const CharityCreateTranslationType = type({
 	description: TranslationObjectType
 });
 
+export const CharityUpdateTranslationType = type({
+	'name?': TranslationObjectPartialType,
+	'description?': TranslationObjectPartialType
+});
+
 export const CharityCreateType = type({
 	'image?': 'string.uuid.v7 | ""',
-	'website?': type.or(
-		type('string.url'),
-		type('""'),
-	),
+	'website?': type.or(type('string.url'), type('""')),
 	translations: CharityCreateTranslationType
+});
+
+export const CharityUpdateType = type({
+	id: type('string.integer.parse').narrow((n, ctx) => {
+		if (n < 0) {
+			return ctx.reject({
+				message: 'negative'
+			});
+		}
+
+		return true;
+	}),
+	'image?': 'string.uuid.v7 | ""',
+	'website?': type.or(type('string.url'), type('""')),
+	'translations?': CharityUpdateTranslationType
 });
 
 export type CharityDTO = typeof CharityType.infer;
 
 export type CharityCreateDTO = typeof CharityCreateType.infer;
-export type CharityUpdateDTO = Partial<CharityCreateDTO>;
+export type CharityUpdateDTO = typeof CharityUpdateType.infer;
 
 export type CharityUpdateResponse =
 	| {

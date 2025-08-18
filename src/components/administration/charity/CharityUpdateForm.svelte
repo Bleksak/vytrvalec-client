@@ -1,6 +1,6 @@
 <script lang="ts">
 	import ImageForm from '$components/forms/ImageForm.svelte';
-	import { createCharityAction } from '$remote/charity.remote';
+	import { charityUpdateAction } from '$remote/charity.remote';
 	import { locales } from '$paraglide/runtime';
 	import { m } from '$paraglide/messages';
 	import type { CharityDTO } from '$lib/DTO/CharityDTO';
@@ -13,7 +13,7 @@
 
 	let submitButtonDisabled = $state(false);
 
-	const enhancer = createCharityAction.enhance(async ({ form, submit }) => {
+	const enhancer = charityUpdateAction.enhance(async ({ form, submit }) => {
 		try {
 			submitButtonDisabled = true;
 			await submit();
@@ -45,6 +45,7 @@
 
 	<section>
 		<form {...enhancer}>
+			<input type="hidden" name="id" value={charity.id} />
 			<input type="hidden" name="image" value={imageUuid} />
 			{#each locales as locale}
 				<fieldset>
@@ -98,7 +99,7 @@
 			</fieldset>
 
 			<button aria-busy={submitButtonDisabled} disabled={submitButtonDisabled} type="submit">
-				Vytvořit
+				Upravit
 			</button>
 		</form>
 	</section>

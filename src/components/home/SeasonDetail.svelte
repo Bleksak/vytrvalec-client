@@ -162,7 +162,6 @@
 	}
 
 	.charity-image-container {
-		min-height: 12rem;
 		position: relative;
 		height: 100%;
 		border-radius: 0.375rem;
@@ -171,8 +170,8 @@
 	}
 
 	.charity-image {
-		max-height: 16rem;
-		object-fit: contain;
+		max-height: 24rem;
+		object-fit: cover;
 		width: 100%;
 		height: 100%;
 	}

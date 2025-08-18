@@ -57,10 +57,11 @@ export async function createCharity(
 }
 
 export const updateCharity = async (
+	api: AxiosInstance,
 	id: number,
 	data: CharityUpdateDTO
 ): Promise<CharityUpdateResponse> => {
-	const response = await axios.patch(`/charity/${id}`, data).catch((error) => {
+	const response = await api.patch(`/charity/${id}`, data).catch((error) => {
 		if (error.response) {
 			return error.response;
 		}
