@@ -148,6 +148,7 @@
 		font-size: 0.75rem;
 		font-weight: 500;
 		color: white;
+		border-radius: 0.25rem;
 	}
 
 	.charity-grid {
