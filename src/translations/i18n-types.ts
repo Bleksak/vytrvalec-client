@@ -881,10 +881,22 @@ type RootTranslation = {
 	activity: {
 		errors: {
 			min_elevation: {
+				/**
+				 * P​ř​e​v​ý​š​e​n​í​ ​m​u​s​í​ ​b​ý​t​ ​k​l​a​d​n​é​ ​č​í​s​l​o
+				 */
+				negative: string
 			}
 			'name,cz': {
+				/**
+				 * N​á​z​e​v​ ​n​e​s​m​í​ ​b​ý​t​ ​p​r​á​z​d​n​ý
+				 */
+				min_length: string
 			}
 			'name,en': {
+				/**
+				 * N​á​z​e​v​ ​n​e​s​m​í​ ​b​ý​t​ ​p​r​á​z​d​n​ý
+				 */
+				min_length: string
 			}
 			image: {
 			}
@@ -1960,10 +1972,22 @@ export type TranslationFunctions = {
 	activity: {
 		errors: {
 			min_elevation: {
+				/**
+				 * Převýšení musí být kladné číslo
+				 */
+				negative: () => LocalizedString
 			}
 			'name,cz': {
+				/**
+				 * Název nesmí být prázdný
+				 */
+				min_length: () => LocalizedString
 			}
 			'name,en': {
+				/**
+				 * Název nesmí být prázdný
+				 */
+				min_length: () => LocalizedString
 			}
 			image: {
 			}

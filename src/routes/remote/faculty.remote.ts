@@ -1,15 +1,15 @@
-import qs from 'qs';
+import { createFaculty } from '$actions/Faculty';
 import { form, getRequestEvent } from '$app/server';
-import { CreateActivityType, ActivityUpdateType, type ActivityDTO } from '$lib/DTO/ActivityDTO';
+import { FacultyCreateType, type FacultyDTO } from '$lib/DTO/FacultyDTO';
 import { error, redirect, type RemoteForm } from '@sveltejs/kit';
-import { createActivity, updateActivity } from '$actions/Activity';
-import axios from 'axios';
 import { ArkErrors } from 'arktype';
-import { FacultyUpdateType } from '$lib/DTO/FacultyDTO';
+import qs from 'qs';
 
-export const createActivityAction: RemoteForm<ActivityDTO> = form<ActivityDTO>(async (formData) => {
+export const createFacultyAction: RemoteForm<FacultyDTO> = form<FacultyDTO>(async (formData) => {
 	const value = qs.parse(new URLSearchParams(formData as any).toString());
-	const data = CreateActivityType(value);
+	const data = FacultyCreateType(value);
+
+	const api = getRequestEvent().locals.axios;
 
 	if (data instanceof ArkErrors) {
 		const errors = Object.fromEntries(data.map((err) => [err.path.toString(), err.message]));
@@ -17,8 +17,7 @@ export const createActivityAction: RemoteForm<ActivityDTO> = form<ActivityDTO>(a
 		error(422, { errors });
 	}
 
-	const api = getRequestEvent().locals.axios;
-	const result = await createActivity(api, data);
+	const result = await createFaculty(api, data);
 
 	if (result.type === 'error') {
 		error(422, {
@@ -28,10 +27,10 @@ export const createActivityAction: RemoteForm<ActivityDTO> = form<ActivityDTO>(a
 		});
 	}
 
-	redirect(307, '/administration/activity');
+	redirect(307, '/administration/faculty');
 });
 
-export const updateActivityAction: RemoteForm<ActivityDTO> = form<ActivityDTO>(async (formData) => {
+export const updateActivityAction: RemoteForm<FacultyDTO> = form<FacultyDTO>(async (formData) => {
 	const value = qs.parse(new URLSearchParams(formData as any).toString());
 	const data = FacultyUpdateType(value);
 

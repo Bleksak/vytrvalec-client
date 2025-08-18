@@ -306,7 +306,6 @@ const cs = {
 	activity: {
 		errors: {
 			min_elevation: {
-				'string.integer.parse': 'Převýšení musí být celočíselná hodnota',
 				negative: 'Převýšení musí být kladné číslo'
 			},
 			'name,cz': {
