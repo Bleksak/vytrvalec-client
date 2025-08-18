@@ -1,16 +1,13 @@
 <script lang="ts">
-	import type { CharityDTO } from '$lib/DTO/CharityDTO';
 	import type { FacultyDTO } from '$lib/DTO/FacultyDTO';
 	import type { SeasonResult } from '$lib/DTO/SeasonResultDTO';
-	import Store from '$lib/enums/Stores';
-	import type { FacultyStore } from '$lib/stores/FacultyStore.svelte';
 	import { FacultyColorMap } from '$utils/colors';
 	import { Trophy, Medal, ExternalLink, ImageIcon, Coins, CalendarRangeIcon } from '@lucide/svelte';
-	import { getContext } from 'svelte';
 	import LL from '$translations/i18n-svelte';
-	import type { FullSeasonDTO, SeasonDTO } from '$lib/DTO/SeasonDTO';
-
-	const facultyStore: FacultyStore = getContext(Store.FACULTY_STORE);
+	import type { SeasonDTO } from '$lib/DTO/SeasonDTO';
+	import type { SvelteMap } from 'svelte/reactivity';
+	import Heading from '$components/Heading.svelte';
+	import type { Snippet } from 'svelte';
 
 	type Result = {
 		faculty: FacultyDTO;
@@ -19,210 +16,162 @@
 	};
 
 	const {
+		faculties,
 		season,
 		result,
-		charity
+		title = $LL.season_detail.title(),
+		heading = undefined
 	}: {
-		season: SeasonDTO | FullSeasonDTO;
+		faculties: SvelteMap<number, FacultyDTO>;
+		season: SeasonDTO;
 		result: SeasonResult;
-		charity: CharityDTO;
+		title?: string;
+		heading?: Snippet;
 	} = $props();
 
-	const winners: Array<Result> = $derived(
-		result
-			.getTotalWinners()
-			.slice(0, 3)
-			.map((value) => {
-				return {
-					faculty: facultyStore.get(value.faculty)!,
-					points: value.points,
-					distance: value.distance
-				};
-			})
-	);
+	const winners: Array<Result> = result
+		.getTotalWinners()
+		.slice(0, 3)
+		.map((value) => {
+			return {
+				faculty: faculties.get(value.faculty)!,
+				points: value.points,
+				distance: value.distance
+			};
+		});
 
 	const positionText = (position: number): keyof typeof $LL.season_detail.ordinal =>
 		(['first', 'second', 'third'] as Array<keyof typeof $LL.season_detail.ordinal>)[position];
 </script>
 
-<div class="season-details-container">
-	<div class="season-card">
-		<div class="season-card-header">
-			<div class="season-header-content">
-				<div>
-					<h2 class="season-title">{$LL.season_detail.title()}</h2>
-					<div class="season-date">
-						<CalendarRangeIcon class="season-date-icon" />
-						{$LL.season_detail.date_range({ start: season.start, end: season.end })}
+<article>
+	<Heading>
+		<div class="grid">
+			<h1>{title}</h1>
+			{#if heading}
+				{@render heading()}
+			{/if}
+		</div>
+		<div class="grid">
+			<span class="flex-align-center gap-small">
+				<CalendarRangeIcon />
+				{$LL.season_detail.date_range({ start: season.start, end: season.end })}
+			</span>
+			<div class="grid">
+				{#each winners as winner, index (winner.faculty.id)}
+					<div
+						style:background-color={FacultyColorMap[
+							winner.faculty.shortcut as keyof typeof FacultyColorMap
+						]}
+						class="winner-badge"
+					>
+						{#if index === 0}
+							<Trophy />
+						{:else}
+							<Medal />
+						{/if}
+						{$LL.season_detail.ordinal[positionText(index)]({ name: winner.faculty.shortcut })}
 					</div>
-				</div>
-				<div class="season-winners">
-					{#each winners as winner, index (winner.faculty)}
-						<div
-							style:background-color={FacultyColorMap[
-								winner.faculty.shortcut as keyof typeof FacultyColorMap
-							]}
-							class="winner-badge"
-						>
-							{#if index === 0}
-								<Trophy />
-							{:else}
-								<Medal />
-							{/if}
-							{$LL.season_detail.ordinal[positionText(index)]({ name: winner.faculty.shortcut })}
-						</div>
-					{/each}
-				</div>
+				{/each}
 			</div>
 		</div>
-		<hr class="season-separator" />
-		<div class="season-card-content">
-			<div class="charity-grid {!charity.image ? 'charity-grid-no-image' : ''}">
-				{#if charity.image}
-					<div class="charity-image-container">
-						<img
-							src={charity.image || '/placeholder.svg'}
-							alt={charity.name}
-							class="charity-image"
-						/>
-					</div>
-				{:else}
-					<div class="charity-charity-image-container">
-						<div class="charity-placeholder-content">
-							<ImageIcon size={48} class="charity-placeholder-icon" />
-							<span class="charity-placeholder-text">{$LL.season_detail.no_image()}</span>
-						</div>
+	</Heading>
+	<div class="grid charity-grid">
+		<div class="charity-image-container">
+			{#if season.charity.image}
+				<img
+					src={season.charity.image || '/placeholder.svg'}
+					alt={season.charity.name.cs}
+					class="charity-image"
+				/>
+			{:else}
+				<div class="charity-placeholder-content">
+					<ImageIcon size={48} />
+					<span>{$LL.season_detail.no_image()}</span>
+				</div>
+			{/if}
+		</div>
+		<section class="charity">
+			<article>
+				<h2>{season.charity.name.cs}</h2>
+				{#if season.charity.description.cs}
+					<p>{season.charity.description.cs}</p>
+				{/if}
+				{#if season.charity.website}
+					<div>
+						<a
+							href={season.charity.website}
+							target="_blank"
+							rel="noopener noreferrer"
+							role="button"
+						>
+							<ExternalLink />
+							{$LL.season_detail.visit_charity()}
+						</a>
 					</div>
 				{/if}
-				<div class="charity-details">
-					<div class="article">
-						<h3 class="charity-name">{charity.name}</h3>
-						{#if charity.description}
-							<p class="charity-description">{charity.description}</p>
-						{:else}
-							<p class="charity-description-fallback"></p>
-						{/if}
-						{#if charity.website}
-							<div>
-								<a
-									href={charity.website}
-									target="_blank"
-									rel="noopener noreferrer"
-									class="charity-link-button"
-								>
-									<ExternalLink class="charity-link-icon" />
-									{$LL.season_detail.visit_charity()}
-								</a>
-							</div>
-						{/if}
-					</div>
-					<div class="money-collected">
-						<div class="money-icon-container">
-							<Coins size="1rem" />
-						</div>
-						<span class="money-text">
-							{$LL.season_detail.raised({ raised: result.getTotalDistance() })}
-						</span>
-					</div>
+			</article>
+			<article class="money-collected">
+				<div class="grid money-icon-container">
+					<Coins size="1rem" />
 				</div>
-			</div>
-		</div>
+				<span>
+					{$LL.season_detail.raised({ raised: result.getTotalDistance() })}
+				</span>
+			</article>
+		</section>
 	</div>
-</div>
+</article>
 
-<style>
-	.season-details-container {
-		width: 100%;
-		padding-top: 1rem;
-		padding-bottom: 1rem;
-	}
+<style lang="scss">
+	@use '@picocss/pico/scss/settings' as pico;
+	@use 'sass:map';
 
-	.season-card {
-		border: none;
-		box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-		overflow: hidden;
-		position: relative;
-		background-color: white;
-		border-radius: 0.5rem;
-	}
-
-	.season-card-header {
-		padding: 1.5rem 1.5rem 0.5rem 1.5rem;
-		background-image: linear-gradient(to right, rgba(0, 92, 171, 0.1), transparent);
-	}
-
-	.season-header-content {
-		display: flex;
-		flex-direction: column;
-		gap: 0.5rem;
-	}
-
-	.season-title {
-		font-size: 1.5rem;
-		font-weight: 600;
-		color: #005cab;
-		margin: 0;
-	}
-
-	.season-date {
+	.flex-align-center {
 		display: flex;
 		align-items: center;
-		flex-wrap: wrap;
-		gap: 0.5rem;
-		margin-top: 0.5rem;
-		color: #6b7280;
-		font-size: 0.875rem;
 	}
 
-	.season-winners {
-		display: flex;
-		flex-wrap: wrap;
+	.gap-small {
 		gap: 0.5rem;
-		margin-top: 0.5rem;
+	}
+
+	.charity {
+		margin-bottom: 0;
 	}
 
 	.winner-badge {
 		display: flex;
 		align-items: center;
-		gap: 0.25rem;
-		padding: 0.25rem 0.5rem;
-		border-radius: 9999px;
+		gap: 0.5rem;
+		padding: 0.5rem 0.5rem;
 		font-size: 0.75rem;
 		font-weight: 500;
 		color: white;
 	}
 
-	.season-separator {
-		height: 1px;
-		background-color: rgba(0, 92, 171, 0.2);
-		margin: 0;
-		border: none;
-	}
-
-	.season-card-content {
-		padding: 1.5rem;
-	}
-
 	.charity-grid {
-		display: grid;
-		gap: 1.5rem;
 		align-items: center;
+		grid-template-columns: 1fr 2fr;
 	}
 
-	.charity-grid-no-image {
-		grid-template-columns: 1fr;
+	@media (max-width: map.get(map.get(pico.$breakpoints, 'md'), 'breakpoint')) {
+		.charity-grid {
+			grid-template-columns: 1fr;
+		}
 	}
 
 	.charity-image-container {
+		min-height: 12rem;
 		position: relative;
-		height: 14rem;
+		height: 100%;
 		border-radius: 0.375rem;
 		overflow: hidden;
-		box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 		border: 1px solid rgba(0, 92, 171, 0.2);
 	}
 
 	.charity-image {
+		max-height: 16rem;
 		object-fit: contain;
 		width: 100%;
 		height: 100%;
@@ -236,107 +185,17 @@
 		height: 100%;
 	}
 
-	:global(.charity-placeholder-icon) {
-		color: #9ca3af;
-		margin-bottom: 0.5rem;
-	}
-
-	.charity-placeholder-text {
-		color: #6b7280;
-		font-size: 0.875rem;
-	}
-
-	.charity-details {
-		display: flex;
-		flex-direction: column;
-		height: 100%;
-		justify-content: space-between;
-	}
-
-	.charity-name {
-		font-size: 1.25rem;
-		font-weight: 600;
-		margin-bottom: 0.5rem;
-		color: #005cab;
-	}
-
 	.money-collected {
+		margin-bottom: 0;
 		display: flex;
-		align-items: center;
 		background-color: rgba(0, 92, 171, 0.1);
-		padding: 0.5rem;
-		border-radius: 0.375rem;
+		gap: 0.5rem;
 	}
 
 	.money-icon-container {
-		margin-right: 0.5rem;
 		background-color: #005cab;
 		color: white;
 		padding: 0.25rem;
-		border-radius: 9999px;
-		display: flex;
-		align-items: center;
-		justify-content: center;
-	}
-
-	.money-text {
-		font-weight: 500;
-		color: #005cab;
-	}
-
-	.charity-description {
-		color: #6b7280;
-		margin-bottom: 1rem;
-	}
-
-	.charity-description-fallback {
-		color: #6b7280;
-		font-style: italic;
-		margin-bottom: 1rem;
-	}
-
-	.charity-link-button {
-		display: inline-flex;
-		gap: 8px;
-		align-items: center;
-		padding: 0.5rem 1rem;
-		background-color: transparent;
-		color: #005cab;
-		border: 1px solid #005cab;
-		border-radius: 0.375rem;
-		font-weight: 500;
-		cursor: pointer;
-		text-decoration: none;
-		transition:
-			background-color 0.2s,
-			color 0.2s;
-	}
-
-	.charity-link-button:hover {
-		background-color: #005cab;
-		color: white;
-	}
-
-	/* Responsive styles */
-	@media (min-width: 640px) {
-		.season-header-content {
-			flex-direction: row;
-			align-items: center;
-			justify-content: space-between;
-		}
-
-		.season-title {
-			font-size: 1.5rem;
-		}
-	}
-
-	@media (min-width: 768px) {
-		.charity-grid {
-			grid-template-columns: 1fr 2fr;
-		}
-
-		.charity-image-container {
-			height: 16rem;
-		}
+		border-radius: 100%;
 	}
 </style>

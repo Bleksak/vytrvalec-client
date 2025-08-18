@@ -1,6 +1,5 @@
-import { deleteSeason, fetchSeasonResult, fetchSeasons } from '$actions/Season';
-import { type FullSeasonDTO, type SeasonDTO } from '$lib/DTO/SeasonDTO';
-import type { SeasonResultDTO } from '$lib/DTO/SeasonResultDTO';
+import { deleteSeason, fetchSeasons } from '$actions/Season';
+import { type SeasonDTO } from '$lib/DTO/SeasonDTO';
 
 export type SeasonStore = {
 	get: (id: number) => SeasonDTO | null;
@@ -8,7 +7,6 @@ export type SeasonStore = {
 	all: () => Array<SeasonDTO>;
 	updateOrCreate: (season: SeasonDTO) => void;
 	remove: (season: SeasonDTO) => Promise<boolean>;
-	getSeasonResult: (season: SeasonDTO | FullSeasonDTO) => Promise<SeasonResultDTO>;
 	currentOrLast: () => SeasonDTO | null;
 };
 
@@ -64,7 +62,6 @@ export const createSeasonStore = (): SeasonStore => {
 		all: all,
 		updateOrCreate: updateOrCreate,
 		remove: remove,
-		getSeasonResult: fetchSeasonResult,
 		currentOrLast: currentOrLast
 	};
 };

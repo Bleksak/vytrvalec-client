@@ -44,17 +44,6 @@
 			submissions = submissions.filter((sub) => submission.id !== sub.id);
 		}
 	};
-
-	const getIconName = () => {
-		switch (submission.activity.name) {
-			case 'Běh/Chůze':
-				return 'person-walking-white';
-			case 'Kolo/Koloběžka':
-				return 'bicycle-white';
-			default:
-				return 'unknown';
-		}
-	};
 </script>
 
 <div class="submission-card">
@@ -85,7 +74,7 @@
 					<img class="icon" src="/images/icons/comment.svg" alt="Komentář" title="Komentář" />
 				{/if}
 			</div>
-			<img class="icon" src={`/images/icons/${getIconName()}.svg`} alt={getIconName()} />
+			<img class="icon" src={submission.activity.icon} alt={submission.activity.icon} />
 		</div>
 	</div>
 	<div class="bottom-bar">

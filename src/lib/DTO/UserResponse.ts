@@ -1,5 +1,5 @@
 import { type } from 'arktype';
-import { FacultyDto, type FacultyDTO } from './FacultyDTO';
+import { FacultyType, type FacultyDTO } from './FacultyDTO';
 import type { UserError } from './UserEditDTO';
 import { UserRole } from './UserRole';
 
@@ -15,7 +15,7 @@ export const UserResponseDto = type({
 	email: 'string',
 	banned: 'boolean',
 	roles: type.valueOf(UserRole).array(),
-	faculty: type(FacultyDto),
+	faculty: type(FacultyType),
 	anonymize: 'boolean | null',
 	mailing: 'boolean'
 });

@@ -155,16 +155,16 @@ export const requestResetPassword = async (
 	return { type: 'success' };
 };
 
-export const resetPassword = async (resetPasswordDTO: ResetPasswordDTO): Promise<ResetPasswordResponse> => {
-	const response = await axios
-		.post(`/user/reset-password`, resetPasswordDTO)
-		.catch((error) => {
-			if (error.response) {
-				return error.response;
-			}
+export const resetPassword = async (
+	resetPasswordDTO: ResetPasswordDTO
+): Promise<ResetPasswordResponse> => {
+	const response = await axios.post(`/user/reset-password`, resetPasswordDTO).catch((error) => {
+		if (error.response) {
+			return error.response;
+		}
 
-			return null;
-		});
+		return null;
+	});
 
 	if (response === null) {
 		return {
@@ -183,16 +183,16 @@ export const resetPassword = async (resetPasswordDTO: ResetPasswordDTO): Promise
 	return { type: 'success' };
 };
 
-export const anonymizationChange = async (consentDTO: ConsentChangeDTO): Promise<ResetPasswordResponse> => {
-	const response = await axios
-		.post(`/user/anonymize`, consentDTO)
-		.catch((error) => {
-			if (error.response) {
-				return error.response;
-			}
+export const anonymizationChange = async (
+	consentDTO: ConsentChangeDTO
+): Promise<ResetPasswordResponse> => {
+	const response = await axios.post(`/user/anonymize`, consentDTO).catch((error) => {
+		if (error.response) {
+			return error.response;
+		}
 
-			return null;
-		});
+		return null;
+	});
 
 	if (response === null) {
 		return {
@@ -212,15 +212,13 @@ export const anonymizationChange = async (consentDTO: ConsentChangeDTO): Promise
 };
 
 export const emailSubscribeChange = async (value: boolean) => {
-	const response = await axios
-		.patch(`/emailing`, {mailing: value})
-		.catch((error) => {
-			if (error.response) {
-				return error.response;
-			}
+	const response = await axios.patch(`/emailing`, { mailing: value }).catch((error) => {
+		if (error.response) {
+			return error.response;
+		}
 
-			return null;
-		});
+		return null;
+	});
 
 	if (response === null) {
 		return {
@@ -240,15 +238,13 @@ export const emailSubscribeChange = async (value: boolean) => {
 };
 
 export const accountDelete = async () => {
-	const response = await axios
-		.delete(`/user`)
-		.catch((error) => {
-			if (error.response) {
-				return error.response;
-			}
+	const response = await axios.delete(`/user`).catch((error) => {
+		if (error.response) {
+			return error.response;
+		}
 
-			return null;
-		});
+		return null;
+	});
 
 	if (response === null) {
 		return {

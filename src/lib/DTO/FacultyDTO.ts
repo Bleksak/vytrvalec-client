@@ -1,41 +1,80 @@
 import type { ResponseError, ResponseErrorMap } from '$lib/ResponseErrors';
+import { BooleanType } from './BooleanType';
+import { TranslationObjectPartialType, TranslationObjectType } from './TranslationObjectDTO';
 import { type } from 'arktype';
 
-export const FacultyDto = type({
+export const FacultyType = type({
 	id: 'number',
-	name: 'string',
-	shortcut: 'string',
-	visible: 'boolean',
-	"parent?": 'number | null'
+	name: TranslationObjectType,
+	shortcut: '0 < string < 10',
+	visible: BooleanType,
+	'parent?': 'string.integer.parse | number.integer | null',
+	color: 'string'
 });
 
-export type FacultyDTO = {
-	id: number;
-	name: string;
-	shortcut: string;
-	visible: boolean;
-	parent: number | null;
-};
+export const FacultyCreateTranslationType = type({
+	name: TranslationObjectType
+});
 
-export type FacultyCreateDTO = Omit<FacultyDTO, 'id'>;
+export const FacultyUpdateTranslationType = type({
+	'name?': TranslationObjectPartialType
+});
 
-export type FacultyCreateData = {
-	id: number;
-};
+export const FacultyCreateType = type({
+	translations: FacultyCreateTranslationType,
+	shortcut: '0 < string < 10',
+	visible: BooleanType,
+	'parent?': type('string | null')
+		.pipe((value, ctx) => {
+			if (value === '' || value === null) {
+				return null;
+			}
 
-export type FacultyError = ResponseErrorMap<FacultyDTO> & {
+			const newValue = parseInt(value, 10);
+
+			if (Number.isNaN(newValue)) {
+				return ctx.error({
+					message: 'invalid'
+				});
+			}
+
+			return newValue;
+		})
+		.or('number.integer'),
+	color: 'string'
+});
+
+export const FacultyUpdateType = type({
+	'id?': 'number'
+	'translations?': FacultyUpdateTranslationType,
+	'shortcut?': '0 < string < 10',
+	'visible?': BooleanType,
+	'parent?': type('string | null')
+		.pipe((value, ctx) => {
+			if (value === '' || value === null) {
+				return null;
+			}
+
+			const newValue = parseInt(value, 10);
+
+			if (Number.isNaN(newValue)) {
+				return ctx.error({
+					message: 'invalid'
+				});
+			}
+
+			return newValue;
+		})
+		.or('number.integer'),
+	'color?': 'string'
+});
+
+export type FacultyDTO = typeof FacultyType.infer;
+export type FacultyCreateDTO = typeof FacultyCreateType.infer;
+
+export type FacultyCreateError = ResponseErrorMap<FacultyCreateDTO> & {
 	auth?: Array<ResponseError>;
 };
-
-export type FacultyCreateReturn =
-	| {
-			type: 'dto';
-			data: FacultyCreateDTO;
-	  }
-	| {
-			type: 'error';
-			errors: FacultyError;
-	  };
 
 export type FacultyCreateResponse =
 	| {
@@ -44,45 +83,14 @@ export type FacultyCreateResponse =
 	  }
 	| {
 			type: 'error';
-			errors: FacultyError;
+			errors: FacultyCreateError;
 	  };
 
-export type FacultyEditResponse =
-	| {
-			type: 'success';
-	  }
-	| {
-			type: 'error';
-			errors: FacultyError;
-	  };
-
-export const createFacultyDTO = (formData: FormData): FacultyCreateReturn => {
-	const name = formData.get('name') as string;
-	const shortcut = formData.get('shortcut') as string;
-	const visible = formData.get('visible');
-	const parent = formData.get('parent');
-
-	let errors: FacultyError = {};
-
-	if (!name || name === '') {
-		errors['name'] = ['blank'];
-	}
-
-	if (!shortcut || shortcut === '') {
-		errors['shortcut'] = ['blank'];
-	}
-
-	if (Object.keys(errors).length !== 0) {
-		return { type: 'error', errors: errors };
-	}
-
-	return {
-		type: 'dto',
-		data: {
-			name,
-			shortcut,
-			visible: Boolean(Number(visible)),
-			parent: parent ? Number(parent) : null
-		}
-	};
-};
+// export type FacultyEditResponse =
+// 	| {
+// 			type: 'success';
+// 	  }
+// 	| {
+// 			type: 'error';
+// 			errors: FacultyError;
+// 	  };

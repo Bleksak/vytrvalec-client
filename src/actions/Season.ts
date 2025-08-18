@@ -1,24 +1,35 @@
-import axios, { type AxiosResponse } from 'axios';
-import type {
-	CreateSeasonDTO,
-	CreateSeasonResponse,
-	FullSeasonDTO,
-	SeasonDTO
+import axios, { type AxiosInstance, type AxiosResponse } from 'axios';
+import {
+	SeasonType,
+	type CreateSeasonDTO,
+	type CreateSeasonResponse,
+	type FullSeasonDTO,
+	type SeasonDTO
 } from '$lib/DTO/SeasonDTO';
 import { type SeasonResultDTO } from '$lib/DTO/SeasonResultDTO';
+import { ArkErrors } from 'arktype';
 
-export const fetchSeasons = async (): Promise<Array<SeasonDTO>> => {
-	let response = await axios.get('/season').catch(() => null);
+export const fetchSeasons = async (api: AxiosInstance = axios): Promise<Array<SeasonDTO>> => {
+	let response = await api.get('/season').catch(() => null);
 
 	if (response === null) {
 		return [];
 	}
 
-	return response.data.map((season: SeasonDTO) => {
-		season.start = new Date(season.start);
-		season.end = new Date(season.end);
-		return season;
-	});
+	let data = [];
+
+	for (const seasonRaw of response.data) {
+		const season = SeasonType(seasonRaw);
+
+		if (season instanceof ArkErrors) {
+			console.log(season.summary);
+			continue;
+		}
+
+		data.push(season);
+	}
+
+	return data;
 };
 
 export const fetchSeason = async (): Promise<SeasonDTO | null> => {
@@ -67,9 +78,10 @@ export const updateSeason = async (season: SeasonDTO): Promise<AxiosResponse<any
 };
 
 export const fetchSeasonResult = async (
-	season: SeasonDTO | FullSeasonDTO
+	api: AxiosInstance = axios,
+	season: SeasonDTO
 ): Promise<SeasonResultDTO> => {
-	return (await axios.get(`/season/${season.id}/results`).catch(() => null))?.data ?? [];
+	return (await api.get(`/season/${season.id}/results`).catch(() => null))?.data ?? [];
 };
 
 export const createSeasonCache = async (season: SeasonDTO): Promise<boolean> => {

@@ -7,18 +7,59 @@
 					"string.integer.parse": "Elevation must be an integer",
 					"negative": "Elevation must be non-negative integer"
 				},
-				"name,cz": {
+				"translations,name,cs": {
 					"min_length": "Name cannot be empty"
 				},
-				"name,en": {
+				"translations,name,en": {
 					"min_length": "Name cannot be empty"
 				},
-				"image": {
-					"string": {
-						"uuid": {
-							"v7": "Invalid image"
-						}
-					}
+				"icon": {
+					"string.uuid.v7": "Invalid image"
+				}
+			}
+		},
+		"faculty": {
+			"errors": {
+				"translations,name,cs": {
+					"min_length": "min cs"
+				},
+				"translations,name,en": {
+					"min_length": "min en"
+				},
+				"shortcut": {
+					"min_length": "min shortcut"
+				},
+				"color": {
+					"min_length": "color min",
+					"max_length": "color max"
+				},
+				"parent": {
+					"bad": "bad"
+				},
+				"visible": {
+					"boolean": "invalid visible"
+				}
+			}
+		},
+		"charity": {
+			"errors": {
+				"icon": {
+					"string.uuid.v7": "Invalid image"
+				},
+				"translations,name,cs": {
+					"min_length": "Name cannot be empty"
+				},
+				"translations,name,en": {
+					"min_length": "Name cannot be empty"
+				},
+				"translations,description,cs": {
+					"min_length": "Description cannot be empty"
+				},
+				"translations,description,en": {
+					"min_length": "Description cannot be empty"
+				},
+				"website": {
+					"union": "Website must be a valid URL address"
 				}
 			}
 		}

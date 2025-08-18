@@ -40,7 +40,7 @@
 			<a href={currentSubmission.image} target="_blank">
 				<img
 					src={currentSubmission.image}
-					alt="{activity.name} zaslaná uživatelem {currentUser.first_name} {currentUser.last_name}"
+					alt="{activity.name.cs} zaslaná uživatelem {currentUser.first_name} {currentUser.last_name}"
 				/>
 			</a>
 		</div>
@@ -77,7 +77,7 @@
 						<div class="stat-label">Aktivita</div>
 						<div class="stat-value">
 							<Activity class="submission-review-icon" />
-							<span class="badge">{activity.name}</span>
+							<span class="badge">{activity.name.cs}</span>
 						</div>
 					</div>
 

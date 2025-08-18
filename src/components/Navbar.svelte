@@ -1,5 +1,4 @@
 <script lang="ts">
-	import { afterNavigate } from '$app/navigation';
 	import { page } from '$app/state';
 	import LL, { setLocale } from '$translations/i18n-svelte';
 	import { getAllContexts, getContext } from 'svelte';
@@ -11,23 +10,12 @@
 	import SubmissionForm from './forms/SubmissionForm.svelte';
 	import { enhance } from '$app/forms';
 	import { MenuIcon } from '@lucide/svelte';
-
-	let scrollY = $state<number>(0);
-
-	const scrollToTop = () => {
-		// NOTE: ve firefoxu nefunguje scrollTo 0, 0, proto tady scrollujeme na 1px a ne na 0
-		// treba se to v budoucnu zmeni
-		// da se to opravit odstranenim smooth scrollingu, ale bez nej to vypada zvlastne
-
-		scrollY = 1;
-	};
-
-	afterNavigate(() => {
-		scrollToTop();
-	});
+	import { getLocale } from '$paraglide/runtime';
 
 	const dialogStore = getContext<DialogStore>(Store.DIALOG_STORE);
 	const context = getAllContexts();
+
+	let paraglideLocale = $state(getLocale());
 	let currentLocale = $state(detectLocale());
 
 	const handleLocaleChange = () => {
@@ -36,8 +24,6 @@
 		setLocale(selectedLocale);
 	};
 </script>
-
-<svelte:window bind:scrollY />
 
 <header>
 	<a href="/{page.data.lang}" aria-label="Hlavní stránka Měsíčního Vytrvalce">

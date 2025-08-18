@@ -62,7 +62,7 @@
 				</ul>
 			</nav>
 		</aside>
-		<article class="col-9">
+		<article>
 			<hgroup>
 				{@render children()}
 			</hgroup>

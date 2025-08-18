@@ -20,7 +20,13 @@
 
 <Navbar />
 <main>
-	{@render children()}
+	<svelte:boundary>
+		{@render children()}
+
+		{#snippet pending()}
+			Načítání
+		{/snippet}
+	</svelte:boundary>
 </main>
 <Footer />
 <!-- <Cookies /> -->

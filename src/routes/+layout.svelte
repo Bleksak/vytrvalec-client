@@ -1,17 +1,14 @@
 <script lang="ts">
 	import '$css/app.scss';
-
+	import '$lib/DTO/CommonArkType';
 	import Toast from '$components/Toast.svelte';
 	import Store from '$lib/enums/Stores';
 	import createActivityStore from '$lib/stores/ActivityStore.svelte';
-	import createCharityStore from '$lib/stores/CharityStore.svelte';
 	import createDialogStore from '$lib/stores/DialogStore.svelte';
 	import createFacultyStore from '$lib/stores/FacultyStore.svelte';
-	import createSeasonStore from '$lib/stores/SeasonStore.svelte';
 	import { createToastStore } from '$lib/stores/ToastStore.svelte';
 	import { setContext } from 'svelte';
 	import { fade } from 'svelte/transition';
-	import '$lib/DTO/CommonArkType';
 	import { locales, localizeHref } from '$paraglide/runtime';
 	import { page } from '$app/state';
 
@@ -24,15 +21,11 @@
 	const dialogStore = createDialogStore();
 	const toastStore = createToastStore();
 	const activityStore = createActivityStore();
-	const charityStore = createCharityStore();
-	const seasonStore = createSeasonStore();
 	const facultyStore = createFacultyStore();
 
 	setContext(Store.TOAST_STORE, toastStore);
 	setContext(Store.DIALOG_STORE, dialogStore);
 	setContext(Store.ACTIVITY_STORE, activityStore);
-	setContext(Store.CHARITY_STORE, charityStore);
-	setContext(Store.SEASON_STORE, seasonStore);
 	setContext(Store.FACULTY_STORE, facultyStore);
 </script>
 

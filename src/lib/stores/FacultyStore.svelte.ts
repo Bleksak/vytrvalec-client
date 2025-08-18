@@ -1,11 +1,10 @@
-import { deleteFaculty, fetchFaculties } from "$actions/Faculty";
+import { fetchFaculties } from "$actions/Faculty";
 import type { FacultyDTO } from "$lib/DTO/FacultyDTO";
 
 export type FacultyStore = {
     all: () => FacultyDTO[];
     get: (id: number) => FacultyDTO | null;
     updateOrCreate: (faculty: FacultyDTO) => void;
-    remove: (faculty: FacultyDTO) => Promise<boolean>;
     promise: () => Promise<FacultyDTO[]>;
 }
 
@@ -39,16 +38,6 @@ const createFacultyStore = (): FacultyStore => {
         }
     };
 
-    const remove = async (faculty: FacultyDTO): Promise<boolean> => {
-        const result = await deleteFaculty(faculty.id);
-
-        if (result.type !== "error") {
-            faculties = faculties.filter((f) => f.id !== faculty.id);
-        }
-
-        return result.type !== "error";
-    };
-
     const promise = (): Promise<FacultyDTO[]> => {
         return facultiesPromise;
     }
@@ -58,7 +47,6 @@ const createFacultyStore = (): FacultyStore => {
         get: get,
         promise: promise,
         updateOrCreate: updateOrCreate,
-		remove: remove
     }
  }
 

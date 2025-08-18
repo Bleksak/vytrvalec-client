@@ -1,3 +1,4 @@
+import type { SvelteMap } from 'svelte/reactivity';
 import type { ActivityDTO } from './ActivityDTO';
 import type { AnonymizedUser } from './UserResponse';
 
@@ -78,13 +79,28 @@ function sortFn(a: ResultRow, b: ResultRow) {
 	return b.distance - a.distance;
 }
 
+function constructUniqueFacultiesWithResults(results: Array<SeasonResultWeek>): Set<number> {
+	let faculties: Set<number> = new Set<number>();
+
+	// find all faculties that have any results
+	for (const week of results) {
+		for (const activity of week.activities) {
+			for (const result of activity.results) {
+				faculties.add(result.faculty);
+			}
+		}
+	}
+
+	return faculties;
+}
+
 export class SeasonResult {
 	data: SeasonResultDTO;
 	cached: SeasonResultCached;
-	activities: Array<ActivityDTO>;
+	activities: SvelteMap<number, ActivityDTO>;
 	results: Array<WeekResultRow>;
 
-	constructor(data: SeasonResultDTO, activities: Array<ActivityDTO>) {
+	constructor(data: SeasonResultDTO, activities: SvelteMap<number, ActivityDTO>) {
 		this.activities = activities;
 		this.data = data;
 		this.cached = this.calculateCache();
@@ -94,18 +110,7 @@ export class SeasonResult {
 	calculateResults() {
 		let weekResultRows: Array<WeekResultRow> = [];
 
-		// find all faculties that have any results
-		let faculties: Array<number> = [];
-
-		for (const week of this.data.results) {
-			for (const activity of week.activities) {
-				for (const result of activity.results) {
-					if (!faculties.includes(result.faculty)) {
-						faculties.push(result.faculty);
-					}
-				}
-			}
-		}
+		const faculties = constructUniqueFacultiesWithResults(this.data.results);
 
 		for (const week of this.data.results) {
 			for (const activity of week.activities) {
@@ -130,7 +135,7 @@ export class SeasonResult {
 					.toSorted((a, b) => b.distance - a.distance)
 					.map((result, i) => {
 						return {
-							points: faculties.length - i,
+							points: faculties.size - i,
 							faculty: result.faculty,
 							distance: result.distance
 						};
@@ -183,7 +188,7 @@ export class SeasonResult {
 
 		const extrasWithActivity: Array<SeasonResultExtraActivity> = extras.map(
 			(extra): SeasonResultExtraActivity => {
-				const activity = this.activities.find((a) => a.id === extra.activity)!;
+				const activity = this.activities.get(extra.activity)!;
 
 				return {
 					faculty: extra.faculty,

@@ -1,18 +1,25 @@
 import type { ResponseError, ResponseErrorMap } from '$lib/ResponseErrors';
-import type { CharityDTO } from './CharityDTO';
+import { type } from 'arktype';
+import { CharityType, type CharityDTO } from './CharityDTO';
 
-export type SeasonDTO = {
-	id: number;
-	start: Date;
-	end: Date;
-	charity: number;
-};
+export const SeasonType = type({
+	id: 'number.integer > 0',
+	start: 'string.date.parse',
+	end: 'string.date.parse',
+	charity: CharityType,
+	can_delete: 'boolean',
+	is_running: 'boolean'
+});
+
+export type SeasonDTO = typeof SeasonType.infer;
 
 export type FullSeasonDTO = {
 	id: number;
 	start: Date;
 	end: Date;
 	charity: CharityDTO;
+	can_delete: boolean;
+	is_running: boolean;
 };
 
 export type CreateSeasonDTO = {

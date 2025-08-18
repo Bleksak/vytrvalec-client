@@ -2,11 +2,7 @@
 	import { enhance } from '$app/forms';
 	import Button from '$components/Button.svelte';
 	import ImageForm from '$components/forms/ImageForm.svelte';
-	import type {
-		CharityCreateDTO,
-		CharityDTO,
-		CharityError
-	} from '$lib/DTO/CharityDTO';
+	import type { CharityCreateDTO, CharityDTO, CharityError } from '$lib/DTO/CharityDTO';
 	import Store from '$lib/enums/Stores';
 	import type { CharityStore } from '$lib/stores/CharityStore.svelte';
 	import type { ToastStore } from '$lib/stores/ToastStore.svelte';
@@ -20,8 +16,14 @@
 	let imageUuid = $state<string>();
 
 	let charity = $state<CharityCreateDTO>({
-		name: '',
-		description: '',
+		name: {
+			cs: '',
+			en: ''
+		},
+		description: {
+			cs: '',
+			en: ''
+		},
 		image_uuid: '',
 		website: ''
 	});

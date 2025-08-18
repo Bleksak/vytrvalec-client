@@ -1,36 +1,37 @@
 <script lang="ts">
-	import { fetchTotalStatistics } from '$actions/Statistics';
+	import Heading from '$components/Heading.svelte';
+	import type { TotalStatisticsDTO } from '$lib/DTO/StatisticsDTO';
 	import LL from '$translations/i18n-svelte';
-	import getActivityImage from '$utils/ActivityUtils';
+	import { PersonStanding } from '@lucide/svelte';
 
-	const statistics = fetchTotalStatistics();
+	const { totalStatistics }: { totalStatistics: TotalStatisticsDTO } = $props();
 </script>
 
-{#await statistics then stats}
-	{#if stats.activities.length > 0}
-		<section>
-			<article>
+{#if totalStatistics.activities.length > 0}
+	<section>
+		<article>
+			<Heading>
 				<h1>{$LL.homepage.statistics.title()}</h1>
-				<div class="grid">
-					<div class="card">
-						<img src="/images/icons/people-fill.svg" alt="People icon" />
-						<h2>{stats.users}</h2>
-						<h5>{$LL.homepage.statistics.users()}</h5>
-					</div>
-					{#each stats.activities as activity}
-						<div class="card">
-							<img src={getActivityImage(activity.activity)} alt="Statistics icon" />
-							<h3>{(activity.distance / 1000).toFixed(0)}&nbsp;km</h3>
-							<h5>
-								{$LL.activities[activity.activity as keyof typeof $LL.activities]().toUpperCase()}
-							</h5>
-						</div>
-					{/each}
+			</Heading>
+			<div class="grid">
+				<div class="card">
+					<PersonStanding class="card-img" />
+					<h2>{totalStatistics.users}</h2>
+					<h5>{$LL.homepage.statistics.users()}</h5>
 				</div>
-			</article>
-		</section>
-	{/if}
-{/await}
+				{#each totalStatistics.activities as activityStatistic}
+					<div class="card">
+						<img src={activityStatistic.activity.icon} alt="Statistics icon" />
+						<h3>{(activityStatistic.distance / 1000).toFixed(0)}&nbsp;km</h3>
+						<h4>
+							{activityStatistic.activity.name.cs?.toUpperCase()}
+						</h4>
+					</div>
+				{/each}
+			</div>
+		</article>
+	</section>
+{/if}
 
 <style>
 	.card {
@@ -45,9 +46,20 @@
 		max-width: 150px;
 	}
 
-	@media (max-width: 1000px) {
+	:global(.card-img) {
+		width: 150px;
+		height: 150px;
+		color: white;
+	}
+
+	@media (max-width: 768px) {
 		.card img {
 			max-width: 50px;
 		}
+		:global(.card-img) {
+			width: 50px;
+			height: 50px;
+		}
+
 	}
 </style>

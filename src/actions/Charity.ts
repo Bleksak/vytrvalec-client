@@ -5,10 +5,10 @@ import type {
 	CharityUpdateDTO,
 	CharityUpdateResponse
 } from '$lib/DTO/CharityDTO';
-import axios from 'axios';
+import axios, { type AxiosInstance } from 'axios';
 
-export const fetchCharities = async (): Promise<Array<CharityDTO>> => {
-	let response = await axios.get('/charity').catch(() => null);
+export const fetchCharities = async (api: AxiosInstance = axios): Promise<Array<CharityDTO>> => {
+	let response = await api.get('/charity').catch(() => null);
 
 	if (response === null) {
 		return [];
@@ -21,8 +21,11 @@ export const fetchCharity = async (charity: number): Promise<CharityDTO | null> 
 	return (await axios.get(`/charity/${charity}`).catch(() => null))?.data;
 };
 
-export const createCharity = async (charity: CharityCreateDTO): Promise<CharityCreateResponse> => {
-	const response = await axios.post('/charity', charity).catch((error) => {
+export async function createCharity(
+	api: AxiosInstance = axios,
+	charity: CharityCreateDTO
+): Promise<CharityCreateResponse> {
+	const response = await api.post('/charity', charity).catch((error) => {
 		if (error.response) {
 			return error.response;
 		}
@@ -48,7 +51,7 @@ export const createCharity = async (charity: CharityCreateDTO): Promise<CharityC
 		type: 'success',
 		data: response.data
 	};
-};
+}
 
 export const updateCharity = async (
 	id: number,

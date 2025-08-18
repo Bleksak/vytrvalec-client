@@ -14,10 +14,6 @@
 			submissionStore = new UnreviewedSubmissionStore(data.ws, data.jwt!);
 		}
 	});
-
-	$effect(() => {
-		console.log(submissionStore?.currentData?.user?.first_name);
-	});
 </script>
 
 {#if submissionStore?.currentData && !submissionStore.noSubmissionsMarked}

@@ -1,7 +1,7 @@
 import type { ActivityDTO } from './ActivityDTO';
 
 export type ActivityStatisticsDTO = {
-	activity: string;
+	activity: ActivityDTO;
 	distance: number;
 };
 

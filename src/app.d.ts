@@ -1,8 +1,10 @@
 import type { UserResponse } from '$lib/DTO/UserResponse';
+import type { AxiosInstance } from 'axios';
 
 declare global {
 	declare namespace App {
 		interface Locals {
+			axios: AxiosInstance;
 			jwt: string?;
 			user: UserResponse;
 			currentSeason: SeasonDTO;

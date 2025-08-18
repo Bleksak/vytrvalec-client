@@ -1,17 +1,23 @@
-import { type } from 'arktype';
 import { TranslationObjectPartialType, TranslationObjectType } from './TranslationObjectDTO';
+import type { ResponseError, ResponseErrorMap } from '$lib/ResponseErrors';
+import { type } from 'arktype';
 
 const ActivityType = type({
 	id: 'number.integer > 0',
-	name: 'string > 0',
+	name: TranslationObjectType,
 	visible: 'boolean',
+	icon: 'string.url',
 	min_elevation: 'number.integer >= 0'
 });
 
 export type ActivityDTO = typeof ActivityType.infer;
 
+export const CreateActivityTranslationType = type({
+	name: TranslationObjectType
+});
+
 export const CreateActivityType = type({
-	name: TranslationObjectType,
+	translations: CreateActivityTranslationType,
 	min_elevation: type('string.integer.parse').narrow((n, ctx) => {
 		if (n < 0) {
 			return ctx.reject({
@@ -22,12 +28,21 @@ export const CreateActivityType = type({
 
 		return true;
 	}),
-	image: 'string.uuid.v7'
+	icon: 'string.uuid.v7'
 });
 
 export type CreateActivityDTO = typeof CreateActivityType.infer;
 
 export const UpdateActivityType = type({
+	id: type('string.integer.parse').narrow((n, ctx) => {
+		if (n < 0) {
+			return ctx.reject({
+				message: 'negative',
+			});
+		}
+
+		return true;
+	}),
 	'name?': TranslationObjectPartialType,
 	'min_elevation?': type('string.integer.parse').narrow((n, ctx) => {
 		if (n < 0) {
@@ -41,7 +56,34 @@ export const UpdateActivityType = type({
 	'image?': 'string.uuid.v7'
 });
 
+export type ActivityCreateSuccess = ActivityDTO;
+export type ActivityCreateError = ResponseErrorMap<ActivityDTO> & {
+	auth?: Array<ResponseError>;
+};
+
+export type ActivityCreateResponse =
+	| {
+			type: 'success';
+			response: ActivityCreateSuccess;
+	  }
+	| {
+			type: 'error';
+			errors: ActivityCreateError;
+	  };
+
 export type UpdateActivityDTO = typeof UpdateActivityType.infer;
 
-export const CreateActivityResponseType = ActivityType;
-export type CreateActivityResponseDTO = ActivityDTO;
+export type ActivityUpdateSuccess = ActivityDTO;
+export type ActivityUpdateError = ResponseErrorMap<ActivityDTO> & {
+	auth?: Array<ResponseError>;
+};
+
+export type ActivityUpdateResponse =
+	| {
+			type: 'success';
+			response: ActivityUpdateSuccess;
+	  }
+	| {
+			type: 'error';
+			errors: ActivityUpdateError;
+	  };

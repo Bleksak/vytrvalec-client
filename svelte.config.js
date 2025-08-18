@@ -27,6 +27,7 @@ const config = {
 		},
 	},
 	compilerOptions: {
+		modernAst: true,
 		runes: true,
 		experimental: {
 			async: true,

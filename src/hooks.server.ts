@@ -1,3 +1,4 @@
+import '$lib/DTO/CommonArkType';
 import { getCurrentUser } from '$actions/Auth';
 import { fetchCurrentSeason } from '$actions/Season';
 import { dev } from '$app/environment';
@@ -5,7 +6,6 @@ import { UserRole } from '$lib/DTO/UserRole';
 import { locales } from '$translations/i18n-util';
 import { error, redirect, type Handle } from '@sveltejs/kit';
 import axios from 'axios';
-import '$lib/DTO/CommonArkType';
 import { paraglideMiddleware } from '$paraglide/server';
 
 const isPathname = (current: string, wanted: string): boolean => {
@@ -23,14 +23,18 @@ const isPathname = (current: string, wanted: string): boolean => {
 };
 
 export const handle: Handle = async ({ event, resolve }): Promise<any> => {
-	paraglideMiddleware(event.request, ({ request: localizedRequest, locale }) => {
-		event.request = localizedRequest;
-		return resolve(event, {
-			transformPageChunk: ({ html }) => {
-				return html.replace('%lang%', locale);
-			}
+	// TODO: this may get fixed in the future, but for now we need to disable paraglide middleware for remote function requests
+
+	if (!event.isRemoteRequest) {
+		paraglideMiddleware(event.request, ({ request: localizedRequest, locale }) => {
+			event.request = localizedRequest;
+			return resolve(event, {
+				transformPageChunk: ({ html }) => {
+					return html.replace('%lang%', locale);
+				}
+			});
 		});
-	});
+	}
 
 	// NOTE: When developing with https (server), axios will reject all requests unless we set this environment variable
 
@@ -40,11 +44,18 @@ export const handle: Handle = async ({ event, resolve }): Promise<any> => {
 
 	event.locals.jwt = event.cookies.get('jwt') ?? null;
 
+	const axiosInstance = axios.create({
+		baseURL: import.meta.env.VITE_SERVER_API_BASE || import.meta.env.VITE_API_BASE
+	});
+
 	axios.defaults.baseURL = import.meta.env.VITE_SERVER_API_BASE || import.meta.env.VITE_API_BASE;
 
 	if (event.locals.jwt !== null) {
+		axiosInstance.defaults.headers.common.Authorization = `Bearer ${event.locals.jwt}`;
 		axios.defaults.headers.common.Authorization = `Bearer ${event.locals.jwt}`;
 	}
+
+	event.locals.axios = axiosInstance;
 
 	const result = await getCurrentUser();
 

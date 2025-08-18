@@ -1,10 +1,14 @@
 <script lang="ts">
 	import { page } from '$app/state';
 	import Button from '$components/Button.svelte';
-	import LastSeason from '$components/home/LastSeason.svelte';
 	import Stats from '$components/home/Stats.svelte';
 	import { onMount } from 'svelte';
 	import { LL } from '$translations/i18n-svelte';
+	import type { PageProps } from './$types';
+	import SeasonDetail from '$components/home/SeasonDetail.svelte';
+	import Heading from '$components/Heading.svelte';
+
+	const { data }: PageProps = $props();
 
 	const googlePlayLink = 'https://play.google.com/store/apps/details?id=cz.magnetka.mv'; // To neni citlivý, nebudu dávat do envu
 	const appleStoreLink = 'https://apps.apple.com/us/app/6743554661';
@@ -36,19 +40,23 @@
 <section>
 	<div class="grid">
 		<article>
-			<h1>Měsíční Vytrvalec</h1>
+			<Heading>
+				<h1>Měsíční Vytrvalec</h1>
+			</Heading>
 			<p>
 				{$LL.homepage.intro()}
 			</p>
-			<a href="/{page.data.lang}/rules"
-				><Button class="secondary">{$LL.rules.title().toUpperCase()}</Button></a
-			>
-			<a href="/{page.data.lang}/results"
-				><Button>{$LL.results.results().toLocaleUpperCase()}</Button></a
-			>
+			<a href="/{page.data.lang}/rules">
+				<Button class="secondary">{$LL.rules.title().toUpperCase()}</Button>
+			</a>
+			<a href="/{page.data.lang}/results">
+				<Button>{$LL.results.results().toLocaleUpperCase()}</Button>
+			</a>
 		</article>
 		<article>
-			<h1>{$LL.homepage.about.title()}</h1>
+			<Heading>
+				<h1>{$LL.homepage.about.title()}</h1>
+			</Heading>
 			<p>
 				{$LL.homepage.about.content()}
 			</p>
@@ -56,9 +64,23 @@
 	</div>
 </section>
 
+{#if data.totalStatistics}
+	<Stats totalStatistics={data.totalStatistics} />
+{/if}
+
+{#if data.lastSeason && data.lastSeasonResult}
+	<SeasonDetail
+		faculties={data.faculties}
+		season={data.lastSeason}
+		result={data.lastSeasonResult}
+	/>
+{/if}
+
 <section>
 	<article>
-		<h1>Sponzoři akce</h1>
+		<Heading>
+			<h1>Sponzoři Akce</h1>
+		</Heading>
 		<div class="sponsors">
 			<a href="https://www.decathlon.cz/?utm_source=vytrvalec">
 				<img src="/images/decathlon-logo.png" title="Decathlon" alt="Decathlon" />
@@ -66,9 +88,6 @@
 		</div>
 	</article>
 </section>
-
-<Stats />
-<LastSeason />
 
 <style lang="scss">
 	.sponsors {

@@ -127,7 +127,7 @@
 			<Select
 				name="activity"
 				id="activity"
-				keys={activities.map((a) => $LL.activities[a.name as keyof typeof $LL.activities]())}
+				keys={activities.map((a) => a.name.cs)}
 				values={activities.map((a) => a.id)}
 				currentValue={submission.activity.id}
 				{disabled}
@@ -141,5 +141,3 @@
 		{/if}
 	</form>
 </Dialog>
-
-

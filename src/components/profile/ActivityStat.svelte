@@ -1,12 +1,11 @@
 <script lang="ts">
 	import type { UserStatisticsDTO } from '$lib/DTO/StatisticsDTO';
-	import LL from '$translations/i18n-svelte';
 
 	const { userStats }: { userStats: UserStatisticsDTO } = $props();
 </script>
 
 <div class="stat">
-	<h5>{$LL.activities[userStats.activity.name as keyof typeof $LL.activities]()}</h5>
+	<h5>{userStats.activity.name.cs}</h5>
 	<div class="stat-distance">
 		<img class="icon" src="/images/icons/distance-blue.svg" alt="Distance" />
 		<span>{Number(userStats.distance / 1000).toFixed(1)} km</span>

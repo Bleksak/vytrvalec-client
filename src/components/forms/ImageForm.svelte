@@ -150,6 +150,7 @@
 		justify-content: center;
 		align-items: center;
 		width: 100%;
+		margin-block: 1.5rem;
 	}
 
 	.no-image {

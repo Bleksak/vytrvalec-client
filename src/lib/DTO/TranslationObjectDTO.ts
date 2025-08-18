@@ -4,7 +4,7 @@ import { type } from 'arktype';
 type Locales = (typeof locales)[number];
 
 export const TranslationObjectType = type
-	.Record('string', 'string > 0')
+	.Record('string', 'string > 0|null') // TODO: Tady odstranit ten null az budou data ready
 	.narrow((data): data is Record<Locales, string> => {
 		const keys = Object.keys(data);
 		return (

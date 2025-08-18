@@ -1,6 +1,6 @@
 import qs from 'qs';
 import { form, getRequestEvent } from '$app/server';
-import { CreateActivityType, ActivityUpdateType, type ActivityDTO } from '$lib/DTO/ActivityDTO';
+import { CreateActivityType, UpdateActivityType, type ActivityDTO } from '$lib/DTO/ActivityDTO';
 import { error, redirect, type RemoteForm } from '@sveltejs/kit';
 import { createActivity, updateActivity } from '$actions/Activity';
 import axios from 'axios';
@@ -54,3 +54,4 @@ export const updateActivityAction: RemoteForm<ActivityDTO> = form<ActivityDTO>(a
 
 	return redirect(307, '/administration/activity');
 });
+

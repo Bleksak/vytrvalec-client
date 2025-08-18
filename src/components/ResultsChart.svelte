@@ -6,22 +6,24 @@
 	import type { ChartOptions, ChartData } from 'chart.js';
 	import Chart from 'chart.js/auto';
 	import { onMount } from 'svelte';
+	import type { SvelteMap } from 'svelte/reactivity';
 
-	let { faculties, results }: { faculties: FacultyDTO[]; results: ResultRow[] } =
+	let { faculties, results }: { faculties: SvelteMap<number, FacultyDTO>; results: ResultRow[] } =
 		$props();
 
-	const resultFaculties = $derived(results.map((result) =>
-		faculties.find((faculty) => faculty.id === result.faculty)
-	));
+	const resultFaculties = $derived(results.map((result) => faculties.get(result.faculty)));
 	const labels = $derived(resultFaculties.map((result) => result?.shortcut));
 	const dataset = $derived(results.map((result) => Number((result.distance / 1000).toFixed(1))));
-	const colors = $derived(resultFaculties.map(
-		(faculty) =>
-			FacultyColorMap[faculty!.shortcut as keyof typeof FacultyColorMap] ?? FacultyColorMap.DEFAULT
-	));
+	const colors = $derived(
+		resultFaculties.map(
+			(faculty) =>
+				FacultyColorMap[faculty!.shortcut as keyof typeof FacultyColorMap] ??
+				FacultyColorMap.DEFAULT
+		)
+	);
 
 	let chartCanvas = $state<HTMLCanvasElement>();
-    let chart = $state<Chart>();
+	let chart = $state<Chart>();
 
 	let data: ChartData<'bar'> = $derived({
 		labels: labels,
@@ -53,13 +55,12 @@
 		}
 	};
 
-    $effect(() => {
-        if(chart) {
-            chart.data = data;
-            chart.update();
-        }
-    });
-
+	$effect(() => {
+		if (chart) {
+			chart.data = data;
+			chart.update();
+		}
+	});
 
 	onMount(() => {
 		chart = new Chart(chartCanvas!, {
