@@ -16,12 +16,12 @@
 			<div class="grid">
 				<div class="card">
 					<PersonStanding class="card-img" />
-					<h2>{totalStatistics.users}</h2>
-					<h5>{$LL.homepage.statistics.users()}</h5>
+					<h3>{totalStatistics.users}</h3>
+					<h4>{$LL.homepage.statistics.users()}</h4>
 				</div>
 				{#each totalStatistics.activities as activityStatistic}
 					<div class="card">
-						<img src={activityStatistic.activity.icon} alt="Statistics icon" />
+						<img class="card-img" src={activityStatistic.activity.icon} alt="Statistics icon" />
 						<h3>{(activityStatistic.distance / 1000).toFixed(0)}&nbsp;km</h3>
 						<h4>
 							{activityStatistic.activity.name.cs?.toUpperCase()}

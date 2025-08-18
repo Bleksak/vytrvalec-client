@@ -1,14 +1,15 @@
 <script lang="ts">
+	import Heading from '$components/Heading.svelte';
 	import { Edit } from '@lucide/svelte';
 
 	const { data } = $props();
 </script>
 
 <article>
-	<header>
-		<h2>Seznam pracovišť</h2>
+	<Heading>
+		<h1>Seznam pracovišť</h1>
 		<a role="button" href="/administration/faculty/create">Nové pracoviště</a>
-	</header>
+	</Heading>
 
 	<main>
 		<table class="striped">

@@ -38,7 +38,7 @@
 
 <main>
 	<section class="grid">
-		<aside class="col-3">
+		<aside>
 			<nav>
 				<ul>
 					<li>
@@ -62,11 +62,7 @@
 				</ul>
 			</nav>
 		</aside>
-		<article>
-			<hgroup>
-				{@render children()}
-			</hgroup>
-		</article>
+		{@render children()}
 	</section>
 </main>
 <Footer />

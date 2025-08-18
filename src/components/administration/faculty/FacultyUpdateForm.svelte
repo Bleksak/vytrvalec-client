@@ -5,6 +5,7 @@
 	import type { SvelteMap } from 'svelte/reactivity';
 	import type { FacultyDTO } from '$lib/DTO/FacultyDTO';
 	import Checkbox from '$components/FormComponent/Checkbox.svelte';
+	import Heading from '$components/Heading.svelte';
 
 	const { faculties, faculty }: { faculties: SvelteMap<number, FacultyDTO>; faculty: FacultyDTO } =
 		$props();
@@ -26,75 +27,80 @@
 	});
 </script>
 
-<section>
-	<form {...enhancer}>
-		<input type="hidden" name="id" value={faculty.id} />
-		{#each locales as locale}
+<article>
+	<Heading>
+		<h1>Úprava pracoviště</h1>
+	</Heading>
+	<section>
+		<form {...enhancer}>
+			<input type="hidden" name="id" value={faculty.id} />
+			{#each locales as locale}
+				<fieldset>
+					<label for="name_{locale}">Název fakulty ({locale})</label>
+					<input
+						type="text"
+						id="name_{locale}"
+						name="translations[name][{locale}]"
+						aria-invalid={errors[`translations,name,${locale}`] ? 'true' : undefined}
+						value={faculty.name[locale]}
+					/>
+					{#if errors[`translations,name,${locale}`]}
+						<small>
+							{(m as any)[
+								`forms.faculty.errors.translations,name,${locale}.${errors[`translations,name,${locale}`]}`
+							]()}
+						</small>
+					{/if}
+				</fieldset>
+			{/each}
+
 			<fieldset>
-				<label for="name_{locale}">Název fakulty ({locale})</label>
+				<label for="shortcut">Zkratka</label>
 				<input
 					type="text"
-					id="name_{locale}"
-					name="translations[name][{locale}]"
-					aria-invalid={errors[`translations,name,${locale}`] ? 'true' : undefined}
-					value={faculty.name[locale]}
+					id="shortcut"
+					name="shortcut"
+					aria-invalid={errors && errors.shortcut ? 'true' : undefined}
+					value={faculty.shortcut}
 				/>
-				{#if errors[`translations,name,${locale}`]}
+				{#if errors.shortcut}
 					<small>
-						{(m as any)[
-							`forms.faculty.errors.translations,name,${locale}.${errors[`translations,name,${locale}`]}`
-						]()}
+						{(m as any)[`forms.faculty.errors.shortcut.${errors.shortcut}`]()}
 					</small>
 				{/if}
 			</fieldset>
-		{/each}
 
-		<fieldset>
-			<label for="shortcut">Zkratka</label>
-			<input
-				type="text"
-				id="shortcut"
-				name="shortcut"
-				aria-invalid={errors && errors.shortcut ? 'true' : undefined}
-				value={faculty.shortcut}
-			/>
-			{#if errors.shortcut}
-				<small>
-					{(m as any)[`forms.faculty.errors.shortcut.${errors.shortcut}`]()}
-				</small>
-			{/if}
-		</fieldset>
+			<fieldset>
+				<label for="color">Barva fakulty</label>
+				<input type="color" name="color" id="color" value={faculty.color} />
+				{#if errors.color}
+					<small>
+						{(m as any)[`forms.faculty.errors.color.${errors.color}`]()}
+					</small>
+				{/if}
+			</fieldset>
 
-		<fieldset>
-			<label for="color">Barva fakulty</label>
-			<input type="color" name="color" id="color" value={faculty.color} />
-			{#if errors.color}
-				<small>
-					{(m as any)[`forms.faculty.errors.color.${errors.color}`]()}
-				</small>
-			{/if}
-		</fieldset>
+			<fieldset>
+				<label for="parent">Nadřazená fakulta</label>
+				<select name="parent" value={faculty.parent}>
+					<option value={null}>Žádná</option>
+					{#each faculties as [key, value]}
+						<option value={key}>
+							{value.shortcut}
+						</option>
+					{/each}
+				</select>
+			</fieldset>
 
-		<fieldset>
-			<label for="parent">Nadřazená fakulta</label>
-			<select name="parent" value={faculty.parent}>
-				<option value={null}>Žádná</option>
-				{#each faculties as [key, value]}
-					<option value={key}>
-						{value.shortcut}
-					</option>
-				{/each}
-			</select>
-		</fieldset>
+			<fieldset>
+				<Checkbox id="visible" name="visible" role="switch" defaultChecked={faculty.visible}>
+					Aktivní
+				</Checkbox>
+			</fieldset>
 
-		<fieldset>
-			<Checkbox id="visible" name="visible" role="switch" defaultChecked={faculty.visible}>
-				Aktivní
-			</Checkbox>
-		</fieldset>
-
-		<button aria-busy={submitButtonDisabled} disabled={submitButtonDisabled} type="submit">
-			Upravit
-		</button>
-	</form>
-</section>
+			<button aria-busy={submitButtonDisabled} disabled={submitButtonDisabled} type="submit">
+				Upravit
+			</button>
+		</form>
+	</section>
+</article>
