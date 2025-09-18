@@ -7,6 +7,7 @@
 	import { m } from '$paraglide/messages';
 	import { getLocale, locales } from '$paraglide/runtime';
 	import { seasonCreateAction } from '$remote/season.remote';
+	import { SvelteMap } from 'svelte/reactivity';
 
 	const { data } = $props();
 
@@ -15,6 +16,10 @@
 	let errors: Record<string, string> = $state({});
 
 	const defaultStartDateValue = new Date();
+
+	let seasonsWithFacultyMapping = $derived(
+		data.seasons.values().filter((season) => season.faculty_mapping.length > 0)
+	);
 
 	let startDateValue = $state(defaultStartDateValue);
 	let endDateValue = $state(defaultStartDateValue);
@@ -26,7 +31,7 @@
 	let copyFacultyMappingFrom = $state<SeasonDTO | null>(null);
 	let facultyMappings = $derived(copyFacultyMappingFrom?.faculty_mapping);
 	let facultyMappingRecord = $derived.by(() => {
-		let result: Map<number, number|null> = new Map();
+		let result: SvelteMap<number, number | null> = new SvelteMap();
 
 		for (const mapping of facultyMappings ?? []) {
 			let faculty_id = mapping.faculty_id;
@@ -128,7 +133,7 @@
 			<label for="copy-from">Vykopírovat z předchozí sezóny:</label>
 			<select bind:value={copyFacultyMappingFrom}>
 				<option value={null}>Nekopírovat</option>
-				{#each data.seasons as [_, season]}
+				{#each seasonsWithFacultyMapping as season}
 					<option value={season}>
 						{season.charity.name.cs} - {season.start.toLocaleString(getLocale(), {
 							dateStyle: 'medium'
@@ -154,10 +159,15 @@
 				<input type="hidden" name="faculty_mapping[{i}][faculty]" value={id} />
 
 				<select name="faculty_mapping[{i}][parent]">
-					<option selected={facultyMappingRecord.get(faculty.id) === null} value={null}>Žádná</option>
+					<option selected={facultyMappingRecord.get(faculty.id) === null} value={null}
+						>Žádná</option
+					>
 					{#each data.faculties as [parent_id, parent_faculty]}
 						{#if parent_id !== id}
-							<option value={parent_id} selected={facultyMappingRecord.get(faculty.id) === parent_id}>
+							<option
+								value={parent_id}
+								selected={facultyMappingRecord.get(faculty.id) === parent_id}
+							>
 								{parent_faculty.name.cs}
 							</option>
 						{/if}
