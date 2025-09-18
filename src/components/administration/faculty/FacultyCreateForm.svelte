@@ -20,7 +20,6 @@
 		} catch (data: any) {
 			const body = data.body as App.Error;
 			errors = body.errors ?? {};
-			console.log(errors);
 		}
 
 		submitButtonDisabled = false;
@@ -75,18 +74,6 @@
 						{(m as any)[`forms.faculty.errors.color.${errors.color}`]()}
 					</small>
 				{/if}
-			</fieldset>
-
-			<fieldset>
-				<label for="parent">Nadřazená fakulta</label>
-				<select name="parent">
-					<option value={null}>Žádná</option>
-					{#each faculties as [key, value]}
-						<option value={key}>
-							{value.shortcut}
-						</option>
-					{/each}
-				</select>
 			</fieldset>
 
 			<fieldset>

@@ -1,15 +1,13 @@
 import qs from 'qs';
 import { form, getRequestEvent } from '$app/server';
-import { ActivityUpdateType, CreateActivityType, UpdateActivityType, type ActivityDTO } from '$lib/DTO/ActivityDTO';
+import { ActivityCreateType, ActivityUpdateType, type ActivityDTO } from '$lib/DTO/ActivityDTO';
 import { error, redirect, type RemoteForm } from '@sveltejs/kit';
 import { createActivity, updateActivity } from '$actions/Activity';
-import axios from 'axios';
 import { ArkErrors } from 'arktype';
-import { FacultyUpdateType } from '$lib/DTO/FacultyDTO';
 
 export const createActivityAction: RemoteForm<ActivityDTO> = form<ActivityDTO>(async (formData) => {
 	const value = qs.parse(new URLSearchParams(formData as any).toString());
-	const data = CreateActivityType(value);
+	const data = ActivityCreateType(value);
 
 	if (data instanceof ArkErrors) {
 		const errors = Object.fromEntries(data.map((err) => [err.path.toString(), err.message]));

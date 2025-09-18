@@ -12,12 +12,12 @@ const ActivityType = type({
 
 export type ActivityDTO = typeof ActivityType.infer;
 
-export const CreateActivityTranslationType = type({
+export const ActivityCreateTranslationType = type({
 	name: TranslationObjectType
 });
 
-export const CreateActivityType = type({
-	translations: CreateActivityTranslationType,
+export const ActivityCreateType = type({
+	translations: ActivityCreateTranslationType,
 	min_elevation: type('string.integer.parse').narrow((n, ctx) => {
 		if (n < 0) {
 			return ctx.reject({
@@ -31,9 +31,9 @@ export const CreateActivityType = type({
 	icon: 'string.uuid.v7'
 });
 
-export type CreateActivityDTO = typeof CreateActivityType.infer;
+export type ActivityCreateDTO = typeof ActivityCreateType.infer;
 
-export const UpdateActivityType = type({
+export const ActivityUpdateType = type({
 	id: type('string.integer.parse').narrow((n, ctx) => {
 		if (n < 0) {
 			return ctx.reject({
@@ -71,7 +71,7 @@ export type ActivityCreateResponse =
 			errors: ActivityCreateError;
 	  };
 
-export type UpdateActivityDTO = typeof UpdateActivityType.infer;
+export type ActivityUpdateDTO = typeof ActivityUpdateType.infer;
 
 export type ActivityUpdateSuccess = ActivityDTO;
 export type ActivityUpdateError = ResponseErrorMap<ActivityDTO> & {

@@ -26,22 +26,22 @@
 	});
 </script>
 
-<article>
-	<Heading>
-		<h1>Nová charita</h1>
-	</Heading>
-	<section>
-		<label for="image">Obrázek charity</label>
-		<ImageForm bind:imageUuid id="image" />
-		{#if errors && errors.icon}
-			<small aria-invalid="true">
-				{m['forms.charity.errors.icon.string.uuid.v7']()}
-			</small>
-		{/if}
-	</section>
+<form {...enhancer}>
+	<article>
+		<Heading>
+			<h1>Nová charita</h1>
+		</Heading>
+		<section>
+			<label for="image">Obrázek charity</label>
+			<ImageForm bind:imageUuid id="image" />
+			{#if errors && errors.icon}
+				<small aria-invalid="true">
+					{m['forms.charity.errors.icon.string.uuid.v7']()}
+				</small>
+			{/if}
+		</section>
 
-	<section>
-		<form {...enhancer}>
+		<section>
 			<input type="hidden" name="image" value={imageUuid} />
 			{#each locales as locale}
 				<fieldset>
@@ -55,7 +55,7 @@
 					{#if errors[`translations,name,${locale}`]}
 						<small aria-invalid="true">
 							{(m as any)[
-								`forms.charity.errors.translations,name,${locale}.${errors[`translations,name,${locale}`]}`
+								`forms.charity.errors.translations,name.${errors[`translations,name,${locale}`]}`
 							]()}
 						</small>
 					{/if}
@@ -69,7 +69,7 @@
 					{#if errors[`translations,description,${locale}`]}
 						<small aria-invalid="true">
 							{(m as any)[
-								`forms.charity.errors.translations,description,${locale}.${errors[`translations,description,${locale}`]}`
+								`forms.charity.errors.translations,description.${errors[`translations,description,${locale}`]}`
 							]()}
 						</small>
 					{/if}
@@ -94,6 +94,6 @@
 			<button aria-busy={submitButtonDisabled} disabled={submitButtonDisabled} type="submit">
 				Vytvořit
 			</button>
-		</form>
-	</section>
-</article>
+		</section>
+	</article>
+</form>

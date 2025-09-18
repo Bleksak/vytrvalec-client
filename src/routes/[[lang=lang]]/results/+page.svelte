@@ -18,8 +18,6 @@
 	let currentWeek = $state<number>(0);
 	let currentSeason = $state<SeasonDTO>(seasons.values().next().value!);
 
-	$inspect(currentSeason);
-
 	const currentSeasonResults = $derived(
 		new SeasonResult(await fetchSeasonResult(data.api, currentSeason), activities)
 	);

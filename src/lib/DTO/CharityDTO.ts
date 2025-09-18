@@ -1,13 +1,14 @@
 import type { ResponseError, ResponseErrorMap } from '$lib/ResponseErrors';
 import { type } from 'arktype';
 import { TranslationObjectPartialType, TranslationObjectType } from './TranslationObjectDTO';
+import { EmptyStringAsNullType } from './EmptyStringAsUndefinedType';
 
 export const CharityType = type({
 	id: 'number.integer > 0',
 	name: TranslationObjectType,
 	description: TranslationObjectType,
-	image: 'string.url|null',
-	website: 'string.url|null'
+	'image?': type.or('string.url', EmptyStringAsNullType, 'null'),
+	'website?': type.or('string.url', EmptyStringAsNullType, 'null')
 });
 
 export const CharityCreateTranslationType = type({

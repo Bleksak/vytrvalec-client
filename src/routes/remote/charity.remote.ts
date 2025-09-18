@@ -17,8 +17,6 @@ export const createCharityAction: RemoteForm<CharityDTO> = form<CharityDTO>(asyn
 		error(422, { errors });
 	}
 
-	console.log(data);
-
 	const result = await createCharity(api, data);
 
 	if (result.type === 'error') {
@@ -43,8 +41,6 @@ export const charityUpdateAction: RemoteForm<CharityDTO> = form<CharityDTO>(asyn
 
 		error(422, { errors });
 	}
-
-	console.log(data);
 
 	const result = await updateCharity(api, data.id, data);
 

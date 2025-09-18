@@ -4,3 +4,11 @@
 	$enable-classes: true,
 	$semantic-root-element: "#root"
 );
+
+button[type=submit] {
+	width: auto !important;
+}
+
+button {
+	margin-bottom: 0 !important;
+}

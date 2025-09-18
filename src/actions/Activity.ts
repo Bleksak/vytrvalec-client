@@ -2,8 +2,8 @@ import type {
 	ActivityCreateResponse,
 	ActivityDTO,
 	ActivityUpdateResponse,
-	CreateActivityDTO,
-	UpdateActivityDTO
+	ActivityCreateDTO,
+	ActivityUpdateDTO
 } from '$lib/DTO/ActivityDTO';
 import axios, { type AxiosInstance } from 'axios';
 
@@ -13,7 +13,7 @@ export async function fetchActivities(api: AxiosInstance = axios): Promise<Array
 
 export async function createActivity(
 	api: AxiosInstance = axios,
-	data: CreateActivityDTO
+	data: ActivityCreateDTO
 ): Promise<ActivityCreateResponse> {
 	const response = await api.post('/activity', data).catch((error) => {
 		if (error.response) {
@@ -46,7 +46,7 @@ export async function createActivity(
 export async function updateActivity(
 	api: AxiosInstance = axios,
 	id: number,
-	data: UpdateActivityDTO
+	data: ActivityUpdateDTO
 ): Promise<ActivityUpdateResponse> {
 	const response = await api.patch(`/activity/${id}`, data).catch((error) => {
 		if (error.response) {

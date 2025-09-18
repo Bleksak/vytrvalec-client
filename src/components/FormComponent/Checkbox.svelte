@@ -21,14 +21,13 @@
 </script>
 
 <label for={id}>
+	{#if !checked}
+		<input type="hidden" {name} value={false} />
+	{/if}
+	<input type="checkbox" {id} {name} bind:checked {disabled} value={true} {defaultChecked} {role} />
 	{#if children}
 		{@render children()}
 	{:else}
 		&nbsp;
 	{/if}
-
-	{#if !checked}
-		<input type="hidden" {name} value={false} />
-	{/if}
-	<input type="checkbox" {id} {name} bind:checked {disabled} value={true} {defaultChecked} {role} />
 </label>

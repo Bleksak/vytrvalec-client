@@ -3,7 +3,7 @@ import {
 	SeasonType,
 	type CreateSeasonDTO,
 	type CreateSeasonResponse,
-	type FullSeasonDTO,
+	type SeasonConfigDTO,
 	type SeasonDTO
 } from '$lib/DTO/SeasonDTO';
 import { type SeasonResultDTO } from '$lib/DTO/SeasonResultDTO';
@@ -36,14 +36,11 @@ export const fetchSeason = async (): Promise<SeasonDTO | null> => {
 	return (await axios.get('/season').catch(() => null))?.data;
 };
 
-export const createSeason = async (season: CreateSeasonDTO): Promise<CreateSeasonResponse> => {
-	const data = {
-		start: season.start.toISOString(),
-		end: season.end.toISOString(),
-		charity_id: season.charity_id
-	};
-
-	const response = await axios.post('/season', data).catch((err) => {
+export const createSeason = async (
+	api: AxiosInstance,
+	data: SeasonConfigDTO
+): Promise<CreateSeasonResponse> => {
+	const response = await api.post('/season', data).catch((err) => {
 		if (err.response) {
 			return err.response;
 		}
@@ -102,16 +99,6 @@ export const getIsSeasonCached = async (season: SeasonDTO): Promise<boolean> => 
 	}
 
 	return response.data;
-};
-
-export const fetchPastSeasons = async (): Promise<Array<FullSeasonDTO>> => {
-	return ((await axios.get('/season/past').catch(() => null))?.data ?? []).map(
-		(season: FullSeasonDTO) => {
-			season.start = new Date(season.start);
-			season.end = new Date(season.end);
-			return season;
-		}
-	);
 };
 
 export const deleteSeason = async (season: SeasonDTO): Promise<boolean> => {

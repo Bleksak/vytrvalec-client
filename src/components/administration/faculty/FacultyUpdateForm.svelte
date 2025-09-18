@@ -81,18 +81,6 @@
 			</fieldset>
 
 			<fieldset>
-				<label for="parent">Nadřazená fakulta</label>
-				<select name="parent" value={faculty.parent}>
-					<option value={null}>Žádná</option>
-					{#each faculties as [key, value]}
-						<option value={key}>
-							{value.shortcut}
-						</option>
-					{/each}
-				</select>
-			</fieldset>
-
-			<fieldset>
 				<Checkbox id="visible" name="visible" role="switch" defaultChecked={faculty.visible}>
 					Aktivní
 				</Checkbox>

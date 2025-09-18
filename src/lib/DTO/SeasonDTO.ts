@@ -1,6 +1,26 @@
 import type { ResponseError, ResponseErrorMap } from '$lib/ResponseErrors';
 import { type } from 'arktype';
-import { CharityType, type CharityDTO } from './CharityDTO';
+import { CharityCreateType, CharityType } from './CharityDTO';
+import { BooleanType } from './BooleanType';
+import { EmptyStringAsNullType } from './EmptyStringAsUndefinedType';
+
+export const FacultyMappingCreateType = type({
+	faculty: 'string.numeric.parse',
+	'parent': type.or('string.numeric.parse', EmptyStringAsNullType),
+});
+
+export const FacultyMappingType = type({
+	season_id: 'number',
+	faculty_id: 'number',
+	'parent_id': 'number|null',
+});
+
+export const SeasonCreateType = type({
+	start: 'string.date.parse',
+	end: 'string.date.parse',
+	notify_users: BooleanType,
+	'notification_date?': 'string.date',
+});
 
 export const SeasonType = type({
 	id: 'number.integer > 0',
@@ -8,19 +28,20 @@ export const SeasonType = type({
 	end: 'string.date.parse',
 	charity: CharityType,
 	can_delete: 'boolean',
-	is_running: 'boolean'
+	is_running: 'boolean',
+	faculty_mapping: FacultyMappingType.array(),
 });
 
-export type SeasonDTO = typeof SeasonType.infer;
 
-export type FullSeasonDTO = {
-	id: number;
-	start: Date;
-	end: Date;
-	charity: CharityDTO;
-	can_delete: boolean;
-	is_running: boolean;
-};
+export const SeasonConfigType = type({
+	charity: type.or(CharityCreateType, 'string.integer.parse'),
+	faculty_mapping: FacultyMappingCreateType.array(),
+	season: SeasonCreateType,
+});
+
+export type SeasonConfigDTO = typeof SeasonConfigType.infer;
+
+export type SeasonDTO = typeof SeasonType.infer;
 
 export type CreateSeasonDTO = {
 	start: Date;
@@ -38,13 +59,13 @@ export type CreateSeasonError = ResponseErrorMap<CreateSeasonDTO> & {
 
 export type CreateSeasonResponse =
 	| {
-			type: 'success';
-			data: CreateSeasonResponseDTO;
-	  }
+		type: 'success';
+		data: CreateSeasonResponseDTO;
+	}
 	| {
-			type: 'error';
-			errors: CreateSeasonError;
-	  };
+		type: 'error';
+		errors: CreateSeasonError;
+	};
 
 export const createSeasonDTO = (formData: FormData): CreateSeasonDTO => {
 	const start = formData.get('start')?.toString() ?? '';

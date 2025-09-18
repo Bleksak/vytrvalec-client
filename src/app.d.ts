@@ -5,7 +5,7 @@ declare global {
 	declare namespace App {
 		interface Locals {
 			axios: AxiosInstance;
-			jwt: string?;
+			jwt?: string;
 			user: UserResponse;
 			currentSeason: SeasonDTO;
 		}

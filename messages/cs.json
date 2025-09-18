@@ -46,16 +46,10 @@
 				"icon": {
 					"string.uuid.v7": "Neplatný obrázek"
 				},
-				"translations,name,cs": {
+				"translations,name": {
 					"min_length": "Název nesmí být prázdný"
 				},
-				"translations,name,en": {
-					"min_length": "Název nesmí být prázdný"
-				},
-				"translations,description,cs": {
-					"min_length": "Popis nesmí být prázdný"
-				},
-				"translations,description,en": {
+				"translations,description": {
 					"min_length": "Popis nesmí být prázdný"
 				},
 				"website": {

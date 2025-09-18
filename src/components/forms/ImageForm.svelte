@@ -140,7 +140,6 @@
 	bind:files={uploadedFiles}
 	id={id}
 	type="file"
-	name="image"
 	accept="image/*"
 />
 

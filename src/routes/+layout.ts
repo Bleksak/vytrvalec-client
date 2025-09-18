@@ -16,9 +16,19 @@ export const load: LayoutLoad = async ({ data }) => {
 		axios.defaults.headers.common.Authorization = `Bearer ${data.jwt}`;
 	}
 
-	const activities = createRecordFromEntityArray(await fetchActivities(api));
-	const faculties = createRecordFromEntityArray(await fetchFaculties(api));
-	const seasons = createRecordFromEntityArray(await fetchSeasons(api));
+	const activityPromise = fetchActivities(api);
+	const facultyPromise = fetchFaculties(api);
+	const seasonsPromise = fetchSeasons(api);
+
+	const [activitiesRaw, facultiesRaw, seasonsRaw] = await Promise.all([
+		activityPromise,
+		facultyPromise,
+		seasonsPromise
+	]);
+
+	const activities = createRecordFromEntityArray(activitiesRaw);
+	const faculties = createRecordFromEntityArray(facultiesRaw);
+	const seasons = createRecordFromEntityArray(seasonsRaw);
 
 	return {
 		api,

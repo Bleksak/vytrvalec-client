@@ -8,7 +8,6 @@ export const FacultyType = type({
 	name: TranslationObjectType,
 	shortcut: '0 < string < 10',
 	visible: BooleanType,
-	'parent?': 'string.integer.parse | number.integer | null',
 	color: 'string'
 });
 
@@ -24,23 +23,6 @@ export const FacultyCreateType = type({
 	translations: FacultyCreateTranslationType,
 	shortcut: '0 < string < 10',
 	visible: BooleanType,
-	'parent?': type('string | null')
-		.pipe((value, ctx) => {
-			if (value === '' || value === null) {
-				return null;
-			}
-
-			const newValue = parseInt(value, 10);
-
-			if (Number.isNaN(newValue)) {
-				return ctx.error({
-					message: 'invalid'
-				});
-			}
-
-			return newValue;
-		})
-		.or('number.integer'),
 	color: 'string'
 });
 
@@ -57,23 +39,6 @@ export const FacultyUpdateType = type({
 	'translations?': FacultyUpdateTranslationType,
 	'shortcut?': '0 < string < 10',
 	'visible?': BooleanType,
-	'parent?': type('string | null')
-		.pipe((value, ctx) => {
-			if (value === '' || value === null) {
-				return null;
-			}
-
-			const newValue = parseInt(value, 10);
-
-			if (Number.isNaN(newValue)) {
-				return ctx.error({
-					message: 'invalid'
-				});
-			}
-
-			return newValue;
-		})
-		.or('number.integer'),
 	'color?': 'string'
 });
 
@@ -87,19 +52,19 @@ export type FacultyCreateError = ResponseErrorMap<FacultyCreateDTO> & {
 
 export type FacultyCreateResponse =
 	| {
-			type: 'success';
-			data: FacultyDTO;
-	  }
+		type: 'success';
+		data: FacultyDTO;
+	}
 	| {
-			type: 'error';
-			errors: FacultyCreateError;
-	  };
+		type: 'error';
+		errors: FacultyCreateError;
+	};
 
 export type FacultyUpdateResponse =
 	| {
-			type: 'success';
-	  }
+		type: 'success';
+	}
 	| {
-			type: 'error';
-			errors: FacultyCreateError;
-	  };
+		type: 'error';
+		errors: FacultyCreateError;
+	};

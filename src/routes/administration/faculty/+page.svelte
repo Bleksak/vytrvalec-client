@@ -17,7 +17,6 @@
 				<tr>
 					<th scope="col">Název</th>
 					<th scope="col">Zkratka</th>
-					<th scope="col">Nadřazená fakulta</th>
 					<th scope="col">Barva</th>
 					<th scope="col">Akce</th>
 				</tr>
@@ -27,11 +26,6 @@
 					<tr>
 						<td>{faculty.name?.cs ?? ''}</td>
 						<td>{faculty.shortcut}</td>
-						{#if faculty.parent}
-							<td>{data.faculties.get(faculty.parent)!.shortcut}</td>
-						{:else}
-							<td></td>
-						{/if}
 						<td>
 							<span
 								style="display:block; width: 25px; height: 25px;"

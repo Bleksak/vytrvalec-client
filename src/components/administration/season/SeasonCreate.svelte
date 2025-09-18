@@ -63,7 +63,7 @@
 			<Select
 				name="charity"
 				id="charity"
-				keys={charities.map((charity) => charity.name)}
+				keys={charities.map((charity) => charity.name.cs)}
 				values={charities.map((charity) => charity.id)}
 			/>
 			<label for="start">Začátek sezóny:</label>
