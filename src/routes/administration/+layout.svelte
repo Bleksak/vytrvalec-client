@@ -13,7 +13,7 @@
 	import Store from '$lib/enums/Stores';
 	import createFacultyStore from '$lib/stores/FacultyStore.svelte';
 
-	let { children } = $props();
+	let { children, data } = $props();
 	loadAllLocales();
 
 	const lang = (page.params.lang as Locales) ?? 'cs';
@@ -34,7 +34,7 @@
 	<title>{$LL.homepage.title()}</title>
 </svelte:head>
 
-<Navbar />
+<Navbar currentSeason={data.currentSeason} user={data.user} />
 
 <main>
 	<section class="grid">

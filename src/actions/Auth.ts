@@ -1,4 +1,4 @@
-import axios, { AxiosError } from 'axios';
+import axios, { AxiosError, type AxiosInstance } from 'axios';
 import type { UserRegisterDTO } from '$lib/DTO/UserRegisterDTO';
 import type { UserRegisterResponse } from '$lib/DTO/UserRegisterResponse';
 import type { UserLoginDTO } from '$lib/DTO/UserLoginDTO';
@@ -12,7 +12,7 @@ import type {
 import type { ResetPasswordDTO, ResetPasswordResponse } from '$lib/DTO/ResetPasswordDTO';
 import type { ConsentChangeDTO } from '$lib/DTO/ConsentChangeDTO';
 
-export const login = async (loginDTO: UserLoginDTO): Promise<UserLoginResponse> => {
+export const login = async (api: AxiosInstance, loginDTO: UserLoginDTO): Promise<UserLoginResponse> => {
 	const response = await axios.post(`/user/login`, loginDTO).catch((error) => {
 		if (error.response) {
 			return error.response;
@@ -67,8 +67,8 @@ export const register = async (registerDTO: UserRegisterDTO): Promise<UserRegist
 	return { type: 'success' };
 };
 
-export const getCurrentUser = async (): Promise<CurrentUserResponse> => {
-	const response = await axios.get(`/user/current`).catch((error: AxiosError) => {
+export const getCurrentUser = async (api: AxiosInstance): Promise<CurrentUserResponse> => {
+	const response = await api.get(`/user/current`).catch((error: AxiosError) => {
 		if (error.response) {
 			return error.response;
 		}

@@ -17,14 +17,14 @@ import { formDataToForgottenPasswordDTO } from '$lib/DTO/ForgottenPasswordDTO';
 import { formDataToResetPasswordDTO } from '$lib/DTO/ResetPasswordDTO';
 import { formDataToConsentChangeDTO } from '$lib/DTO/ConsentChangeDTO';
 
-const loginAction: Action = async ({ cookies, request }) => {
+const loginAction: Action = async ({ cookies, request, locals }) => {
 	const loginDTO = formDataToUserLoginDTO(await request.formData());
 
 	if (loginDTO.type === 'error') {
 		return fail(400, loginDTO.value);
 	}
 
-	const result = await login(loginDTO.value);
+	const result = await login(locals.axios, loginDTO.value);
 
 	if (result.type === 'error') {
 		return fail(400, result.errors);
@@ -33,7 +33,7 @@ const loginAction: Action = async ({ cookies, request }) => {
 	const token = result.response.token;
 	cookies.set('jwt', token, { path: '/' });
 
-	axios.defaults.headers.common.Authorization = `Bearer ${token}`;
+	locals.axios.defaults.headers.common.Authorization = `Bearer ${token}`;
 };
 
 const logoutAction: Action = ({ cookies }) => {

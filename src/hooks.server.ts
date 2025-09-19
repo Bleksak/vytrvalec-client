@@ -15,7 +15,7 @@ const isPathname = (current: string, wanted: string): boolean => {
 
 	const loc = locales.join('|');
 
-	if (current.match(`^(\/(${loc}))?${wanted}`)) {
+	if (current.match(`^(/(${loc}))?${wanted}`)) {
 		return true;
 	}
 
@@ -23,19 +23,6 @@ const isPathname = (current: string, wanted: string): boolean => {
 };
 
 export const handle: Handle = async ({ event, resolve }): Promise<any> => {
-	// TODO: this may get fixed in the future, but for now we need to disable paraglide middleware for remote function requests
-
-	if (!event.isRemoteRequest) {
-		paraglideMiddleware(event.request, ({ request: localizedRequest, locale }) => {
-			event.request = localizedRequest;
-			return resolve(event, {
-				transformPageChunk: ({ html }) => {
-					return html.replace('%lang%', locale);
-				}
-			});
-		});
-	}
-
 	// NOTE: When developing with https (server), axios will reject all requests unless we set this environment variable
 
 	if (dev) {
@@ -57,14 +44,18 @@ export const handle: Handle = async ({ event, resolve }): Promise<any> => {
 
 	event.locals.axios = axiosInstance;
 
-	const result = await getCurrentUser();
+	const currentSeason = await fetchCurrentSeason(axiosInstance);
+	if (currentSeason) {
+		event.locals.currentSeason = currentSeason;
+	}
 
+	const result = await getCurrentUser(axiosInstance);
 	if (result.type === 'success') {
 		event.locals.user = result.data;
-		const currentSeason = await fetchCurrentSeason();
-		if (currentSeason) {
-			event.locals.currentSeason = currentSeason;
-		}
+	} else {
+		event.locals.jwt = null;
+		axiosInstance.defaults.headers.common.Authorization = undefined;
+		axios.defaults.headers.common.Authorization = undefined;
 	}
 
 	if (isPathname(event.url.pathname, '/submission')) {
@@ -79,5 +70,12 @@ export const handle: Handle = async ({ event, resolve }): Promise<any> => {
 		}
 	}
 
-	return await resolve(event);
+	return await paraglideMiddleware(event.request, ({ request: localizedRequest, locale }) => {
+		event.request = localizedRequest;
+		return resolve(event, {
+			transformPageChunk: ({ html }) => {
+				return html.replace('%lang%', locale);
+			}
+		});
+	});
 };

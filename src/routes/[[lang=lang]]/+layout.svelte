@@ -7,7 +7,7 @@
 	import Navbar from '$components/Navbar.svelte';
 	import Footer from '$components/Footer.svelte';
 
-	let { children } = $props();
+	let { children, data } = $props();
 	const lang = (page.params.lang as Locales) ?? 'cs';
 
 	loadAllLocales();
@@ -18,7 +18,7 @@
 	<title>{$LL.homepage.title()}</title>
 </svelte:head>
 
-<Navbar />
+<Navbar currentSeason={data.currentSeason} user={data.user} />
 <main>
 	<svelte:boundary>
 		{@render children()}
