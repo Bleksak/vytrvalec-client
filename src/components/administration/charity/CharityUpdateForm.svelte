@@ -1,10 +1,12 @@
 <script lang="ts">
 	import ImageForm from '$components/forms/ImageForm.svelte';
-	import { charityUpdateAction } from '$remote/charity.remote';
 	import { locales } from '$paraglide/runtime';
 	import { m } from '$paraglide/messages';
 	import type { CharityDTO } from '$lib/DTO/CharityDTO';
 	import Heading from '$components/Heading.svelte';
+	import { enhance } from '$app/forms';
+	import type { SubmitFunction } from '@sveltejs/kit';
+	import { goto } from '$app/navigation';
 
 	const { charity }: { charity: CharityDTO } = $props();
 
@@ -13,20 +15,21 @@
 
 	let submitButtonDisabled = $state(false);
 
-	const enhancer = charityUpdateAction.enhance(async ({ form, submit }) => {
-		try {
-			submitButtonDisabled = true;
-			await submit();
-			form.reset();
-		} catch (data: any) {
-			const body = data.body as App.Error;
-			if (body.errors) {
-				errors = body.errors;
-			}
-		}
+	const enhancer: SubmitFunction = async ({ submitter }) => {
+		submitter?.setAttribute('disabled', 'disabled');
+		submitButtonDisabled = true;
 
-		submitButtonDisabled = false;
-	});
+		return async ({ result }) => {
+			if (result.type === 'failure') {
+				errors = result.data as any;
+
+				submitter?.removeAttribute('disabled');
+				submitButtonDisabled = false;
+			} else if (result.type === 'redirect') {
+				await goto(result.location, { invalidateAll: true });
+			}
+		};
+	};
 </script>
 
 <article>
@@ -44,7 +47,7 @@
 	</section>
 
 	<section>
-		<form {...enhancer}>
+		<form method="post" action="/administration/charity?/update" use:enhance={enhancer}>
 			<input type="hidden" name="id" value={charity.id} />
 			<input type="hidden" name="image" value={imageUuid} />
 			{#each locales as locale}

@@ -53,20 +53,17 @@
 
 <Dialog bind:this={dialog} header={$LL.registration.title()} {...props}>
 	<form method="POST" action="/auth?/register" use:enhance={enhancer}>
-		<div class="form-field">
+		<fieldset>
 			<label for="faculty">
 				{$LL.registration.faculty()}:<Required />
 			</label>
 			{#await facultyStore.promise() then faculties}
 				{@const registrationFaculties = faculties.filter((faculty) => faculty.visible)}
-				<Select
-					name="faculty"
-					id="faculty"
-					keys={registrationFaculties.map((f) =>
-						$LL.faculties[f.shortcut as keyof typeof $LL.faculties]()
-					)}
-					values={registrationFaculties.map((f) => f.id)}
-				/>
+				<select name="faculty" id="faculty">
+					{#each registrationFaculties as faculty}
+						<option value={faculty.id}>{faculty.name.cs}</option>
+					{/each}
+				</select>
 			{:catch}
 				<span class="note">{$LL.registration.errors.faculty.no_faculties()}</span>
 			{/await}
@@ -75,9 +72,9 @@
 					{$LL.registration.errors.faculty[error as keyof typeof $LL.registration.errors.faculty]()}
 				</span>
 			{/each}
-		</div>
+		</fieldset>
 
-		<div class="form-field">
+		<fieldset>
 			<label for="email">
 				{$LL.registration.email()}:<Required />
 			</label>
@@ -87,9 +84,9 @@
 					{$LL.registration.errors.email[error as keyof typeof $LL.registration.errors.email]()}
 				</span>
 			{/each}
-		</div>
+		</fieldset>
 
-		<div class="form-field">
+		<fieldset>
 			<label for="password">
 				{$LL.registration.password()}:<Required />
 			</label>
@@ -102,9 +99,9 @@
 					]()}
 				</span>
 			{/each}
-		</div>
+		</fieldset>
 
-		<div class="form-field">
+		<fieldset>
 			<label for="password_repeat">
 				{$LL.registration.password_repeat()}:<Required />
 			</label>
@@ -116,9 +113,9 @@
 					]()}
 				</span>
 			{/each}
-		</div>
+		</fieldset>
 
-		<div class="form-field">
+		<fieldset>
 			<label for="first_name">
 				{$LL.registration.first_name()}:<Required />
 			</label>
@@ -130,9 +127,9 @@
 					]()}
 				</span>
 			{/each}
-		</div>
+		</fieldset>
 
-		<div class="form-field">
+		<fieldset>
 			<label for="last_name">
 				{$LL.registration.last_name()}:<Required />
 			</label>
@@ -144,9 +141,9 @@
 					]()}
 				</span>
 			{/each}
-		</div>
+		</fieldset>
 
-		<div class="form-field">
+		<fieldset>
 			<Tooltip
 				text={`${$LL.anonym.description1()}${$LL.anonym.description2()}${$LL.anonym.description3()}`}
 			>
@@ -154,9 +151,9 @@
 					{$LL.anonym.label()}
 				</Checkbox>
 			</Tooltip>
-		</div>
+		</fieldset>
 
-		<div class="form-field">
+		<fieldset>
 			<Tooltip text={$LL.registration.gdpr_tooltip()}>
 				<Checkbox id="gdpr" name="gdpr">
 					{$LL.registration.gdpr()}<Required />
@@ -167,7 +164,10 @@
 					{$LL.registration.errors.gdpr[error as keyof typeof $LL.registration.errors.gdpr]()}
 				</span>
 			{/each}
-		</div>
-		<Button>{$LL.registration.submit()}</Button>
+		</fieldset>
+
+		<fieldset>
+			<Button>{$LL.registration.submit()}</Button>
+		</fieldset>
 	</form>
 </Dialog>

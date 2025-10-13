@@ -47,14 +47,15 @@
 
 <Dialog bind:this={dialog} header={$LL.login.title()} {...props}>
 	<form method="POST" action="/auth?/login" use:enhance={enhancer} name="login">
-		<div class="form-field">
+		<fieldset>
 			{#each errors?.auth ?? [] as error}
 				<span class="error">
 					{$LL.login.errors.auth[error as keyof typeof $LL.login.errors.auth]()}
 				</span>
 			{/each}
-		</div>
-		<div class="form-field">
+		</fieldset>
+
+		<fieldset>
 			<label for="email">
 				{$LL.login.email()}:
 			</label>
@@ -64,9 +65,9 @@
 					{$LL.login.errors.email[error as keyof typeof $LL.login.errors.email]()}
 				</span>
 			{/each}
-		</div>
+		</fieldset>
 
-		<div class="form-field">
+		<fieldset>
 			<label for="password">
 				{$LL.login.password()}:
 			</label>
@@ -76,15 +77,17 @@
 					{$LL.login.errors.password[error as keyof typeof $LL.login.errors.password]()}
 				</span>
 			{/each}
-		</div>
+		</fieldset>
 
-		<button class="forgotten-password" type="button" onclick={openForgottenPassword}>
-			{$LL.login.forgotten.prompt()}
-		</button>
+		<fieldset>
+			<button class="forgotten-password" type="button" onclick={openForgottenPassword}>
+				{$LL.login.forgotten.prompt()}
+			</button>
+		</fieldset>
 
-		<Button type="submit">
+		<button type="submit">
 			{$LL.login.submit()}
-		</Button>
+		</button>
 	</form>
 </Dialog>
 
@@ -92,5 +95,13 @@
 	.forgotten-password {
 		color: #444;
 		cursor: pointer;
+		background: none;
+		border: none;
+
+		&:hover {
+			color: #005cab;
+		}
+
+		padding: 0;
 	}
 </style>

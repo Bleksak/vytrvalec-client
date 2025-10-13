@@ -141,7 +141,7 @@ const cs = {
 		submit: 'Přihlásit',
 		forgotten: {
 			title: 'Zapomenuté heslo',
-			prompt: 'Zapomněli jste heslo?',
+			prompt: 'Zapomenuté heslo',
 			submit: 'Odeslat',
 			description: 'Na e-mailovou adresu bude zaslán odkaz k obnovení hesla.',
 			success: 'E-mail odeslán',

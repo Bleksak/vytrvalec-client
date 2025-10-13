@@ -71,7 +71,6 @@
 	<form
 		method="POST"
 		action="/submission?/patch"
-		enctype="multipart/form-data"
 		use:enhance={onSubmit}
 	>
 		<input type="hidden" name="id" value={submission.id} />

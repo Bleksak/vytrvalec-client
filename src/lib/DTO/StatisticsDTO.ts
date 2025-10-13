@@ -11,7 +11,7 @@ export type TotalStatisticsDTO = {
 };
 
 export type UserStatisticsDTO = {
-	activity: ActivityDTO;
+	activity: number;
 	distance: number;
 	elevation: number;
 };

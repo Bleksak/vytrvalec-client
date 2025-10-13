@@ -5,14 +5,22 @@
 	import { getAllContexts, getContext } from 'svelte';
 	import type { ToastStore } from '$lib/stores/ToastStore.svelte';
 	import type { DialogStore } from '$lib/stores/DialogStore.svelte';
-	import type { ProfileSubmissionResponseDTO } from '$lib/DTO/SubmissionDTO';
 	import SubmissionEditForm from '$components/forms/SubmissionEditForm.svelte';
 	import Store from '$lib/enums/Stores';
+	import { invalidateAll } from '$app/navigation';
+	import type { SubmissionResponseDTO } from '$lib/DTO/SubmissionDTO';
+	import type { SvelteMap } from 'svelte/reactivity';
+	import type { ActivityDTO } from '$lib/DTO/ActivityDTO';
 
-	let { submission, submissions = $bindable() } : {
-		submissions: Array<ProfileSubmissionResponseDTO>;
-		submission: ProfileSubmissionResponseDTO;
+	let {
+		submission,
+		activities
+	}: {
+		submission: SubmissionResponseDTO;
+		activities: SvelteMap<number, ActivityDTO>;
 	} = $props();
+
+	let activity = $derived(activities.get(submission.activity_id)!);
 
 	const contexts = getAllContexts();
 
@@ -21,7 +29,7 @@
 
 	const isEditable = !submission.reviewed || !submission.accepted;
 
-	let error = $state<(Event & {currentTarget: EventTarget & Element}) | null>(null);
+	let error = $state<(Event & { currentTarget: EventTarget & Element }) | null>(null);
 
 	const handleSubmissionDelete = async () => {
 		if (!confirm($LL.submission.form.deleteConfirm())) {
@@ -41,30 +49,30 @@
 				message: $LL.submission.form.deleteSuccessToast()
 			});
 
-			submissions = submissions.filter((sub) => submission.id !== sub.id);
+			invalidateAll();
 		}
 	};
 </script>
 
 <div class="submission-card">
 	{#if error}
-	<img
-		class="submission-preview"
-		loading="lazy"
-		src='/images/image-not-found.png'
-		alt="Náhled"
-		title="Náhled"
-		onerror={(err) => error = err}
-	/>
+		<img
+			class="submission-preview"
+			loading="lazy"
+			src="/images/image-not-found.png"
+			alt="Náhled"
+			title="Náhled"
+			onerror={(err) => (error = err)}
+		/>
 	{:else}
-	<img
-		class="submission-preview"
-		loading="lazy"
-		src={submission.image}
-		alt="Náhled"
-		title="Náhled"
-		onerror={(err) => error = err}
-	/>
+		<img
+			class="submission-preview"
+			loading="lazy"
+			src={submission.image}
+			alt="Náhled"
+			title="Náhled"
+			onerror={(err) => (error = err)}
+		/>
 	{/if}
 	<div class="status-bar">
 		<div class="submission-card-row">
@@ -74,7 +82,7 @@
 					<img class="icon" src="/images/icons/comment.svg" alt="Komentář" title="Komentář" />
 				{/if}
 			</div>
-			<img class="icon" src={submission.activity.icon} alt={submission.activity.icon} />
+			<img class="icon" src={activity.icon} alt={activity.name.cs} />
 		</div>
 	</div>
 	<div class="bottom-bar">
@@ -104,9 +112,16 @@
 				{$LL.submission.form.delete()}
 			</button>
 		</div>
-		{:else}
+	{:else}
 		<div class="buttons">
-			<button onclick={() => dialogStore.open(SubmissionEditForm, { submission: submission, disabled: true }, contexts)}>
+			<button
+				onclick={() =>
+					dialogStore.open(
+						SubmissionEditForm,
+						{ submission: submission, disabled: true },
+						contexts
+					)}
+			>
 				{$LL.submission.form.preview()}
 			</button>
 		</div>
@@ -116,7 +131,7 @@
 <style>
 	.submission-card {
 		position: relative;
-        max-width: 300px;
+		max-width: 300px;
 	}
 
 	.submission-preview {

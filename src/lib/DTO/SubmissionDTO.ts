@@ -1,5 +1,4 @@
 import type { ResponseErrorMap } from '$lib/ResponseErrors';
-import type { ActivityDTO } from './ActivityDTO';
 import type { UserResponseAdmin } from './UserResponse';
 
 import { type } from 'arktype';
@@ -50,21 +49,17 @@ export type SubmissionResponseAdminDTO = Omit<SubmissionResponseDTO, 'user'> & {
 	user: UserResponseAdmin;
 };
 
-export type ProfileSubmissionResponseDTO = Omit<SubmissionResponseDTO, 'user' | 'activity'> & {
-	activity: ActivityDTO;
-};
-
 export type SubmissionErrors = ResponseErrorMap<SubmissionDTO>;
 
 export type SubmissionReturn =
 	| {
-			type: 'dto';
-			value: SubmissionDTO;
-	  }
+		type: 'dto';
+		value: SubmissionDTO;
+	}
 	| {
-			type: 'error';
-			value: SubmissionErrors;
-	  };
+		type: 'error';
+		value: SubmissionErrors;
+	};
 
 export const formDataToSubmissionDTO = (formData: FormData): SubmissionReturn => {
 	const distanceString = formData.get('distance')?.toString().replace(',', '.');
@@ -88,7 +83,7 @@ export const formDataToSubmissionDTO = (formData: FormData): SubmissionReturn =>
 		errors.distance?.push('blank');
 	}
 
-	if (distance === Number.NaN || !Number.isInteger(distance)) {
+	if (Number.isNaN(distance) || !Number.isInteger(distance)) {
 		valid = false;
 		errors.distance?.push('invalid');
 	}
@@ -99,7 +94,7 @@ export const formDataToSubmissionDTO = (formData: FormData): SubmissionReturn =>
 	}
 
 	if (elevationString !== undefined && elevationString !== '' && elevationString !== null) {
-		if (elevation === Number.NaN || !Number.isInteger(elevation)) {
+		if (Number.isNaN(elevation) || !Number.isInteger(elevation)) {
 			valid = false;
 			errors.elevation?.push('invalid');
 		}

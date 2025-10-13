@@ -1,30 +1,34 @@
 <script lang="ts">
 	import { locales } from '$paraglide/runtime';
 	import { m } from '$paraglide/messages';
-	import { updateFacultyAction } from '$remote/faculty.remote';
 	import type { SvelteMap } from 'svelte/reactivity';
 	import type { FacultyDTO } from '$lib/DTO/FacultyDTO';
 	import Checkbox from '$components/FormComponent/Checkbox.svelte';
 	import Heading from '$components/Heading.svelte';
+	import { goto } from '$app/navigation';
+	import type { SubmitFunction } from '@sveltejs/kit';
+	import { enhance } from '$app/forms';
 
-	const { faculties, faculty }: { faculties: SvelteMap<number, FacultyDTO>; faculty: FacultyDTO } =
-		$props();
+	const { faculty }: { faculties: SvelteMap<number, FacultyDTO>; faculty: FacultyDTO } = $props();
 
 	let errors: Record<string, string> = $state({});
 	let submitButtonDisabled = $state(false);
 
-	const enhancer = updateFacultyAction.enhance(async ({ form, submit }) => {
-		try {
-			submitButtonDisabled = true;
-			await submit();
-			form.reset();
-		} catch (data: any) {
-			const body = data.body as App.Error;
-			errors = body.errors ?? {};
-		}
+	const enhancer: SubmitFunction = async ({ submitter }) => {
+		submitter?.setAttribute('disabled', 'disabled');
+		submitButtonDisabled = true;
 
-		submitButtonDisabled = false;
-	});
+		return async ({ result }) => {
+			if (result.type === 'failure') {
+				errors = result.data as any;
+
+				submitter?.removeAttribute('disabled');
+				submitButtonDisabled = false;
+			} else if (result.type === 'redirect') {
+				await goto(result.location);
+			}
+		};
+	};
 </script>
 
 <article>
@@ -32,7 +36,7 @@
 		<h1>Úprava pracoviště</h1>
 	</Heading>
 	<section>
-		<form {...enhancer}>
+		<form use:enhance={enhancer} method="post" action="/administration/faculty?/update">
 			<input type="hidden" name="id" value={faculty.id} />
 			{#each locales as locale}
 				<fieldset>
@@ -86,9 +90,11 @@
 				</Checkbox>
 			</fieldset>
 
-			<button aria-busy={submitButtonDisabled} disabled={submitButtonDisabled} type="submit">
-				Upravit
-			</button>
+			<fieldset>
+				<button aria-busy={submitButtonDisabled} disabled={submitButtonDisabled} type="submit">
+					Upravit
+				</button>
+			</fieldset>
 		</form>
 	</section>
 </article>

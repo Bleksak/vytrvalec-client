@@ -1,145 +1,69 @@
 <script lang="ts">
 	import { page } from '$app/state';
-	import type { UserResponse } from '$lib/DTO/UserResponse';
-	import FacultyTag from '$components/profile/FacultyTag.svelte';
 	import SubmissionCard from '$components/profile/SubmissionCard.svelte';
 	import LL from '$translations/i18n-svelte';
 	import ActivityStat from '$components/profile/ActivityStat.svelte';
-	import { fetchUserStatistics } from '$actions/Statistics';
-	import { fetchActivities } from '$actions/Activity';
-	import { fetchUserSubmissions } from '$actions/Submission';
-	import type { ProfileSubmissionResponseDTO } from '$lib/DTO/SubmissionDTO';
-	import { setGlobalContext } from '$lib/stores/GlobalContext.svelte';
+	import Heading from '$components/Heading.svelte';
+	import FacultyTag from '$components/profile/FacultyTag.svelte';
 
-	const currentUser: UserResponse = page.data.user;
-
-	const activitiesPromise = fetchActivities();
-	const userStatisticsPromise = fetchUserStatistics(activitiesPromise);
-	const submissionsPromise = fetchUserSubmissions(activitiesPromise);
-
-	let submissions = $state<Array<ProfileSubmissionResponseDTO>>([]);
-
-	const refetchSubmissions = () => {
-		fetchUserSubmissions(activitiesPromise).then((submissionsResult) => {
-			submissions = submissionsResult;
-		});
-	};
-
-	setGlobalContext('refetchSubmissions', refetchSubmissions);
-	refetchSubmissions();
-
-	// TODO: currently this page only works for current user
+	const { data } = $props();
 </script>
 
 <main>
-	<div class="wrapper">
-		<header>
+	<article>
+		<Heading>
 			<div class="user">
-				<h4 style="width: fit-content;">
-					{currentUser.first_name}
-					{currentUser.last_name}
-				</h4>
-				<FacultyTag facultyShortcut={currentUser.faculty.shortcut} />
+				<h1>
+					{data.user.first_name}
+					{data.user.last_name}
+				</h1>
+				<FacultyTag facultyShortcut={data.user.faculty.shortcut} />
 			</div>
-			<a class="settings" href="/{page.data.lang}/account">
-				<img class="icon" src="/images/icons/settings.svg" alt="Nastavení" title="Nastavení" />
-			</a>
-		</header>
-
-		{#await userStatisticsPromise}
-			{$LL.profile.loading.statistics()}
-		{:then statistics}
-			<div class="statistics">
-				{#each statistics as stat}
-					<ActivityStat userStats={stat} />
+			<a role="button" class="settings" href="/{page.data.lang}/account"> Nastavení účtu </a>
+		</Heading>
+		<main>
+			<section class="grid">
+				{#each data.statistics as stat}
+					<ActivityStat userStats={stat} activities={data.activities} />
 				{/each}
-			</div>
-		{/await}
-	</div>
+			</section>
 
-	{#await submissionsPromise}
-		{$LL.profile.loading.submissions()}
-	{:then}
-		<div class="submissions">
-			{#each submissions as submission (submission.id)}
-				<SubmissionCard {submission} bind:submissions />
-			{:else}
-				{$LL.profile.noSubmissions()}
-			{/each}
-		</div>
-	{/await}
+			<section class="submissions">
+				{#each data.submissions as submission (submission.id)}
+					<SubmissionCard {submission} activities={data.activities} />
+				{:else}
+					{$LL.profile.noSubmissions()}
+				{/each}
+			</section>
+		</main>
+	</article>
 </main>
 
 <style>
-	.wrapper {
-		display: flex;
-		flex-direction: column;
-		gap: 20px;
-	}
-
-	header {
-		display: flex;
-		justify-content: space-between;
-		gap: 30px;
-		align-items: center;
-	}
-
-	main {
-		display: flex;
-		flex-direction: column;
-		gap: 10px;
-		max-width: 1640px;
-		margin: 0 auto;
-		width: 100%;
-		padding: 20px;
-		background-color: white;
-	}
-
 	.user {
 		display: flex;
 		gap: 10px;
 		align-items: center;
-		align-self: flex-start;
-	}
 
-	.settings {
-		justify-self: flex-end;
-	}
+		h1 {
+			margin: 0;
+		}
 
-	.statistics {
-		display: flex;
-		flex-wrap: wrap;
-		gap: 80px;
+		margin-bottom: 1rem;
 	}
 
 	.submissions {
+		gap: 1rem;
 		display: grid;
 		grid-template-columns: repeat(auto-fit, minmax(300px, max-content));
 
 		justify-content: flex-start;
-		gap: 15px;
 	}
 
 	@media (max-width: 48em) {
-		.wrapper {
-			margin: 0 auto;
-		}
-
-		header {
-			justify-content: space-between;
-			gap: 80px;
-		}
-
-		.statistics {
-			justify-content: space-between;
-			margin: 0 auto;
-			width: 100%;
-		}
-
 		.submissions {
 			grid-template-columns: minmax(200px, 300px);
 			justify-content: center;
-			gap: 15px;
 		}
 	}
 </style>

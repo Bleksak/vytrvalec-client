@@ -4,4 +4,10 @@
 	const { data } = $props();
 </script>
 
-<CharityUpdateForm charity={data.charity} />
+{#if data.charity !== null}
+	<CharityUpdateForm charity={data.charity} />
+{:else}
+	<article>
+		<header>Nebylo možné najít požadovanou charitu</header>
+	</article>
+{/if}

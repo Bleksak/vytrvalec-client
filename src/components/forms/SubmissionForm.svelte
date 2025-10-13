@@ -63,7 +63,6 @@
 	<form
 		method="POST"
 		action="/submission?/create"
-		enctype="multipart/form-data"
 		use:enhance={onSubmit}
 	>
 		<ImageForm bind:imageUuid />
@@ -103,12 +102,11 @@
 		{#await activityStore.promise()}
 			<span>Načítání</span>
 		{:then activities}
-			<Select
-				name="activity"
-				id="activity"
-				keys={activities.map((a) => $LL.activities[a.name as keyof typeof $LL.activities]())}
-				values={activities.map((a) => a.id)}
-			/>
+			<select name="activity" id="activity">
+				{#each activities as activity}
+					<option value={activity.id}>{activity.name.cs}</option>
+				{/each}
+			</select>
 		{/await}
 		<Button disabled={!imageUuid}>
 			{$LL.submission.form.submit()}

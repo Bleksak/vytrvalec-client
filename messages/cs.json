@@ -4,7 +4,11 @@
 		"activity": {
 			"errors": {
 				"min_elevation": {
-					"string.integer.parse": "Převýšení musí být celočíselná hodnota",
+					"string": {
+						"integer": {
+							"parse": "Převýšení musí být celočíselná hodnota"
+						}
+					},
 					"negative": "Převýšení musí být kladné číslo"
 				},
 				"translations,name,cs": {
@@ -14,7 +18,11 @@
 					"min_length": "Název nesmí být prázdný"
 				},
 				"icon": {
-					"string.uuid.v7": "Neplatný obrázek"
+					"string": {
+						"uuid": {
+							"v7": "Neplatný obrázek"
+						}
+					}
 				}
 			}
 		},
@@ -44,7 +52,11 @@
 		"charity": {
 			"errors": {
 				"icon": {
-					"string.uuid.v7": "Neplatný obrázek"
+					"string": {
+						"uuid": {
+							"v7": "Neplatný obrázek"
+						}
+					}
 				},
 				"translations,name": {
 					"min_length": "Název nesmí být prázdný"

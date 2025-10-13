@@ -1,4 +1,6 @@
 <script lang="ts">
+	import { enhance } from '$app/forms';
+	import { goto } from '$app/navigation';
 	import Checkbox from '$components/FormComponent/Checkbox.svelte';
 	import DateInput from '$components/FormComponent/DateInput.svelte';
 	import ImageForm from '$components/forms/ImageForm.svelte';
@@ -6,7 +8,7 @@
 	import type { SeasonDTO } from '$lib/DTO/SeasonDTO.js';
 	import { m } from '$paraglide/messages';
 	import { getLocale, locales } from '$paraglide/runtime';
-	import { seasonCreateAction } from '$remote/season.remote';
+	import type { SubmitFunction } from '@sveltejs/kit';
 	import { SvelteMap } from 'svelte/reactivity';
 
 	const { data } = $props();
@@ -43,17 +45,17 @@
 		return result;
 	});
 
-	const enhancer = seasonCreateAction.enhance(async ({ form, submit }) => {
-		try {
-			await submit();
-			form.reset();
-		} catch (data: any) {
-			const body = data.body as App.Error;
-			if (body.errors) {
-				errors = body.errors;
+	const enhancer: SubmitFunction = async ({ submitter }) => {
+		submitter?.setAttribute('disabled', 'disabled');
+		return async ({ result }) => {
+			if (result.type === 'failure') {
+				errors = result.data as any;
+				submitter?.removeAttribute('disabled');
+			} else if (result.type === 'redirect') {
+				await goto(result.location, { invalidateAll: true });
 			}
-		}
-	});
+		};
+	};
 
 	$effect(() => {
 		endDateValue = new Date(startDateValue.getTime() + fourWeeks);
@@ -240,7 +242,7 @@
 	</section>
 {/snippet}
 
-<form {...enhancer}>
+<form method="post" use:enhance={enhancer} action="/administration/season?/create">
 	<MultiStepForm
 		{submit}
 		steps={[

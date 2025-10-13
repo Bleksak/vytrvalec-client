@@ -1,10 +1,12 @@
 <script lang="ts">
 	import ImageForm from '$components/forms/ImageForm.svelte';
-	import { updateActivityAction } from '$remote/activity.remote';
 	import { locales } from '$paraglide/runtime';
 	import { m } from '$paraglide/messages';
 	import type { ActivityDTO } from '$lib/DTO/ActivityDTO';
 	import Heading from '$components/Heading.svelte';
+	import { enhance } from '$app/forms';
+	import type { SubmitFunction } from '@sveltejs/kit';
+	import { goto } from '$app/navigation';
 
 	const { activity }: { activity: ActivityDTO } = $props();
 
@@ -12,17 +14,19 @@
 
 	let errors: Record<string, string> = $state({});
 
-	const enhancer = updateActivityAction.enhance(async ({ form, submit }) => {
-		try {
-			await submit();
-			form.reset();
-		} catch (data: any) {
-			const body = data.body as App.Error;
-			if (body.errors) {
-				errors = body.errors;
+	const enhancer: SubmitFunction = ({ submitter }) => {
+		submitter?.setAttribute('disabled', 'disabled');
+
+		return async ({ result }) => {
+			if (result.type === 'failure') {
+				errors = result.data as any;
+
+				submitter?.removeAttribute('disabled');
+			} else if (result.type === 'redirect') {
+				await goto(result.location, { invalidateAll: true });
 			}
-		}
-	});
+		};
+	};
 </script>
 
 <article>
@@ -40,7 +44,7 @@
 	</section>
 
 	<section>
-		<form {...enhancer} enctype="multipart/form-data">
+		<form use:enhance={enhancer} action="/administration/activity?/update" method="post">
 			<input type="hidden" name="id" value={activity.id} />
 			{#if imageUuid}
 				<input type="hidden" name="icon" value={imageUuid} />

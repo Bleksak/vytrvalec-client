@@ -3,12 +3,11 @@ import type { SeasonDTO } from '$lib/DTO/SeasonDTO';
 import type { SubmissionCreateResponse } from '$lib/DTO/SubmissionCreateResponse';
 import type {
 	SubmissionDTO,
-	ProfileSubmissionResponseDTO,
 	SubmissionResponseAdminDTO,
 	SubmissionResponseDTO
 } from '$lib/DTO/SubmissionDTO';
 import type { SubmissionStateDTO, SubmissionStateResponse } from '$lib/DTO/SubmissionStateDTO';
-import axios, { type AxiosResponse } from 'axios';
+import axios, { type AxiosInstance, type AxiosResponse } from 'axios';
 import type { SelectedFilter } from '$lib/DTO/SelectedFilter';
 import type { FacultyDTO } from '$lib/DTO/FacultyDTO';
 
@@ -166,16 +165,12 @@ export const deleteSubmission = async (submissionId: number): Promise<boolean> =
 };
 
 export const fetchUserSubmissions = async (
-	activities: Promise<Array<ActivityDTO>> | Array<ActivityDTO>
-): Promise<ProfileSubmissionResponseDTO[]> => {
-	const activitiesData = activities instanceof Promise ? await activities : activities;
-
-	return ((await axios.get(`/submission/user`).catch(() => null))?.data ?? []).map(
-		(submission: { date: string | Date; activity: number | ActivityDTO }) => {
+	api: AxiosInstance,
+): Promise<SubmissionResponseDTO[]> => {
+	return ((await api.get(`/submission/user`).catch(() => null))?.data ?? []).map(
+		(submission: { date: string | Date }) => {
 			submission.date = new Date(submission.date);
-			submission.activity = activitiesData.find(
-				(activity: ActivityDTO) => activity.id === submission.activity
-			)!;
+
 			return submission;
 		}
 	);

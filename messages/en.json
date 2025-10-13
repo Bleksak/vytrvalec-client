@@ -4,7 +4,11 @@
 		"activity": {
 			"errors": {
 				"min_elevation": {
-					"string.integer.parse": "Elevation must be an integer",
+					"string": {
+						"integer": {
+							"parse": "Elevation must be an integer"
+						}
+					},
 					"negative": "Elevation must be non-negative integer"
 				},
 				"translations,name,cs": {
@@ -14,7 +18,11 @@
 					"min_length": "Name cannot be empty"
 				},
 				"icon": {
-					"string.uuid.v7": "Invalid image"
+					"string": {
+						"uuid": {
+							"v7": "Invalid image"
+						}
+					}
 				}
 			}
 		},
@@ -44,7 +52,11 @@
 		"charity": {
 			"errors": {
 				"icon": {
-					"string.uuid.v7": "Invalid image"
+					"string": {
+						"uuid": {
+							"v7": "Invalid image"
+						}
+					}
 				},
 				"translations,name,cs": {
 					"min_length": "Name cannot be empty"
@@ -60,6 +72,12 @@
 				},
 				"website": {
 					"union": "Website must be a valid URL address"
+				},
+				"translations,name": {
+					"min_length": "The name cannot be empty."
+				},
+				"translations,description": {
+					"min_length": "Description cannot be empty"
 				}
 			}
 		}

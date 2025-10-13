@@ -387,7 +387,7 @@ type RootTranslation = {
 			 */
 			title: string
 			/**
-			 * Z​a​p​o​m​n​ě​l​i​ ​j​s​t​e​ ​h​e​s​l​o​?
+			 * Z​a​p​o​m​e​n​u​t​é​ ​h​e​s​l​o
 			 */
 			prompt: string
 			/**
@@ -1478,7 +1478,7 @@ export type TranslationFunctions = {
 			 */
 			title: () => LocalizedString
 			/**
-			 * Zapomněli jste heslo?
+			 * Zapomenuté heslo
 			 */
 			prompt: () => LocalizedString
 			/**

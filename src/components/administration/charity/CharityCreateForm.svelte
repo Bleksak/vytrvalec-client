@@ -1,32 +1,35 @@
 <script lang="ts">
 	import ImageForm from '$components/forms/ImageForm.svelte';
-	import { createCharityAction } from '$remote/charity.remote';
 	import { locales } from '$paraglide/runtime';
 	import { m } from '$paraglide/messages';
 	import Heading from '$components/Heading.svelte';
+	import type { SubmitFunction } from '@sveltejs/kit';
+	import { goto } from '$app/navigation';
+	import { enhance } from '$app/forms';
 
 	let imageUuid = $state(null);
 	let errors: Record<string, string> = $state({});
 
 	let submitButtonDisabled = $state(false);
 
-	const enhancer = createCharityAction.enhance(async ({ form, submit }) => {
-		try {
-			submitButtonDisabled = true;
-			await submit();
-			form.reset();
-		} catch (data: any) {
-			const body = data.body as App.Error;
-			if (body.errors) {
-				errors = body.errors;
-			}
-		}
+	const enhancer: SubmitFunction = async ({ submitter }) => {
+		submitter?.setAttribute('disabled', 'disabled');
+		submitButtonDisabled = true;
 
-		submitButtonDisabled = false;
-	});
+		return async ({ result }) => {
+			if (result.type === 'failure') {
+				errors = result.data as any;
+
+				submitter?.removeAttribute('disabled');
+				submitButtonDisabled = false;
+			} else if (result.type === 'redirect') {
+				await goto(result.location, { invalidateAll: true });
+			}
+		};
+	};
 </script>
 
-<form {...enhancer}>
+<form method="post" action="/administration/charity?/create" use:enhance={enhancer}>
 	<article>
 		<Heading>
 			<h1>Nová charita</h1>

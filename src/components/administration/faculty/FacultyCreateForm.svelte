@@ -1,29 +1,30 @@
 <script lang="ts">
 	import { locales } from '$paraglide/runtime';
 	import { m } from '$paraglide/messages';
-	import { createFacultyAction } from '$remote/faculty.remote';
-	import type { SvelteMap } from 'svelte/reactivity';
-	import type { FacultyDTO } from '$lib/DTO/FacultyDTO';
 	import Checkbox from '$components/FormComponent/Checkbox.svelte';
 	import Heading from '$components/Heading.svelte';
-
-	const { faculties }: { faculties: SvelteMap<number, FacultyDTO> } = $props();
+	import type { SubmitFunction } from '@sveltejs/kit';
+	import { goto } from '$app/navigation';
+	import { enhance } from '$app/forms';
 
 	let errors: Record<string, string> = $state({});
 	let submitButtonDisabled = $state(false);
 
-	const enhancer = createFacultyAction.enhance(async ({ form, submit }) => {
-		try {
-			submitButtonDisabled = true;
-			await submit();
-			form.reset();
-		} catch (data: any) {
-			const body = data.body as App.Error;
-			errors = body.errors ?? {};
-		}
+	const enhancer: SubmitFunction = async ({ submitter }) => {
+		submitter?.setAttribute('disabled', 'disabled');
+		submitButtonDisabled = true;
 
-		submitButtonDisabled = false;
-	});
+		return async ({ result }) => {
+			if (result.type === 'failure') {
+				errors = result.data as any;
+
+				submitter?.removeAttribute('disabled');
+				submitButtonDisabled = false;
+			} else if (result.type === 'redirect') {
+				await goto(result.location);
+			}
+		};
+	};
 </script>
 
 <article>
@@ -31,7 +32,7 @@
 		<h1>Nové pracoviště</h1>
 	</Heading>
 	<section>
-		<form {...enhancer}>
+		<form use:enhance={enhancer} method="post" action="/administration/faculty?/create">
 			{#each locales as locale}
 				<fieldset>
 					<label for="name_{locale}">Název fakulty ({locale})</label>

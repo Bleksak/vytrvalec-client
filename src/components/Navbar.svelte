@@ -1,6 +1,6 @@
 <script lang="ts">
 	import LL, { setLocale } from '$translations/i18n-svelte';
-	import { getAllContexts, getContext, onMount } from 'svelte';
+	import { getAllContexts, getContext } from 'svelte';
 	import LoginForm from './forms/LoginForm.svelte';
 	import RegistrationForm from './forms/RegistrationForm.svelte';
 	import type { DialogStore } from '$lib/stores/DialogStore.svelte';
@@ -13,10 +13,12 @@
 	import type { SeasonDTO } from '$lib/DTO/SeasonDTO';
 	import type { UserResponse } from '$lib/DTO/UserResponse';
 	import { UserRole } from '$lib/DTO/UserRole';
-	import { crossfade, draw, fade, fly, scale, slide } from 'svelte/transition';
+	import { slide } from 'svelte/transition';
 
 	const { currentSeason, user }: { currentSeason: SeasonDTO | null; user: UserResponse | null } =
 		$props();
+
+	$inspect(currentSeason);
 
 	const dialogStore = getContext<DialogStore>(Store.DIALOG_STORE);
 	const context = getAllContexts();
@@ -108,7 +110,7 @@
 							{$LL.navbar.profile()}
 						</a>
 					</li>
-					{#if currentSeason !== null}
+					{#if currentSeason}
 						<li>
 							<button onclick={() => dialogStore.open(SubmissionForm, {}, context)}>
 								{$LL.navbar.submission()}

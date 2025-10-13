@@ -1,11 +1,18 @@
 <script lang="ts">
+	import type { ActivityDTO } from '$lib/DTO/ActivityDTO';
 	import type { UserStatisticsDTO } from '$lib/DTO/StatisticsDTO';
+	import type { SvelteMap } from 'svelte/reactivity';
 
-	const { userStats }: { userStats: UserStatisticsDTO } = $props();
+	const {
+		userStats,
+		activities
+	}: { userStats: UserStatisticsDTO; activities: SvelteMap<number, ActivityDTO> } = $props();
+
+	const activity = $derived(activities.get(userStats.activity)!);
 </script>
 
 <div class="stat">
-	<h5>{userStats.activity.name.cs}</h5>
+	<h5>{activity.name.cs}</h5>
 	<div class="stat-distance">
 		<img class="icon" src="/images/icons/distance-blue.svg" alt="Distance" />
 		<span>{Number(userStats.distance / 1000).toFixed(1)} km</span>
@@ -26,8 +33,7 @@
 	}
 
 	span {
-		color: #005cab;
 		font-size: 1.4rem;
-		font-weight: 100;
+		font-weight: normal;
 	}
 </style>
