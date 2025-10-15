@@ -3,7 +3,7 @@
 	import type { SubmissionCreateError } from '$lib/DTO/SubmissionCreateResponse';
 	import type { SubmitFunction } from '@sveltejs/kit';
 	import type { ToastStore } from '$lib/stores/ToastStore.svelte';
-	import type { ProfileSubmissionResponseDTO } from '$lib/DTO/SubmissionDTO';
+	import type { SubmissionResponseDTO } from '$lib/DTO/SubmissionDTO';
 	import Dialog from '$components/Dialog.svelte';
 	import Button from '$components/Button.svelte';
 	import Select from '$components/FormComponent/Select.svelte';
@@ -20,9 +20,11 @@
 		disabled,
 		...props
 	}: {
-		submission: ProfileSubmissionResponseDTO;
+		submission: SubmissionResponseDTO;
 		disabled?: boolean;
 	} & HTMLDialogAttributes = $props();
+
+	console.log('submission :>> ', submission);
 
 	const activityStore = getContext<ActivityStore>(Store.ACTIVITY_STORE);
 	const refetchSubmissions = getGlobalContext<() => void>('refetchSubmissions');
@@ -123,14 +125,11 @@
 		{#await activityStore.promise()}
 			<span>Načítání</span>
 		{:then activities}
-			<Select
-				name="activity"
-				id="activity"
-				keys={activities.map((a) => a.name.cs)}
-				values={activities.map((a) => a.id)}
-				currentValue={submission.activity.id}
-				{disabled}
-			/>
+			<select name="activity" id="activity">
+				{#each activities as activity}
+					<option value={activity.id}>{activity.name.cs}</option>
+				{/each}
+			</select>
 		{/await}
 
 		{#if !disabled}
