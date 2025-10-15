@@ -220,6 +220,7 @@ const cs = {
 		invalid_info: 'Pokud některé údaje nesedí, kontaktujte nás na email vytrvale@ntis.zcu.cz',
 		save: 'Uložit',
 		success: 'Údaje byly úspěšně změněny',
+		danger_zone: 'Nebezpečná zóna',
 		emailing: {
 			description: 'Přeji si dostávat emaily',
 			success: 'Odebírání emailů úspěšně změněno',

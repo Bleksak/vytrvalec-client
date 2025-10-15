@@ -617,6 +617,10 @@ type RootTranslation = {
 		 * Ú​d​a​j​e​ ​b​y​l​y​ ​ú​s​p​ě​š​n​ě​ ​z​m​ě​n​ě​n​y
 		 */
 		success: string
+		/**
+		 * N​e​b​e​z​p​e​č​n​á​ ​z​ó​n​a
+		 */
+		danger_zone: string
 		emailing: {
 			/**
 			 * P​ř​e​j​i​ ​s​i​ ​d​o​s​t​á​v​a​t​ ​e​m​a​i​l​y
@@ -1708,6 +1712,10 @@ export type TranslationFunctions = {
 		 * Údaje byly úspěšně změněny
 		 */
 		success: () => LocalizedString
+		/**
+		 * Nebezpečná zóna
+		 */
+		danger_zone: () => LocalizedString
 		emailing: {
 			/**
 			 * Přeji si dostávat emaily

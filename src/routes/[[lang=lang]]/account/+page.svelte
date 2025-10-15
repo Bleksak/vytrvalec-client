@@ -17,6 +17,7 @@
 	import LL from '$translations/i18n-svelte';
 	import type { SubmitFunction } from '@sveltejs/kit';
 	import { getAllContexts, getContext } from 'svelte';
+	import Heading from '$components/Heading.svelte';
 
 	const currentUser: UserResponse = $derived(page.data.user);
 	const context = getAllContexts();
@@ -82,105 +83,151 @@
 	};
 </script>
 
-<div class="account-settings section">
-	<div class="container section">
-		<div class="section">
+<main>
+	<article>
+		<Heading>
 			<div class="user">
-				<h4>
-					{currentUser.first_name}
-					{currentUser.last_name}
-				</h4>
+				<h4>{currentUser.first_name} {currentUser.last_name}</h4>
 				<FacultyTag facultyShortcut={currentUser.faculty.shortcut} />
 			</div>
-			<strong>{$LL.account.email()}:</strong><span>{` ${currentUser.email}`}</span>
-			<div class="mailing">
-				<strong>{$LL.account.emailing.description()}: </strong>
-				<Switch checked={currentUser.mailing} onChange={handleSubscribtionChange} />
-			</div>
-			<div class="section btn-container">
+		</Heading>
+		<main>
+			<section class="account-info">
+				<div class="row">
+					<div class="email">
+						<strong>{$LL.account.email()}:</strong>
+						<span>{currentUser.email}</span>
+					</div>
+
+					<div class="mailing">
+						<strong>{$LL.account.emailing.description()}:</strong>
+						<Switch checked={currentUser.mailing} onChange={handleSubscribtionChange} />
+					</div>
+				</div>
+			</section>
+			<section class="form-section">
+				<form method="post" action="/auth?/account" use:enhance={enhancer}>
+					<h5>{$LL.account.password_change()}</h5>
+					<div class="form-field">
+						<label for="old_password">{$LL.account.old_password()}: </label>
+						{#each errors.old_password ?? [] as error}
+							<span class="error">
+								{$LL.account.errors.old_password[
+									error as keyof typeof $LL.account.errors.old_password
+								]()}
+							</span>
+						{/each}
+						<input type="password" name="old_password" id="old_password" bind:value={oldPassword} />
+					</div>
+					<div class="form-field">
+						<label for="password">{$LL.account.password()}: </label>
+						{#each errors.password ?? [] as error}
+							<span class="error">
+								{$LL.account.errors.password[error as keyof typeof $LL.account.errors.password]()}
+							</span>
+						{/each}
+						<input type="password" name="password" id="password" bind:value={password} />
+						<PasswordProgress {strength} />
+					</div>
+					<div class="form-field">
+						<label for="password_repeat">{$LL.account.password_repeat()}: </label>
+						{#each errors.password_repeat ?? [] as error}
+							<span class="error">
+								{$LL.account.errors.password_repeat[
+									error as keyof typeof $LL.account.errors.password_repeat
+								]()}
+							</span>
+						{/each}
+						<input
+							type="password"
+							name="password_repeat"
+							id="password_repeat"
+							bind:value={passwordRepeat}
+						/>
+					</div>
+					<div>
+						<span class="note">{$LL.account.invalid_info()}</span>
+					</div>
+					<div class="submit-row">
+						<Button type="submit">{$LL.account.save()}</Button>
+					</div>
+				</form>
+			</section>
+		</main>
+		<section class="card danger-zone">
+			<h3>{$LL.account.danger_zone()}</h3>
+			<div class="actions">
 				<Button onclick={openAnonymizationDialog}>{$LL.anonym.title()}</Button>
-				<Button onclick={openDeleteAccDialog} class="danger">{$LL.account.delete.title()}</Button>
+				<Button onclick={openDeleteAccDialog} class="danger">
+					{$LL.account.delete.title()}
+				</Button>
 			</div>
-		</div>
-
-		<form method="post" action="/auth?/account" use:enhance={enhancer}>
-			<h5>{$LL.account.password_change()}</h5>
-			<div class="form-field">
-				<label for="old_password">{$LL.account.old_password()}: </label>
-				{#each errors.old_password ?? [] as error}
-					<span class="error">
-						{$LL.account.errors.old_password[
-							error as keyof typeof $LL.account.errors.old_password
-						]()}
-					</span>
-				{/each}
-				<input type="password" name="old_password" id="old_password" bind:value={oldPassword} />
-			</div>
-
-			<div class="form-field">
-				<label for="password">{$LL.account.password()}: </label>
-				{#each errors.password ?? [] as error}
-					<span class="error">
-						{$LL.account.errors.password[error as keyof typeof $LL.account.errors.password]()}
-					</span>
-				{/each}
-				<input type="password" name="password" id="password" bind:value={password} />
-				<PasswordProgress {strength} />
-			</div>
-
-			<div class="form-field">
-				<label for="password_repeat">{$LL.account.password_repeat()}: </label>
-				{#each errors.password_repeat ?? [] as error}
-					<span class="error">
-						{$LL.account.errors.password_repeat[
-							error as keyof typeof $LL.account.errors.password_repeat
-						]()}
-					</span>
-				{/each}
-				<input
-					type="password"
-					name="password_repeat"
-					id="password_repeat"
-					bind:value={passwordRepeat}
-				/>
-			</div>
-
-			<span class="note">{$LL.account.invalid_info()}</span>
-			<Button type="submit">{$LL.account.save()}</Button>
-		</form>
-	</div>
-</div>
+		</section>
+	</article>
+</main>
 
 <style>
-	.account-settings {
-		align-items: center;
-		justify-content: center;
-		margin-bottom: 40px;
-		padding: 0 30px;
-	}
-
 	.user {
 		display: flex;
-		gap: 10px;
-		align-items: center;
-		align-self: flex-start;
+		align-items: center; 
+		gap: 0.5rem;        
 	}
-
+	.user h4 {
+		margin: 0;        
+	}
+	.account-info .row {
+		display: flex;
+		justify-content: space-between;
+		align-items: center;
+		gap: 2rem;
+	}
+	.email {
+		display: flex;
+		gap: 0.5rem;
+		align-items: center;
+	}
 	.mailing {
 		display: flex;
+		gap: 0.5rem;
 		align-items: center;
+		white-space: nowrap;
 	}
-
-	.section {
+	.danger-zone {
+		border: 1px solid #e74c3c;
+		background: #fff5f5;
+		color: #b00020;
+	}
+	.danger-zone {
+		border: 2px dashed #e74c3c;
+		border-radius: 8px;
+		padding: 1rem;
+		background: #e74c3c1a;
+		color: #e74c3c;
 		display: flex;
 		flex-direction: column;
+		gap: 1rem;
 	}
 
-	.container {
-		gap: 50px;
+	.danger-zone h3 {
+		margin: 0;
+		font-size: 1rem;
+		font-weight: 600;
+		color: inherit;
 	}
 
-	.btn-container {
-		gap: 10px;
+	.actions {
+		display: flex;
+		gap: 1rem;
+	}
+
+	.form-section {
+		border-top: 1px solid #005cab1a; 
+		margin-top: 1rem;
+		padding-top: 1rem;
+	}
+	.submit-row {
+		display: flex;
+		justify-content: center;
+		margin-top: 1rem;
 	}
 </style>

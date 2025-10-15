@@ -15,7 +15,7 @@
 	<article>
 		<Heading>
 			<div class="user-row">
-				<div class="user ">
+				<div class="user">
 					<h2>
 						{data.user.first_name} {data.user.last_name}
 					</h2>

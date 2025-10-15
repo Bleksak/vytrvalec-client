@@ -210,6 +210,7 @@ const en = {
 		invalid_info: "If there's any incorrect info, please contact us via email vytrvale@ntis.zcu.cz",
 		save: 'Save',
 		success: 'Account details were successfully updated',
+		danger_zone: 'Danger zone',
 		emailing: {
 			description: 'I wish to receive emails',
 			success: 'Email subscribtion changed successfully',

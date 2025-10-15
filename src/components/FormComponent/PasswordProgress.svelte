@@ -1,45 +1,67 @@
 <script lang="ts">
 	import LL from '$translations/i18n-svelte';
 
-	let { strength } : { strength: number } = $props();
+	let { strength }: { strength: number } = $props();
 </script>
 
-<small class="strength-{strength}">
-	{$LL.registration.password_strength_label[
-		strength as unknown as keyof typeof $LL.registration.password_strength_label]()}
-</small>
+<div class="strength-bar">
+	<div class="fill strength-{strength}">
+		<span>
+			{$LL.registration.password_strength_label[
+				strength as unknown as keyof typeof $LL.registration.password_strength_label
+			]()}
+		</span>
+	</div>
+</div>
 
 <style>
-    small {
-		color: white;
-		font-weight: bold;
-		border-radius: 10px;
-		padding: 3px;
+	.strength-bar {
+		position: relative;
+		width: 100%; 
+		max-width: 500px; 
+		height: 1.2rem; 
+		background: #202632;
+		border-radius: 9999px;
+		overflow: hidden;
+		font-weight: 600;
+	}
+
+	.fill {
+		position: absolute;
+		left: 0;
+		top: 0;
+		bottom: 0;
 		display: flex;
+		align-items: center;
 		justify-content: center;
+		border-radius: inherit;
+		color: #fff;
+		transition: width 0.3s ease, background-color 0.3s ease;
+		font-size: 0.9rem;
 	}
 	.strength-0 {
-		width: fit-content;
-		background-color: red
+		width: 25%;
+		background: #d32f2f;
 	}
 	.strength-1 {
-		width: 30%;
-		background-color: orange
+		width: 40%;
+		background: #f57c00;
 	}
 	.strength-2 {
-		width: 50%;
-		background-color: greenyellow
+		width: 55%;
+		background: #fbc02d;
+		color: #222;
 	}
 	.strength-3 {
 		width: 70%;
-		background-color: lime
+		background: #8bc34a;
 	}
 	.strength-4 {
-		width: 90%;
-		background-color: green
+		width: 85%;
+		background: #388e3c;
 	}
 	.strength-5 {
 		width: 100%;
-		background-color: turquoise;
+		background: linear-gradient(90deg, #2e7d32, #26c6da);
 	}
 </style>
