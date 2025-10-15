@@ -46,11 +46,11 @@
 			<p>
 				{$LL.homepage.intro()}
 			</p>
-			<a href="/{page.data.lang}/rules">
-				<Button class="secondary">{$LL.rules.title().toUpperCase()}</Button>
+			<a role="button" class="secondary" href="/{page.data.lang}/rules">
+				{$LL.rules.title().toUpperCase()}
 			</a>
-			<a href="/{page.data.lang}/results">
-				<Button>{$LL.results.results().toLocaleUpperCase()}</Button>
+			<a role="button" href="/{page.data.lang}/results">
+				{$LL.results.results().toLocaleUpperCase()}
 			</a>
 		</article>
 		<article>
