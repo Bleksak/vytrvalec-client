@@ -6,7 +6,6 @@
 	import type { SubmissionResponseDTO } from '$lib/DTO/SubmissionDTO';
 	import Dialog from '$components/Dialog.svelte';
 	import Button from '$components/Button.svelte';
-	import Select from '$components/FormComponent/Select.svelte';
 	import LL from '$translations/i18n-svelte';
 	import { getContext } from 'svelte';
 	import { enhance } from '$app/forms';
@@ -23,8 +22,6 @@
 		submission: SubmissionResponseDTO;
 		disabled?: boolean;
 	} & HTMLDialogAttributes = $props();
-
-	console.log('submission :>> ', submission);
 
 	const activityStore = getContext<ActivityStore>(Store.ACTIVITY_STORE);
 	const refetchSubmissions = getGlobalContext<() => void>('refetchSubmissions');
@@ -70,11 +67,7 @@
 </script>
 
 <Dialog bind:this={dialog} header={$LL.submission.editingTitle()} {...props}>
-	<form
-		method="POST"
-		action="/submission?/patch"
-		use:enhance={onSubmit}
-	>
+	<form method="POST" action="/submission?/patch" use:enhance={onSubmit}>
 		<input type="hidden" name="id" value={submission.id} />
 		<input type="hidden" name="updated_at" value={submission.updated_at} />
 		<input type="hidden" name="image_uuid" value={imageUuid} />

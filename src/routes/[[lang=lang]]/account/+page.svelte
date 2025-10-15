@@ -4,7 +4,6 @@
 	import { page } from '$app/state';
 	import Button from '$components/Button.svelte';
 	import PasswordProgress from '$components/FormComponent/PasswordProgress.svelte';
-	import Switch from '$components/Switch.svelte';
 	import DeleteAccountForm from '$components/forms/DeleteAccountForm.svelte';
 	import AnonymizationForm from '$components/forms/AnonymizationForm.svelte';
 	import FacultyTag from '$components/profile/FacultyTag.svelte';
@@ -27,11 +26,7 @@
 	let oldPassword = $state<string>('');
 	let errors = $state<AccountChangeErrors>({});
 
-	let strength = $state<number>(0);
-
-	$effect(() => {
-		strength = PasswordEstimator.estimateStrength(password);
-	});
+	const strength = $derived(PasswordEstimator.estimateStrength(password));
 
 	const toastStore = getContext<ToastStore>(Store.TOAST_STORE);
 	const dialogStore = getContext<DialogStore>(Store.DIALOG_STORE);
@@ -92,23 +87,27 @@
 			</div>
 		</Heading>
 		<main>
-			<section class="account-info">
-				<div class="row">
-					<div class="email">
-						<strong>{$LL.account.email()}:</strong>
-						<span>{currentUser.email}</span>
-					</div>
+			<section class="grid">
+				<div class="email">
+					<strong>{$LL.account.email()}:</strong>
+					<span>{currentUser.email}</span>
+				</div>
 
-					<div class="mailing">
-						<strong>{$LL.account.emailing.description()}:</strong>
-						<Switch checked={currentUser.mailing} onChange={handleSubscribtionChange} />
-					</div>
+				<div class="mailing">
+					<strong>{$LL.account.emailing.description()}:</strong>
+					<input
+						type="checkbox"
+						role="switch"
+						checked={currentUser.mailing}
+						onchange={handleSubscribtionChange}
+					/>
 				</div>
 			</section>
-			<section class="form-section">
+			<hr />
+			<section>
 				<form method="post" action="/auth?/account" use:enhance={enhancer}>
-					<h5>{$LL.account.password_change()}</h5>
-					<div class="form-field">
+					<h2>{$LL.account.password_change()}</h2>
+					<fieldset>
 						<label for="old_password">{$LL.account.old_password()}: </label>
 						{#each errors.old_password ?? [] as error}
 							<span class="error">
@@ -118,8 +117,8 @@
 							</span>
 						{/each}
 						<input type="password" name="old_password" id="old_password" bind:value={oldPassword} />
-					</div>
-					<div class="form-field">
+					</fieldset>
+					<fieldset>
 						<label for="password">{$LL.account.password()}: </label>
 						{#each errors.password ?? [] as error}
 							<span class="error">
@@ -128,8 +127,8 @@
 						{/each}
 						<input type="password" name="password" id="password" bind:value={password} />
 						<PasswordProgress {strength} />
-					</div>
-					<div class="form-field">
+					</fieldset>
+					<fieldset>
 						<label for="password_repeat">{$LL.account.password_repeat()}: </label>
 						{#each errors.password_repeat ?? [] as error}
 							<span class="error">
@@ -144,17 +143,13 @@
 							id="password_repeat"
 							bind:value={passwordRepeat}
 						/>
-					</div>
-					<div>
-						<span class="note">{$LL.account.invalid_info()}</span>
-					</div>
-					<div class="submit-row">
-						<Button type="submit">{$LL.account.save()}</Button>
-					</div>
+					</fieldset>
+					<div class="note">{$LL.account.invalid_info()}</div>
+					<Button type="submit">{$LL.account.save()}</Button>
 				</form>
 			</section>
 		</main>
-		<section class="card danger-zone">
+		<section class="danger-zone">
 			<h3>{$LL.account.danger_zone()}</h3>
 			<div class="actions">
 				<Button onclick={openAnonymizationDialog}>{$LL.anonym.title()}</Button>
@@ -167,36 +162,22 @@
 </main>
 
 <style>
+	h1 {
+		margin-bottom: 0;
+	}
+
 	.user {
 		display: flex;
-		align-items: center; 
-		gap: 0.5rem;        
-	}
-	.user h1 {
-		margin: 0;        
-	}
-	.account-info .row {
-		display: flex;
-		justify-content: space-between;
 		align-items: center;
-		gap: 2rem;
+		gap: 1rem;
 	}
-	.email {
-		display: flex;
-		gap: 0.5rem;
-		align-items: center;
-	}
-	.mailing {
-		display: flex;
-		gap: 0.5rem;
-		align-items: center;
-		white-space: nowrap;
-	}
+
 	.danger-zone {
 		border: 1px solid #e74c3c;
 		background: #fff5f5;
 		color: #b00020;
 	}
+
 	.danger-zone {
 		border: 2px dashed #e74c3c;
 		border-radius: 8px;
@@ -219,15 +200,5 @@
 		display: flex;
 		gap: 1rem;
 	}
-
-	.form-section {
-		border-top: 1px solid #005cab1a; 
-		margin-top: 1rem;
-		padding-top: 1rem;
-	}
-	.submit-row {
-		display: flex;
-		justify-content: center;
-		margin-top: 1rem;
-	}
 </style>
+

@@ -1,9 +1,9 @@
 <script lang="ts">
 	import { SubmissionStateColorMap } from '$utils/colors';
 	import LL from '$translations/i18n-svelte';
-	import type { ProfileSubmissionResponseDTO } from '$lib/DTO/SubmissionDTO';
+	import type { SubmissionResponseDTO } from '$lib/DTO/SubmissionDTO';
 
-	let { submission } : { submission: ProfileSubmissionResponseDTO } = $props();
+	let { submission } : { submission: SubmissionResponseDTO } = $props();
 
 	const state = submission.reviewed ? (submission.accepted ? 'accepted' : 'rejected') : 'pending';
 </script>
@@ -23,7 +23,7 @@
 		align-items: center;
 		justify-content: center;
 		padding: 2px 8px;
-		border-radius: 6px; 
+		border-radius: 6px;
 		font-size: 0.75rem;
 		font-weight: 500;
 		line-height: 1.2;

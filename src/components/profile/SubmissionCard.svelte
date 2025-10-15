@@ -86,7 +86,12 @@
 					{/if}
 				</div>
 				<div class="meta-item">
-					<img class="icon" src="/images/icons/calendar.svg" alt="Datum nahrání" title="Datum nahrání" />
+					<img
+						class="icon"
+						src="/images/icons/calendar.svg"
+						alt="Datum nahrání"
+						title="Datum nahrání"
+					/>
 					<span>{submission.date.toLocaleDateString()}</span>
 				</div>
 				<img class="icon" src={activity.icon} alt={activity.name.cs} />
@@ -132,13 +137,15 @@
 
 <style>
 	.submission-card {
-		width: 300px; 
+		width: 300px;
 		border-radius: 16px;
 		overflow: hidden;
 		box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
 		background: #111;
 		position: relative;
-		transition: transform 0.25s ease, box-shadow 0.25s ease;
+		transition:
+			transform 0.25s ease,
+			box-shadow 0.25s ease;
 	}
 
 	.submission-card:hover {
@@ -219,7 +226,9 @@
 		display: flex;
 		gap: 10px;
 		opacity: 0;
-		transition: opacity 0.25s ease, transform 0.25s ease;
+		transition:
+			opacity 0.25s ease,
+			transform 0.25s ease;
 	}
 
 	.submission-card:hover .buttons {
@@ -236,7 +245,9 @@
 		cursor: pointer;
 		background: #005cab;
 		color: white;
-		transition: background 0.2s ease, transform 0.2s ease;
+		transition:
+			background 0.2s ease,
+			transform 0.2s ease;
 	}
 
 	.buttons > button:hover {

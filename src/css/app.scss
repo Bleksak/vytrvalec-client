@@ -5,6 +5,11 @@
 	$semantic-root-element: "#root"
 );
 
+html {
+	// TODO(@bleksak,@akasp): domluvit se na nejakym cisle, tohle scaluje velikost celeho webu
+	font-size: 1.1rem;
+}
+
 button[type=submit] {
 	width: auto !important;
 }

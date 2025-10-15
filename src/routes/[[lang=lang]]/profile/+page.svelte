@@ -7,7 +7,6 @@
 	import FacultyTag from '$components/profile/FacultyTag.svelte';
 	import { Settings } from '@lucide/svelte';
 
-
 	const { data } = $props();
 </script>
 
@@ -17,7 +16,8 @@
 			<div class="user-row">
 				<div class="user">
 					<h1>
-						{data.user.first_name} {data.user.last_name}
+						{data.user.first_name}
+						{data.user.last_name}
 					</h1>
 					<FacultyTag facultyShortcut={data.user.faculty.shortcut} />
 				</div>
@@ -48,6 +48,7 @@
 	h1 {
 		margin: 0;
 	}
+
 	.user-row {
 		display: flex;
 		align-items: center;
@@ -58,7 +59,7 @@
 	.user {
 		display: flex;
 		align-items: center;
-		gap: 0.5rem;
+		gap: 1rem;
 	}
 	.submissions {
 		gap: 1rem;
@@ -74,3 +75,4 @@
 		}
 	}
 </style>
+
