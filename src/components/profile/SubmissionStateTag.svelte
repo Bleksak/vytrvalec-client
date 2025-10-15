@@ -19,13 +19,19 @@
 
 <style>
 	.submission-state {
-		padding: 3px 15px;
-		width: fit-content;
+		display: inline-flex;
+		align-items: center;
+		justify-content: center;
+		padding: 2px 8px;
+		border-radius: 6px; 
+		font-size: 0.75rem;
+		font-weight: 500;
+		line-height: 1.2;
+		box-shadow: 0 1px 3px rgba(0, 0, 0, 0.15);
 	}
-
 	.state-text {
-		font-weight: bolder;
-		font-size: 18px;
 		color: #fff;
+		white-space: nowrap;
+		letter-spacing: 0.25px;
 	}
 </style>
