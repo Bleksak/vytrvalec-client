@@ -85,6 +85,10 @@
 						<img class="icon" src="/images/icons/comment.svg" alt="Komentář" title="Komentář" />
 					{/if}
 				</div>
+				<div class="meta-item">
+					<img class="icon" src="/images/icons/calendar.svg" alt="Datum nahrání" title="Datum nahrání" />
+					<span>{submission.date.toLocaleDateString()}</span>
+				</div>
 				<img class="icon" src={activity.icon} alt={activity.name.cs} />
 			</div>
 		</div>
@@ -98,10 +102,6 @@
 				<div class="meta-item">
 					<img class="icon" src="/images/icons/elevation.svg" alt="Převýšení" title="Převýšení" />
 					<span>{submission.elevation} m</span>
-				</div>
-				<div class="meta-item">
-					<img class="icon" src="/images/icons/calendar.svg" alt="Datum nahrání" title="Datum nahrání" />
-					<span>{submission.date.toLocaleDateString()}</span>
 				</div>
 			</div>
 		</div>
