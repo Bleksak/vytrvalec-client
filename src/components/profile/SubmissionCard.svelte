@@ -11,6 +11,7 @@
 	import type { SubmissionResponseDTO } from '$lib/DTO/SubmissionDTO';
 	import type { SvelteMap } from 'svelte/reactivity';
 	import type { ActivityDTO } from '$lib/DTO/ActivityDTO';
+	import { Pencil, Trash } from '@lucide/svelte';
 
 	let {
 		submission,
@@ -108,10 +109,10 @@
 		<div class="buttons">
 			{#if isEditable}
 				<button onclick={() => dialogStore.open(SubmissionEditForm, { submission }, contexts)}>
-					{$LL.submission.form.edit()}
+					<Pencil />
 				</button>
 				<button onclick={handleSubmissionDelete} class="delete">
-					{$LL.submission.form.delete()}
+					<Trash />
 				</button>
 			{:else}
 				<button
