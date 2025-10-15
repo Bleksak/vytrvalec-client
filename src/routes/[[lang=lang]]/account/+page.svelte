@@ -87,7 +87,7 @@
 	<article>
 		<Heading>
 			<div class="user">
-				<h4>{currentUser.first_name} {currentUser.last_name}</h4>
+				<h1>{currentUser.first_name} {currentUser.last_name}</h1>
 				<FacultyTag facultyShortcut={currentUser.faculty.shortcut} />
 			</div>
 		</Heading>
@@ -172,7 +172,7 @@
 		align-items: center; 
 		gap: 0.5rem;        
 	}
-	.user h4 {
+	.user h1 {
 		margin: 0;        
 	}
 	.account-info .row {

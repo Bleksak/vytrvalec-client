@@ -16,9 +16,9 @@
 		<Heading>
 			<div class="user-row">
 				<div class="user">
-					<h2>
+					<h1>
 						{data.user.first_name} {data.user.last_name}
-					</h2>
+					</h1>
 					<FacultyTag facultyShortcut={data.user.faculty.shortcut} />
 				</div>
 				<a href="/{page.data.lang}/account" title="Nastavení účtu">
@@ -45,7 +45,7 @@
 </main>
 
 <style>
-	h2 {
+	h1 {
 		margin: 0;
 		font-size: 1.5rem;
 		font-weight: 600;
