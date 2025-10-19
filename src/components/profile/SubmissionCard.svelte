@@ -94,7 +94,7 @@
 					/>
 					<span>{submission.date.toLocaleDateString()}</span>
 				</div>
-				<img class="icon" src={activity.icon} alt={activity.name.cs} />
+				<img class="icon filter-white" src={activity.icon} alt={activity.name.cs} />
 			</div>
 		</div>
 
