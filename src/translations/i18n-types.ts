@@ -103,7 +103,7 @@ type RootTranslation = {
 			 */
 			title: string
 			/**
-			 * U​Č​A​S​T​N​Í​K​Ů
+			 * Ú​č​a​s​t​n​í​k​ů
 			 */
 			users: string
 		}
@@ -1204,7 +1204,7 @@ export type TranslationFunctions = {
 			 */
 			title: () => LocalizedString
 			/**
-			 * UČASTNÍKŮ
+			 * Účastníků
 			 */
 			users: () => LocalizedString
 		}

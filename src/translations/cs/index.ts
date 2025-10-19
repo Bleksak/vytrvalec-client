@@ -35,7 +35,7 @@ const cs = {
 		title: 'Měsíční Vytrvalec',
 		statistics: {
 			title: 'Statistiky',
-			users: 'UČASTNÍKŮ'
+			users: 'Účastníků'
 		},
 		android: {
 			available: 'Dostupné na Google Play',

@@ -15,17 +15,31 @@
 			</Heading>
 			<div class="grid">
 				<div class="card">
-					<PersonStanding class="card-img" />
-					<h3>{totalStatistics.users}</h3>
-					<h4>{$LL.homepage.statistics.users()}</h4>
+					<PersonStanding class="card-img filter-blue" size="50" />
+					<div class="card-statistics">
+						<span class="stats-numeric">
+							{totalStatistics.users}
+						</span>
+						<span class="stats-heading">
+							{$LL.homepage.statistics.users()}
+						</span>
+					</div>
 				</div>
 				{#each totalStatistics.activities as activityStatistic}
 					<div class="card">
-						<img class="card-img" src={activityStatistic.activity.icon} alt="Statistics icon" />
-						<h3>{(activityStatistic.distance / 1000).toFixed(0)}&nbsp;km</h3>
-						<h4>
-							{activityStatistic.activity.name.cs?.toUpperCase()}
-						</h4>
+						<img
+							class="card-img filter-blue"
+							src={activityStatistic.activity.icon}
+							alt="Statistics icon"
+						/>
+						<div class="card-statistics">
+							<span class="stats-numeric">
+								{(activityStatistic.distance / 1000).toFixed(0)}&nbsp;km
+							</span>
+							<span class="stats-heading">
+								{activityStatistic.activity.name.cs}
+							</span>
+						</div>
 					</div>
 				{/each}
 			</div>
@@ -39,27 +53,30 @@
 		flex-direction: column;
 		justify-content: center;
 		align-items: center;
+		gap: 0.5rem;
 	}
 
-	.card img {
-		width: 100%;
-		max-width: 150px;
+	.card-statistics {
+		display: flex;
+		flex-direction: column;
+		justify-content: center;
+		align-items: center;
+	}
+
+	.card-img {
+		height: 50px;
 	}
 
 	:global(.card-img) {
-		width: 150px;
-		height: 150px;
-		color: white;
+		height: 50px;
 	}
 
-	@media (max-width: 768px) {
-		.card img {
-			max-width: 50px;
-		}
-		:global(.card-img) {
-			width: 50px;
-			height: 50px;
-		}
+	.stats-numeric {
+		font-weight: bold;
+	}
 
+	.stats-heading {
+		color: #888888;
+		font-weight: normal;
 	}
 </style>

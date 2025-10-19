@@ -1,6 +1,5 @@
 <script lang="ts">
 	import { page } from '$app/state';
-	import Button from '$components/Button.svelte';
 	import Stats from '$components/home/Stats.svelte';
 	import { onMount } from 'svelte';
 	import { LL } from '$translations/i18n-svelte';
