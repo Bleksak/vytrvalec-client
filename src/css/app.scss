@@ -52,3 +52,15 @@ button[type=submit] {
 button {
 	margin-bottom: 0 !important;
 }
+
+.filter-blue {
+	filter: brightness(0%) saturate(100%) invert(18%) sepia(80%) saturate(3208%) hue-rotate(192deg) brightness(97%) contrast(111%);
+}
+
+.filter-white {
+	filter: brightness(0%) saturate(100%) invert(80%) sepia(100%) saturate(0%) hue-rotate(211deg) brightness(107%) contrast(101%);
+}
+
+.filter-black {
+	filter: brightness(0%) saturate(100%) invert(0%) sepia(0%) saturate(13%) hue-rotate(195deg) brightness(99%) contrast(100%);
+}
