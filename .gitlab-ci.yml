@@ -4,15 +4,16 @@ variables:
   K8S_VERSION: v1.22.5
   APP: ${CI_REGISTRY_IMAGE}/app:${CI_COMMIT_SHORT_SHA}
   KUSTOMIZE: kustomization/kustomize.yaml
-  SECURE_FILES_DOWNLOAD_PATH: './'
+  SECURE_FILES_DOWNLOAD_PATH: "./"
 
 stages:
   - build
   - deploy
+  - download-env
 
 build application image:
   only:
-      - master
+    - master
   stage: build
   image:
     name: pernodricard/kaniko-alpine:latest
@@ -30,7 +31,7 @@ build application image:
 
 deploy:
   only:
-      - master
+    - master
   stage: deploy
   environment: production
   when: manual
@@ -43,7 +44,7 @@ deploy:
     # - kubectl rollout restart -n vytrvalec-kts deployment vytrvalec-nginx
 
 download-env:
-  stage: build
+  stage: download-env
   before_script:
     - apk --update add curl bash && apk upgrade
     - curl --silent "https://gitlab.com/gitlab-org/incubation-engineering/mobile-devops/download-secure-files/-/raw/main/installer" | bash
