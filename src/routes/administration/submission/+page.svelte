@@ -21,3 +21,4 @@
 {:else}
 	<h1>Nejsou žádné nové příspěvky.</h1>
 {/if}
+

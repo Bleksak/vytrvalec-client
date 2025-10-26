@@ -78,3 +78,4 @@ export const createSeasonDTO = (formData: FormData): CreateSeasonDTO => {
 		charity_id
 	};
 };
+

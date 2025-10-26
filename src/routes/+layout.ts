@@ -42,3 +42,4 @@ export const load: LayoutLoad = async ({ data }) => {
 		jwt: data.jwt
 	};
 };
+

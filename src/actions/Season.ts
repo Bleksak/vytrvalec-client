@@ -116,3 +116,4 @@ export const fetchCurrentSeason = async (api: AxiosInstance): Promise<SeasonDTO 
 
 	return response ? response.data : response;
 };
+

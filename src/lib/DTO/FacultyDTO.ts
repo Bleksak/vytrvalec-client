@@ -68,3 +68,4 @@ export type FacultyUpdateResponse =
 		type: 'error';
 		errors: FacultyCreateError;
 	};
+
