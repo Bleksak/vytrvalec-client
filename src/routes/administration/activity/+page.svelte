@@ -1,6 +1,6 @@
 <script lang="ts">
 	import Heading from '$components/Heading.svelte';
-	import { Edit } from '@lucide/svelte';
+	import { Pencil } from '@lucide/svelte';
 
 	const { data } = $props();
 </script>
@@ -28,7 +28,7 @@
 						<td><img class="icon" src={activity.icon} alt="Ikonka" title="Ikonka" /></td>
 						<td>{activity.min_elevation}</td>
 						<td>
-							<a href="/administration/activity/{activity.id}"><Edit /></a>
+							<a href="/administration/activity/{activity.id}"><Pencil /></a>
 						</td>
 					</tr>
 				{/each}

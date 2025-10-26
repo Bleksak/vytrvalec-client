@@ -106,13 +106,11 @@
 		{/each}
 
 		{#await facultyStore.promise() then faculties}
-			<Select
-				name="faculty_id"
-				id="faculty_id"
-				bind:currentValue={facultyId}
-				keys={faculties.map((f) => $LL.faculties[f.shortcut as keyof typeof $LL.faculties]())}
-				values={faculties.map((f) => f.id)}
-			/>
+			<select bind:value={facultyId} name="faculty_id" id="faculty_id">
+				{#each faculties as faculty}
+					<option value={faculty.id}>{faculty.name.cs}</option>
+				{/each}
+			</select>
 		{:catch}
 			<span class="note">Nebylo možné získat fakulty</span>
 		{/await}
