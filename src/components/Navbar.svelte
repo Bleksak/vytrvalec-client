@@ -18,8 +18,6 @@
 	const { currentSeason, user }: { currentSeason: SeasonDTO | null; user: UserResponse | null } =
 		$props();
 
-	$inspect(currentSeason);
-
 	const dialogStore = getContext<DialogStore>(Store.DIALOG_STORE);
 	const context = getAllContexts();
 
