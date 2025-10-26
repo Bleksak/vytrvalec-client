@@ -64,3 +64,9 @@ button {
 .filter-black {
 	filter: brightness(0%) saturate(100%) invert(0%) sepia(0%) saturate(13%) hue-rotate(195deg) brightness(99%) contrast(100%);
 }
+
+.table-container {
+	width: 100%;
+	overflow-x: auto;
+	-webkit-overflow-scrolling: touch;
+}
