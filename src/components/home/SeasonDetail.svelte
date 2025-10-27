@@ -29,7 +29,7 @@
 		heading?: Snippet;
 	} = $props();
 
-	const winners: Array<Result> = result
+	const winners: Array<Result> = $derived(result
 		.getTotalWinners()
 		.slice(0, 3)
 		.map((value) => {
@@ -38,7 +38,7 @@
 				points: value.points,
 				distance: value.distance
 			};
-		});
+		}));
 
 	const positionText = (position: number): keyof typeof $LL.season_detail.ordinal =>
 		(['first', 'second', 'third'] as Array<keyof typeof $LL.season_detail.ordinal>)[position];
