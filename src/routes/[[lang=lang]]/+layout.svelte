@@ -1,5 +1,6 @@
 <script lang="ts">
 	import { setLocale } from '../../translations/i18n-svelte';
+	import { setLocale as setLocaleParaglide } from '$paraglide/runtime';
 	import { loadAllLocales } from '../../translations/i18n-util.sync';
 	import { page } from '$app/state';
 	import LL from '$translations/i18n-svelte';
@@ -12,6 +13,7 @@
 
 	loadAllLocales();
 	setLocale(lang);
+	setLocaleParaglide(lang, { reload: false });
 </script>
 
 <svelte:head>

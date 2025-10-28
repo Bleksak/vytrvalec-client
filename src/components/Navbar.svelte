@@ -5,11 +5,10 @@
 	import RegistrationForm from './forms/RegistrationForm.svelte';
 	import type { DialogStore } from '$lib/stores/DialogStore.svelte';
 	import Store from '$lib/enums/Stores';
-	import { detectLocale } from '$translations/i18n-util';
 	import SubmissionForm from './forms/SubmissionForm.svelte';
 	import { enhance } from '$app/forms';
 	import { MenuIcon } from '@lucide/svelte';
-	import { getLocale } from '$paraglide/runtime';
+	import { getLocale, setLocale as setLocaleParaglide } from '$paraglide/runtime';
 	import type { SeasonDTO } from '$lib/DTO/SeasonDTO';
 	import type { UserResponse } from '$lib/DTO/UserResponse';
 	import { UserRole } from '$lib/DTO/UserRole';
@@ -21,8 +20,7 @@
 	const dialogStore = getContext<DialogStore>(Store.DIALOG_STORE);
 	const context = getAllContexts();
 
-	let paraglideLocale = $state(getLocale());
-	let currentLocale = $state(detectLocale());
+	let currentLocale = $derived(getLocale());
 
 	let menuToggle = $state<HTMLButtonElement>();
 	let menuOpened = $state(false);
@@ -30,8 +28,8 @@
 
 	function handleLocaleChange() {
 		const selectedLocale = currentLocale === 'cs' ? 'en' : 'cs';
-		currentLocale = selectedLocale;
 		setLocale(selectedLocale);
+		setLocaleParaglide(selectedLocale);
 	}
 
 	function toggleMenuOpen() {

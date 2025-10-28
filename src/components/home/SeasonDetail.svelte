@@ -8,6 +8,7 @@
 	import type { SvelteMap } from 'svelte/reactivity';
 	import Heading from '$components/Heading.svelte';
 	import type { Snippet } from 'svelte';
+	import { getLocale } from '$paraglide/runtime';
 
 	type Result = {
 		faculty: FacultyDTO;
@@ -29,16 +30,20 @@
 		heading?: Snippet;
 	} = $props();
 
-	const winners: Array<Result> = $derived(result
-		.getTotalWinners()
-		.slice(0, 3)
-		.map((value) => {
-			return {
-				faculty: faculties.get(value.faculty)!,
-				points: value.points,
-				distance: value.distance
-			};
-		}));
+	const locale = $derived(getLocale());
+
+	const winners: Array<Result> = $derived(
+		result
+			.getTotalWinners()
+			.slice(0, 3)
+			.map((value) => {
+				return {
+					faculty: faculties.get(value.faculty)!,
+					points: value.points,
+					distance: value.distance
+				};
+			})
+	);
 
 	const positionText = (position: number): keyof typeof $LL.season_detail.ordinal =>
 		(['first', 'second', 'third'] as Array<keyof typeof $LL.season_detail.ordinal>)[position];
@@ -81,7 +86,7 @@
 			{#if season.charity.image}
 				<img
 					src={season.charity.image || '/placeholder.svg'}
-					alt={season.charity.name.cs}
+					alt={season.charity.name[locale]}
 					class="charity-image"
 				/>
 			{:else}
@@ -93,9 +98,9 @@
 		</div>
 		<section class="charity">
 			<article>
-				<h2>{season.charity.name.cs}</h2>
-				{#if season.charity.description.cs}
-					<p>{season.charity.description.cs}</p>
+				<h2>{season.charity.name[getLocale()]}</h2>
+				{#if season.charity.description[locale]}
+					<p>{season.charity.description[locale]}</p>
 				{/if}
 				{#if season.charity.website}
 					<div>
