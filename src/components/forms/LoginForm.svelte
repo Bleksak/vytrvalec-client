@@ -1,5 +1,4 @@
 <script lang="ts">
-	import Button from '$components/Button.svelte';
 	import Dialog from '$components/Dialog.svelte';
 	import { enhance } from '$app/forms';
 	import LL from '$translations/i18n-svelte';

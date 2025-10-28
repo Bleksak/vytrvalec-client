@@ -1,9 +1,7 @@
 <script lang="ts">
 	import Dialog from '$components/Dialog.svelte';
-	import Button from '$components/Button.svelte';
 	import LL from '$translations/i18n-svelte';
 	import type { HTMLDialogAttributes } from 'svelte/elements';
-	import Select from '$components/FormComponent/Select.svelte';
 	import type { SubmissionCreateError } from '$lib/DTO/SubmissionCreateResponse';
 	import type { SubmitFunction } from '@sveltejs/kit';
 	import { getContext } from 'svelte';
@@ -108,9 +106,9 @@
 				{/each}
 			</select>
 		{/await}
-		<Button disabled={!imageUuid}>
+		<button disabled={!imageUuid}>
 			{$LL.submission.form.submit()}
-		</Button>
+		</button>
 	</form>
 </Dialog>
 

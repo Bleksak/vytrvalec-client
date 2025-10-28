@@ -5,7 +5,6 @@
 	import { getContext, onMount, untrack } from 'svelte';
 	import { LL } from '$translations/i18n-svelte';
 	import DateInput from '$components/FormComponent/DateInput.svelte';
-	import Button from '$components/Button.svelte';
 	import type { SubmissionState } from '$lib/enums/SubmissionState';
 	import Select from '$components/FormComponent/Select.svelte';
 	import { page } from '$app/state';
@@ -20,37 +19,50 @@
 	let selectFaculty = $state<Select>();
 	let selectWeek = $state<Select>();
 
-    let filter = $derived(page.data.filter);
+	let filter = $derived(page.data.filter);
 
 	let email = $state<string>();
 	let date = $state<Date>();
 	let _state = $state<string>();
-	let activityValue = $state<number|string>();
+	let activityValue = $state<number | string>();
 
-    onMount(() => {
-        email = filter.user;
-        date = filter.date ? new Date(filter.date) : undefined;
-        _state = filter.accepted === '1' ? 'accepted' : (filter.accepted === '0' ? 'rejected' : (filter.reviewed === undefined ? undefined : 'pending'));
-        activityValue = Number(filter.activity);
-    });
+	onMount(() => {
+		email = filter.user;
+		date = filter.date ? new Date(filter.date) : undefined;
+		_state =
+			filter.accepted === '1'
+				? 'accepted'
+				: filter.accepted === '0'
+					? 'rejected'
+					: filter.reviewed === undefined
+						? undefined
+						: 'pending';
+		activityValue = Number(filter.activity);
+	});
 
-    $effect(() => {
-        selectFaculty;
-        selectWeek;
+	$effect(() => {
+		selectFaculty;
+		selectWeek;
 
-        untrack(() => {
-            selectFaculty?.selectValue(Number(filter.faculty));
-            selectWeek?.selectValue(Number(filter.week));
-        })
-    })
-
+		untrack(() => {
+			selectFaculty?.selectValue(Number(filter.faculty));
+			selectWeek?.selectValue(Number(filter.week));
+		});
+	});
 </script>
 
 <form action={page.url.toString()} method="GET" onsubmit={invalidateAll}>
 	<div class="col">
 		<label for="email">Uživatel (e-mail):</label>
 		<div class="field">
-			<input class="w-100 m-0" name="user" type="text" id="email" autocomplete="off" bind:value={email} />
+			<input
+				class="w-100 m-0"
+				name="user"
+				type="text"
+				id="email"
+				autocomplete="off"
+				bind:value={email}
+			/>
 			<button type="button" onclick={() => (email = undefined)}>
 				<img class="icon" src="/images/icons/x.svg" alt="Odstranit filtr" />
 			</button>
@@ -60,7 +72,7 @@
 	<div class="col">
 		<label for="date">Datum:</label>
 		<div class="field">
-			<DateInput style="flex:1;" class="f-1" id="date" name="date" bind:date={date} />
+			<DateInput style="flex:1;" class="f-1" id="date" name="date" bind:date />
 			<button type="button" onclick={() => (date = undefined)}>
 				<img class="icon" src="/images/icons/x.svg" alt="Odstranit filtr" />
 			</button>
@@ -73,7 +85,14 @@
 			<div class="radio-group">
 				{#each states as state}
 					<div>
-						<input type="radio" name="state" value={state} class="radio" id={`state${state}`} bind:group={_state} />
+						<input
+							type="radio"
+							name="state"
+							value={state}
+							class="radio"
+							id={`state${state}`}
+							bind:group={_state}
+						/>
 						<label for={`state${state}`}>
 							{$LL.submission.state[state as keyof typeof $LL.submission.state]()}
 						</label>
@@ -93,7 +112,14 @@
 				<div class="radio-group">
 					{#each activities as activity}
 						<div>
-							<input name="activity" class="radio" type="radio" value={activity.id} id={`activity${activity.id}`} bind:group={activityValue} />
+							<input
+								name="activity"
+								class="radio"
+								type="radio"
+								value={activity.id}
+								id={`activity${activity.id}`}
+								bind:group={activityValue}
+							/>
 							<label for={`activity${activity.id}`}>{activity.name}</label>
 						</div>
 					{/each}
@@ -127,7 +153,9 @@
 			<div class="field">
 				<Select
 					bind:this={selectFaculty}
-					keys={[undefined, ...faculties].map((f) => f ?$LL.faculties[f.shortcut as keyof typeof $LL.faculties]() : "Nevybráno")}
+					keys={[undefined, ...faculties].map((f) =>
+						f ? $LL.faculties[f.shortcut as keyof typeof $LL.faculties]() : 'Nevybráno'
+					)}
 					values={[undefined, ...faculties].map((f) => (f ? f.id : undefined))}
 					id="faculty"
 					name="faculty"
@@ -139,7 +167,7 @@
 		</div>
 	{/await}
 
-	<Button type="submit">Vyhledat</Button>
+	<button type="submit">Vyhledat</button>
 </form>
 
 <style>

@@ -1,5 +1,4 @@
 <script lang="ts">
-	import Button from '$components/Button.svelte';
 	import Dialog from '$components/Dialog.svelte';
 	import LL from '$translations/i18n-svelte';
 	import { enhance } from '$app/forms';
@@ -46,8 +45,8 @@
 		<p>{$LL.account.delete.desc3()}</p>
 		<p>{$LL.account.delete.desc4()}</p>
 
-		<Button type="submit" class="danger">
+		<button type="submit" class="danger">
 			{$LL.account.delete.submit()}
-		</Button>
+		</button>
 	</form>
 </Dialog>

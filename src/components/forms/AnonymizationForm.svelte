@@ -1,6 +1,5 @@
 <script lang="ts">
 	import { invalidateAll } from '$app/navigation';
-	import Button from '$components/Button.svelte';
 	import Dialog from '$components/Dialog.svelte';
 	import { enhance } from '$app/forms';
 	import LL from '$translations/i18n-svelte';
@@ -59,8 +58,8 @@
 				</span>
 			{/each}
 		</div>
-		<Button type="submit">
+		<button type="submit">
 			{$LL.anonym.submit()}
-		</Button>
+		</button>
 	</form>
 </Dialog>

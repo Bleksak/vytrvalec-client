@@ -1,6 +1,5 @@
 <script lang="ts">
 	import LL from '../translations/i18n-svelte';
-	import Button from './Button.svelte';
 	import { browser } from '$app/environment';
 	import { getCookie } from '$utils/cookies';
 
@@ -24,7 +23,7 @@
 	<div class="container">
 		<h4>{$LL.cookies.title()}</h4>
 		<p>{$LL.cookies.description()}</p>
-		<Button onclick={acceptCookies}>{$LL.cookies.accept()}</Button>
+		<button onclick={acceptCookies}>{$LL.cookies.accept()}</button>
 	</div>
 {/if}
 

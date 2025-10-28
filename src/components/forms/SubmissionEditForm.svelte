@@ -5,7 +5,6 @@
 	import type { ToastStore } from '$lib/stores/ToastStore.svelte';
 	import type { SubmissionResponseDTO } from '$lib/DTO/SubmissionDTO';
 	import Dialog from '$components/Dialog.svelte';
-	import Button from '$components/Button.svelte';
 	import LL from '$translations/i18n-svelte';
 	import { getContext } from 'svelte';
 	import { enhance } from '$app/forms';
@@ -126,9 +125,9 @@
 		{/await}
 
 		{#if !disabled}
-			<Button>
+			<button>
 				{$LL.submission.form.edit()}
-			</Button>
+			</button>
 		{/if}
 	</form>
 </Dialog>

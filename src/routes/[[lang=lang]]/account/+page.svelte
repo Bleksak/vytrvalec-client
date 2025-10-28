@@ -2,7 +2,6 @@
 	import { emailSubscribeChange } from '$actions/Auth';
 	import { enhance } from '$app/forms';
 	import { page } from '$app/state';
-	import Button from '$components/Button.svelte';
 	import PasswordProgress from '$components/FormComponent/PasswordProgress.svelte';
 	import DeleteAccountForm from '$components/forms/DeleteAccountForm.svelte';
 	import AnonymizationForm from '$components/forms/AnonymizationForm.svelte';
@@ -145,17 +144,17 @@
 						/>
 					</fieldset>
 					<div class="note">{$LL.account.invalid_info()}</div>
-					<Button type="submit">{$LL.account.save()}</Button>
+					<button type="submit">{$LL.account.save()}</button>
 				</form>
 			</section>
 		</main>
 		<section class="danger-zone">
 			<h3>{$LL.account.danger_zone()}</h3>
 			<div class="actions">
-				<Button onclick={openAnonymizationDialog}>{$LL.anonym.title()}</Button>
-				<Button onclick={openDeleteAccDialog} class="danger">
+				<button onclick={openAnonymizationDialog}>{$LL.anonym.title()}</button>
+				<button onclick={openDeleteAccDialog} class="danger">
 					{$LL.account.delete.title()}
-				</Button>
+				</button>
 			</div>
 		</section>
 	</article>

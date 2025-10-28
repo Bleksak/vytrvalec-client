@@ -1,6 +1,5 @@
 <script lang="ts">
 	import { page } from '$app/state';
-	import SeasonCreate from '$components/administration/season/SeasonCreate.svelte';
 	import SeasonOverview from '$components/administration/season/SeasonOverview.svelte';
 	import Store from '$lib/enums/Stores';
 	import type { SeasonStore } from '$lib/stores/SeasonStore.svelte';
@@ -14,8 +13,5 @@
 <div>
 	{#if season}
 		<SeasonOverview {season} />
-	{:else}
-		<SeasonCreate />
 	{/if}
 </div>
-

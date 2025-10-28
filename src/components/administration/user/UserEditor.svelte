@@ -3,13 +3,11 @@
 	import LL from '$translations/i18n-svelte';
 	import type { UserResponse } from '$lib/DTO/UserResponse';
 	import type { HTMLDialogAttributes } from 'svelte/elements';
-	import Button from '$components/Button.svelte';
 	import type { SubmitFunction } from '@sveltejs/kit';
 	import { enhance } from '$app/forms';
 	import { getContext } from 'svelte';
 	import type { UserStore } from '$lib/stores/UserStore.svelte';
 	import Checkbox from '$components/FormComponent/Checkbox.svelte';
-	import Select from '$components/FormComponent/Select.svelte';
 	import type { ToastStore } from '$lib/stores/ToastStore.svelte';
 	import type { UserError } from '$lib/DTO/UserEditDTO';
 	import Store from '$lib/enums/Stores';
@@ -118,7 +116,6 @@
 		<Checkbox id="banned" name="banned" bind:checked={banned}>Zablokovaný</Checkbox>
 		<Checkbox id="admin" name="admin" bind:checked={adminChecked}>Administrátor</Checkbox>
 
-		<Button>Upravit</Button>
+		<button>Upravit</button>
 	</form>
 </Dialog>
-

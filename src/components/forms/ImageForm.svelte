@@ -1,6 +1,5 @@
 <script lang="ts">
 	import { uploadImage } from '$actions/Image';
-	import Button from '$components/Button.svelte';
 	import Store from '$lib/enums/Stores';
 	import type { ToastStore } from '$lib/stores/ToastStore.svelte';
 	import LL from '$translations/i18n-svelte';
@@ -10,7 +9,7 @@
 		imageUuid = $bindable(),
 		imageUrl = $bindable(),
 		disabled = false,
-		id = undefined,
+		id = undefined
 	}: {
 		imageUuid: string | undefined | null;
 		imageUrl?: string | null | undefined;
@@ -128,20 +127,14 @@
 		</div>
 
 		{#if !disabled}
-			<Button class="rounded small" type="button" onclick={onUploadClick}>
+			<button class="secondary" type="button" onclick={onUploadClick}>
 				{$LL.submission.form.chooseImage()}
-			</Button>
+			</button>
 		{/if}
 	</div>
 </div>
 
-<input
-	bind:this={fileInput}
-	bind:files={uploadedFiles}
-	id={id}
-	type="file"
-	accept="image/*"
-/>
+<input bind:this={fileInput} bind:files={uploadedFiles} {id} type="file" accept="image/*" />
 
 <style>
 	.dropzone {

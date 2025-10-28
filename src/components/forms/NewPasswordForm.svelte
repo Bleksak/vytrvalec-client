@@ -1,6 +1,5 @@
 <script lang="ts">
 	import { enhance } from '$app/forms';
-	import Button from '$components/Button.svelte';
 	import type { ToastStore } from '$lib/stores/ToastStore.svelte';
 	import LL from '$translations/i18n-svelte';
 	import type { SubmitFunction } from '@sveltejs/kit';
@@ -63,9 +62,9 @@
 	</label>
 	<input type="password" name="passwordRepeat" id="passwordRepeat" />
 
-	<Button>
+	<button>
 		{$LL.reset.submit()}
-	</Button>
+	</button>
 </form>
 
 <style>

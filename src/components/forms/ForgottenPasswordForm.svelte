@@ -1,7 +1,6 @@
 <script lang="ts">
 	import { enhance } from '$app/forms';
 	import { page } from '$app/state';
-	import Button from '$components/Button.svelte';
 	import Dialog from '$components/Dialog.svelte';
 	import type { ForgottenPasswordError } from '$lib/DTO/ForgottenPasswordDTO';
 	import Store from '$lib/enums/Stores';
@@ -61,6 +60,6 @@
 			<input type="email" name="email" id="email" />
 		</div>
 
-		<Button>{$LL.login.forgotten.submit()}</Button>
+		<button>{$LL.login.forgotten.submit()}</button>
 	</form>
 </Dialog>

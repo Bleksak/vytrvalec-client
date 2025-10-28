@@ -1,5 +1,4 @@
 <script lang="ts">
-	import Button from '$components/Button.svelte';
 	import type { ActivityDTO } from '$lib/DTO/ActivityDTO';
 	import type UnreviewedSubmissionStore from '$lib/stores/UnreviewedSubmissionStore.svelte';
 	import { Activity, Calendar, Ruler, TrendingUp, User } from '@lucide/svelte';
@@ -40,7 +39,8 @@
 			<a href={currentSubmission.image} target="_blank">
 				<img
 					src={currentSubmission.image}
-					alt="{activity.name.cs} zaslaná uživatelem {currentUser.first_name} {currentUser.last_name}"
+					alt="{activity.name
+						.cs} zaslaná uživatelem {currentUser.first_name} {currentUser.last_name}"
 				/>
 			</a>
 		</div>
@@ -110,8 +110,8 @@
 			</div>
 
 			<div class="card-footer">
-				<Button class="secondary" onclick={localOnReject} disabled={false}>Zamítnout</Button>
-				<Button onclick={localOnAccept} disabled={false}>Schválit</Button>
+				<button class="secondary" onclick={localOnReject} disabled={false}>Zamítnout</button>
+				<button onclick={localOnAccept} disabled={false}>Schválit</button>
 			</div>
 		</div>
 	</div>
@@ -307,4 +307,3 @@
 		color: #005cab;
 	}
 </style>
-

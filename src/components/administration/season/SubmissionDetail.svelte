@@ -1,6 +1,5 @@
 <script lang="ts">
 	import { enhance } from '$app/forms';
-	import Button from '$components/Button.svelte';
 	import Dialog from '$components/Dialog.svelte';
 	import type { ToastStore } from '$lib/stores/ToastStore.svelte';
 	import type { SubmissionResponseAdminDTO } from '$lib/DTO/SubmissionDTO';
@@ -65,7 +64,9 @@
 		{/each}
 
 		{#await activityStore.promise() then}
-			<p><strong>Aktivita:&nbsp;</strong>{activityStore.get(currentSubmission.activity_id)?.name}</p>
+			<p>
+				<strong>Aktivita:&nbsp;</strong>{activityStore.get(currentSubmission.activity_id)?.name}
+			</p>
 		{/await}
 		<p><strong>Vzdálenost:&nbsp;</strong>{currentSubmission.distance / 1000} km</p>
 		{#if currentSubmission.elevation}
@@ -83,23 +84,23 @@
 
 			<div class="send-buttons">
 				{#if currentSubmission.accepted}
-					<Button class="left danger" name="state" value="0" type="submit">Zamítnout</Button>
-					<Button class="right secondary" name="state" value="1" type="submit">
+					<button class="left danger" name="state" value="0" type="submit">Zamítnout</button>
+					<button class="right secondary" name="state" value="1" type="submit">
 						Upravit zprávu
-					</Button>
+					</button>
 				{:else}
-					<Button class="left" name="state" value="1" type="submit">Schválit</Button>
-					<Button class="right secondary" name="state" value="0" type="submit">
+					<button class="left" name="state" value="1" type="submit">Schválit</button>
+					<button class="right secondary" name="state" value="0" type="submit">
 						Upravit zprávu
-					</Button>
+					</button>
 				{/if}
 			</div>
 		{:else}
 			<label for="message">Komentář:</label>
 			<textarea name="message" id="message"></textarea>
 			<div class="send-buttons">
-				<Button class="left danger" name="state" value="0" type="submit">Zamítnout</Button>
-				<Button class="right" name="state" value="1" type="submit">Schválit</Button>
+				<button class="left danger" name="state" value="0" type="submit">Zamítnout</button>
+				<button class="right" name="state" value="1" type="submit">Schválit</button>
 			</div>
 		{/if}
 	</form>

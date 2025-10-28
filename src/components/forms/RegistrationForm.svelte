@@ -1,12 +1,10 @@
 <script lang="ts">
-	import Button from '$components/Button.svelte';
 	import Dialog from '$components/Dialog.svelte';
 	import { enhance } from '$app/forms';
 	import LL from '$translations/i18n-svelte';
 	import type { SubmitFunction } from '@sveltejs/kit';
 	import type { HTMLDialogAttributes } from 'svelte/elements';
 	import Checkbox from '$components/FormComponent/Checkbox.svelte';
-	import Select from '$components/FormComponent/Select.svelte';
 	import type { RegistrationError } from '$lib/DTO/UserRegisterResponse';
 	import { getContext } from 'svelte';
 	import type { ToastStore } from '$lib/stores/ToastStore.svelte';
@@ -167,7 +165,7 @@
 		</fieldset>
 
 		<fieldset>
-			<Button>{$LL.registration.submit()}</Button>
+			<button>{$LL.registration.submit()}</button>
 		</fieldset>
 	</form>
 </Dialog>

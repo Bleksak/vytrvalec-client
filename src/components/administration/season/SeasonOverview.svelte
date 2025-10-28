@@ -1,7 +1,6 @@
 <script lang="ts">
 	import Widget from '$components/Widget.svelte';
 	import type { SeasonDTO } from '$lib/DTO/SeasonDTO';
-	import type { CharityStore } from '$lib/stores/CharityStore.svelte';
 	import type { SeasonStore } from '$lib/stores/SeasonStore.svelte';
 	import { SeasonResult } from '$lib/DTO/SeasonResultDTO';
 	import { getContext } from 'svelte';
@@ -9,7 +8,6 @@
 	import LL from '$translations/i18n-svelte';
 	import SubmissionScroller from './SubmissionScroller.svelte';
 	import { fetchActivities } from '$actions/Activity';
-	import Button from '$components/Button.svelte';
 	import { goto } from '$app/navigation';
 	import type { ToastStore } from '$lib/stores/ToastStore.svelte';
 	import Store from '$lib/enums/Stores';
@@ -88,7 +86,7 @@
 					<p><strong>Konec:&nbsp;</strong>{season.end.toLocaleDateString('cs')}</p>
 					<p><strong>Celková vzdálenost:&nbsp;</strong>{seasonResult?.getTotalDistance()} km</p>
 					{#if !isSeasonCached && !isSeasonRunning}
-						<Button onclick={endSeason}>Uzavřít sezónu</Button>
+						<button onclick={endSeason}>Uzavřít sezónu</button>
 					{/if}
 					{#if seasonCacheResult !== undefined}
 						{#if seasonCacheResult}
@@ -129,7 +127,7 @@
 				<Widget title="Odstranit sezónu">
 					<section class="season-delete">
 						<p>Pokud sezóna neobsahuje žádné aktivity, je možné ji odstranit.</p>
-						<Button type="button" onclick={removeSeason}>Odstranit sezónu</Button>
+						<button type="button" onclick={removeSeason}>Odstranit sezónu</button>
 						{#if seasonRemoveResult === false}
 							<span class="note">Sezónu nelze odstranit, jelikož již obsahuje aktivity</span>
 						{/if}
