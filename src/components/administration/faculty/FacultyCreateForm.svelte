@@ -1,7 +1,6 @@
 <script lang="ts">
 	import { locales } from '$paraglide/runtime';
 	import { m } from '$paraglide/messages';
-	import Checkbox from '$components/FormComponent/Checkbox.svelte';
 	import Heading from '$components/Heading.svelte';
 	import type { SubmitFunction } from '@sveltejs/kit';
 	import { goto } from '$app/navigation';
@@ -78,7 +77,10 @@
 			</fieldset>
 
 			<fieldset>
-				<Checkbox id="visible" name="visible" role="switch" defaultChecked={true}>Aktivní</Checkbox>
+				<label for="visible">
+					<input type="checkbox" id="visible" name="visible" role="switch" defaultChecked={true} />
+					Aktivní
+				</label>
 			</fieldset>
 
 			<button aria-busy={submitButtonDisabled} disabled={submitButtonDisabled} type="submit">

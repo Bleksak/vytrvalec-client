@@ -5,7 +5,6 @@
 	import LL from '$translations/i18n-svelte';
 	import type { SubmitFunction } from '@sveltejs/kit';
 	import type { HTMLDialogAttributes } from 'svelte/elements';
-	import Checkbox from '$components/FormComponent/Checkbox.svelte';
 	import type { ConsentError } from '$lib/DTO/ConsentChangeDTO';
 
 	let {
@@ -49,9 +48,10 @@
 		</span>
 
 		<div class="form-field">
-			<Checkbox id="anonymize" name="anonymize" checked={anonymize}>
+			<label for="anonymize">
+				<input type="checkbox" id="anonymize" name="anonymize" checked={anonymize} />
 				{$LL.anonym.label()}
-			</Checkbox>
+			</label>
 			{#each errors?.anonymize ?? [] as error}
 				<span class="error">
 					{$LL.registration.errors.gdpr[error as keyof typeof $LL.registration.errors.gdpr]()}

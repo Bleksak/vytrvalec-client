@@ -4,7 +4,6 @@
 	import LL from '$translations/i18n-svelte';
 	import type { SubmitFunction } from '@sveltejs/kit';
 	import type { HTMLDialogAttributes } from 'svelte/elements';
-	import Checkbox from '$components/FormComponent/Checkbox.svelte';
 	import type { RegistrationError } from '$lib/DTO/UserRegisterResponse';
 	import { getContext } from 'svelte';
 	import type { ToastStore } from '$lib/stores/ToastStore.svelte';
@@ -145,17 +144,19 @@
 			<Tooltip
 				text={`${$LL.anonym.description1()}${$LL.anonym.description2()}${$LL.anonym.description3()}`}
 			>
-				<Checkbox id="anonymize" name="anonymize">
+				<label for="anonymize">
+					<input type="checkbox" id="anonymize" name="anonymize" />
 					{$LL.anonym.label()}
-				</Checkbox>
+				</label>
 			</Tooltip>
 		</fieldset>
 
 		<fieldset>
 			<Tooltip text={$LL.registration.gdpr_tooltip()}>
-				<Checkbox id="gdpr" name="gdpr">
+				<label for="gdpr">
+					<input type="checkbox" id="gdpr" name="gdpr" />
 					{$LL.registration.gdpr()}<Required />
-				</Checkbox>
+				</label>
 			</Tooltip>
 			{#each errors?.gdpr ?? [] as error}
 				<span class="error">

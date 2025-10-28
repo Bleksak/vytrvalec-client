@@ -1,7 +1,6 @@
 <script lang="ts">
 	import { enhance } from '$app/forms';
 	import { goto } from '$app/navigation';
-	import Checkbox from '$components/FormComponent/Checkbox.svelte';
 	import DateInput from '$components/FormComponent/DateInput.svelte';
 	import ImageForm from '$components/forms/ImageForm.svelte';
 	import MultiStepForm from '$components/MultiStepForm.svelte';
@@ -199,27 +198,31 @@
 		</div>
 
 		<fieldset>
-			<Checkbox
-				bind:checked={isTestSeason}
-				id="test-season"
-				name="season[is_test]"
-				role="switch"
-				defaultChecked={true}
-			>
+			<label for="test-season">
+				<input
+					type="checkbox"
+					bind:checked={isTestSeason}
+					id="test-season"
+					name="season[is_test]"
+					role="switch"
+					defaultChecked={true}
+				/>
 				Testovací sezóna
-			</Checkbox>
+			</label>
 		</fieldset>
 
 		<fieldset>
-			<Checkbox
-				bind:checked={sendStartNotification}
-				id="send-start-notification"
-				name="season[notify_users]"
-				role="switch"
-				defaultChecked={false}
-			>
+			<label for="send-start-notification">
+				<input
+					type="checkbox"
+					bind:checked={sendStartNotification}
+					id="send-start-notification"
+					name="season[notify_users]"
+					role="switch"
+					defaultChecked={false}
+				/>
 				Odeslat e-maily
-			</Checkbox>
+			</label>
 			<small>
 				<b>Poznámka:&nbsp;</b>
 				při založení testovací sezóny budou e-maily odeslány pouze na administrátorské účty.

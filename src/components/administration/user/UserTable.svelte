@@ -3,7 +3,6 @@
 	import UserEditor from '$components/administration/user/UserEditor.svelte';
 	import { getAllContexts, getContext } from 'svelte';
 	import type { UserStore } from '$lib/stores/UserStore.svelte';
-	import Checkbox from '$components/FormComponent/Checkbox.svelte';
 	import type { DialogStore } from '$lib/stores/DialogStore.svelte';
 	import Store from '$lib/enums/Stores';
 	import { UserRole } from '$lib/DTO/UserRole';

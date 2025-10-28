@@ -7,7 +7,6 @@
 	import { enhance } from '$app/forms';
 	import { getContext } from 'svelte';
 	import type { UserStore } from '$lib/stores/UserStore.svelte';
-	import Checkbox from '$components/FormComponent/Checkbox.svelte';
 	import type { ToastStore } from '$lib/stores/ToastStore.svelte';
 	import type { UserError } from '$lib/DTO/UserEditDTO';
 	import Store from '$lib/enums/Stores';
@@ -113,8 +112,15 @@
 			<span class="note">Nebylo možné získat fakulty</span>
 		{/await}
 
-		<Checkbox id="banned" name="banned" bind:checked={banned}>Zablokovaný</Checkbox>
-		<Checkbox id="admin" name="admin" bind:checked={adminChecked}>Administrátor</Checkbox>
+		<label for="banned">
+			<input type="checkbox" id="banned" name="banned" bind:checked={banned} />
+			Zablokovaný
+		</label>
+
+		<label for="admin">
+			<input type="checkbox" id="admin" name="admin" bind:checked={adminChecked} />
+			Administrátor
+		</label>
 
 		<button>Upravit</button>
 	</form>

@@ -1,5 +1,4 @@
 <script lang="ts">
-	import Checkbox from '$components/FormComponent/Checkbox.svelte';
 	import type { SeasonDTO } from '$lib/DTO/SeasonDTO';
 	import type { DialogStore } from '$lib/stores/DialogStore.svelte';
 	import { getAllContexts, getContext } from 'svelte';
@@ -88,14 +87,28 @@
 				{/if}
 				<p><strong>Nahráno:&nbsp;</strong>{submission.date.toLocaleDateString('cs')}</p>
 				<p>
-					<Checkbox id="accepted-view" name="accepted-view" disabled checked={submission.accepted}>
+					<label for="accepted-view">
+						<input
+							type="checkbox"
+							id="accepted-view"
+							name="accepted-view"
+							disabled
+							checked={submission.accepted}
+						/>
 						<strong>Schválená</strong>
-					</Checkbox>
+					</label>
 				</p>
 				<p>
-					<Checkbox id="reviewed-view" name="reviewed-view" disabled checked={submission.reviewed}>
+					<label for="reviewed-view">
+						<input
+							type="checkbox"
+							id="reviewed-view"
+							name="reviewed-view"
+							disabled
+							checked={submission.reviewed}
+						/>
 						<strong>Zkontrolovaná</strong>
-					</Checkbox>
+					</label>
 				</p>
 			</div>
 			<div>
@@ -123,5 +136,4 @@
 	.submission:hover {
 		background-color: rgb(245, 245, 245);
 	}
-
 </style>

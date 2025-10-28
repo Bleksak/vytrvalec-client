@@ -3,7 +3,6 @@
 	import { m } from '$paraglide/messages';
 	import type { SvelteMap } from 'svelte/reactivity';
 	import type { FacultyDTO } from '$lib/DTO/FacultyDTO';
-	import Checkbox from '$components/FormComponent/Checkbox.svelte';
 	import Heading from '$components/Heading.svelte';
 	import { goto } from '$app/navigation';
 	import type { SubmitFunction } from '@sveltejs/kit';
@@ -85,9 +84,16 @@
 			</fieldset>
 
 			<fieldset>
-				<Checkbox id="visible" name="visible" role="switch" defaultChecked={faculty.visible}>
+				<label for="visible">
+					<input
+						type="checkbox"
+						id="visible"
+						name="visible"
+						role="switch"
+						defaultChecked={faculty.visible}
+					/>
 					Aktivní
-				</Checkbox>
+				</label>
 			</fieldset>
 
 			<fieldset>
