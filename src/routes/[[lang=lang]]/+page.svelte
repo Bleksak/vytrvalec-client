@@ -19,6 +19,9 @@
 			isMobileDevice = true;
 		}
 	});
+
+	import androidStoreImage from '$static/images/google-play.png';
+	import appleStoreImage from '$static/images/apple-store.png';
 </script>
 
 {#if isMobileDevice}
@@ -27,10 +30,10 @@
 		<span>{$LL.homepage.mobile_app.download()}</span>
 		<div class="grid">
 			<a href={googlePlayLink} target="_blank" rel="noopener noreferrer">
-				<img src="/images/google-play.png" alt="Google Play" />
+				<img src={androidStoreImage} alt="Google Play" />
 			</a>
 			<a href={appleStoreLink} target="_blank" rel="noopener noreferrer">
-				<img src="/images/apple-store.png" alt="App Store" />
+				<img src={appleStoreImage} alt="App Store" />
 			</a>
 		</div>
 	</section>

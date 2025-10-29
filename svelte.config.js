@@ -27,7 +27,8 @@ const config = {
 			$utils: 'src/utils',
 			$remote: 'src/routes/remote',
 			$css: 'src/css',
-			$paraglide: 'src/paraglide'
+			$paraglide: 'src/paraglide',
+			$static: 'static'
 		},
 	},
 	compilerOptions: {
