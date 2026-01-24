@@ -1,6 +1,6 @@
 <script lang="ts">
 	import LL, { setLocale } from '$translations/i18n-svelte';
-	import { getAllContexts, getContext } from 'svelte';
+	import { getAllContexts, getContext, onMount } from 'svelte';
 	import LoginForm from './forms/LoginForm.svelte';
 	import RegistrationForm from './forms/RegistrationForm.svelte';
 	import type { DialogStore } from '$lib/stores/DialogStore.svelte';
@@ -36,6 +36,22 @@
 		menuOpened = !menuOpened;
 	}
 
+	let isMobileDevice = $state(false);
+
+	onMount(() => {
+		if (/Android/i.test(navigator.userAgent) || /iPhone|iPad|iPod/i.test(navigator.userAgent)) {
+			isMobileDevice = true;
+		}
+	});
+
+	function maybeSlide(node: Element, params: { duration: number } | null) {
+		if (!isMobileDevice || !params || !menuToggle?.checkVisibility()) {
+			return { duration: 0, css: () => '' };
+		}
+
+		return slide(node, params);
+	}
+
 	$effect(() => {
 		innerWidth;
 		if (!menuToggle?.checkVisibility()) {
@@ -59,7 +75,7 @@
 			<MenuIcon />
 		</button>
 		{#if menuOpened}
-			<ul class="menu-content" transition:slide={{ duration: 500 }}>
+			<ul class="menu-content" transition:maybeSlide={{ duration: 500 }}>
 				<li>
 					<button class="locale-change-btn" onclick={handleLocaleChange}>
 						<img
