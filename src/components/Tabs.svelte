@@ -1,31 +1,22 @@
 <script lang="ts">
 	const {
-		tabs
+        tabs
 	}: {
 		tabs: Array<{
 			title: string;
 			action: () => void;
+            selected: boolean;
 		}>;
 	} = $props();
 </script>
 
 <div class="tabs">
-	<input
-		data-model="currentActivityIndex"
-		type="radio"
-		id="tab-activity-total"
-		name="activity-tabs"
-		value="0"
-		checked
-	/>
-
 	{#each tabs as tab, index}
 		<input
-			data-model="currentActivityIndex"
 			type="radio"
 			id="tab-{index}"
-			name="activity-tabs"
 			onclick={tab.action}
+            checked={tab.selected}
 		/>
 		<label for="tab-{index}">
 			{tab.title}
