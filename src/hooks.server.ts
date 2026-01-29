@@ -9,73 +9,77 @@ import axios from 'axios';
 import { paraglideMiddleware } from '$paraglide/server';
 
 const isPathname = (current: string, wanted: string): boolean => {
-	if (current == wanted) {
-		return true;
-	}
+    if (current == wanted) {
+        return true;
+    }
 
-	const loc = locales.join('|');
+    const loc = locales.join('|');
 
-	if (current.match(`^(/(${loc}))?${wanted}`)) {
-		return true;
-	}
+    if (current.match(`^(/(${loc}))?${wanted}`)) {
+        return true;
+    }
 
-	return false;
+    return false;
 };
 
 export const handle: Handle = async ({ event, resolve }): Promise<any> => {
-	// NOTE: When developing with https (server), axios will reject all requests unless we set this environment variable
+    // NOTE: When developing with https (server), axios will reject all requests unless we set this environment variable
 
-	if (dev) {
-		process.env.NODE_TLS_REJECT_UNAUTHORIZED = '0';
-	}
+    if (dev) {
+        process.env.NODE_TLS_REJECT_UNAUTHORIZED = '0';
+    }
 
-	event.locals.jwt = event.cookies.get('jwt') ?? null;
+    const jwt = event.cookies.get('jwt');
 
-	const axiosInstance = axios.create({
-		baseURL: import.meta.env.VITE_SERVER_API_BASE || import.meta.env.VITE_API_BASE
-	});
+    if (jwt && jwt !== '') {
+        event.locals.jwt = jwt;
+    }
 
-	axios.defaults.baseURL = import.meta.env.VITE_SERVER_API_BASE || import.meta.env.VITE_API_BASE;
+    const axiosInstance = axios.create({
+        baseURL: import.meta.env.VITE_SERVER_API_BASE || import.meta.env.VITE_API_BASE
+    });
 
-	if (event.locals.jwt !== null) {
-		axiosInstance.defaults.headers.common.Authorization = `Bearer ${event.locals.jwt}`;
-		axios.defaults.headers.common.Authorization = `Bearer ${event.locals.jwt}`;
-	}
+    axios.defaults.baseURL = import.meta.env.VITE_SERVER_API_BASE || import.meta.env.VITE_API_BASE;
 
-	event.locals.axios = axiosInstance;
+    if (event.locals.jwt !== null) {
+        axiosInstance.defaults.headers.common.Authorization = `Bearer ${event.locals.jwt}`;
+        axios.defaults.headers.common.Authorization = `Bearer ${event.locals.jwt}`;
+    }
 
-	const currentSeason = await fetchCurrentSeason(axiosInstance);
-	if (currentSeason) {
-		event.locals.currentSeason = currentSeason;
-	}
+    event.locals.axios = axiosInstance;
 
-	const result = await getCurrentUser(axiosInstance);
-	if (result.type === 'success') {
-		event.locals.user = result.data;
-	} else {
-		event.locals.jwt = null;
-		axiosInstance.defaults.headers.common.Authorization = undefined;
-		axios.defaults.headers.common.Authorization = undefined;
-	}
+    const currentSeason = await fetchCurrentSeason(axiosInstance);
+    if (currentSeason) {
+        event.locals.currentSeason = currentSeason;
+    }
 
-	if (isPathname(event.url.pathname, '/submission')) {
-		if (!event.locals.user) {
-			redirect(307, '/');
-		}
-	}
+    const result = await getCurrentUser(axiosInstance);
+    if (result.type === 'success') {
+        event.locals.user = result.data;
+    } else {
+        event.locals.jwt = null;
+        axiosInstance.defaults.headers.common.Authorization = undefined;
+        axios.defaults.headers.common.Authorization = undefined;
+    }
 
-	if (isPathname(event.url.pathname, '/administration')) {
-		if (!event.locals.user || !event.locals.user.roles.includes(UserRole.Staff)) {
-			error(404);
-		}
-	}
+    if (isPathname(event.url.pathname, '/submission')) {
+        if (!event.locals.user) {
+            redirect(307, '/');
+        }
+    }
 
-	return await paraglideMiddleware(event.request, ({ request: localizedRequest, locale }) => {
-		event.request = localizedRequest;
-		return resolve(event, {
-			transformPageChunk: ({ html }) => {
-				return html.replace('%lang%', locale);
-			}
-		});
-	});
+    if (isPathname(event.url.pathname, '/administration')) {
+        if (!event.locals.user || !event.locals.user.roles.includes(UserRole.Staff)) {
+            error(404);
+        }
+    }
+
+    return await paraglideMiddleware(event.request, ({ request: localizedRequest, locale }) => {
+        event.request = localizedRequest;
+        return resolve(event, {
+            transformPageChunk: ({ html }) => {
+                return html.replace('%lang%', locale);
+            }
+        });
+    });
 };

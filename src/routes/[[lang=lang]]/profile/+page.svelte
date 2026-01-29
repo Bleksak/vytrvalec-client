@@ -16,10 +16,10 @@
 			<div class="user-row">
 				<div class="user">
 					<h1>
-						{data.user.first_name}
-						{data.user.last_name}
+						{data.user!.first_name}
+						{data.user!.last_name}
 					</h1>
-					<FacultyTag facultyShortcut={data.user.faculty.shortcut} />
+					<FacultyTag facultyShortcut={data.user!.faculty.shortcut} />
 				</div>
 				<a href="/{page.data.lang}/account" title="Nastavení účtu">
 					<Settings />

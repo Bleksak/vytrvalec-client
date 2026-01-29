@@ -1,6 +1,6 @@
 <script lang="ts">
 	import type { FacultyDTO } from '$lib/DTO/FacultyDTO';
-	import type { SeasonResult } from '$lib/DTO/SeasonResultDTO';
+	import type { SeasonResultRank } from '$lib/DTO/SeasonResultDTO';
 	import { FacultyColorMap } from '$utils/colors';
 	import { Trophy, Medal, ExternalLink, ImageIcon, Coins, CalendarRangeIcon } from '@lucide/svelte';
 	import LL from '$translations/i18n-svelte';
@@ -25,7 +25,7 @@
 	}: {
 		faculties: SvelteMap<number, FacultyDTO>;
 		season: SeasonDTO;
-		result: SeasonResult;
+		result: SeasonResultRank;
 		title?: string;
 		heading?: Snippet;
 	} = $props();
@@ -33,16 +33,13 @@
 	const locale = $derived(getLocale());
 
 	const winners: Array<Result> = $derived(
-		result
-			.getTotalWinners()
-			.slice(0, 3)
-			.map((value) => {
-				return {
-					faculty: faculties.get(value.faculty)!,
-					points: value.points,
-					distance: value.distance
-				};
-			})
+		result.rows.slice(0, 3).map((value) => {
+			return {
+				faculty: faculties.get(value.faculty)!,
+				points: value.points,
+				distance: value.distance
+			};
+		})
 	);
 
 	const positionText = (position: number): keyof typeof $LL.season_detail.ordinal =>
@@ -121,7 +118,7 @@
 					<Coins size="1rem" />
 				</div>
 				<span>
-					{$LL.season_detail.raised({ raised: result.getTotalDistance() })}
+					{$LL.season_detail.raised({ raised: result.total_distance / 1000 })}
 				</span>
 			</article>
 		</section>

@@ -28,7 +28,6 @@ export default class UnreviewedSubmissionStore {
 	private ws: WebSocket;
 	private jwt: string;
 
-	public initialized = $state(false);
 	public currentData = $state<WebsocketSubmissionUserPairInfer | null>(null);
 
 	public noSubmissionsMarked = $state(false);

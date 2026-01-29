@@ -7,7 +7,13 @@
 	import SeasonDetail from '$components/home/SeasonDetail.svelte';
 	import Heading from '$components/Heading.svelte';
 
+	import androidStoreImage from '$static/images/google-play.png';
+	import appleStoreImage from '$static/images/apple-store.png';
+	import { SeasonResult, type SeasonResultRank, type SeasonResultRankRow, type ExtraPoints } from '$lib/DTO/SeasonResultDTO';
+
 	const { data }: PageProps = $props();
+
+	const seasonResultCalculator = $derived(new SeasonResult(data.activities));
 
 	const googlePlayLink = 'https://play.google.com/store/apps/details?id=cz.magnetka.mv'; // To neni citlivý, nebudu dávat do envu
 	const appleStoreLink = 'https://apps.apple.com/us/app/6743554661';
@@ -20,8 +26,18 @@
 		}
 	});
 
-	import androidStoreImage from '$static/images/google-play.png';
-	import appleStoreImage from '$static/images/apple-store.png';
+	const seasonResult = $derived.by(() => {
+		if (data.lastSeason === null) {
+			return {
+                total_distance: 0,
+                total_points: 0,
+                rows: [] as SeasonResultRankRow[],
+                extras: [] as ExtraPoints[],
+			} as SeasonResultRank;
+		}
+
+		return seasonResultCalculator.calculateSeasonResultRank(data.lastSeason, data.lastSeasonResult);
+	});
 </script>
 
 {#if isMobileDevice}
@@ -74,7 +90,7 @@
 	<SeasonDetail
 		faculties={data.faculties}
 		season={data.lastSeason}
-		result={data.lastSeasonResult}
+		result={seasonResult}
 	/>
 {/if}
 

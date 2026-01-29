@@ -6,7 +6,7 @@ declare global {
 		interface Locals {
 			axios: AxiosInstance;
 			jwt?: string|null;
-			user: UserResponse;
+			user?: UserResponse;
 			currentSeason: SeasonDTO | null;
 		}
 

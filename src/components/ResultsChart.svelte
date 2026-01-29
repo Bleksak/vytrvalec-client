@@ -1,6 +1,6 @@
 <script lang="ts">
 	import type { FacultyDTO } from '$lib/DTO/FacultyDTO';
-	import type { ResultRow } from '$lib/DTO/SeasonResultDTO';
+	import type { SeasonResultRankRow } from '$lib/DTO/SeasonResultDTO';
 	import LL from '$translations/i18n-svelte';
 	import { FacultyColorMap } from '$utils/colors';
 	import type { ChartOptions, ChartData } from 'chart.js';
@@ -8,8 +8,10 @@
 	import { onMount } from 'svelte';
 	import type { SvelteMap } from 'svelte/reactivity';
 
-	let { faculties, results }: { faculties: SvelteMap<number, FacultyDTO>; results: ResultRow[] } =
-		$props();
+	let {
+		faculties,
+		results
+	}: { faculties: SvelteMap<number, FacultyDTO>; results: SeasonResultRankRow[] } = $props();
 
 	const resultFaculties = $derived(results.map((result) => faculties.get(result.faculty)));
 	const labels = $derived(resultFaculties.map((result) => result?.shortcut));

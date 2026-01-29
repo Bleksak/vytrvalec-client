@@ -1,306 +1,202 @@
 import type { SvelteMap } from 'svelte/reactivity';
 import type { ActivityDTO } from './ActivityDTO';
+import type { SeasonDTO } from './SeasonDTO';
 import type { AnonymizedUser } from './UserResponse';
 
-export type SeasonResultExtraActivity = {
-	user: AnonymizedUser;
-	faculty: number;
-	points: number;
-	name: 'weekly_distance' | 'daily_distance' | 'weekly_elevation';
-	value: number;
-	activity: ActivityDTO;
-};
-
-export type SeasonResultExtra = {
-	user: AnonymizedUser;
-	faculty: number;
-	points: number;
-	name: 'weekly_distance' | 'daily_distance' | 'weekly_elevation';
-	value: number;
-};
-
-export type SeasonResultFaculty = {
-	faculty: number;
-	distance: number;
-};
-
-export type SeasonResultActivity = {
-	activity: number;
-	extras: Array<SeasonResultExtra>;
-	results: Array<SeasonResultFaculty>;
-};
-
-export type SeasonResultWeek = {
-	week: number;
-	activities: Array<SeasonResultActivity>;
-};
-
-export type OutlierActivity = {
-	activity_id: number;
-	results: Array<{
-		user: AnonymizedUser;
-		faculty_id: number;
-		value: number;
-	}>;
-};
-
-export type SeasonResultDTO = {
-	results: Array<SeasonResultWeek>;
-	outliers: Array<OutlierActivity>;
-};
-
-type SeasonResultCached = {
-	totalDistance: number;
-	extras: Array<SeasonResultExtraActivity>;
-};
-
-export type ResultRow = {
-	faculty: number;
-	points: number; // including extra points
-	distance: number;
-};
-
-export type WeekResultRow = ActivityResultRow & {
-	week: number;
-};
-
-export type ActivityResultRow = {
-	activity: number;
-	row: Array<ResultRow>;
-	extra: Array<SeasonResultExtra>;
-};
-
-function sortFn(a: ResultRow, b: ResultRow) {
-	const pointsResult = b.points - a.points;
-	if (pointsResult !== 0) {
-		return pointsResult;
-	}
-
-	return b.distance - a.distance;
+export type SeasonResultData = {
+    results: Record<number, WeeklyResult>;
+    outliers: Record<number, OutlierActivity>;
+    users: Record<number, AnonymizedUser>;
 }
 
-function constructUniqueFacultiesWithResults(results: Array<SeasonResultWeek>): Set<number> {
-	let faculties: Set<number> = new Set<number>();
+type WeeklyResult = {
+    week: number;
+    activities: Record<number, ActivityResult>;
+}
 
-	// find all faculties that have any results
-	for (const week of results) {
-		for (const activity of week.activities) {
-			for (const result of activity.results) {
-				faculties.add(result.faculty);
-			}
-		}
-	}
+type ActivityResult = {
+    extras: Array<ExtraPoints>;
+    results: Record<number, FacultyResult>;
+}
 
-	return faculties;
+type FacultyResult = {
+    faculty: number;
+    distance: number;
+}
+
+export type ExtraPoints = {
+    user: number;
+    faculty: number;
+    name: 'weekly_distance' | 'daily_distance' | 'weekly_elevation';
+    value: number;
+    points: number;
+    activity: number;
+}
+
+export type OutlierActivity = {
+    activity_id: number;
+    results: Record<number, OutlierResult>;
+}
+
+type OutlierResult = {
+    user: number,
+    faculty_id: number,
+    value: number,
+}
+
+export type SeasonResultRank = {
+    total_distance: number;
+    total_points: number;
+    rows: Array<SeasonResultRankRow>;
+    extras: Array<ExtraPoints>;
+}
+
+export type SeasonResultRankRow = {
+    faculty: number;
+    distance: number;
+    points: number;
+}
+
+function createFacultySet(results: SeasonResultData): Set<number> {
+    let faculties: Set<number> = new Set<number>();
+
+    for (const week of Object.values(results.results)) {
+        for (const activity of Object.values(week.activities)) {
+            for (const result of Object.values(activity.results)) {
+                faculties.add(result.faculty);
+            }
+        }
+    }
+
+    return faculties;
+}
+
+function getWeekCount(season: SeasonDTO): number {
+    const diff_ms = season.end.getTime() - season.start.getTime();
+    const diff_days = Math.floor(diff_ms / (1000 * 60 * 60 * 24));
+    const weeks = Math.floor((diff_days + 1) / 7);
+
+    return weeks === 0 ? 1 : weeks;
 }
 
 export class SeasonResult {
-	data: SeasonResultDTO;
-	cached: SeasonResultCached;
-	activities: SvelteMap<number, ActivityDTO>;
-	results: Array<WeekResultRow>;
+    activities: SvelteMap<number, ActivityDTO>;
 
-	constructor(data: SeasonResultDTO, activities: SvelteMap<number, ActivityDTO>) {
-		this.activities = activities;
-		this.data = data;
-		this.cached = this.calculateCache();
-		this.results = this.calculateResults();
-	}
+    constructor(activities: SvelteMap<number, ActivityDTO>) {
+        this.activities = activities;
+    }
 
-	calculateResults() {
-		let weekResultRows: Array<WeekResultRow> = [];
+    calculateSeasonResultRank(season: SeasonDTO, data: SeasonResultData, week: null | number = null, activity: null | number = null): SeasonResultRank {
+        // za kazdy tyden se udeluje stejny pocet bodu(N)
+        // tzn pokud se v prvnim tydnu zucastni 7 fakult a ve druhem tydnu 12 fakult, rozdeluje se i za prvni tyden 12 bodu
+        // QUESTION(@bleksak): Je tohle opravdu co oni chteji? Kdyz to delali rucne, tak to spocitali za 1. tyden 7 fakult => 7 bodu, 2 tyden 12 bodu, ale nepamatuju si to uz
 
-		const faculties = constructUniqueFacultiesWithResults(this.data.results);
+        /**
+         * @technical:
+         * 1.1. Vytvorit set unikatnich fakult skrz celou sezonu => pocet fakult v setu === pocet bodu za 1 tyden
+         * 1.2. v kazdem tydnu -> seradit od nejvetsiho po nejmensi a rozdelovat N-i bodu => i je pozice fakulty
+         * 1.3. pridat extra body
+         * 1.4. pokud chceme vysledky za 1 tyden -> 1.x hotovo, jinak:
+         * 1.5. clash tydnu
+         * 2.1. pokud chceme vysledky za vsechny aktivity dohromady => 2.x hotovo, jinak:
+         * 2.2. clash aktivit
+         * 3. jeste jednou seradit kvuli tomu ze 2 fakutly muzou mit stejny pocet bodu => radime je potom podle (body, distance)
+         */
 
-		for (const week of this.data.results) {
-			for (const activity of week.activities) {
-				// 1. create empty object
-				let weekResultRow = {
-					week: week.week,
-					activity: activity.activity,
-					row: [] as Array<ResultRow>,
-					extra: [] as Array<SeasonResultExtra>
-				};
+        const facultySet = createFacultySet(data);
 
-				for (const faculty of faculties) {
-					weekResultRow.row.push({
-						faculty,
-						points: 0,
-						distance: 0
-					});
-				}
+        let ranking: Record<number, SeasonResultRankRow> = {};
+        let extras: Array<ExtraPoints> = [];
 
-				// 2. fill rows with sorted data
-				for (const result of activity.results
-					.toSorted((a, b) => b.distance - a.distance)
-					.map((result, i) => {
-						return {
-							points: faculties.size - i,
-							faculty: result.faculty,
-							distance: result.distance
-						};
-					})) {
-					let facultyResult = weekResultRow.row.find((row) => row.faculty === result.faculty);
+        if (week === null) {
+            for (const [_, weeklyResult] of Object.entries(data.results)) {
+                this.populateRankingArray(facultySet, weeklyResult, ranking, extras, activity);
+            }
+        } else {
+            if (week < 0 || week > getWeekCount(season)) {
+                return {
+                    total_distance: 0,
+                    total_points: 0,
+                    rows: [],
+                    extras: [],
+                }
+            }
 
-					if (!facultyResult) {
-						weekResultRow.row.push({
-							faculty: result.faculty,
-							points: result.points,
-							distance: result.distance
-						});
-					} else {
-						facultyResult.points += result.points;
-						facultyResult.distance += result.distance;
-					}
-				}
+            const weeklyResult = data.results[week];
+            this.populateRankingArray(facultySet, weeklyResult, ranking, extras, activity);
+        }
 
-				// 3. add extra points
-				for (const extras of activity.extras) {
-					let facultyResult = weekResultRow.row.find((row) => row.faculty === extras.faculty);
-					facultyResult!.points += extras.points;
-				}
+        let result = [];
+        let totalDistance = 0;
+        let totalPoints = 0;
 
-				// 4. sort again
-				weekResultRow.row.sort(sortFn);
-				weekResultRow.extra = activity.extras;
-				weekResultRows.push(weekResultRow);
-			}
-		}
+        for (const row of Object.values(ranking)) {
+            result.push({
+                faculty: row.faculty,
+                distance: row.distance,
+                points: row.points,
+            });
 
-		return weekResultRows;
-	}
+            totalDistance += row.distance;
+            totalPoints += row.points;
+        }
 
-	calculateCache(): SeasonResultCached {
-		let totalDistance = 0;
-		let extras = [];
+        result.sort((a, b) => {
+            const pointsResult = b.points - a.points;
+            if (pointsResult !== 0) {
+                return pointsResult;
+            }
 
-		for (const week of this.data.results) {
-			for (const activity of week.activities) {
-				for (const result of activity.results) {
-					totalDistance += result.distance;
-				}
+            return b.distance - a.distance;
+        });
 
-				for (const extra of activity.extras) {
-					extras.push({ ...extra, activity: activity.activity });
-				}
-			}
-		}
+        return {
+            total_distance: totalDistance,
+            total_points: totalPoints,
+            rows: result,
+            extras: extras,
+        };
+    }
 
-		const extrasWithActivity: Array<SeasonResultExtraActivity> = extras.map(
-			(extra): SeasonResultExtraActivity => {
-				const activity = this.activities.get(extra.activity)!;
+    populateRankingArray(
+        facultySet: Set<number>,
+        weeklyResult: WeeklyResult,
+        ranking: Record<number, SeasonResultRankRow>,
+        extras: Array<ExtraPoints>,
+        allowedActivity: number | null = null
+    ): void {
+        for (const [activityIdStr, activityResult] of Object.entries(weeklyResult.activities)) {
+            const activityId = Number(activityIdStr);
 
-				return {
-					faculty: extra.faculty,
-					points: extra.points,
-					name: extra.name,
-					value: extra.value,
-					user: extra.user,
-					activity
-				};
-			}
-		);
+            if (allowedActivity !== null && activityId !== allowedActivity) {
+                continue;
+            }
 
-		return {
-			totalDistance: totalDistance / 1000,
-			extras: extrasWithActivity
-		};
-	}
+            let facultyResults = [...Object.values(activityResult.results)];
+            facultyResults.sort((a, b) => b.distance - a.distance);
 
-	getTotalDistance(): number {
-		return this.cached.totalDistance;
-	}
+            for (let i = 0; i < facultyResults.length; i++) {
+                const facultyResult = facultyResults[i];
+                const facultyId = facultyResult.faculty;
 
-	getExtraPoints(): Array<SeasonResultExtraActivity> {
-		return this.cached.extras;
-	}
+                const points = facultySet.size - i;
 
-	getTotalWinners(): Array<ResultRow> {
-		let winners: Array<ResultRow> = [];
+                if (ranking[facultyId] === undefined) {
+                    ranking[facultyId] = {
+                        distance: 0,
+                        points: 0,
+                        faculty: facultyId,
+                    };
+                }
 
-		for (const week of this.results) {
-			for (const row of week.row) {
-				let winner = winners.find((w) => w.faculty === row.faculty);
-				if (!winner) {
-					winners.push(row);
-				} else {
-					winner.points += row.points;
-					winner.distance += row.distance;
-				}
-			}
-		}
+                ranking[facultyId].distance += facultyResult.distance;
+                ranking[facultyId].points += points;
+            }
 
-		winners.sort(sortFn);
-
-		return winners;
-	}
-
-	getResults(): Array<WeekResultRow> {
-		return this.results;
-	}
-
-	addTotal(weekData: Array<ActivityResultRow>): Array<ActivityResultRow> {
-		if (weekData.length === 0) {
-			return weekData;
-		}
-
-		let total: ActivityResultRow = { activity: -1, row: [], extra: [] };
-
-		for (const activityRow of weekData) {
-			for (const row of activityRow.row) {
-				let workingRow = total.row.find((w) => w.faculty === row.faculty);
-
-				if (!workingRow) {
-					total.row.push({ ...row });
-				} else {
-					workingRow.points += row.points;
-					workingRow.distance += row.distance;
-				}
-			}
-		}
-
-		total.row.sort(sortFn);
-
-		weekData.push(total);
-		return weekData;
-	}
-
-	getResultsForWeek(week: number): Array<ActivityResultRow> {
-		if (week !== 0) {
-			return this.addTotal(
-				this.results.filter((w) => w.week === week - 1).toSorted((a, b) => a.activity - b.activity)
-			);
-		}
-
-		let results: Array<ActivityResultRow> = [];
-
-		for (const week of this.results) {
-			const workingActivity = results.find((w) => w.activity === week.activity);
-			if (!workingActivity) {
-				results.push({
-					activity: week.activity,
-					row: JSON.parse(JSON.stringify(week.row)),
-					extra: week.extra
-				});
-			} else {
-				for (const row of week.row) {
-					let workingRow = workingActivity.row.find((w) => w.faculty === row.faculty);
-					if (!workingRow) {
-						workingActivity.row.push(row);
-					} else {
-						workingRow.points += row.points;
-						workingRow.distance += row.distance;
-					}
-				}
-			}
-		}
-
-		for (const result of results) {
-			result.row.sort(sortFn);
-		}
-
-		results.sort((a, b) => a.activity - b.activity);
-
-		return this.addTotal(results);
-	}
+            for (const extra of activityResult.extras) {
+                ranking[extra.faculty].points += extra.points;
+                extras.push(extra);
+            }
+        }
+    }
 }

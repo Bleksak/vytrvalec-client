@@ -6,7 +6,7 @@ import {
 	type SeasonConfigDTO,
 	type SeasonDTO
 } from '$lib/DTO/SeasonDTO';
-import { type SeasonResultDTO } from '$lib/DTO/SeasonResultDTO';
+import { type SeasonResultData } from '$lib/DTO/SeasonResultDTO';
 import { ArkErrors } from 'arktype';
 
 export const fetchSeasons = async (api: AxiosInstance = axios): Promise<Array<SeasonDTO>> => {
@@ -77,7 +77,7 @@ export const updateSeason = async (season: SeasonDTO): Promise<AxiosResponse<any
 export const fetchSeasonResult = async (
 	api: AxiosInstance = axios,
 	season: SeasonDTO
-): Promise<SeasonResultDTO> => {
+): Promise<SeasonResultData> => {
 	return (await api.get(`/season/${season.id}/results`).catch(() => null))?.data ?? [];
 };
 
