@@ -365,16 +365,16 @@
     rollup "^4.9.5"
 
 "@sveltejs/kit@^2.0.0", "@sveltejs/kit@^2.4.0", "@sveltejs/kit@^2.43.5":
-  version "2.47.3"
-  resolved "https://registry.npmjs.org/@sveltejs/kit/-/kit-2.47.3.tgz"
-  integrity sha512-zN2yzBc2dIES2BSzLhNP2weYhwB77kgM/oAktICZVmmljyEmPZrlUwr14jjdK9/eDu7WdAuf6gTdYIJLTcN3Fw==
+  version "2.50.1"
+  resolved "https://registry.npmjs.org/@sveltejs/kit/-/kit-2.50.1.tgz"
+  integrity sha512-XRHD2i3zC4ukhz2iCQzO4mbsts081PAZnnMAQ7LNpWeYgeBmwMsalf0FGSwhFXBbtr2XViPKnFJBDCckWqrsLw==
   dependencies:
     "@standard-schema/spec" "^1.0.0"
     "@sveltejs/acorn-typescript" "^1.0.5"
     "@types/cookie" "^0.6.0"
     acorn "^8.14.1"
     cookie "^0.6.0"
-    devalue "^5.3.2"
+    devalue "^5.6.2"
     esm-env "^1.2.2"
     kleur "^4.1.5"
     magic-string "^0.30.5"
@@ -939,10 +939,10 @@ detect-libc@^1.0.3:
   resolved "https://registry.npmjs.org/detect-libc/-/detect-libc-1.0.3.tgz"
   integrity sha512-pGjwhsmsp4kL2RTz08wcOlGN83otlqHeD/Z5T8GXZB+/YcpQ/dgo+lbU8ZsGxV0HIvqqxo9l7mqYwyYMD9bKDg==
 
-devalue@^5.3.2:
-  version "5.3.2"
-  resolved "https://registry.npmjs.org/devalue/-/devalue-5.3.2.tgz"
-  integrity sha512-UDsjUbpQn9kvm68slnrs+mfxwFkIflOhkanmyabZ8zOYk8SMEIbJ3TK+88g70hSIeytu4y18f0z/hYHMTrXIWw==
+devalue@^5.6.2:
+  version "5.6.2"
+  resolved "https://registry.npmjs.org/devalue/-/devalue-5.6.2.tgz"
+  integrity sha512-nPRkjWzzDQlsejL1WVifk5rvcFi/y1onBRxjaFMjZeR9mFpqu2gmAZ9xUB9/IEanEP/vBtGeGganC/GO1fmufg==
 
 dunder-proto@^1.0.0, dunder-proto@^1.0.1:
   version "1.0.1"
@@ -1214,10 +1214,10 @@ esquery@^1.5.0:
   dependencies:
     estraverse "^5.1.0"
 
-esrap@^2.1.0:
-  version "2.1.0"
-  resolved "https://registry.npmjs.org/esrap/-/esrap-2.1.0.tgz"
-  integrity sha512-yzmPNpl7TBbMRC5Lj2JlJZNPml0tzqoqP5B1JXycNUwtqma9AKCO0M2wHrdgsHcy1WRW7S9rJknAMtByg3usgA==
+esrap@^2.2.1:
+  version "2.2.2"
+  resolved "https://registry.npmjs.org/esrap/-/esrap-2.2.2.tgz"
+  integrity sha512-zA6497ha+qKvoWIK+WM9NAh5ni17sKZKhbS5B3PoYbBvaYHZWoS33zmFybmyqpn07RLUxSmn+RCls2/XF+d0oQ==
   dependencies:
     "@jridgewell/sourcemap-codec" "^1.4.15"
 
@@ -1766,9 +1766,9 @@ js-sha256@^0.11.0:
   integrity sha512-o6WSo/LUvY2uC4j7mO50a2ms7E/EAdbP0swigLV+nzHKTTaYnaLIWJ02VdXrsJX0vGedDESQnLsOekr94ryfjg==
 
 js-yaml@^4.1.0:
-  version "4.1.0"
-  resolved "https://registry.npmjs.org/js-yaml/-/js-yaml-4.1.0.tgz"
-  integrity sha512-wpxZs9NoxZaJESJGIZTyDEaYpl0FKSA+FB9aJiyemKhMwkxQg63h4T1KJgUGHpTqPDNRcmmYLugrRjJlBtWvRA==
+  version "4.1.1"
+  resolved "https://registry.npmjs.org/js-yaml/-/js-yaml-4.1.1.tgz"
+  integrity sha512-qQKT4zQxXl8lLwBtHMWwaTcGfFOZviOJet3Oy/xmGk2gZH677CJM9EvtfdSkgWcATZhj/55JZ0rmy3myCT5lsA==
   dependencies:
     argparse "^2.0.1"
 
@@ -2172,9 +2172,9 @@ punycode@^2.1.0:
   integrity sha512-vYt7UD1U9Wg6138shLtLOvdAu+8DsC/ilFtEVHcH+wydcSpNE20AfSOduf6MkRFahL5FY7X1oU7nKVZFtfq8Fg==
 
 qs@^6.14.0:
-  version "6.14.0"
-  resolved "https://registry.npmjs.org/qs/-/qs-6.14.0.tgz"
-  integrity sha512-YWWTjgABSKcvs/nWBi9PycY/JiPJqOD4JA6o9Sej2AtvSGarXxKC3OQSk4pAarbdQlKAh5D4FCQkJNkW+GAn3w==
+  version "6.14.1"
+  resolved "https://registry.npmjs.org/qs/-/qs-6.14.1.tgz"
+  integrity sha512-4EK3+xJl8Ts67nLYNwqw/dsFVnCf+qR7RgXSK9jEEm9unao3njwMDdmsdvoKBKHzxd7tCYz5e5M+SnMjdtXGQQ==
   dependencies:
     side-channel "^1.1.0"
 
@@ -2629,10 +2629,10 @@ supports-preserve-symlinks-flag@^1.0.0:
   resolved "https://registry.npmjs.org/supports-preserve-symlinks-flag/-/supports-preserve-symlinks-flag-1.0.0.tgz"
   integrity sha512-ot0WnXS9fgdkgIcePe6RHNk1WA8+muPa6cSjeR3V8K27q9BB1rTE3R1p7Hv0z1ZyAc8s6Vvv8DIyWf681MAt0w==
 
-svelte-check@^4.3.2:
-  version "4.3.2"
-  resolved "https://registry.npmjs.org/svelte-check/-/svelte-check-4.3.2.tgz"
-  integrity sha512-71udP5w2kaSTcX8iV0hn3o2FWlabQHhJTJLIQrCqMsrcOeDUO2VhCQKKCA8AMVHSPwdxLEWkUWh9OKxns5PD9w==
+svelte-check@^4.3.5:
+  version "4.3.5"
+  resolved "https://registry.npmjs.org/svelte-check/-/svelte-check-4.3.5.tgz"
+  integrity sha512-e4VWZETyXaKGhpkxOXP+B/d0Fp/zKViZoJmneZWe/05Y2aqSKj3YN2nLfYPJBQ87WEiY4BQCQ9hWGu9mPT1a1Q==
   dependencies:
     "@jridgewell/trace-mapping" "^0.3.25"
     chokidar "^4.0.1"
@@ -2652,10 +2652,10 @@ svelte-eslint-parser@^1.3.0:
     postcss-scss "^4.0.9"
     postcss-selector-parser "^7.0.0"
 
-"svelte@^3.2.0 || ^4.0.0-next.0 || ^5.0.0-next.0", "svelte@^3.37.0 || ^4.0.0 || ^5.0.0", "svelte@^4.0.0 || ^5.0.0-next.0", svelte@^5, svelte@^5.0.0, svelte@^5.39.6:
-  version "5.39.6"
-  resolved "https://registry.npmjs.org/svelte/-/svelte-5.39.6.tgz"
-  integrity sha512-bOJXmuwLNaoqPCTWO8mPu/fwxI5peGE5Efe7oo6Cakpz/G60vsnVF6mxbGODaxMUFUKEnjm6XOwHEqOht6cbvw==
+"svelte@^3.2.0 || ^4.0.0-next.0 || ^5.0.0-next.0", "svelte@^3.37.0 || ^4.0.0 || ^5.0.0", "svelte@^4.0.0 || ^5.0.0-next.0", svelte@^5, svelte@^5.0.0, svelte@^5.48.1:
+  version "5.48.2"
+  resolved "https://registry.npmjs.org/svelte/-/svelte-5.48.2.tgz"
+  integrity sha512-VPWD+UyoSFZ7Nxix5K/F8yWiKWOiROkLlWYXOZReE0TUycw+58YWB3D6lAKT+57xmN99wRX4H3oZmw0NPy7y3Q==
   dependencies:
     "@jridgewell/remapping" "^2.3.4"
     "@jridgewell/sourcemap-codec" "^1.5.0"
@@ -2665,8 +2665,9 @@ svelte-eslint-parser@^1.3.0:
     aria-query "^5.3.1"
     axobject-query "^4.1.0"
     clsx "^2.1.1"
+    devalue "^5.6.2"
     esm-env "^1.2.1"
-    esrap "^2.1.0"
+    esrap "^2.2.1"
     is-reference "^3.0.3"
     locate-character "^3.0.0"
     magic-string "^0.30.11"
@@ -2781,7 +2782,7 @@ typescript-eslint@^8.45.0:
     "@typescript-eslint/typescript-estree" "8.45.0"
     "@typescript-eslint/utils" "8.45.0"
 
-typescript@^5.9.2, typescript@>=3.5.1, typescript@>=4.8.4, "typescript@>=4.8.4 <6.0.0", typescript@>=5.0.0:
+typescript@^5.3.3, typescript@^5.9.2, typescript@>=3.5.1, typescript@>=4.8.4, "typescript@>=4.8.4 <6.0.0", typescript@>=5.0.0:
   version "5.9.2"
   resolved "https://registry.npmjs.org/typescript/-/typescript-5.9.2.tgz"
   integrity sha512-CWBzXQrc/qOkhidw1OzBTQuYRbfyxDXJMVJ1XNwUHGROVmuaeiEm3OslpZ1RV96d7SKKjZKrSJu3+t/xlw3R9A==
