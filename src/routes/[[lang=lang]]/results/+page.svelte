@@ -17,7 +17,7 @@
     const activities = $derived(data.activities);
     const faculties = $derived(data.faculties);
 
-    let currentWeek = $state<number>(0);
+    let currentWeek = $state<number|null>(null);
 
     // svelte-ignore state_referenced_locally
     let currentSeason = $state<SeasonDTO>(seasons.values().next().value!);
