@@ -1,9 +1,9 @@
 import axios from 'axios';
-import type { LayoutLoad } from './$types';
 import { createRecordFromEntityArray } from '$lib/Helper';
 import { fetchActivities } from '$actions/Activity';
 import { fetchFaculties } from '$actions/Faculty';
 import { fetchSeasons } from '$actions/Season';
+import type { LayoutLoad } from './$types';
 
 export const load: LayoutLoad = async ({ data }) => {
     const api = axios.create({

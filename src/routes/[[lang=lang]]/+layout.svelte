@@ -1,34 +1,36 @@
 <script lang="ts">
-	import { setLocale } from '../../translations/i18n-svelte';
-	import { setLocale as setLocaleParaglide } from '$paraglide/runtime';
-	import { loadAllLocales } from '../../translations/i18n-util.sync';
-	import { page } from '$app/state';
-	import LL from '$translations/i18n-svelte';
-	import type { Locales } from '$translations/i18n-types';
-	import Navbar from '$components/Navbar.svelte';
-	import Footer from '$components/Footer.svelte';
+    import { setLocale } from '../../translations/i18n-svelte';
+    import { setLocale as setLocaleParaglide } from '$paraglide/runtime';
+    import { loadAllLocales } from '../../translations/i18n-util.sync';
+    import LL from '$translations/i18n-svelte';
+    import type { Locales } from '$translations/i18n-types';
+    import Navbar from '$components/Navbar.svelte';
+    import Footer from '$components/Footer.svelte';
 
-	let { children, data } = $props();
-	const lang = (page.params.lang as Locales) ?? 'cs';
+    let { children, data } = $props();
+    const lang = $derived((data.lang as Locales) ?? 'cs');
 
-	loadAllLocales();
-	setLocale(lang);
-	setLocaleParaglide(lang, { reload: false });
+    loadAllLocales();
+
+    $effect(() => {
+        setLocale(lang);
+        setLocaleParaglide(lang, { reload: false });
+    });
 </script>
 
 <svelte:head>
-	<title>{$LL.homepage.title()}</title>
+    <title>{$LL.homepage.title()}</title>
 </svelte:head>
 
-<Navbar currentSeason={data.currentSeason} user={data.user} />
+<Navbar currentSeason={data.currentSeason} user={data.user ?? null} />
 <main>
-	<svelte:boundary>
-		{@render children()}
+    <svelte:boundary>
+        {@render children()}
 
-		{#snippet pending()}
-			Načítání
-		{/snippet}
-	</svelte:boundary>
+        {#snippet pending()}
+            Načítání
+        {/snippet}
+    </svelte:boundary>
 </main>
 <Footer />
 <!-- <Cookies /> -->

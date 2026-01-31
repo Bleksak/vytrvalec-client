@@ -75,6 +75,7 @@ export const handle: Handle = async ({ event, resolve }): Promise<any> => {
     }
 
     return await paraglideMiddleware(event.request, ({ request: localizedRequest, locale }) => {
+        event.params.lang = locale;
         event.request = localizedRequest;
         return resolve(event, {
             transformPageChunk: ({ html }) => {

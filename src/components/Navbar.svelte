@@ -1,190 +1,200 @@
 <script lang="ts">
-	import LL, { setLocale } from '$translations/i18n-svelte';
-	import { getAllContexts, getContext, onMount } from 'svelte';
-	import LoginForm from './forms/LoginForm.svelte';
-	import RegistrationForm from './forms/RegistrationForm.svelte';
-	import type { DialogStore } from '$lib/stores/DialogStore.svelte';
-	import Store from '$lib/enums/Stores';
-	import SubmissionForm from './forms/SubmissionForm.svelte';
-	import { enhance } from '$app/forms';
-	import { MenuIcon } from '@lucide/svelte';
-	import { getLocale, setLocale as setLocaleParaglide } from '$paraglide/runtime';
-	import type { SeasonDTO } from '$lib/DTO/SeasonDTO';
-	import type { UserResponse } from '$lib/DTO/UserResponse';
-	import { UserRole } from '$lib/DTO/UserRole';
-	import { slide } from 'svelte/transition';
+    import LL, { locale, setLocale } from '$translations/i18n-svelte';
+    import { getAllContexts, getContext, onMount } from 'svelte';
+    import LoginForm from './forms/LoginForm.svelte';
+    import RegistrationForm from './forms/RegistrationForm.svelte';
+    import type { DialogStore } from '$lib/stores/DialogStore.svelte';
+    import Store from '$lib/enums/Stores';
+    import SubmissionForm from './forms/SubmissionForm.svelte';
+    import { enhance } from '$app/forms';
+    import { MenuIcon } from '@lucide/svelte';
+    import { getLocale, setLocale as setLocaleParaglide } from '$paraglide/runtime';
+    import type { SeasonDTO } from '$lib/DTO/SeasonDTO';
+    import type { UserResponse } from '$lib/DTO/UserResponse';
+    import { UserRole } from '$lib/DTO/UserRole';
+    import { slide } from 'svelte/transition';
+    import { goto } from '$app/navigation';
+    import { page } from '$app/state';
 
-	const { currentSeason, user }: { currentSeason: SeasonDTO | null; user: UserResponse | null } =
-		$props();
+    const { currentSeason, user }: { currentSeason: SeasonDTO | null; user: UserResponse | null } =
+        $props();
 
-	const dialogStore = getContext<DialogStore>(Store.DIALOG_STORE);
-	const context = getAllContexts();
+    const dialogStore = getContext<DialogStore>(Store.DIALOG_STORE);
+    const context = getAllContexts();
 
-	let currentLocale = $derived(getLocale());
+    let currentLocale = $state(getLocale());
 
-	let menuToggle = $state<HTMLButtonElement>();
-	let menuOpened = $state(false);
-	let innerWidth = $state(0);
+    let menuToggle = $state<HTMLButtonElement>();
+    let menuOpened = $state(false);
+    let innerWidth = $state(0);
 
-	function handleLocaleChange() {
-		const selectedLocale = currentLocale === 'cs' ? 'en' : 'cs';
-		setLocale(selectedLocale);
-		setLocaleParaglide(selectedLocale);
-	}
+    function handleLocaleChange() {
+        const selectedLocale = currentLocale === 'cs' ? 'en' : 'cs';
+        setLocale(selectedLocale);
+        setLocaleParaglide(selectedLocale, { reload: true });
+        currentLocale = selectedLocale;
+    }
 
-	function toggleMenuOpen() {
-		menuOpened = !menuOpened;
-	}
+    function toggleMenuOpen() {
+        menuOpened = !menuOpened;
+    }
 
-	let isMobileDevice = $state(false);
+    let isMobileDevice = $state(false);
 
-	onMount(() => {
-		if (/Android/i.test(navigator.userAgent) || /iPhone|iPad|iPod/i.test(navigator.userAgent)) {
-			isMobileDevice = true;
-		}
-	});
+    onMount(() => {
+        if (/Android/i.test(navigator.userAgent) || /iPhone|iPad|iPod/i.test(navigator.userAgent)) {
+            isMobileDevice = true;
+        }
+    });
 
-	function maybeSlide(node: Element, params: { duration: number } | null) {
-		if (!isMobileDevice || !params || !menuToggle?.checkVisibility()) {
-			return { duration: 0, css: () => '' };
-		}
+    function maybeSlide(node: Element, params: { duration: number } | null) {
+        if (!isMobileDevice || !params || !menuToggle?.checkVisibility()) {
+            return { duration: 0, css: () => '' };
+        }
 
-		return slide(node, params);
-	}
+        return slide(node, params);
+    }
 
-	$effect(() => {
-		innerWidth;
-		if (!menuToggle?.checkVisibility()) {
-			menuOpened = true;
-		}
-	});
+    $effect(() => {
+        innerWidth;
+        if (!menuToggle?.checkVisibility()) {
+            menuOpened = true;
+        }
+    });
 </script>
 
 <svelte:window bind:innerWidth />
 
 <header>
-	<nav>
-		<ul>
-			<li>
-				<a href="/{currentLocale}" aria-label="Hlavní stránka Měsíčního Vytrvalce">
-					<img class="vytrvalec-logo" src="/images/zcu-logo.png" title="Logo ZČU" alt="Logo ZČU" />
-				</a>
-			</li>
-		</ul>
-		<button bind:this={menuToggle} class="menu-toggle" onclick={toggleMenuOpen}>
-			<MenuIcon />
-		</button>
-		{#if menuOpened}
-			<ul class="menu-content" transition:maybeSlide={{ duration: 500 }}>
-				<li>
-					<button class="locale-change-btn" onclick={handleLocaleChange}>
-						<img
-							class="locale-flag"
-							src={currentLocale === 'cs' ? '/images/lang/cs.svg' : '/images/lang/en.svg'}
-							alt={currentLocale}
-						/>
-					</button>
-				</li>
-				{#if user && user.roles.includes(UserRole.Staff)}
-					<li>
-						<a href="/administration">
-							{$LL.navbar.administration()}
-						</a>
-					</li>
-				{/if}
-				<li>
-					<a href="/{currentLocale}/rules">
-						{$LL.navbar.rules()}
-					</a>
-				</li>
-				<li>
-					<a href="/{currentLocale}/results">
-						{$LL.navbar.results()}
-					</a>
-				</li>
-				{#if !user}
-					<li>
-						<button onclick={() => dialogStore.open(LoginForm, {}, context)}>
-							{$LL.navbar.login()}
-						</button>
-					</li>
-					<li>
-						<button
-							onclick={() => dialogStore.open(RegistrationForm, {}, context)}
-							class="secondary"
-						>
-							{$LL.navbar.register()}
-						</button>
-					</li>
-				{:else}
-					<li>
-						<a href="/{currentLocale}/profile">
-							{$LL.navbar.profile()}
-						</a>
-					</li>
-					{#if currentSeason}
-						<li>
-							<button onclick={() => dialogStore.open(SubmissionForm, {}, context)}>
-								{$LL.navbar.submission()}
-							</button>
-						</li>
-					{/if}
-					<li>
-						<form method="POST" action="/auth?/logout" use:enhance>
-							<input type="submit" class="secondary" value={$LL.navbar.logout()} />
-						</form>
-					</li>
-				{/if}
-			</ul>
-		{/if}
-	</nav>
+    <nav>
+        <ul>
+            <li>
+                <a href="/{currentLocale}" aria-label="Hlavní stránka Měsíčního Vytrvalce">
+                    <img
+                        class="vytrvalec-logo"
+                        src="/images/zcu-logo.png"
+                        title="Logo ZČU"
+                        alt="Logo ZČU"
+                    />
+                </a>
+            </li>
+        </ul>
+        <button bind:this={menuToggle} class="menu-toggle" onclick={toggleMenuOpen}>
+            <MenuIcon />
+        </button>
+        {#if menuOpened}
+            <ul class="menu-content" transition:maybeSlide={{ duration: 500 }}>
+                <li>
+                    <button class="locale-change-btn" onclick={handleLocaleChange}>
+                        <img
+                            class="locale-flag"
+                            src={currentLocale === 'cs'
+                                ? '/images/lang/cs.svg'
+                                : '/images/lang/en.svg'}
+                            alt={currentLocale}
+                        />
+                    </button>
+                </li>
+                {#if user && user.roles.includes(UserRole.Staff)}
+                    <li>
+                        <a href="/administration">
+                            {$LL.navbar.administration()}
+                        </a>
+                    </li>
+                {/if}
+                <li>
+                    <a href="/{currentLocale}/rules">
+                        {$LL.navbar.rules()}
+                    </a>
+                </li>
+                <li>
+                    <a href="/{currentLocale}/results">
+                        {$LL.navbar.results()}
+                    </a>
+                </li>
+                {#if !user}
+                    <li>
+                        <button onclick={() => dialogStore.open(LoginForm, {}, context)}>
+                            {$LL.navbar.login()}
+                        </button>
+                    </li>
+                    <li>
+                        <button
+                            onclick={() => dialogStore.open(RegistrationForm, {}, context)}
+                            class="secondary"
+                        >
+                            {$LL.navbar.register()}
+                        </button>
+                    </li>
+                {:else}
+                    <li>
+                        <a href="/{currentLocale}/profile">
+                            {$LL.navbar.profile()}
+                        </a>
+                    </li>
+                    {#if currentSeason}
+                        <li>
+                            <button onclick={() => dialogStore.open(SubmissionForm, {}, context)}>
+                                {$LL.navbar.submission()}
+                            </button>
+                        </li>
+                    {/if}
+                    <li>
+                        <form method="POST" action="/auth?/logout" use:enhance>
+                            <input type="submit" class="secondary" value={$LL.navbar.logout()} />
+                        </form>
+                    </li>
+                {/if}
+            </ul>
+        {/if}
+    </nav>
 </header>
 
 <style>
-	header {
-		display: flex;
-		align-items: center;
-		justify-content: space-between;
-	}
+    header {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+    }
 
-	.locale-change-btn {
-		background-color: transparent;
-		border: none;
-		outline: none;
-	}
+    .locale-change-btn {
+        background-color: transparent;
+        border: none;
+        outline: none;
+    }
 
-	.vytrvalec-logo {
-		height: 80px;
-	}
+    .vytrvalec-logo {
+        height: 80px;
+    }
 
-	.locale-flag {
-		width: 30px;
-		aspect-ratio: 1/1;
-		object-fit: cover;
-		border-radius: 50%;
-	}
+    .locale-flag {
+        width: 30px;
+        aspect-ratio: 1/1;
+        object-fit: cover;
+        border-radius: 50%;
+    }
 
-	nav {
-		width: 100%;
-	}
+    nav {
+        width: 100%;
+    }
 
-	.menu-toggle {
-		display: none;
-	}
+    .menu-toggle {
+        display: none;
+    }
 
-	@media (max-width: 768px) {
-		.menu-toggle {
-			display: flex;
-			justify-content: center;
-			align-items: center;
-		}
+    @media (max-width: 768px) {
+        .menu-toggle {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
 
-		nav {
-			flex-direction: column;
-		}
+        nav {
+            flex-direction: column;
+        }
 
-		nav > ul {
-			flex-direction: column;
-		}
-	}
+        nav > ul {
+            flex-direction: column;
+        }
+    }
 </style>
