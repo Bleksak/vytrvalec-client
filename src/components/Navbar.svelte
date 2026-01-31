@@ -132,7 +132,7 @@
                             {$LL.navbar.profile()}
                         </a>
                     </li>
-                    {#if currentSeason}
+                    {#if currentSeason && (!currentSeason.is_test || (currentSeason.is_test && user.roles.includes(UserRole.Staff)))}
                         <li>
                             <button onclick={() => dialogStore.open(SubmissionForm, {}, context)}>
                                 {$LL.navbar.submission()}
