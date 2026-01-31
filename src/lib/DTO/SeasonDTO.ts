@@ -30,6 +30,7 @@ export const SeasonType = type({
     charity: CharityType,
     can_delete: 'boolean',
     is_running: 'boolean',
+    is_test: 'boolean',
     faculty_mapping: FacultyMappingType.array(),
 });
 
