@@ -2,7 +2,7 @@ import type { PageServerLoad } from './$types';
 import { fetchSubmissionsForSeason } from '$actions/Submission';
 import type { SelectedFilter } from '$lib/DTO/SelectedFilter';
 
-export const load: PageServerLoad = async ({ params, url }) => {
+export const load: PageServerLoad = async ({ params, url, locals }) => {
     const id = Number(params.id);
 
     const user = url.searchParams.get('user');
@@ -28,7 +28,7 @@ export const load: PageServerLoad = async ({ params, url }) => {
         page: page && page !== '' && !isNaN(Number(page)) ? Number(page) : undefined
     };
 
-    const submissions = await fetchSubmissionsForSeason({ id }, filter);
+    const submissions = await fetchSubmissionsForSeason(locals.axios, { id }, filter);
 
     return {
         filter,

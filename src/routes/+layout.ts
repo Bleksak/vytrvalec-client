@@ -1,4 +1,5 @@
 import axios from 'axios';
+import { browser } from '$app/environment';
 import { createRecordFromEntityArray } from '$lib/Helper';
 import { fetchActivities } from '$actions/Activity';
 import { fetchFaculties } from '$actions/Faculty';
@@ -10,10 +11,11 @@ export const load: LayoutLoad = async ({ data }) => {
         baseURL: import.meta.env.VITE_API_BASE
     });
 
-    axios.defaults.baseURL = import.meta.env.VITE_API_BASE;
     if (data.jwt !== null && data.jwt !== undefined) {
         api.defaults.headers.common.Authorization = `Bearer ${data.jwt}`;
-        axios.defaults.headers.common.Authorization = `Bearer ${data.jwt}`;
+        if (browser) {
+            axios.defaults.headers.common.Authorization = `Bearer ${data.jwt}`;
+        }
     }
 
     const activityPromise = fetchActivities(api);

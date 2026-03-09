@@ -39,11 +39,8 @@ export const handle: Handle = async ({ event, resolve }): Promise<any> => {
         baseURL: import.meta.env.VITE_SERVER_API_BASE || import.meta.env.VITE_API_BASE
     });
 
-    axios.defaults.baseURL = import.meta.env.VITE_SERVER_API_BASE || import.meta.env.VITE_API_BASE;
-
     if (event.locals.jwt !== null) {
         axiosInstance.defaults.headers.common.Authorization = `Bearer ${event.locals.jwt}`;
-        axios.defaults.headers.common.Authorization = `Bearer ${event.locals.jwt}`;
     }
 
     event.locals.axios = axiosInstance;
@@ -59,7 +56,6 @@ export const handle: Handle = async ({ event, resolve }): Promise<any> => {
     } else {
         event.locals.jwt = null;
         axiosInstance.defaults.headers.common.Authorization = undefined;
-        axios.defaults.headers.common.Authorization = undefined;
     }
 
     if (isPathname(event.url.pathname, '/submission')) {

@@ -13,7 +13,7 @@ import type { ResetPasswordDTO, ResetPasswordResponse } from '$lib/DTO/ResetPass
 import type { ConsentChangeDTO } from '$lib/DTO/ConsentChangeDTO';
 
 export const login = async (api: AxiosInstance, loginDTO: UserLoginDTO): Promise<UserLoginResponse> => {
-	const response = await axios.post(`/user/login`, loginDTO).catch((error) => {
+	const response = await api.post(`/user/login`, loginDTO).catch((error) => {
 		if (error.response) {
 			return error.response;
 		}
@@ -96,8 +96,8 @@ export const getCurrentUser = async (api: AxiosInstance): Promise<CurrentUserRes
 	};
 };
 
-export const accountChange = async (dto: AccountChangeDTO): Promise<AccountChangeResponse> => {
-	const response = await axios.patch(`/user/change`, dto).catch((error) => {
+export const accountChange = async (api: AxiosInstance, dto: AccountChangeDTO): Promise<AccountChangeResponse> => {
+	const response = await api.patch(`/user/change`, dto).catch((error) => {
 		if (error.response) {
 			return error.response;
 		}
@@ -184,9 +184,10 @@ export const resetPassword = async (
 };
 
 export const anonymizationChange = async (
+	api: AxiosInstance,
 	consentDTO: ConsentChangeDTO
 ): Promise<ResetPasswordResponse> => {
-	const response = await axios.post(`/user/anonymize`, consentDTO).catch((error) => {
+	const response = await api.post(`/user/anonymize`, consentDTO).catch((error) => {
 		if (error.response) {
 			return error.response;
 		}
@@ -237,8 +238,8 @@ export const emailSubscribeChange = async (value: boolean) => {
 	return { type: 'success' };
 };
 
-export const accountDelete = async () => {
-	const response = await axios.delete(`/user`).catch((error) => {
+export const accountDelete = async (api: AxiosInstance) => {
+	const response = await api.delete(`/user`).catch((error) => {
 		if (error.response) {
 			return error.response;
 		}

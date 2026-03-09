@@ -10,6 +10,7 @@
     import SeasonDetail from '$components/home/SeasonDetail.svelte';
     import type { ActivityDTO } from '$lib/DTO/ActivityDTO';
     import Tabs from '$components/Tabs.svelte';
+    import { untrack } from 'svelte';
 
     const { data }: PageProps = $props();
 
@@ -19,8 +20,7 @@
 
     let currentWeek = $state<number|null>(null);
 
-    // svelte-ignore state_referenced_locally
-    let currentSeason = $state<SeasonDTO>(seasons.values().next().value!);
+    let currentSeason = $state<SeasonDTO>(untrack(() => seasons.values().next().value!));
 
     const seasonResultCalculator = $derived(new SeasonResult(activities));
 

@@ -11,8 +11,8 @@ import axios, { type AxiosInstance, type AxiosResponse } from 'axios';
 import type { SelectedFilter } from '$lib/DTO/SelectedFilter';
 import type { FacultyDTO } from '$lib/DTO/FacultyDTO';
 
-export const createSubmission = async (dto: SubmissionDTO): Promise<SubmissionCreateResponse> => {
-    const response = await axios.post(`/submission`, dto).catch((error) => {
+export const createSubmission = async (api: AxiosInstance, dto: SubmissionDTO): Promise<SubmissionCreateResponse> => {
+    const response = await api.post(`/submission`, dto).catch((error) => {
         if (error.response) {
             return error.response;
         }
@@ -40,11 +40,12 @@ export const createSubmission = async (dto: SubmissionDTO): Promise<SubmissionCr
 };
 
 export const fetchSubmissionsForSeason = async (
+    api: AxiosInstance = axios,
     season: SeasonDTO | { id: number },
     params: SelectedFilter
 ): Promise<SubmissionResponseAdminDTO[]> => {
     return (
-        (await axios.get(`/season/${season.id}/submissions`, { params: params }).catch(() => null))
+        (await api.get(`/season/${season.id}/submissions`, { params: params }).catch(() => null))
             ?.data ?? []
     ).map(
         (submission: {
@@ -59,10 +60,11 @@ export const fetchSubmissionsForSeason = async (
 };
 
 export const setSubmissionState = async (
+    api: AxiosInstance,
     submissionId: number,
     submissionStateDTO: SubmissionStateDTO
 ): Promise<SubmissionStateResponse> => {
-    const response = await axios
+    const response = await api
         .patch(`/submission/${submissionId}/state`, submissionStateDTO)
         .catch((err) => {
             if (err.response) {
@@ -114,10 +116,10 @@ export const rejectSubmission = async (
     });
 };
 
-export const patchSubmission = async (dto: SubmissionDTO, data: FormData) => {
+export const patchSubmission = async (api: AxiosInstance, dto: SubmissionDTO, data: FormData) => {
     const id = data.get('id');
 
-    const response = await axios.patch(`/submission/${id}`, dto).catch((error) => {
+    const response = await api.patch(`/submission/${id}`, dto).catch((error) => {
         if (error.response) {
             return error.response;
         }

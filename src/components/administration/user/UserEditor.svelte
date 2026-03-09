@@ -5,7 +5,7 @@
     import type { HTMLDialogAttributes } from 'svelte/elements';
     import type { SubmitFunction } from '@sveltejs/kit';
     import { enhance } from '$app/forms';
-    import { getContext } from 'svelte';
+    import { getContext, untrack } from 'svelte';
     import type { UserStore } from '$lib/stores/UserStore.svelte';
     import type { ToastStore } from '$lib/stores/ToastStore.svelte';
     import type { UserError } from '$lib/DTO/UserEditDTO';
@@ -16,8 +16,7 @@
     const { user, ...props }: { user: UserResponse } & HTMLDialogAttributes = $props();
     let dialog = $state<Dialog>();
 
-    // svelte-ignore state_referenced_locally
-    let editedUser = $state({ ...user });
+    let editedUser = $state(untrack(() => ({ ...user })));
 
     const facultyStore = getContext<FacultyStore>(Store.FACULTY_STORE);
     const userStore = getContext<UserStore>(Store.USER_STORE);

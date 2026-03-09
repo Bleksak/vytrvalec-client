@@ -22,7 +22,7 @@
 
 	let open = $state<boolean>(false);
 
-	let currentKey = $state<string>(keys[0]);
+	let currentKey = $state<string>('');
 
 	let selectElement = $state();
 	let optionsElement = $state();
@@ -43,12 +43,6 @@
 		currentKey = keys[idx];
 	};
 
-	if (currentValue === undefined && values.length > 0) {
-		select(0);
-	} else if (currentValue !== undefined && values.length > 0) {
-		select(values.indexOf(currentValue));
-	}
-
 	const closeOnOutsideClick = () => (open = false);
 
 	const toggleDropdown = () => {
@@ -61,6 +55,8 @@
 		const idx = values.indexOf(currentValue);
 		if (idx !== -1) {
 			currentKey = keys[idx];
+		} else if (values.length > 0) {
+			select(0);
 		}
 	});
 </script>

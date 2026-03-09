@@ -8,6 +8,7 @@
     import { page } from '$app/state';
     import SubmissionScrollerFilter from '$components/administration/season/SubmissionScrollerFilter.svelte';
     import { fetchSubmissionsForSeason } from '$actions/Submission';
+    import axios from 'axios';
 
     const { season }: { season: SeasonDTO } = $props();
 
@@ -37,7 +38,7 @@
 
                         filter.page += 1;
 
-                        fetchSubmissionsForSeason(season, filter).then((newSubmissions) => {
+                        fetchSubmissionsForSeason(axios, season, filter).then((newSubmissions) => {
                             submissions.push(...newSubmissions);
 
                             if (newSubmissions.length === 0) {

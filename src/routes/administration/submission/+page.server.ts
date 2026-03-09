@@ -1,10 +1,9 @@
-import axios from 'axios';
 import type { PageServerLoad } from './$types';
 import type { ActivityDTO } from '$lib/DTO/ActivityDTO';
 import { error } from '@sveltejs/kit';
 
-export const load: PageServerLoad = async () => {
-	const activitiesResponse = await axios.get<Array<ActivityDTO>>('/activity');
+export const load: PageServerLoad = async ({ locals }) => {
+	const activitiesResponse = await locals.axios.get<Array<ActivityDTO>>('/activity');
 
 	if (activitiesResponse.status !== 200) {
 		error(400, {

@@ -1,6 +1,7 @@
 import { fetchSubmissionsForSeason } from '$actions/Submission';
 import type { SeasonDTO } from '$lib/DTO/SeasonDTO';
 import type { SubmissionResponseAdminDTO } from '$lib/DTO/SubmissionDTO';
+import axios from 'axios';
 
 export type SubmissionFilter = {
 	reviewed?: number;
@@ -26,7 +27,7 @@ export const createSubmissionStore = (season: SeasonDTO): SubmissionStore => {
 	let filters = $state<object>({})
 
 	let currentPage = 1;
-	let submissionsPromise: Promise<Array<SubmissionResponseAdminDTO>> = fetchSubmissionsForSeason(season, { page: currentPage,...filters });
+	let submissionsPromise: Promise<Array<SubmissionResponseAdminDTO>> = fetchSubmissionsForSeason(axios, season, { page: currentPage,...filters });
 
 	let canLoadMore = true;
 
@@ -50,7 +51,7 @@ export const createSubmissionStore = (season: SeasonDTO): SubmissionStore => {
 		if (!canLoadMore) return;
 
 		currentPage++;
-		fetchSubmissionsForSeason(season, { page: currentPage, ...filters }).then(nextSubmissions => {
+		fetchSubmissionsForSeason(axios, season, { page: currentPage, ...filters }).then(nextSubmissions => {
 			submissions = [...submissions, ...nextSubmissions];
 			if (nextSubmissions.length === 0) {
 				canLoadMore = false;

@@ -8,7 +8,6 @@ import {
 } from '$actions/Auth';
 import { formDataToUserLoginDTO } from '$lib/DTO/UserLoginDTO';
 import { fail, redirect, type Action } from '@sveltejs/kit';
-import axios from 'axios';
 import { register } from '$actions/Auth';
 import { formDataToUserRegisterDTO } from '$lib/DTO/UserRegisterDTO';
 import { type Actions } from '@sveltejs/kit';
@@ -31,15 +30,14 @@ const loginAction: Action = async ({ cookies, request, locals }) => {
 	}
 
 	const token = result.response.token;
-	cookies.set('jwt', token, { path: '/' });
+	const { exp } = JSON.parse(Buffer.from(token.split('.')[1], 'base64url').toString());
+	cookies.set('jwt', token, { path: '/', maxAge: exp - Math.floor(Date.now() / 1000) });
 
 	locals.axios.defaults.headers.common.Authorization = `Bearer ${token}`;
 };
 
 const logoutAction: Action = ({ cookies }) => {
 	cookies.delete('jwt', { path: '/' });
-	axios.defaults.headers.common.Authorization = null;
-
 	redirect(307, '/');
 };
 
@@ -57,13 +55,13 @@ const registerAction: Action = async ({ request }) => {
 	}
 };
 
-const accountAction: Action = async ({ request }) => {
+const accountAction: Action = async ({ request, locals }) => {
 	const data = formDataToAccountChangeDTO(await request.formData());
 	if (data.type === 'error') {
 		return fail(400, data.errors);
 	}
 
-	const response = await accountChange(data.dto);
+	const response = await accountChange(locals.axios, data.dto);
 	if (response.type === 'error') {
 		return fail(400, response.errors);
 	}
@@ -97,14 +95,14 @@ const resetAction: Action = async ({ request }) => {
 	return redirect(307, '/');
 };
 
-const anonymizeAction: Action = async ({ request }) => {
+const anonymizeAction: Action = async ({ request, locals }) => {
 	const data = formDataToConsentChangeDTO(await request.formData());
 
 	if (data.type === 'error') {
 		return fail(400, data.value);
 	}
 
-	const response = await anonymizationChange(data.value);
+	const response = await anonymizationChange(locals.axios, data.value);
 
 	if (response.type === 'error') {
 		return fail(400, response.errors);
@@ -113,8 +111,8 @@ const anonymizeAction: Action = async ({ request }) => {
 	return { status: response.type };
 };
 
-const deleteAccountAction: Action = async () => {
-	const response = await accountDelete();
+const deleteAccountAction: Action = async ({ locals }) => {
+	const response = await accountDelete(locals.axios);
 
 	if (response.type === 'error') {
 		return fail(400, response.errors);
