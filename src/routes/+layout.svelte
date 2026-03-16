@@ -12,7 +12,7 @@
 	import { locales, localizeHref } from '$paraglide/runtime';
 	import { page } from '$app/state';
 
-	let { children } = $props();
+	let { children, data } = $props();
 
 	String.prototype.removeAccents = function () {
 		return this.normalize('NFD').replace(/[\u0300-\u036f]/g, '');
@@ -20,8 +20,8 @@
 
 	const dialogStore = createDialogStore();
 	const toastStore = createToastStore();
-	const activityStore = createActivityStore();
-	const facultyStore = createFacultyStore();
+	const activityStore = createActivityStore(data.api);
+	const facultyStore = createFacultyStore(data.api);
 
 	setContext(Store.TOAST_STORE, toastStore);
 	setContext(Store.DIALOG_STORE, dialogStore);

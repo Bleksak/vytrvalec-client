@@ -1,5 +1,6 @@
 import { fetchFaculties } from "$actions/Faculty";
 import type { FacultyDTO } from "$lib/DTO/FacultyDTO";
+import type { AxiosInstance } from "axios";
 
 export type FacultyStore = {
     all: () => FacultyDTO[];
@@ -8,9 +9,9 @@ export type FacultyStore = {
     promise: () => Promise<FacultyDTO[]>;
 }
 
-const createFacultyStore = (): FacultyStore => {
+const createFacultyStore = (api: AxiosInstance): FacultyStore => {
     let faculties = $state<FacultyDTO[]>([]);
-    const facultiesPromise = fetchFaculties();
+    const facultiesPromise = fetchFaculties(api);
 
     facultiesPromise.then((result: FacultyDTO[]) => {
         faculties = result;

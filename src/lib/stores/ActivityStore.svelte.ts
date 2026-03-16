@@ -1,14 +1,15 @@
 import { fetchActivities } from "$actions/Activity";
 import type { ActivityDTO } from "$lib/DTO/ActivityDTO";
+import type { AxiosInstance } from "axios";
 
 export type ActivityStore = {
     all: () => ActivityDTO[];
     get: (id: number) => ActivityDTO | null;
     promise: () => Promise<ActivityDTO[]>;
 }
-const createActivityStore = (): ActivityStore => {
+const createActivityStore = (api: AxiosInstance): ActivityStore => {
     let activities = $state<ActivityDTO[]>([]);
-    const activitiesPromise = fetchActivities();
+    const activitiesPromise = fetchActivities(api);
 
     activitiesPromise.then((result: ActivityDTO[]) => {
         activities = result;
