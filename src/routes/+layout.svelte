@@ -20,13 +20,19 @@
 
 	const dialogStore = createDialogStore();
 	const toastStore = createToastStore();
-	const activityStore = createActivityStore(data.api);
-	const facultyStore = createFacultyStore(data.api);
+	const activityStore = $derived(createActivityStore(data.api));
+	const facultyStore = $derived(createFacultyStore(data.api));
 
 	setContext(Store.TOAST_STORE, toastStore);
 	setContext(Store.DIALOG_STORE, dialogStore);
-	setContext(Store.ACTIVITY_STORE, activityStore);
-	setContext(Store.FACULTY_STORE, facultyStore);
+
+	$effect(() => {
+    	setContext(Store.ACTIVITY_STORE, activityStore);
+	});
+
+	$effect(() => {
+    	setContext(Store.FACULTY_STORE, facultyStore);
+	});
 </script>
 
 {#if toastStore.toasts().length > 0}
