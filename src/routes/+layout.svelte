@@ -7,7 +7,7 @@
 	import createDialogStore from '$lib/stores/DialogStore.svelte';
 	import createFacultyStore from '$lib/stores/FacultyStore.svelte';
 	import { createToastStore } from '$lib/stores/ToastStore.svelte';
-	import { setContext } from 'svelte';
+	import { onMount, setContext } from 'svelte';
 	import { fade } from 'svelte/transition';
 	import { locales, localizeHref } from '$paraglide/runtime';
 	import { page } from '$app/state';
@@ -25,14 +25,8 @@
 
 	setContext(Store.TOAST_STORE, toastStore);
 	setContext(Store.DIALOG_STORE, dialogStore);
-
-	$effect(() => {
-    	setContext(Store.ACTIVITY_STORE, activityStore);
-	});
-
-	$effect(() => {
-    	setContext(Store.FACULTY_STORE, facultyStore);
-	});
+	setContext(Store.ACTIVITY_STORE, activityStore);
+	setContext(Store.FACULTY_STORE, facultyStore);
 </script>
 
 {#if toastStore.toasts().length > 0}

@@ -41,14 +41,14 @@ const logoutAction: Action = ({ cookies }) => {
 	redirect(307, '/');
 };
 
-const registerAction: Action = async ({ request }) => {
+const registerAction: Action = async ({ request, locals }) => {
 	const registerDTO = formDataToUserRegisterDTO(await request.formData());
 
 	if (registerDTO.type === 'error') {
 		return fail(400, { register: registerDTO.value });
 	}
 
-	const result = await register(registerDTO.value);
+	const result = await register(locals.axios, registerDTO.value);
 
 	if (result.type === 'error') {
 		return fail(400, { register: result.errors });

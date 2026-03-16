@@ -65,7 +65,7 @@ export const formDataToUserRegisterDTO = (formData: FormData): UserRegisterRetur
 	}
 
 	const gdpr = formData.get('gdpr');
-	if (gdpr === null || !Boolean(Number(gdpr))) {
+	if (gdpr === null || (!Boolean(Number(gdpr)) && gdpr !== 'on')) {
 		errors['gdpr'] = ['blank'];
 	}
 

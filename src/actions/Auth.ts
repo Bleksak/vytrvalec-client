@@ -41,8 +41,8 @@ export const login = async (api: AxiosInstance, loginDTO: UserLoginDTO): Promise
 	};
 };
 
-export const register = async (registerDTO: UserRegisterDTO): Promise<UserRegisterResponse> => {
-	const response = await axios.post(`/user`, registerDTO).catch((error) => {
+export const register = async (api: AxiosInstance, registerDTO: UserRegisterDTO): Promise<UserRegisterResponse> => {
+	const response = await api.post(`/user`, registerDTO).catch((error) => {
 		if (error.response) {
 			return error.response;
 		}
