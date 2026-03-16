@@ -1,18 +1,13 @@
 import type { UserEditDTO } from '$lib/DTO/UserEditDTO';
 import type { UserResponse, UserUpdateResponse } from '$lib/DTO/UserResponse';
 import type { AxiosInstance, AxiosResponse } from 'axios';
-import axios from 'axios';
 
-export const fetchUser = async (user: number): Promise<AxiosResponse<UserResponse>> => {
-	return await axios.get(`/user/${user}`);
+export const fetchUser = async (api: AxiosInstance, user: number): Promise<AxiosResponse<UserResponse>> => {
+	return await api.get(`/user/${user}`);
 };
 
-export const fetchUsers = async (): Promise<Array<UserResponse>> => {
-	return (await axios.get('/user'))?.data ?? [];
-};
-
-export const updateCurrentUser = async (data: UserEditDTO) => {
-	return await axios.patch(`/user`, data);
+export const fetchUsers = async (api: AxiosInstance): Promise<Array<UserResponse>> => {
+	return (await api.get('/user'))?.data ?? [];
 };
 
 export const updateUser = async (api: AxiosInstance, user: number, data: UserEditDTO): Promise<UserUpdateResponse> => {

@@ -1,5 +1,6 @@
 import { fetchUsers } from '$actions/administration/Users';
 import type { UserResponse } from '$lib/DTO/UserResponse';
+import type { AxiosInstance } from 'axios';
 
 export type UserStore = {
 	get: (id: number) => UserResponse | null;
@@ -8,9 +9,9 @@ export type UserStore = {
 	update: (user: UserResponse) => void;
 };
 
-export const createUserStore = (): UserStore => {
+export const createUserStore = (api: AxiosInstance): UserStore => {
 	let users = $state<Array<UserResponse>>([]);
-	const usersPromise = fetchUsers();
+	const usersPromise = fetchUsers(api);
 
 	usersPromise.then((result) => {
 		users = result;

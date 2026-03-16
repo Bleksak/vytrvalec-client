@@ -21,7 +21,7 @@
 
 	const seasonStore = createSeasonStore();
 	const charityStore = createCharityStore();
-	const userStore = createUserStore();
+	const userStore = $derived(createUserStore(data.api));
 	const facultyStore = $derived(createFacultyStore(data.api));
 
 	setContext(Store.SEASON_STORE, seasonStore);
