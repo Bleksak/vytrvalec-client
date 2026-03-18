@@ -1,65 +1,41 @@
 <script lang="ts">
-	import '$css/app.scss';
-	import '$lib/DTO/CommonArkType';
-	import Toast from '$components/Toast.svelte';
-	import Store from '$lib/enums/Stores';
-	import createActivityStore from '$lib/stores/ActivityStore.svelte';
-	import createDialogStore from '$lib/stores/DialogStore.svelte';
-	import createFacultyStore from '$lib/stores/FacultyStore.svelte';
-	import { createToastStore } from '$lib/stores/ToastStore.svelte';
-	import { onMount, setContext } from 'svelte';
-	import { fade } from 'svelte/transition';
-	import { locales, localizeHref } from '$paraglide/runtime';
-	import { page } from '$app/state';
+    import '$css/app.scss';
+    import '$lib/DTO/CommonArkType';
+    import Toast from '$components/Toast.svelte';
+    import Store from '$lib/enums/Stores';
+    import createActivityStore from '$lib/stores/ActivityStore.svelte';
+    import createDialogStore from '$lib/stores/DialogStore.svelte';
+    import createFacultyStore from '$lib/stores/FacultyStore.svelte';
+    import { createToastStore } from '$lib/stores/ToastStore.svelte';
+    import { onMount, setContext } from 'svelte';
+    import { fade } from 'svelte/transition';
+    import { locales, localizeHref } from '$paraglide/runtime';
+    import { page } from '$app/state';
+    import ToastAnchor from '$components/ToastAnchor.svelte';
 
-	let { children, data } = $props();
+    let { children, data } = $props();
 
-	String.prototype.removeAccents = function () {
-		return this.normalize('NFD').replace(/[\u0300-\u036f]/g, '');
-	};
+    String.prototype.removeAccents = function () {
+        return this.normalize('NFD').replace(/[\u0300-\u036f]/g, '');
+    };
 
-	const dialogStore = createDialogStore();
-	const toastStore = createToastStore();
-	const activityStore = $derived(createActivityStore(data.api));
-	const facultyStore = $derived(createFacultyStore(data.api));
+    const dialogStore = createDialogStore();
+    const toastStore = createToastStore();
+    const activityStore = $derived(createActivityStore(data.api));
+    const facultyStore = $derived(createFacultyStore(data.api));
 
-	setContext(Store.TOAST_STORE, toastStore);
-	setContext(Store.DIALOG_STORE, dialogStore);
-	setContext(Store.ACTIVITY_STORE, activityStore);
-	setContext(Store.FACULTY_STORE, facultyStore);
+    setContext(Store.TOAST_STORE, toastStore);
+    setContext(Store.DIALOG_STORE, dialogStore);
+    setContext(Store.ACTIVITY_STORE, activityStore);
+    setContext(Store.FACULTY_STORE, facultyStore);
 </script>
 
-{#if toastStore.toasts().length > 0}
-	<div class="toasts-anchor" transition:fade>
-		<div class="toasts">
-			{#each toastStore.toasts() as toast}
-				<Toast {toast} />
-			{/each}
-		</div>
-	</div>
-{/if}
+<ToastAnchor {toastStore} />
 
 {@render children()}
 
 <div style="display:none">
-	{#each locales as locale}
-		<a href={localizeHref(page.url.pathname, { locale })}>{locale}</a>
-	{/each}
+    {#each locales as locale}
+        <a href={localizeHref(page.url.pathname, { locale })}>{locale}</a>
+    {/each}
 </div>
-
-<style>
-	.toasts-anchor {
-		z-index: 9999;
-		position: fixed;
-
-		bottom: 10%;
-		right: 10%;
-	}
-	.toasts {
-		position: relative;
-
-		display: flex;
-		flex-direction: column-reverse;
-		gap: 20px;
-	}
-</style>

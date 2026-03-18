@@ -1,6 +1,6 @@
 export type ToastStore = {
 	add: (toast: Toast) => void;
-	toasts: Array<Toast>;
+	toasts: () =>  Array<Toast>;
 	remove: (toast: Toast) => void;
 };
 
