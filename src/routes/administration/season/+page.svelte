@@ -2,13 +2,23 @@
     import { deleteSeason } from '$actions/Season.js';
     import Heading from '$components/Heading.svelte';
     import type { SeasonDTO } from '$lib/DTO/SeasonDTO.js';
+    import Store from '$lib/enums/Stores.js';
+    import { getGlobalContext } from '$lib/stores/GlobalContext.svelte.js';
+    import { type ToastStore } from '$lib/stores/ToastStore.svelte.js';
     import { Delete, Eye, SquarePen } from '@lucide/svelte';
 
     const { data } = $props();
 
+    const toastStore = $derived(getGlobalContext<ToastStore>(Store.TOAST_STORE));
+
     function deleteButtonClick(season: SeasonDTO): void {
         deleteSeason(season, data.api).then(() => {
             data.seasons.delete(season.id);
+
+            toastStore?.add({
+                message: 'Sezóna byla úspěšně odstraněna',
+                type: 'success',
+            });
         });
     }
 </script>
