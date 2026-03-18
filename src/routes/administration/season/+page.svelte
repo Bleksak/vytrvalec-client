@@ -1,41 +1,60 @@
 <script lang="ts">
-	import Heading from '$components/Heading.svelte';
-	import { Edit, Eye } from '@lucide/svelte';
+    import { deleteSeason } from '$actions/Season.js';
+    import Heading from '$components/Heading.svelte';
+    import type { SeasonDTO } from '$lib/DTO/SeasonDTO.js';
+    import { Delete, Eye, SquarePen } from '@lucide/svelte';
 
-	const { data } = $props();
+    const { data } = $props();
+
+    function deleteButtonClick(season: SeasonDTO): void {
+        deleteSeason(season, data.api).then(() => {
+            data.seasons.delete(season.id);
+        });
+    }
 </script>
 
 <article>
-	<Heading>
-		<h1>Seznam sezón</h1>
-		<a role="button" href="/administration/season/create">Nová sezóna</a>
-	</Heading>
+    <Heading>
+        <h1>Seznam sezón</h1>
+        <a role="button" href="/administration/season/create">Nová sezóna</a>
+    </Heading>
 
-	<main>
-		<table class="striped">
-			<thead>
-				<tr>
-					<th scope="col">Začátek</th>
-					<th scope="col">Konec</th>
-					<th scope="col">Charita</th>
-					<th scope="col">Akce</th>
-				</tr>
-			</thead>
-			<tbody>
-				{#each data.seasons as season}
-					<tr>
-						<td>{season.start.toLocaleDateString('cs')}</td>
-						<td>{season.end.toLocaleDateString('cs')}</td>
-						<td>
-							<a href="/administration/charity/{season.charity.id}">{season.charity.name.cs}</a>
-						</td>
-						<td>
-							<a title="Detail" href="/administration/season/{season.id}"><Eye /></a>
-							<a title="Upravit" href="/administration/season/{season.id}/edit"><Edit /></a>
-						</td>
-					</tr>
-				{/each}
-			</tbody>
-		</table>
-	</main>
+    <main>
+        <table class="striped">
+            <thead>
+                <tr>
+                    <th scope="col">Začátek</th>
+                    <th scope="col">Konec</th>
+                    <th scope="col">Charita</th>
+                    <th scope="col">Akce</th>
+                </tr>
+            </thead>
+            <tbody>
+                {#each data.seasons.values() as season}
+                    <tr>
+                        <td>{season.start.toLocaleDateString('cs')}</td>
+                        <td>{season.end.toLocaleDateString('cs')}</td>
+                        <td>
+                            <a href="/administration/charity/{season.charity.id}">
+                                {season.charity.name.cs}
+                            </a>
+                        </td>
+                        <td>
+                            <a title="Detail" href="/administration/season/{season.id}"><Eye /></a>
+                            <a title="Upravit" href="/administration/season/{season.id}/edit">
+                                <SquarePen />
+                            </a>
+                            <button
+                                class="btn-no-style"
+                                disabled={!season.can_delete}
+                                onclick={() => deleteButtonClick(season)}
+                            >
+                                <Delete class="selection-color" />
+                            </button>
+                        </td>
+                    </tr>
+                {/each}
+            </tbody>
+        </table>
+    </main>
 </article>
