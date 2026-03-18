@@ -1,14 +1,12 @@
 <script lang="ts">
     import '$css/app.scss';
     import '$lib/DTO/CommonArkType';
-    import Toast from '$components/Toast.svelte';
     import Store from '$lib/enums/Stores';
     import createActivityStore from '$lib/stores/ActivityStore.svelte';
     import createDialogStore from '$lib/stores/DialogStore.svelte';
     import createFacultyStore from '$lib/stores/FacultyStore.svelte';
     import { createToastStore } from '$lib/stores/ToastStore.svelte';
-    import { onMount, setContext } from 'svelte';
-    import { fade } from 'svelte/transition';
+    import { setContext } from 'svelte';
     import { locales, localizeHref } from '$paraglide/runtime';
     import { page } from '$app/state';
     import ToastAnchor from '$components/ToastAnchor.svelte';
