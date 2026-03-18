@@ -1,4 +1,6 @@
-let globalContext = $state<Map<string, any>>(new Map());
+import { SvelteMap } from "svelte/reactivity";
+
+let globalContext = $state<SvelteMap<string, any>>(new SvelteMap());
 
 export const setGlobalContext = <T>(key: string, value: T) => {
 	globalContext.set(key, value);
