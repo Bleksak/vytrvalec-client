@@ -56,7 +56,7 @@
                             </a>
                             <button
                                 class="btn-no-style"
-                                disabled={!season.can_delete}
+                                disabled={!season.can_delete && !season.is_test}
                                 onclick={() => deleteButtonClick(season)}
                             >
                                 <Delete class="selection-color" />
