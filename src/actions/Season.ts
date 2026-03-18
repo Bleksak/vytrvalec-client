@@ -106,7 +106,7 @@ export const deleteSeason = async (season: SeasonDTO, api: AxiosInstance): Promi
     return null;
   });
 
-  return response !== null;
+  return response !== null && response.status === 200;
 };
 
 export const fetchCurrentSeason = async (api: AxiosInstance): Promise<SeasonDTO | null> => {
