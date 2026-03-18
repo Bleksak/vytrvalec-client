@@ -6,12 +6,9 @@
     import type { Locales } from '$translations/i18n-types';
     import Navbar from '$components/Navbar.svelte';
     import Footer from '$components/Footer.svelte';
-    import createSeasonStore from '$lib/stores/SeasonStore.svelte';
-    import { createCharityStore } from '$lib/stores/CharityStore.svelte';
     import { createUserStore } from '$lib/stores/UserStore.svelte';
     import { setContext } from 'svelte';
     import Store from '$lib/enums/Stores';
-    import createFacultyStore from '$lib/stores/FacultyStore.svelte';
     import { createToastStore } from '$lib/stores/ToastStore.svelte';
     import ToastAnchor from '$components/ToastAnchor.svelte';
 
@@ -21,16 +18,10 @@
     const lang = (page.params.lang as Locales) ?? 'cs';
     setLocale(lang);
 
-    const seasonStore = createSeasonStore();
-    const charityStore = createCharityStore();
     const userStore = $derived(createUserStore(data.api));
-    const facultyStore = $derived(createFacultyStore(data.api));
     const toastStore = createToastStore();
 
-    setContext(Store.SEASON_STORE, seasonStore);
-    setContext(Store.CHARITY_STORE, charityStore);
     setContext(Store.USER_STORE, userStore);
-    setContext(Store.FACULTY_STORE, facultyStore);
     setContext(Store.TOAST_STORE, toastStore);
 </script>
 
