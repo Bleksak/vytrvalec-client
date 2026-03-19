@@ -1,5 +1,7 @@
 <script lang="ts">
-	import ActivityCreateForm from '$components/administration/activity/ActivityCreateForm.svelte';
+    import ActivityCreateForm from '$components/administration/activity/ActivityCreateForm.svelte';
+
+    let { data } = $props();
 </script>
 
-<ActivityCreateForm />
+<ActivityCreateForm api={data.api} />

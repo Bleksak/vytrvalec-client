@@ -3,18 +3,21 @@
 	import Store from '$lib/enums/Stores';
 	import type { ToastStore } from '$lib/stores/ToastStore.svelte';
 	import LL from '$translations/i18n-svelte';
+    import type { AxiosInstance } from 'axios';
 	import { getContext } from 'svelte';
 
 	let {
 		imageUuid = $bindable(),
 		imageUrl = $bindable(),
 		disabled = false,
-		id = undefined
+		id = undefined,
+		api,
 	}: {
 		imageUuid: string | undefined | null;
 		imageUrl?: string | null | undefined;
 		disabled?: boolean;
 		id?: string | undefined;
+		api: AxiosInstance
 	} = $props();
 
 	const toastStore = getContext<ToastStore>(Store.TOAST_STORE);
@@ -42,7 +45,7 @@
 	};
 
 	const handleUploadImage = async (image: File) => {
-		const response = await uploadImage(image);
+		const response = await uploadImage(api, image);
 		if (!response) {
 			toastStore.add({
 				type: 'error',
