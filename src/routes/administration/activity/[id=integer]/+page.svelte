@@ -1,7 +1,7 @@
 <script lang="ts">
-	import ActivityUpdateForm from '$components/administration/activity/ActivityUpdateForm.svelte';
+    import ActivityUpdateForm from '$components/administration/activity/ActivityUpdateForm.svelte';
 
-	const { data } = $props();
+    const { data } = $props();
 </script>
 
-<ActivityUpdateForm activity={data.activity} />
+<ActivityUpdateForm activity={data.activity} api={data.api} />

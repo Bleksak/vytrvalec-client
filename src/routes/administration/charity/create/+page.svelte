@@ -1,5 +1,7 @@
 <script lang="ts">
-	import CharityCreateForm from '$components/administration/charity/CharityCreateForm.svelte';
+    import CharityCreateForm from '$components/administration/charity/CharityCreateForm.svelte';
+
+    const { data } = $props();
 </script>
 
-<CharityCreateForm />
+<CharityCreateForm api={data.api} />

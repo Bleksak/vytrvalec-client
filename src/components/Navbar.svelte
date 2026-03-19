@@ -1,5 +1,5 @@
 <script lang="ts">
-    import LL, { locale, setLocale } from '$translations/i18n-svelte';
+    import LL, { setLocale } from '$translations/i18n-svelte';
     import { getAllContexts, getContext, onMount } from 'svelte';
     import LoginForm from './forms/LoginForm.svelte';
     import RegistrationForm from './forms/RegistrationForm.svelte';
@@ -13,10 +13,13 @@
     import type { UserResponse } from '$lib/DTO/UserResponse';
     import { UserRole } from '$lib/DTO/UserRole';
     import { slide } from 'svelte/transition';
-    import { goto } from '$app/navigation';
-    import { page } from '$app/state';
+    import type { AxiosInstance } from 'axios';
 
-    const { currentSeason, user }: { currentSeason: SeasonDTO | null; user: UserResponse | null } =
+    const {
+        currentSeason,
+        user,
+        api,
+    }: { currentSeason: SeasonDTO | null; user: UserResponse | null; api: AxiosInstance } =
         $props();
 
     const dialogStore = getContext<DialogStore>(Store.DIALOG_STORE);
@@ -134,7 +137,9 @@
                     </li>
                     {#if currentSeason && (!currentSeason.is_test || (currentSeason.is_test && user.roles.includes(UserRole.Staff)))}
                         <li>
-                            <button onclick={() => dialogStore.open(SubmissionForm, {}, context)}>
+                            <button
+                                onclick={() => dialogStore.open(SubmissionForm, { api }, context)}
+                            >
                                 {$LL.navbar.submission()}
                             </button>
                         </li>

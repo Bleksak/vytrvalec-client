@@ -1,13 +1,13 @@
 <script lang="ts">
-	import CharityUpdateForm from '$components/administration/charity/CharityUpdateForm.svelte';
+    import CharityUpdateForm from '$components/administration/charity/CharityUpdateForm.svelte';
 
-	const { data } = $props();
+    const { data } = $props();
 </script>
 
 {#if data.charity !== null}
-	<CharityUpdateForm charity={data.charity} />
+    <CharityUpdateForm charity={data.charity} api={data.api} />
 {:else}
-	<article>
-		<header>Nebylo možné najít požadovanou charitu</header>
-	</article>
+    <article>
+        <header>Nebylo možné najít požadovanou charitu</header>
+    </article>
 {/if}
