@@ -56,19 +56,27 @@ const en = {
         },
     },
 
-    season_detail: {
-        title: 'Season Detail',
-        date_range: '{start: Date|long_date} - {end: Date|long_date}',
-        ordinal: {
-            first: 'First place: {name: string}',
-            second: 'Second place: {name: string}',
-            third: 'Third place: {name: string}',
-        },
-        raised: 'Raised {raised: number|currency}',
-        no_description: 'This charity has no description',
-        no_image: 'This charity has no image',
-        visit_charity: 'Visit Charity Website',
-    },
+	season_timer: {
+		title: 'Season ends in',
+		day: 'days',
+		hour: 'hrs',
+		minute: 'min',
+		second: 'sec'
+	},
+
+	season_detail: {
+		title: 'Season Detail',
+		date_range: '{start: Date|long_date} - {end: Date|long_date}',
+		ordinal: {
+			first: 'First place: {name: string}',
+			second: 'Second place: {name: string}',
+			third: 'Third place: {name: string}'
+		},
+		raised: 'Raised {raised: number|currency}',
+		no_description: 'This charity has no description',
+		no_image: 'This charity has no image',
+		visit_charity: 'Visit Charity Website'
+	},
 
     registration: {
         title: 'Registration',

@@ -95,7 +95,11 @@
 {/if}
 
 {#if data.lastSeason && data.lastSeasonResult}
-    <SeasonDetail faculties={data.faculties} season={data.lastSeason} result={seasonResult} />
+	<SeasonDetail
+		faculties={data.faculties}
+		season={data.lastSeason}
+		result={seasonResult}
+	/>
 {/if}
 
 <section>

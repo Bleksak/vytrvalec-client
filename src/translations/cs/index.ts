@@ -56,19 +56,27 @@ const cs = {
         },
     },
 
-    season_detail: {
-        title: 'Detail Sezóny',
-        date_range: '{start: Date|long_date} - {end: Date|long_date}',
-        ordinal: {
-            first: 'První místo: {name: string}',
-            second: 'Druhé místo: {name: string}',
-            third: 'Třetí místo: {name: string}',
-        },
-        raised: 'Vybráno {raised: number|currency}',
-        no_description: 'Charita nemá žádný popisek',
-        no_image: 'Charita nemá obrázek',
-        visit_charity: 'Navštivte web charity',
-    },
+	season_timer: {
+		title: 'Sezóna končí za',
+		day: 'dnů',
+		hour: 'hod',
+		minute: 'min',
+		second: 'sek'
+	},
+
+	season_detail: {
+		title: 'Detail Sezóny',
+		date_range: '{start: Date|long_date} - {end: Date|long_date}',
+		ordinal: {
+			first: 'První místo: {name: string}',
+			second: 'Druhé místo: {name: string}',
+			third: 'Třetí místo: {name: string}'
+		},
+		raised: 'Vybráno {raised: number|currency}',
+		no_description: 'Charita nemá žádný popisek',
+		no_image: 'Charita nemá obrázek',
+		visit_charity: 'Navštivte web charity'
+	},
 
     registration: {
         title: 'Registrace',
