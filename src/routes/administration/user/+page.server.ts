@@ -3,22 +3,26 @@ import { formDataToUserEditDTO } from '$lib/DTO/UserEditDTO';
 import { fail, type Actions, type RequestHandler } from '@sveltejs/kit';
 
 const updateAction: RequestHandler = async ({ request, locals }): Promise<any> => {
-	const formData = await request.formData();
-	const userDTO = formDataToUserEditDTO(formData);
+    const formData = await request.formData();
+    const userDTO = formDataToUserEditDTO(formData);
 
-	if (userDTO.type === 'error') {
-		return fail(400, { errors: userDTO.errors });
-	}
+    if (userDTO.type === 'error') {
+        return fail(400, { errors: userDTO.errors });
+    }
 
-	let response = await updateUser(locals.axios, Number(formData.get('id')?.toString()), userDTO.data);
+    let response = await updateUser(
+        locals.axios,
+        Number(formData.get('id')?.toString()),
+        userDTO.data,
+    );
 
-	if (response.type === 'error') {
-		return fail(400, { errors: response.errors });
-	}
+    if (response.type === 'error') {
+        return fail(400, { errors: response.errors });
+    }
 
-	return { status: response.type };
+    return { status: response.type };
 };
 
 export const actions: Actions = {
-	update: updateAction
+    update: updateAction,
 };

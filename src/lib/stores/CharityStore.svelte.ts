@@ -2,63 +2,63 @@ import { fetchCharities, removeCharity } from '$actions/Charity';
 import type { CharityDTO } from '$lib/DTO/CharityDTO';
 
 export type CharityStore = {
-	get: (id: number) => CharityDTO | null;
-	all: () => Array<CharityDTO>;
-	updateOrCreate: (charity: CharityDTO) => void;
-	promise: () => Promise<Array<CharityDTO>>;
-	remove: (charity: CharityDTO) => Promise<boolean>;
+    get: (id: number) => CharityDTO | null;
+    all: () => Array<CharityDTO>;
+    updateOrCreate: (charity: CharityDTO) => void;
+    promise: () => Promise<Array<CharityDTO>>;
+    remove: (charity: CharityDTO) => Promise<boolean>;
 };
 
 export const createCharityStore = (): CharityStore => {
-	let charities = $state<Array<CharityDTO>>([]);
+    let charities = $state<Array<CharityDTO>>([]);
 
-	let charitiesPromise: Promise<Array<CharityDTO>> = fetchCharities();
+    let charitiesPromise: Promise<Array<CharityDTO>> = fetchCharities();
 
-	charitiesPromise.then((result) => {
-		charities = result;
-	});
+    charitiesPromise.then((result) => {
+        charities = result;
+    });
 
-	const get = (id: number): CharityDTO | null => {
-		if (Number.isNaN(id)) {
-			return null;
-		}
+    const get = (id: number): CharityDTO | null => {
+        if (Number.isNaN(id)) {
+            return null;
+        }
 
-		return charities.find((season) => season.id === id) ?? null;
-	};
+        return charities.find((season) => season.id === id) ?? null;
+    };
 
-	const all = (): Array<CharityDTO> => {
-		return charities;
-	};
+    const all = (): Array<CharityDTO> => {
+        return charities;
+    };
 
-	const updateOrCreate = (charity: CharityDTO) => {
-		let index = charities.findIndex((c) => c.id === charity.id);
+    const updateOrCreate = (charity: CharityDTO) => {
+        let index = charities.findIndex((c) => c.id === charity.id);
 
-		if (index !== -1) {
-			charities[index] = charity;
-		} else {
-			charities.unshift(charity);
-		}
-	};
+        if (index !== -1) {
+            charities[index] = charity;
+        } else {
+            charities.unshift(charity);
+        }
+    };
 
-	const remove = async (charity: CharityDTO): Promise<boolean> => {
-		const result = await removeCharity(charity);
+    const remove = async (charity: CharityDTO): Promise<boolean> => {
+        const result = await removeCharity(charity);
 
-		if (result) {
-			charities = charities.filter((c) => c.id !== charity.id);
-		}
+        if (result) {
+            charities = charities.filter((c) => c.id !== charity.id);
+        }
 
-		return result;
-	};
+        return result;
+    };
 
-	const promise = () => charitiesPromise;
+    const promise = () => charitiesPromise;
 
-	return {
-		get: get,
-		all: all,
-		promise: promise,
-		updateOrCreate: updateOrCreate,
-		remove: remove
-	};
+    return {
+        get: get,
+        all: all,
+        promise: promise,
+        updateOrCreate: updateOrCreate,
+        remove: remove,
+    };
 };
 
 export default createCharityStore;

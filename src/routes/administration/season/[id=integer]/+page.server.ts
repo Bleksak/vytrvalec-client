@@ -25,13 +25,13 @@ export const load: PageServerLoad = async ({ params, url, locals }) => {
         activity: activity && activity !== '' ? activity : undefined,
         week: week && week !== '' ? week : undefined,
         faculty: faculty && faculty !== '' ? faculty : undefined,
-        page: page && page !== '' && !isNaN(Number(page)) ? Number(page) : undefined
+        page: page && page !== '' && !isNaN(Number(page)) ? Number(page) : undefined,
     };
 
     const submissions = await fetchSubmissionsForSeason(locals.axios, { id }, filter);
 
     return {
         filter,
-        submissions
+        submissions,
     };
 };

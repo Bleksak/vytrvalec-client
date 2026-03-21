@@ -3,16 +3,16 @@ import type { UserRegisterDTO } from './UserRegisterDTO';
 
 export type RegistrationResponseSuccess = {};
 
-export type RegistrationError = ResponseErrorMap<UserRegisterDTO & { password_repeat: string; }> & {
-	auth?: Array<ResponseError>;
-	gdpr?: Array<ResponseError>;
+export type RegistrationError = ResponseErrorMap<UserRegisterDTO & { password_repeat: string }> & {
+    auth?: Array<ResponseError>;
+    gdpr?: Array<ResponseError>;
 };
 
 export type UserRegisterResponse =
-	| {
-			type: 'success';
-	  }
-	| {
-			type: 'error';
-			errors: RegistrationError;
-	  };
+    | {
+          type: 'success';
+      }
+    | {
+          type: 'error';
+          errors: RegistrationError;
+      };

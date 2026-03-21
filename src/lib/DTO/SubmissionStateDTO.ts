@@ -1,75 +1,75 @@
 import type { ResponseError, ResponseErrorMap } from '$lib/ResponseErrors';
 
 export type SubmissionStateDTO = {
-	updated_at: string;
-	state: boolean;
-	message?: string;
+    updated_at: string;
+    state: boolean;
+    message?: string;
 };
 
 export type SubmissionStateError = ResponseErrorMap<SubmissionStateDTO> & {
-	server?: Array<ResponseError>;
-	submission_state?: Array<ResponseError>;
+    server?: Array<ResponseError>;
+    submission_state?: Array<ResponseError>;
 };
 
 export type SubmissionStateResponse =
-	| {
-			type: 'success';
-			date: string;
-	  }
-	| {
-			type: 'error';
-			errors: SubmissionStateError;
-	  };
+    | {
+          type: 'success';
+          date: string;
+      }
+    | {
+          type: 'error';
+          errors: SubmissionStateError;
+      };
 
 export type SubmissionStateReturn =
-	| {
-			type: 'success';
-			dto: SubmissionStateDTO;
-	  }
-	| {
-			type: 'error';
-			errors: SubmissionStateError;
-	  };
+    | {
+          type: 'success';
+          dto: SubmissionStateDTO;
+      }
+    | {
+          type: 'error';
+          errors: SubmissionStateError;
+      };
 
 export const formDataToSubmissionStateDTO = (formData: FormData): SubmissionStateReturn => {
-	const updated_at = formData.get('updated_at')?.toString();
-	const state = Boolean(formData.get('state')?.toString());
-	const message = formData.get('message')?.toString();
+    const updated_at = formData.get('updated_at')?.toString();
+    const state = Boolean(formData.get('state')?.toString());
+    const message = formData.get('message')?.toString();
 
-	if (updated_at === null) {
-		return {
-			type: 'error',
-			errors: {
-				updated_at: ['blank']
-			}
-		};
-	}
+    if (updated_at === null) {
+        return {
+            type: 'error',
+            errors: {
+                updated_at: ['blank'],
+            },
+        };
+    }
 
-	if (state === null) {
-		return {
-			type: 'error',
-			errors: {
-				state: ['blank']
-			}
-		};
-	}
+    if (state === null) {
+        return {
+            type: 'error',
+            errors: {
+                state: ['blank'],
+            },
+        };
+    }
 
-	if (message == null) {
-		return {
-			type: 'success',
-			dto: {
-				updated_at: updated_at!,
-				state: state!
-			}
-		};
-	}
+    if (message == null) {
+        return {
+            type: 'success',
+            dto: {
+                updated_at: updated_at!,
+                state: state!,
+            },
+        };
+    }
 
-	return {
-		type: 'success',
-		dto: {
-			updated_at: updated_at!,
-			state: state!,
-			message
-		}
-	};
+    return {
+        type: 'success',
+        dto: {
+            updated_at: updated_at!,
+            state: state!,
+            message,
+        },
+    };
 };

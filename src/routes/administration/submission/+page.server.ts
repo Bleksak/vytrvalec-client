@@ -3,20 +3,20 @@ import type { ActivityDTO } from '$lib/DTO/ActivityDTO';
 import { error } from '@sveltejs/kit';
 
 export const load: PageServerLoad = async ({ locals }) => {
-	const activitiesResponse = await locals.axios.get<Array<ActivityDTO>>('/activity');
+    const activitiesResponse = await locals.axios.get<Array<ActivityDTO>>('/activity');
 
-	if (activitiesResponse.status !== 200) {
-		error(400, {
-			message: 'activities'
-		});
-	}
+    if (activitiesResponse.status !== 200) {
+        error(400, {
+            message: 'activities',
+        });
+    }
 
-	let activitiesMap = new Map<number, ActivityDTO>();
-	for (const activity of activitiesResponse.data) {
-		activitiesMap.set(activity.id, activity);
-	}
+    let activitiesMap = new Map<number, ActivityDTO>();
+    for (const activity of activitiesResponse.data) {
+        activitiesMap.set(activity.id, activity);
+    }
 
-	return {
-		activities: activitiesMap
-	};
+    return {
+        activities: activitiesMap,
+    };
 };

@@ -151,7 +151,8 @@
                         <button type="button" onclick={removeSeason}>Odstranit sezónu</button>
                         {#if seasonRemoveResult === false}
                             <span class="note">
-                                Sezónu nelze odstranit, jelikož již obsahuje aktivity, nebo není testovací
+                                Sezónu nelze odstranit, jelikož již obsahuje aktivity, nebo není
+                                testovací
                             </span>
                         {/if}
                     </section>

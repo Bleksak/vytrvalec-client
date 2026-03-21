@@ -18,7 +18,7 @@
     const activities = $derived(data.activities);
     const faculties = $derived(data.faculties);
 
-    let currentWeek = $state<number|null>(null);
+    let currentWeek = $state<number | null>(null);
 
     let currentSeason = $state<SeasonDTO>(untrack(() => seasons.values().next().value!));
 

@@ -4,5 +4,5 @@ export enum FilterEnum {
     STATE = 'state',
     FACULTY = 'faculty',
     ACTIVITY = 'activity',
-    WEEK = 'week'
+    WEEK = 'week',
 }

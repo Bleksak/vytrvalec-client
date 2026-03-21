@@ -1,56 +1,56 @@
 <script lang="ts">
-	import LL from '../translations/i18n-svelte';
-	import { browser } from '$app/environment';
-	import { getCookie } from '$utils/cookies';
+    import LL from '../translations/i18n-svelte';
+    import { browser } from '$app/environment';
+    import { getCookie } from '$utils/cookies';
 
-	// taken from: https://www.w3schools.com/js/js_cookies.asp
-	const setCookie = (cname: string, cvalue: any, exdays: number): void => {
-		const d = new Date();
-		d.setTime(d.getTime() + exdays * 24 * 60 * 60 * 1000);
-		let expires = 'expires=' + d.toUTCString();
-		document.cookie = cname + '=' + cvalue + ';' + expires + ';path=/';
-	};
+    // taken from: https://www.w3schools.com/js/js_cookies.asp
+    const setCookie = (cname: string, cvalue: any, exdays: number): void => {
+        const d = new Date();
+        d.setTime(d.getTime() + exdays * 24 * 60 * 60 * 1000);
+        let expires = 'expires=' + d.toUTCString();
+        document.cookie = cname + '=' + cvalue + ';' + expires + ';path=/';
+    };
 
-	let cookiesAccepted = $state(browser ? getCookie('cookiesAccepted') === 'true' : true);
+    let cookiesAccepted = $state(browser ? getCookie('cookiesAccepted') === 'true' : true);
 
-	const acceptCookies = () => {
-		setCookie('cookiesAccepted', 'true', 365);
-		cookiesAccepted = true;
-	};
+    const acceptCookies = () => {
+        setCookie('cookiesAccepted', 'true', 365);
+        cookiesAccepted = true;
+    };
 </script>
 
 {#if !cookiesAccepted}
-	<div class="container">
-		<h4>{$LL.cookies.title()}</h4>
-		<p>{$LL.cookies.description()}</p>
-		<button onclick={acceptCookies}>{$LL.cookies.accept()}</button>
-	</div>
+    <div class="container">
+        <h4>{$LL.cookies.title()}</h4>
+        <p>{$LL.cookies.description()}</p>
+        <button onclick={acceptCookies}>{$LL.cookies.accept()}</button>
+    </div>
 {/if}
 
 <style>
-	.container {
-		position: fixed;
-		bottom: 5vh;
-		background-color: #fff;
-		padding: 25px;
-		display: flex;
-		box-shadow: 5px 5px 10px #757575;
-		border-radius: 10px;
+    .container {
+        position: fixed;
+        bottom: 5vh;
+        background-color: #fff;
+        padding: 25px;
+        display: flex;
+        box-shadow: 5px 5px 10px #757575;
+        border-radius: 10px;
 
-		left: 50%;
-		transform: translateX(-50%);
+        left: 50%;
+        transform: translateX(-50%);
 
-		width: 100%;
-		max-width: 850px;
+        width: 100%;
+        max-width: 850px;
 
-		flex-direction: column;
-		justify-content: center;
+        flex-direction: column;
+        justify-content: center;
 
-		align-items: center;
-		gap: 20px;
-	}
+        align-items: center;
+        gap: 20px;
+    }
 
-	h4 {
-		color: #000;
-	}
+    h4 {
+        color: #000;
+    }
 </style>

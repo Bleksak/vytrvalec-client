@@ -6,13 +6,13 @@ import { EmptyStringAsNullType } from './EmptyStringAsUndefinedType';
 
 export const FacultyMappingCreateType = type({
     faculty: 'string.numeric.parse',
-    'parent': type.or('string.numeric.parse', EmptyStringAsNullType),
+    parent: type.or('string.numeric.parse', EmptyStringAsNullType),
 });
 
 export const FacultyMappingType = type({
     season_id: 'number',
     faculty_id: 'number',
-    'parent_id': 'number|null',
+    parent_id: 'number|null',
 });
 
 export const SeasonCreateType = type({
@@ -33,7 +33,6 @@ export const SeasonType = type({
     is_test: 'boolean',
     faculty_mapping: FacultyMappingType.array(),
 });
-
 
 export const SeasonConfigType = type({
     charity: type.or(CharityCreateType, 'string.integer.parse'),
@@ -61,13 +60,13 @@ export type CreateSeasonError = ResponseErrorMap<CreateSeasonDTO> & {
 
 export type CreateSeasonResponse =
     | {
-        type: 'success';
-        data: CreateSeasonResponseDTO;
-    }
+          type: 'success';
+          data: CreateSeasonResponseDTO;
+      }
     | {
-        type: 'error';
-        errors: CreateSeasonError;
-    };
+          type: 'error';
+          errors: CreateSeasonError;
+      };
 
 export const createSeasonDTO = (formData: FormData): CreateSeasonDTO => {
     const start = formData.get('start')?.toString() ?? '';
@@ -77,7 +76,6 @@ export const createSeasonDTO = (formData: FormData): CreateSeasonDTO => {
     return {
         start: new Date(start),
         end: new Date(end),
-        charity_id
+        charity_id,
     };
 };
-

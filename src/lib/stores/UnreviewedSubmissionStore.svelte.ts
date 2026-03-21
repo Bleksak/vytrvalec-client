@@ -3,157 +3,157 @@ import { UserResponseDto } from '$lib/DTO/UserResponse';
 import { type } from 'arktype';
 
 enum WebsocketMessageType {
-	InitializeRequest = 'initialize',
-	SubmissionRequest = 'request_submission',
-	SubmissionReviewRequest = 'review_submission',
-	Success = 'ok',
-	Fail = 'nok'
+    InitializeRequest = 'initialize',
+    SubmissionRequest = 'request_submission',
+    SubmissionReviewRequest = 'review_submission',
+    Success = 'ok',
+    Fail = 'nok',
 }
 
 const WebsocketMessage = type({
-	type: type.valueOf(WebsocketMessageType),
-	'response_to?': type.or(type.valueOf(WebsocketMessageType), type.null, type.undefined),
-	'payload?': type.or(type.null, type.object, type.undefined)
+    type: type.valueOf(WebsocketMessageType),
+    'response_to?': type.or(type.valueOf(WebsocketMessageType), type.null, type.undefined),
+    'payload?': type.or(type.null, type.object, type.undefined),
 });
 
 const WebsocketSubmissionUserPair = type({
-	user: type(UserResponseDto),
-	submission: type(SubmissionResponseDto)
+    user: type(UserResponseDto),
+    submission: type(SubmissionResponseDto),
 });
 
 type WebsocketMessageInfer = typeof WebsocketMessage.infer;
 type WebsocketSubmissionUserPairInfer = typeof WebsocketSubmissionUserPair.infer;
 
 export default class UnreviewedSubmissionStore {
-	private ws: WebSocket;
-	private jwt: string;
+    private ws: WebSocket;
+    private jwt: string;
 
-	public currentData = $state<WebsocketSubmissionUserPairInfer | null>(null);
+    public currentData = $state<WebsocketSubmissionUserPairInfer | null>(null);
 
-	public noSubmissionsMarked = $state(false);
+    public noSubmissionsMarked = $state(false);
 
-	constructor(wsUrl: string, jwt: string) {
-		this.ws = new WebSocket(wsUrl);
-		this.jwt = jwt;
+    constructor(wsUrl: string, jwt: string) {
+        this.ws = new WebSocket(wsUrl);
+        this.jwt = jwt;
 
-		this.ws.onopen = (_event: Event): any => {
-			this.initialize();
-		};
+        this.ws.onopen = (_event: Event): any => {
+            this.initialize();
+        };
 
-		this.ws.onclose = UnreviewedSubmissionStore.onWsClose;
+        this.ws.onclose = UnreviewedSubmissionStore.onWsClose;
 
-		this.ws.onmessage = (event: MessageEvent) => {
-			this.onWsMessage(event);
-		};
+        this.ws.onmessage = (event: MessageEvent) => {
+            this.onWsMessage(event);
+        };
 
-		this.ws.onerror = UnreviewedSubmissionStore.onWsError;
-	}
+        this.ws.onerror = UnreviewedSubmissionStore.onWsError;
+    }
 
-	private initialize(): any {
-		this.send({
-			type: WebsocketMessageType.InitializeRequest,
-			payload: {
-				jwt: this.jwt
-			}
-		});
-	}
+    private initialize(): any {
+        this.send({
+            type: WebsocketMessageType.InitializeRequest,
+            payload: {
+                jwt: this.jwt,
+            },
+        });
+    }
 
-	private static onWsClose(this: WebSocket, event: Event): any {
-		console.log('WS closed');
-		console.log(event);
-	}
+    private static onWsClose(this: WebSocket, event: Event): any {
+        console.log('WS closed');
+        console.log(event);
+    }
 
-	private onWsMessage(event: MessageEvent): any {
-		console.log('Got message');
-		console.log(event);
+    private onWsMessage(event: MessageEvent): any {
+        console.log('Got message');
+        console.log(event);
 
-		const message = WebsocketMessage(JSON.parse(event.data));
+        const message = WebsocketMessage(JSON.parse(event.data));
 
-		if (message instanceof type.errors) {
-			console.log(message.summary);
-			return;
-		}
+        if (message instanceof type.errors) {
+            console.log(message.summary);
+            return;
+        }
 
-		if (message.type === WebsocketMessageType.Fail) {
-			this.handleFail(message);
-			return;
-		}
+        if (message.type === WebsocketMessageType.Fail) {
+            this.handleFail(message);
+            return;
+        }
 
-		if (message.response_to === null) {
-			console.log('response to should not be null');
-			return;
-		}
+        if (message.response_to === null) {
+            console.log('response to should not be null');
+            return;
+        }
 
-		if (message.response_to === WebsocketMessageType.InitializeRequest) {
-			this.requestSubmission();
+        if (message.response_to === WebsocketMessageType.InitializeRequest) {
+            this.requestSubmission();
 
-			return;
-		}
+            return;
+        }
 
-		if (message.response_to === WebsocketMessageType.SubmissionRequest) {
-			const pair = WebsocketSubmissionUserPair(message.payload);
+        if (message.response_to === WebsocketMessageType.SubmissionRequest) {
+            const pair = WebsocketSubmissionUserPair(message.payload);
 
-			if (pair instanceof type.errors) {
-				console.log(pair.summary);
-				return;
-			}
+            if (pair instanceof type.errors) {
+                console.log(pair.summary);
+                return;
+            }
 
-			this.currentData = pair;
+            this.currentData = pair;
 
-			return;
-		}
+            return;
+        }
 
-		if (message.response_to === WebsocketMessageType.SubmissionReviewRequest) {
-			console.log('review response');
-			console.log('ok');
+        if (message.response_to === WebsocketMessageType.SubmissionReviewRequest) {
+            console.log('review response');
+            console.log('ok');
 
-			this.requestSubmission();
+            this.requestSubmission();
 
-			return;
-		}
-	}
+            return;
+        }
+    }
 
-	private handleFail(message: WebsocketMessageInfer) {
-		if (message.response_to === WebsocketMessageType.SubmissionRequest) {
-			// no more submissions
-			this.noSubmissionsMarked = true;
-		}
-	}
+    private handleFail(message: WebsocketMessageInfer) {
+        if (message.response_to === WebsocketMessageType.SubmissionRequest) {
+            // no more submissions
+            this.noSubmissionsMarked = true;
+        }
+    }
 
-	private static onWsError(this: WebSocket, event: Event): any {
-		console.error('WS Error');
-		console.error(event);
-	}
+    private static onWsError(this: WebSocket, event: Event): any {
+        console.error('WS Error');
+        console.error(event);
+    }
 
-	private send(message: WebsocketMessageInfer) {
-		this.ws.send(JSON.stringify(message));
-	}
+    private send(message: WebsocketMessageInfer) {
+        this.ws.send(JSON.stringify(message));
+    }
 
-	public requestSubmission(): void {
-		console.log('requesting submission');
+    public requestSubmission(): void {
+        console.log('requesting submission');
 
-		this.send({
-			type: WebsocketMessageType.SubmissionRequest
-		});
-	}
+        this.send({
+            type: WebsocketMessageType.SubmissionRequest,
+        });
+    }
 
-	public accept(message: string): void {
-		this.send({
-			type: WebsocketMessageType.SubmissionReviewRequest,
-			payload: {
-				accepted: true,
-				message
-			}
-		});
-	}
+    public accept(message: string): void {
+        this.send({
+            type: WebsocketMessageType.SubmissionReviewRequest,
+            payload: {
+                accepted: true,
+                message,
+            },
+        });
+    }
 
-	public reject(message: string): void {
-		this.send({
-			type: WebsocketMessageType.SubmissionReviewRequest,
-			payload: {
-				accepted: false,
-				message
-			}
-		});
-	}
+    public reject(message: string): void {
+        this.send({
+            type: WebsocketMessageType.SubmissionReviewRequest,
+            payload: {
+                accepted: false,
+                message,
+            },
+        });
+    }
 }

@@ -1,76 +1,76 @@
 <script lang="ts">
-	import type { FacultyDTO } from '$lib/DTO/FacultyDTO';
-	import type { SeasonResultRankRow } from '$lib/DTO/SeasonResultDTO';
-	import LL from '$translations/i18n-svelte';
-	import { FacultyColorMap } from '$utils/colors';
-	import type { ChartOptions, ChartData } from 'chart.js';
-	import Chart from 'chart.js/auto';
-	import { onMount } from 'svelte';
-	import type { SvelteMap } from 'svelte/reactivity';
+    import type { FacultyDTO } from '$lib/DTO/FacultyDTO';
+    import type { SeasonResultRankRow } from '$lib/DTO/SeasonResultDTO';
+    import LL from '$translations/i18n-svelte';
+    import { FacultyColorMap } from '$utils/colors';
+    import type { ChartOptions, ChartData } from 'chart.js';
+    import Chart from 'chart.js/auto';
+    import { onMount } from 'svelte';
+    import type { SvelteMap } from 'svelte/reactivity';
 
-	let {
-		faculties,
-		results
-	}: { faculties: SvelteMap<number, FacultyDTO>; results: SeasonResultRankRow[] } = $props();
+    let {
+        faculties,
+        results,
+    }: { faculties: SvelteMap<number, FacultyDTO>; results: SeasonResultRankRow[] } = $props();
 
-	const resultFaculties = $derived(results.map((result) => faculties.get(result.faculty)));
-	const labels = $derived(resultFaculties.map((result) => result?.shortcut));
-	const dataset = $derived(results.map((result) => Number((result.distance / 1000).toFixed(1))));
-	const colors = $derived(
-		resultFaculties.map(
-			(faculty) =>
-				FacultyColorMap[faculty!.shortcut as keyof typeof FacultyColorMap] ??
-				FacultyColorMap.DEFAULT
-		)
-	);
+    const resultFaculties = $derived(results.map((result) => faculties.get(result.faculty)));
+    const labels = $derived(resultFaculties.map((result) => result?.shortcut));
+    const dataset = $derived(results.map((result) => Number((result.distance / 1000).toFixed(1))));
+    const colors = $derived(
+        resultFaculties.map(
+            (faculty) =>
+                FacultyColorMap[faculty!.shortcut as keyof typeof FacultyColorMap] ??
+                FacultyColorMap.DEFAULT,
+        ),
+    );
 
-	let chartCanvas = $state<HTMLCanvasElement>();
-	let chart = $state<Chart>();
+    let chartCanvas = $state<HTMLCanvasElement>();
+    let chart = $state<Chart>();
 
-	let data: ChartData<'bar'> = $derived({
-		labels: labels,
-		datasets: [
-			{
-				label: $LL.results.distance(),
-				data: dataset,
-				backgroundColor: colors
-			}
-		]
-	});
+    let data: ChartData<'bar'> = $derived({
+        labels: labels,
+        datasets: [
+            {
+                label: $LL.results.distance(),
+                data: dataset,
+                backgroundColor: colors,
+            },
+        ],
+    });
 
-	const options: ChartOptions<'bar'> = {
-		responsive: true,
-		plugins: {
-			tooltip: {
-				callbacks: {
-					label: (item) => item.dataset.label + ': ' + item.formattedValue + ' km'
-				}
-			},
-			legend: {
-				display: false
-			}
-		},
-		scales: {
-			y: {
-				beginAtZero: true
-			}
-		}
-	};
+    const options: ChartOptions<'bar'> = {
+        responsive: true,
+        plugins: {
+            tooltip: {
+                callbacks: {
+                    label: (item) => item.dataset.label + ': ' + item.formattedValue + ' km',
+                },
+            },
+            legend: {
+                display: false,
+            },
+        },
+        scales: {
+            y: {
+                beginAtZero: true,
+            },
+        },
+    };
 
-	$effect(() => {
-		if (chart) {
-			chart.data = data;
-			chart.update();
-		}
-	});
+    $effect(() => {
+        if (chart) {
+            chart.data = data;
+            chart.update();
+        }
+    });
 
-	onMount(() => {
-		chart = new Chart(chartCanvas!, {
-			type: 'bar',
-			data: data,
-			options: options
-		});
-	});
+    onMount(() => {
+        chart = new Chart(chartCanvas!, {
+            type: 'bar',
+            data: data,
+            options: options,
+        });
+    });
 </script>
 
 <canvas bind:this={chartCanvas}></canvas>

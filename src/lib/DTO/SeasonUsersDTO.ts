@@ -1,9 +1,9 @@
 export type SeasonUsersDTO = {
-    faculty: number,
-    count: number,
-}
+    faculty: number;
+    count: number;
+};
 
 export type SeasonUsersStatisticsDTO = {
-    users: Array<SeasonUsersDTO>,
-    total: number,
-}
+    users: Array<SeasonUsersDTO>;
+    total: number;
+};

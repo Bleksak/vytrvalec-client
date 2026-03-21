@@ -1,195 +1,195 @@
 <script lang="ts">
-	import { clickOutside } from '$utils/ClickOutside.svelte';
-	import { slide } from 'svelte/transition';
+    import { clickOutside } from '$utils/ClickOutside.svelte';
+    import { slide } from 'svelte/transition';
 
-	let {
-		keys,
-		values,
-		id,
-		name,
-		currentValue = $bindable(),
-		inverted = false,
-		disabled = false
-	}: {
-		keys: string[];
-		values: any[];
-		currentValue?: any;
-		id?: string;
-		name?: string;
-		inverted?: boolean;
-		disabled?: boolean;
-	} = $props();
+    let {
+        keys,
+        values,
+        id,
+        name,
+        currentValue = $bindable(),
+        inverted = false,
+        disabled = false,
+    }: {
+        keys: string[];
+        values: any[];
+        currentValue?: any;
+        id?: string;
+        name?: string;
+        inverted?: boolean;
+        disabled?: boolean;
+    } = $props();
 
-	let open = $state<boolean>(false);
+    let open = $state<boolean>(false);
 
-	let currentKey = $state<string>('');
+    let currentKey = $state<string>('');
 
-	let selectElement = $state();
-	let optionsElement = $state();
+    let selectElement = $state();
+    let optionsElement = $state();
 
-	export const selectValue = (value: any) => {
-		const index = values.indexOf(value);
+    export const selectValue = (value: any) => {
+        const index = values.indexOf(value);
 
-		if (index === -1) {
-			select(0);
-		} else {
-			select(index);
-		}
-	};
+        if (index === -1) {
+            select(0);
+        } else {
+            select(index);
+        }
+    };
 
-	export const select = (idx: number) => {
-		open = false;
-		currentValue = values[idx];
-		currentKey = keys[idx];
-	};
+    export const select = (idx: number) => {
+        open = false;
+        currentValue = values[idx];
+        currentKey = keys[idx];
+    };
 
-	const closeOnOutsideClick = () => (open = false);
+    const closeOnOutsideClick = () => (open = false);
 
-	const toggleDropdown = () => {
-		if (!disabled) {
-			open = !open;
-		}
-	};
+    const toggleDropdown = () => {
+        if (!disabled) {
+            open = !open;
+        }
+    };
 
-	$effect(() => {
-		const idx = values.indexOf(currentValue);
-		if (idx !== -1) {
-			currentKey = keys[idx];
-		} else if (values.length > 0) {
-			select(0);
-		}
-	});
+    $effect(() => {
+        const idx = values.indexOf(currentValue);
+        if (idx !== -1) {
+            currentKey = keys[idx];
+        } else if (values.length > 0) {
+            select(0);
+        }
+    });
 </script>
 
 <input type="hidden" {id} {name} bind:value={currentValue} />
 <div
-	class="select"
-	use:clickOutside={closeOnOutsideClick}
-	class:open
-	class:disabled
-	bind:this={selectElement}
-	onclick={toggleDropdown}
-	role="button"
-	tabindex="0"
-	onkeydown={(e) => {
-		e.stopPropagation();
-		if (e.key === 'Enter') {
-			open = !open;
-		}
-	}}
+    class="select"
+    use:clickOutside={closeOnOutsideClick}
+    class:open
+    class:disabled
+    bind:this={selectElement}
+    onclick={toggleDropdown}
+    role="button"
+    tabindex="0"
+    onkeydown={(e) => {
+        e.stopPropagation();
+        if (e.key === 'Enter') {
+            open = !open;
+        }
+    }}
 >
-	<span class="select-selected">{currentKey}</span>
-	{#if open}
-		<div class="select-options" transition:slide bind:this={optionsElement}>
-			{#each keys as key, i (i)}
-				{#if key !== currentKey}
-					<button
-						type="button"
-						class="select-option"
-						class:inverted
-						onclick={(e) => {
-							e.stopPropagation();
-							select(i);
-						}}
-					>
-						{key}
-					</button>
-				{/if}
-			{/each}
-		</div>
-	{/if}
+    <span class="select-selected">{currentKey}</span>
+    {#if open}
+        <div class="select-options" transition:slide bind:this={optionsElement}>
+            {#each keys as key, i (i)}
+                {#if key !== currentKey}
+                    <button
+                        type="button"
+                        class="select-option"
+                        class:inverted
+                        onclick={(e) => {
+                            e.stopPropagation();
+                            select(i);
+                        }}
+                    >
+                        {key}
+                    </button>
+                {/if}
+            {/each}
+        </div>
+    {/if}
 </div>
 
 <style>
-	.select {
-		white-space: nowrap;
-		cursor: pointer;
+    .select {
+        white-space: nowrap;
+        cursor: pointer;
 
-		text-align: center;
-		position: relative;
-		display: flex;
-		flex-direction: column;
+        text-align: center;
+        position: relative;
+        display: flex;
+        flex-direction: column;
 
-		background-color: white;
-		border: 5px solid #005cab;
-		padding-block: 10px;
-		min-width: fit-content;
+        background-color: white;
+        border: 5px solid #005cab;
+        padding-block: 10px;
+        min-width: fit-content;
 
-		flex: 1;
-	}
-	.select.disabled {
-		cursor: default;
-		pointer-events: none;
-	}
+        flex: 1;
+    }
+    .select.disabled {
+        cursor: default;
+        pointer-events: none;
+    }
 
-	.select.disabled::after {
-		content: none;
-	}
+    .select.disabled::after {
+        content: none;
+    }
 
-	.select-selected {
-		margin-inline: 25px;
-	}
+    .select-selected {
+        margin-inline: 25px;
+    }
 
-	.select::after {
-		position: absolute;
-		content: '';
-		top: 18px;
-		right: 6px;
-		width: 0;
-		height: 0;
-		border: 8px solid black;
-		border-color: #005cab transparent transparent transparent;
-		border-radius: 3px;
-	}
+    .select::after {
+        position: absolute;
+        content: '';
+        top: 18px;
+        right: 6px;
+        width: 0;
+        height: 0;
+        border: 8px solid black;
+        border-color: #005cab transparent transparent transparent;
+        border-radius: 3px;
+    }
 
-	.open::after {
-		top: 10px;
-		border-color: transparent transparent #005cab transparent;
-	}
+    .open::after {
+        top: 10px;
+        border-color: transparent transparent #005cab transparent;
+    }
 
-	.select-options {
-		text-align: center;
-		position: absolute;
-		display: flex;
-		flex-direction: column;
+    .select-options {
+        text-align: center;
+        position: absolute;
+        display: flex;
+        flex-direction: column;
 
-		min-width: fit-content;
-		width: calc(100% + 10px);
-		top: calc(100% + 5px);
+        min-width: fit-content;
+        width: calc(100% + 10px);
+        top: calc(100% + 5px);
 
-		transform: translateX(-5px);
+        transform: translateX(-5px);
 
-		background-color: white;
+        background-color: white;
 
-		z-index: 1;
-		user-select: none;
-		max-height: 160px;
-		overflow-y: auto;
-		border-inline: 5px solid #005cab;
-		border-bottom: 5px solid #005cab;
-	}
+        z-index: 1;
+        user-select: none;
+        max-height: 160px;
+        overflow-y: auto;
+        border-inline: 5px solid #005cab;
+        border-bottom: 5px solid #005cab;
+    }
 
-	.select-option {
-		padding-block: 10px;
-		border-bottom: 3px solid #005cab;
-		width: 100%;
-	}
+    .select-option {
+        padding-block: 10px;
+        border-bottom: 3px solid #005cab;
+        width: 100%;
+    }
 
-	.select-option:last-child {
-		border-bottom: none;
-	}
+    .select-option:last-child {
+        border-bottom: none;
+    }
 
-	.select-options:first-child {
-		border-top: 3px solid #005cab;
-	}
+    .select-options:first-child {
+        border-top: 3px solid #005cab;
+    }
 
-	.select-option:hover {
-		background-color: #005cab;
-		color: white;
-	}
+    .select-option:hover {
+        background-color: #005cab;
+        color: white;
+    }
 
-	.select-option.inverted:hover {
-		background-color: #eee;
-		color: black;
-	}
+    .select-option.inverted:hover {
+        background-color: #eee;
+        color: black;
+    }
 </style>

@@ -36,7 +36,7 @@ export const handle: Handle = async ({ event, resolve }): Promise<any> => {
     }
 
     const axiosInstance = axios.create({
-        baseURL: import.meta.env.VITE_SERVER_API_BASE || import.meta.env.VITE_API_BASE
+        baseURL: import.meta.env.VITE_SERVER_API_BASE || import.meta.env.VITE_API_BASE,
     });
 
     if (event.locals.jwt !== null) {
@@ -76,7 +76,7 @@ export const handle: Handle = async ({ event, resolve }): Promise<any> => {
         return resolve(event, {
             transformPageChunk: ({ html }) => {
                 return html.replace('%lang%', locale);
-            }
+            },
         });
     });
 };

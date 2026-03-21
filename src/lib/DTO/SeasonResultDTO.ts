@@ -7,22 +7,22 @@ export type SeasonResultData = {
     results: Record<number, WeeklyResult>;
     outliers: Record<number, OutlierActivity>;
     users: Record<number, AnonymizedUser>;
-}
+};
 
 type WeeklyResult = {
     week: number;
     activities: Record<number, ActivityResult>;
-}
+};
 
 type ActivityResult = {
     extras: Array<ExtraPoints>;
     results: Record<number, FacultyResult>;
-}
+};
 
 type FacultyResult = {
     faculty: number;
     distance: number;
-}
+};
 
 export type ExtraPoints = {
     user: number;
@@ -31,31 +31,31 @@ export type ExtraPoints = {
     value: number;
     points: number;
     activity: number;
-}
+};
 
 export type OutlierActivity = {
     activity_id: number;
     results: Record<number, OutlierResult>;
-}
+};
 
 type OutlierResult = {
-    user: number,
-    faculty_id: number,
-    value: number,
-}
+    user: number;
+    faculty_id: number;
+    value: number;
+};
 
 export type SeasonResultRank = {
     total_distance: number;
     total_points: number;
     rows: Array<SeasonResultRankRow>;
     extras: Array<ExtraPoints>;
-}
+};
 
 export type SeasonResultRankRow = {
     faculty: number;
     distance: number;
     points: number;
-}
+};
 
 function createFacultySet(results: SeasonResultData): Set<number> {
     let faculties: Set<number> = new Set<number>();
@@ -86,7 +86,12 @@ export class SeasonResult {
         this.activities = activities;
     }
 
-    calculateSeasonResultRank(season: SeasonDTO, data: SeasonResultData, week: null | number = null, activity: null | number = null): SeasonResultRank {
+    calculateSeasonResultRank(
+        season: SeasonDTO,
+        data: SeasonResultData,
+        week: null | number = null,
+        activity: null | number = null,
+    ): SeasonResultRank {
         // za kazdy tyden se udeluje stejny pocet bodu(N)
         // tzn pokud se v prvnim tydnu zucastni 7 fakult a ve druhem tydnu 12 fakult, rozdeluje se i za prvni tyden 12 bodu
         // QUESTION(@bleksak): Je tohle opravdu co oni chteji? Kdyz to delali rucne, tak to spocitali za 1. tyden 7 fakult => 7 bodu, 2 tyden 12 bodu, ale nepamatuju si to uz
@@ -119,7 +124,7 @@ export class SeasonResult {
                     total_points: 0,
                     rows: [],
                     extras: [],
-                }
+                };
             }
 
             const weeklyResult = data.results[week];
@@ -163,7 +168,7 @@ export class SeasonResult {
         weeklyResult: WeeklyResult,
         ranking: Record<number, SeasonResultRankRow>,
         extras: Array<ExtraPoints>,
-        allowedActivity: number | null = null
+        allowedActivity: number | null = null,
     ): void {
         for (const [activityIdStr, activityResult] of Object.entries(weeklyResult.activities)) {
             const activityId = Number(activityIdStr);

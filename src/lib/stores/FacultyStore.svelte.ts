@@ -1,13 +1,13 @@
-import { fetchFaculties } from "$actions/Faculty";
-import type { FacultyDTO } from "$lib/DTO/FacultyDTO";
-import type { AxiosInstance } from "axios";
+import { fetchFaculties } from '$actions/Faculty';
+import type { FacultyDTO } from '$lib/DTO/FacultyDTO';
+import type { AxiosInstance } from 'axios';
 
 export type FacultyStore = {
     all: () => FacultyDTO[];
     get: (id: number) => FacultyDTO | null;
     updateOrCreate: (faculty: FacultyDTO) => void;
     promise: () => Promise<FacultyDTO[]>;
-}
+};
 
 const createFacultyStore = (api: AxiosInstance): FacultyStore => {
     let faculties = $state<FacultyDTO[]>([]);
@@ -15,11 +15,11 @@ const createFacultyStore = (api: AxiosInstance): FacultyStore => {
 
     facultiesPromise.then((result: FacultyDTO[]) => {
         faculties = result;
-    })
+    });
 
     const all = (): FacultyDTO[] => {
         return faculties;
-    }
+    };
 
     const get = (id: number): FacultyDTO | null => {
         if (Number.isNaN(id)) {
@@ -27,7 +27,7 @@ const createFacultyStore = (api: AxiosInstance): FacultyStore => {
         }
 
         return faculties.find((faculty: FacultyDTO) => faculty.id === id) ?? null;
-    }
+    };
 
     const updateOrCreate = async (faculty: FacultyDTO) => {
         const index = faculties.findIndex((f) => f.id === faculty.id);
@@ -41,14 +41,14 @@ const createFacultyStore = (api: AxiosInstance): FacultyStore => {
 
     const promise = (): Promise<FacultyDTO[]> => {
         return facultiesPromise;
-    }
+    };
 
     return {
         all: all,
         get: get,
         promise: promise,
         updateOrCreate: updateOrCreate,
-    }
- }
+    };
+};
 
 export default createFacultyStore;

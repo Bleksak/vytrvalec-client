@@ -8,7 +8,7 @@ import type { LayoutLoad } from './$types';
 
 export const load: LayoutLoad = async ({ data }) => {
     const api = axios.create({
-        baseURL: import.meta.env.VITE_API_BASE
+        baseURL: import.meta.env.VITE_API_BASE,
     });
 
     if (data.jwt !== null && data.jwt !== undefined) {
@@ -25,7 +25,7 @@ export const load: LayoutLoad = async ({ data }) => {
     const [activitiesRaw, facultiesRaw, seasonsRaw] = await Promise.all([
         activityPromise,
         facultyPromise,
-        seasonsPromise
+        seasonsPromise,
     ]);
 
     const activities = createRecordFromEntityArray(activitiesRaw);
@@ -41,7 +41,6 @@ export const load: LayoutLoad = async ({ data }) => {
         user: data.user,
         currentSeason: data.currentSeason,
         lang: data.lang,
-        jwt: data.jwt
+        jwt: data.jwt,
     };
 };
-

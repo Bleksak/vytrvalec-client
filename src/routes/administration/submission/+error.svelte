@@ -1,10 +1,9 @@
 <script lang="ts">
-	import { page } from '$app/state';
+    import { page } from '$app/state';
 </script>
 
 {#if page.error?.message === 'activities'}
-	Nepodařilo se načíst aktitivty
+    Nepodařilo se načíst aktitivty
 {:else}
-	Došlo k neznámé chybě
+    Došlo k neznámé chybě
 {/if}
-

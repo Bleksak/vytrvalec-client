@@ -9,13 +9,13 @@ export const fetchTotalStatistics = async (api: AxiosInstance): Promise<TotalSta
 };
 
 export const fetchUserStatistics = async (
-    api: AxiosInstance
+    api: AxiosInstance,
 ): Promise<Array<UserStatisticsDTO>> => {
     return (await api.get(`/stats`).catch(() => null))?.data ?? [];
 };
 
 export const fetchSeasonUsersStatistics = async (
-    seasonId: number
+    seasonId: number,
 ): Promise<SeasonUsersStatisticsDTO> => {
     const response =
         (await axios.get(`/statistics/faculties/${seasonId}`).catch(() => null))?.data ?? [];

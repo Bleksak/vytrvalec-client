@@ -4,7 +4,7 @@ enum PasswordStrength {
     STRENGTH_SUFFICIENT,
     STRENGTH_MEDIUM,
     STRENGTH_STRONG,
-    STRENGTH_VERY_STRONG
+    STRENGTH_VERY_STRONG,
 }
 
 export class PasswordEstimator {
@@ -19,7 +19,12 @@ export class PasswordEstimator {
             passwordChars.set(charCode, (passwordChars.get(charCode) || 0) + 1);
         }
 
-        let control = 0, digit = 0, upper = 0, lower = 0, symbol = 0, other = 0;
+        let control = 0,
+            digit = 0,
+            upper = 0,
+            lower = 0,
+            symbol = 0,
+            other = 0;
         for (let [char] of passwordChars) {
             switch (true) {
                 case char < 32 || char === 127:
@@ -43,18 +48,20 @@ export class PasswordEstimator {
         }
 
         let pool = lower + upper + digit + symbol + control + other;
-        let entropy = passwordChars.size * Math.log2(pool) + (password.length - passwordChars.size) * Math.log2(passwordChars.size);
+        let entropy =
+            passwordChars.size * Math.log2(pool) +
+            (password.length - passwordChars.size) * Math.log2(passwordChars.size);
 
         switch (true) {
-            case entropy >= 120: 
+            case entropy >= 120:
                 return PasswordStrength.STRENGTH_VERY_STRONG;
-            case entropy >= 100: 
+            case entropy >= 100:
                 return PasswordStrength.STRENGTH_STRONG;
-            case entropy >= 80: 
+            case entropy >= 80:
                 return PasswordStrength.STRENGTH_MEDIUM;
-            case entropy >= 60: 
+            case entropy >= 60:
                 return PasswordStrength.STRENGTH_SUFFICIENT; // Odpovívá WEAK v symfony
-            case entropy >= 30: 
+            case entropy >= 30:
                 return PasswordStrength.STRENGTH_WEAK; // Přidaný mezistupeň
             default:
                 return PasswordStrength.STRENGTH_VERY_WEAK;

@@ -1,10 +1,10 @@
-import type { SubmissionErrors } from "./SubmissionDTO";
+import type { SubmissionErrors } from './SubmissionDTO';
 
 export type StateSubmissionResponse =
     | {
-        type: 'success';
-    }
+          type: 'success';
+      }
     | {
-        type: 'error';
-        errors: SubmissionErrors;
-    };
+          type: 'error';
+          errors: SubmissionErrors;
+      };

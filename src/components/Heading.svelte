@@ -1,13 +1,13 @@
 <script lang="ts">
-	let { children } = $props();
+    let { children } = $props();
 </script>
 
 <header>
-	{@render children()}
+    {@render children()}
 </header>
 
 <style>
-	header {
-		background-image: linear-gradient(to right, rgba(0, 92, 171, 0.1), transparent);
-	}
+    header {
+        background-image: linear-gradient(to right, rgba(0, 92, 171, 0.1), transparent);
+    }
 </style>

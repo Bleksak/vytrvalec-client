@@ -7,7 +7,7 @@ enum Store {
     UNREVIEWED_SUBMISSION_STORE = 'unreviewedSubmissionStore',
     USER_STORE = 'userStore',
     ACTIVITY_STORE = 'activityStore',
-    FACULTY_STORE = 'facultyStore'
+    FACULTY_STORE = 'facultyStore',
 }
 
 export default Store;
