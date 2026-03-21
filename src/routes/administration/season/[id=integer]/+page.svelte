@@ -5,6 +5,8 @@
 	import type { SeasonStore } from '$lib/stores/SeasonStore.svelte';
 	import { getContext } from 'svelte';
 
+	const { data } = $props();
+
 	const seasonStore = getContext<SeasonStore>(Store.SEASON_STORE);
 
 	let season = $derived(seasonStore.get(Number(page.params.id)) ?? undefined);
@@ -12,6 +14,6 @@
 
 <div>
 	{#if season}
-		<SeasonOverview {season} />
+		<SeasonOverview {season} api={data.api} />
 	{/if}
 </div>

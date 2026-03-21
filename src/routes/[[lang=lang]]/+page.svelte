@@ -64,10 +64,10 @@
 			<p>
 				{$LL.homepage.intro()}
 			</p>
-			<a role="button" class="secondary" href="/{page.data.lang}/rules">
+			<a role="button" class="secondary" href="/{data.lang}/rules">
 				{$LL.rules.title().toUpperCase()}
 			</a>
-			<a role="button" href="/{page.data.lang}/results">
+			<a role="button" href="/{data.lang}/results">
 				{$LL.results.results().toLocaleUpperCase()}
 			</a>
 		</article>

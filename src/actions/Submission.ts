@@ -4,14 +4,17 @@ import type { SubmissionCreateResponse } from '$lib/DTO/SubmissionCreateResponse
 import type {
     SubmissionDTO,
     SubmissionResponseAdminDTO,
-    SubmissionResponseDTO
+    SubmissionResponseDTO,
 } from '$lib/DTO/SubmissionDTO';
 import type { SubmissionStateDTO, SubmissionStateResponse } from '$lib/DTO/SubmissionStateDTO';
 import axios, { type AxiosInstance, type AxiosResponse } from 'axios';
 import type { SelectedFilter } from '$lib/DTO/SelectedFilter';
 import type { FacultyDTO } from '$lib/DTO/FacultyDTO';
 
-export const createSubmission = async (api: AxiosInstance, dto: SubmissionDTO): Promise<SubmissionCreateResponse> => {
+export const createSubmission = async (
+    api: AxiosInstance,
+    dto: SubmissionDTO,
+): Promise<SubmissionCreateResponse> => {
     const response = await api.post(`/submission`, dto).catch((error) => {
         if (error.response) {
             return error.response;
@@ -23,26 +26,26 @@ export const createSubmission = async (api: AxiosInstance, dto: SubmissionDTO): 
     if (response === null) {
         return {
             type: 'error',
-            errors: { server: ['server_down'] }
+            errors: { server: ['server_down'] },
         };
     }
 
     if (response.status !== 201) {
         return {
             type: 'error',
-            errors: response.data
+            errors: response.data,
         };
     }
 
     return {
-        type: 'success'
+        type: 'success',
     };
 };
 
 export const fetchSubmissionsForSeason = async (
     api: AxiosInstance = axios,
     season: SeasonDTO | { id: number },
-    params: SelectedFilter
+    params: SelectedFilter,
 ): Promise<SubmissionResponseAdminDTO[]> => {
     return (
         (await api.get(`/season/${season.id}/submissions`, { params: params }).catch(() => null))
@@ -55,14 +58,14 @@ export const fetchSubmissionsForSeason = async (
         }) => {
             submission.date = new Date(submission.date);
             return submission;
-        }
+        },
     );
 };
 
 export const setSubmissionState = async (
     api: AxiosInstance,
     submissionId: number,
-    submissionStateDTO: SubmissionStateDTO
+    submissionStateDTO: SubmissionStateDTO,
 ): Promise<SubmissionStateResponse> => {
     const response = await api
         .patch(`/submission/${submissionId}/state`, submissionStateDTO)
@@ -77,42 +80,44 @@ export const setSubmissionState = async (
     if (response === null) {
         return {
             type: 'error',
-            errors: { server: ['server_down'] }
+            errors: { server: ['server_down'] },
         };
     }
 
     if (response.status !== 200) {
         return {
             type: 'error',
-            errors: response.data
+            errors: response.data,
         };
     }
 
     return {
         type: 'success',
-        date: response.data
+        date: response.data,
     };
 };
 
 export const acceptSubmission = async (
     submission: SubmissionResponseDTO,
-    message: string
+    message: string,
+    api: AxiosInstance,
 ): Promise<AxiosResponse> => {
-    return await axios.patch(`/submission/${submission.id}/state`, {
+    return await api.patch(`/submission/${submission.id}/state`, {
         updated_at: submission.updated_at,
         state: true,
-        message
+        message,
     });
 };
 
 export const rejectSubmission = async (
     submission: SubmissionResponseDTO,
-    message: string
+    message: string,
+    api: AxiosInstance,
 ): Promise<AxiosResponse> => {
-    return await axios.patch(`/submission/${submission.id}/state`, {
+    return await api.patch(`/submission/${submission.id}/state`, {
         updated_at: submission.updated_at,
         state: false,
-        message
+        message,
     });
 };
 
@@ -129,24 +134,24 @@ export const patchSubmission = async (api: AxiosInstance, dto: SubmissionDTO, da
     if (response === null) {
         return {
             type: 'error',
-            errors: { server: ['server_down'] }
+            errors: { server: ['server_down'] },
         };
     }
 
     if (response.status === 413) {
         return {
             type: 'error',
-            errors: { image: ['too_large'] }
+            errors: { image: ['too_large'] },
         };
     } else if (response.status !== 201) {
         return {
             type: 'error',
-            errors: response.data
+            errors: response.data,
         };
     }
 
     return {
-        type: 'success'
+        type: 'success',
     };
 };
 
@@ -169,18 +174,18 @@ export const deleteSubmission = async (submissionId: number): Promise<boolean> =
 export const fetchUserSubmissions = async (
     api: AxiosInstance,
 ): Promise<SubmissionResponseDTO[]> => {
-    const response = await api.get<Record<number, SubmissionResponseDTO>>(`/submission/user`).catch(() => null);
+    const response = await api
+        .get<Record<number, SubmissionResponseDTO>>(`/submission/user`)
+        .catch(() => null);
 
     if (response === null) {
         return [];
     }
 
-    return Object.values(response.data).map(
-        (submission: SubmissionResponseDTO) => {
-            return {
-                ...submission,
-                date: new Date(submission.date),
-            };
-        }
-    );
+    return Object.values(response.data).map((submission: SubmissionResponseDTO) => {
+        return {
+            ...submission,
+            date: new Date(submission.date),
+        };
+    });
 };

@@ -29,7 +29,7 @@
     <title>{$LL.homepage.title()}</title>
 </svelte:head>
 
-<Navbar currentSeason={data.currentSeason} user={data.user ?? null} />
+<Navbar currentSeason={data.currentSeason} user={data.user ?? null} api={data.api} />
 
 <main>
     <section class="grid">

@@ -12,13 +12,16 @@
 	import type { SvelteMap } from 'svelte/reactivity';
 	import type { ActivityDTO } from '$lib/DTO/ActivityDTO';
 	import { Pencil, Trash } from '@lucide/svelte';
+    import type { AxiosInstance } from 'axios';
 
 	let {
 		submission,
-		activities
+		activities,
+		api,
 	}: {
 		submission: SubmissionResponseDTO;
 		activities: SvelteMap<number, ActivityDTO>;
+		api: AxiosInstance;
 	} = $props();
 
 	let activity = $derived(activities.get(submission.activity_id)!);
@@ -113,7 +116,7 @@
 
 		<div class="buttons">
 			{#if isEditable}
-				<button onclick={() => dialogStore.open(SubmissionEditForm, { submission }, contexts)}>
+				<button onclick={() => dialogStore.open(SubmissionEditForm, { submission, api }, contexts)}>
 					<Pencil />
 				</button>
 				<button onclick={handleSubmissionDelete} class="delete">
@@ -124,7 +127,7 @@
 					onclick={() =>
 						dialogStore.open(
 							SubmissionEditForm,
-							{ submission: submission, disabled: true },
+							{ submission: submission, disabled: true, api },
 							contexts
 						)}
 				>

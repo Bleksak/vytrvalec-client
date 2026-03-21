@@ -15,8 +15,9 @@
     import { createRecordFromEntityArray } from '$lib/Helper';
     import { SvelteMap } from 'svelte/reactivity';
     import type { ActivityDTO } from '$lib/DTO/ActivityDTO';
+    import type { AxiosInstance } from 'axios';
 
-    const { season }: { season: SeasonDTO } = $props();
+    const { season, api }: { season: SeasonDTO; api: AxiosInstance } = $props();
 
     let activities = $state<SvelteMap<number, ActivityDTO>>(new SvelteMap());
     let isSeasonCached = $state<boolean>();
@@ -40,7 +41,7 @@
     );
 
     const endSeason = () => {
-        createSeasonCache(season).then((result: boolean) => {
+        createSeasonCache(api, season).then((result: boolean) => {
             seasonCacheResult = result;
             isSeasonCached = result !== undefined && result;
         });

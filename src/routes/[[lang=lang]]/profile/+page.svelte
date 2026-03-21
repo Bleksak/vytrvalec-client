@@ -21,7 +21,7 @@
 					</h1>
 					<FacultyTag facultyShortcut={data.user!.faculty.shortcut} />
 				</div>
-				<a href="/{page.data.lang}/account" title="Nastavení účtu">
+				<a href="/{data.lang}/account" title="Nastavení účtu">
 					<Settings />
 				</a>
 			</div>
@@ -35,7 +35,7 @@
 
 			<section class="submissions">
 				{#each data.submissions as submission (submission.id)}
-					<SubmissionCard {submission} activities={data.activities} />
+					<SubmissionCard {submission} activities={data.activities} api={data.api} />
 				{:else}
 					{$LL.profile.noSubmissions()}
 				{/each}

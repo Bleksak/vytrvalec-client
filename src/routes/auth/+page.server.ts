@@ -1,10 +1,10 @@
 import {
-	accountChange,
-	accountDelete,
-	anonymizationChange,
-	login,
-	requestResetPassword,
-	resetPassword
+    accountChange,
+    accountDelete,
+    anonymizationChange,
+    login,
+    requestResetPassword,
+    resetPassword,
 } from '$actions/Auth';
 import { formDataToUserLoginDTO } from '$lib/DTO/UserLoginDTO';
 import { fail, redirect, type Action } from '@sveltejs/kit';
@@ -17,117 +17,121 @@ import { formDataToResetPasswordDTO } from '$lib/DTO/ResetPasswordDTO';
 import { formDataToConsentChangeDTO } from '$lib/DTO/ConsentChangeDTO';
 
 const loginAction: Action = async ({ cookies, request, locals }) => {
-	const loginDTO = formDataToUserLoginDTO(await request.formData());
+    const loginDTO = formDataToUserLoginDTO(await request.formData());
 
-	if (loginDTO.type === 'error') {
-		return fail(400, loginDTO.value);
-	}
+    if (loginDTO.type === 'error') {
+        return fail(400, loginDTO.value);
+    }
 
-	const result = await login(locals.axios, loginDTO.value);
+    const result = await login(locals.axios, loginDTO.value);
 
-	if (result.type === 'error') {
-		return fail(400, result.errors);
-	}
+    if (result.type === 'error') {
+        return fail(400, result.errors);
+    }
 
-	const token = result.response.token;
-	const { exp } = JSON.parse(Buffer.from(token.split('.')[1], 'base64url').toString());
-	cookies.set('jwt', token, { path: '/', maxAge: exp - Math.floor(Date.now() / 1000) });
+    const token = result.response.token;
+    const { exp } = JSON.parse(Buffer.from(token.split('.')[1], 'base64url').toString());
+    cookies.set('jwt', token, { path: '/', maxAge: exp - Math.floor(Date.now() / 1000) });
 
-	locals.axios.defaults.headers.common.Authorization = `Bearer ${token}`;
+    locals.axios.defaults.headers.common.Authorization = `Bearer ${token}`;
 };
 
 const logoutAction: Action = ({ cookies }) => {
-	cookies.delete('jwt', { path: '/' });
-	redirect(307, '/');
+    cookies.delete('jwt', { path: '/' });
+    redirect(307, '/');
 };
 
 const registerAction: Action = async ({ request, locals }) => {
-	const registerDTO = formDataToUserRegisterDTO(await request.formData());
+    const registerDTO = formDataToUserRegisterDTO(await request.formData());
 
-	if (registerDTO.type === 'error') {
-		return fail(400, { register: registerDTO.value });
-	}
+    if (registerDTO.type === 'error') {
+        return fail(400, { register: registerDTO.value });
+    }
 
-	const result = await register(locals.axios, registerDTO.value);
+    const result = await register(locals.axios, registerDTO.value);
 
-	if (result.type === 'error') {
-		return fail(400, { register: result.errors });
-	}
+    if (result.type === 'error') {
+        return fail(400, { register: result.errors });
+    }
 };
 
 const accountAction: Action = async ({ request, locals }) => {
-	const data = formDataToAccountChangeDTO(await request.formData());
-	if (data.type === 'error') {
-		return fail(400, data.errors);
-	}
+    const data = formDataToAccountChangeDTO(await request.formData());
+    if (data.type === 'error') {
+        return fail(400, data.errors);
+    }
 
-	const response = await accountChange(locals.axios, data.dto);
-	if (response.type === 'error') {
-		return fail(400, response.errors);
-	}
+    const response = await accountChange(locals.axios, data.dto);
+    if (response.type === 'error') {
+        return fail(400, response.errors);
+    }
 };
 
-const forgottenPasswordAction: Action = async ({ request }) => {
-	const formData = await request.formData();
-	const data = formDataToForgottenPasswordDTO(formData);
-	if (data.type === 'error') {
-		return fail(400, data.value);
-	}
+const forgottenPasswordAction: Action = async ({ request, locals }) => {
+    const formData = await request.formData();
+    const data = formDataToForgottenPasswordDTO(formData);
+    if (data.type === 'error') {
+        return fail(400, data.value);
+    }
 
-	const response = await requestResetPassword(data.value, formData.get('lang')?.toString() ?? 'cs');
-	if (response.type === 'error') {
-		return fail(400, response.errors);
-	}
+    const response = await requestResetPassword(
+        data.value,
+        formData.get('lang')?.toString() ?? 'cs',
+        locals.axios,
+    );
+    if (response.type === 'error') {
+        return fail(400, response.errors);
+    }
 };
 
-const resetAction: Action = async ({ request }) => {
-	const data = formDataToResetPasswordDTO(await request.formData());
-	if (data.type === 'error') {
-		return fail(400, data.value);
-	}
+const resetAction: Action = async ({ request, locals }) => {
+    const data = formDataToResetPasswordDTO(await request.formData());
+    if (data.type === 'error') {
+        return fail(400, data.value);
+    }
 
-	const response = await resetPassword(data.value);
+    const response = await resetPassword(data.value, locals.axios);
 
-	if (response.type === 'error') {
-		return fail(400, response.errors);
-	}
+    if (response.type === 'error') {
+        return fail(400, response.errors);
+    }
 
-	return redirect(307, '/');
+    return redirect(307, '/');
 };
 
 const anonymizeAction: Action = async ({ request, locals }) => {
-	const data = formDataToConsentChangeDTO(await request.formData());
+    const data = formDataToConsentChangeDTO(await request.formData());
 
-	if (data.type === 'error') {
-		return fail(400, data.value);
-	}
+    if (data.type === 'error') {
+        return fail(400, data.value);
+    }
 
-	const response = await anonymizationChange(locals.axios, data.value);
+    const response = await anonymizationChange(locals.axios, data.value);
 
-	if (response.type === 'error') {
-		return fail(400, response.errors);
-	}
+    if (response.type === 'error') {
+        return fail(400, response.errors);
+    }
 
-	return { status: response.type };
+    return { status: response.type };
 };
 
 const deleteAccountAction: Action = async ({ locals }) => {
-	const response = await accountDelete(locals.axios);
+    const response = await accountDelete(locals.axios);
 
-	if (response.type === 'error') {
-		return fail(400, response.errors);
-	}
+    if (response.type === 'error') {
+        return fail(400, response.errors);
+    }
 
-	return redirect(307, '/');
+    return redirect(307, '/');
 };
 
 export const actions: Actions = {
-	login: loginAction,
-	logout: logoutAction,
-	register: registerAction,
-	account: accountAction,
-	forgotten: forgottenPasswordAction,
-	reset: resetAction,
-	anonymize: anonymizeAction,
-	delete: deleteAccountAction
+    login: loginAction,
+    logout: logoutAction,
+    register: registerAction,
+    account: accountAction,
+    forgotten: forgottenPasswordAction,
+    reset: resetAction,
+    anonymize: anonymizeAction,
+    delete: deleteAccountAction,
 };
