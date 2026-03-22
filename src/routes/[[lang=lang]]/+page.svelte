@@ -91,7 +91,7 @@
 </section>
 
 {#if data.totalStatistics}
-    <Stats totalStatistics={data.totalStatistics} />
+	<Stats totalStatistics={data.totalStatistics} />
 {/if}
 
 {#if data.lastSeason && data.lastSeasonResult}

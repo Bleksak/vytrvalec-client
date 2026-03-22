@@ -2,63 +2,76 @@
     import type { SeasonDTO } from '$lib/DTO/SeasonDTO';
     import { LL } from '$translations/i18n-svelte';
     import { Clock } from '@lucide/svelte';
+    import { onMount } from 'svelte';
 
     const { season }: { season: SeasonDTO } = $props();
 
     let now = $state(Date.now());
 
-    setInterval(() => {
-        now = Date.now();
-    }, 1000);
+    onMount(() => {
+        const interval = setInterval(() => {
+            now = Date.now();
+        }, 1000);
+
+        return () => {
+            clearInterval(interval);
+        };
+    });
 
     const diff = $derived(new Date(season.end).getTime() - now);
 
     const timer = $derived(() => {
-        if (diff <= 0) return { days: 0, hours: 0, minutes: 0, seconds: 0, finished: true };
+        if (diff <= 0) return { days: 0, hours: 0, minutes: 0, seconds: 0 };
 
-        const seconds = Math.floor(diff / 1000) % 60;
-        const minutes = Math.floor(diff / (1000 * 60)) % 60;
-        const hours = Math.floor(diff / (1000 * 60 * 60)) % 24;
-        const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+        const seconds = (Math.floor(diff / 1000) % 60).toString().padStart(2, '0');
+        const minutes = (Math.floor(diff / (1000 * 60)) % 60).toString().padStart(2, '0');
+        const hours = (Math.floor(diff / (1000 * 60 * 60)) % 24).toString().padStart(2, '0');
+        const days = Math.floor(diff / (1000 * 60 * 60 * 24))
+            .toString()
+            .padStart(2, '0');
 
-        return { days, hours, minutes, seconds, finished: false };
+        return { days, hours, minutes, seconds };
     });
 </script>
 
-{#if !timer().finished}
-    <section>
-        <article class="timer">
-            <div class="title">
-                <Clock class="filter-blue" size="30" />
-                <span>{$LL.season_timer.title()}</span>
+<div class="timer">
+    <div class="title">
+        <div class="icon-container">
+            <Clock size="1rem" />
+        </div>
+        {$LL.season_timer.title()}
+    </div>
+    <main class="cards">
+        <div class="card">
+            <div class="card-content">
+                <strong>{timer().days}</strong> <small>{$LL.season_timer.day()}</small>
             </div>
-            <div class="cards">
-                <div class="card">
-                    <span>{timer().days}</span> <small>{$LL.season_timer.day()}</small>
-                </div>
-                <div class="card">
-                    <span>{timer().hours}</span> <small>{$LL.season_timer.hour()}</small>
-                </div>
-                <div class="card">
-                    <span>{timer().minutes}</span> <small>{$LL.season_timer.minute()}</small>
-                </div>
-                <div class="card">
-                    <span>{timer().seconds}</span> <small>{$LL.season_timer.second()}</small>
-                </div>
+        </div>
+        <div class="card">
+            <div class="card-content">
+                <strong>{timer().hours}</strong> <small>{$LL.season_timer.hour()}</small>
             </div>
-        </article>
-    </section>
-{/if}
+        </div>
+        <div class="card">
+            <div class="card-content">
+                <strong>{timer().minutes}</strong> <small>{$LL.season_timer.minute()}</small>
+            </div>
+        </div>
+        <div class="card">
+            <div class="card-content">
+                <strong>{timer().seconds}</strong> <small>{$LL.season_timer.second()}</small>
+            </div>
+        </div>
+    </main>
+</div>
 
 <style lang="scss">
-@use '@picocss/pico/scss/settings' as pico;
+    @use '@picocss/pico/scss/colors' as colors;
 
     .timer {
         display: flex;
-        align-items: center;
-        justify-content: center;
+        flex-direction: column;
         gap: 0.8rem;
-        margin: 1rem 0 1rem 0;
 
         .title {
             display: flex;
@@ -68,24 +81,31 @@
 
         .cards {
             display: flex;
-            gap: 0.5rem;
+            gap: 0.8rem;
 
             .card {
                 display: flex;
+                gap: 0.8rem;
                 align-items: center;
-                flex-direction: column;
-                padding: 0.5rem;
                 text-transform: uppercase;
                 border-radius: 0.25rem;
-                background-color: var(--pico-color-slate-900)
 
-                span {
-                    font-weight: bold;
+                .card-content {
+                    display: flex;
+                    flex-direction: column;
+                }
+
+                strong {
+                    font-size: 1.5rem;
                 }
 
                 small {
                     color: #4c5664;
                 }
+            }
+
+            .card:not(:last-child)::after {
+                content: ':';
             }
         }
     }

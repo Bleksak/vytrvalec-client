@@ -72,7 +72,8 @@ const en = {
 			second: 'Second place: {name: string}',
 			third: 'Third place: {name: string}'
 		},
-		raised: 'Raised {raised: number|currency}',
+		raised: 'Raised',
+		raised_value: '{raised: number|currency}',
 		no_description: 'This charity has no description',
 		no_image: 'This charity has no image',
 		visit_charity: 'Visit Charity Website'

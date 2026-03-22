@@ -72,7 +72,8 @@ const cs = {
 			second: 'Druhé místo: {name: string}',
 			third: 'Třetí místo: {name: string}'
 		},
-		raised: 'Vybráno {raised: number|currency}',
+		raised: 'Vybráno',
+		raised_value: '{raised: number|currency}',
 		no_description: 'Charita nemá žádný popisek',
 		no_image: 'Charita nemá obrázek',
 		visit_charity: 'Navštivte web charity'
