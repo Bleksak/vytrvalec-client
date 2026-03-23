@@ -221,7 +221,7 @@
                 {/if}
                 <section>
                     <h2>{$LL.results.by_faculty()}</h2>
-                    {#await fetchSeasonUsersStatistics(currentSeason.id) then stat}
+                    {#await fetchSeasonUsersStatistics(data.api, currentSeason) then stat}
                         <table class="striped">
                             <thead>
                                 <tr>

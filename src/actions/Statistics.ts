@@ -1,6 +1,7 @@
-import axios, { type AxiosInstance } from 'axios';
+import { type AxiosInstance } from 'axios';
 import type { TotalStatisticsDTO, UserStatisticsDTO } from '$lib/DTO/StatisticsDTO';
 import type { SeasonUsersStatisticsDTO } from '$lib/DTO/SeasonUsersDTO';
+import type { SeasonDTO } from '$lib/DTO/SeasonDTO';
 
 export const fetchTotalStatistics = async (api: AxiosInstance): Promise<TotalStatisticsDTO> => {
     const response = await api.get(`/stats/total`);
@@ -15,10 +16,8 @@ export const fetchUserStatistics = async (
 };
 
 export const fetchSeasonUsersStatistics = async (
-    seasonId: number,
+    api: AxiosInstance,
+    season: SeasonDTO,
 ): Promise<SeasonUsersStatisticsDTO> => {
-    const response =
-        (await axios.get(`/statistics/faculties/${seasonId}`).catch(() => null))?.data ?? [];
-
-    return response;
+    return (await api.get(`/statistics/faculties/${season.id}`).catch(() => null))?.data ?? [];
 };
