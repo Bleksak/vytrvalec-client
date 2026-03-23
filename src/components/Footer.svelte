@@ -57,7 +57,7 @@
 
         <footer>
             <small>
-                © Západočeská univerzita v Plzni 2020–2025 · {$LL.footer.managed_by()}: Jiří Velek,
+                © Západočeská univerzita v Plzni 2020–2026 · {$LL.footer.managed_by()}: Jiří Velek,
                 Alena Kašparová
             </small>
         </footer>
