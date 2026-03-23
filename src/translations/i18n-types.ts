@@ -156,6 +156,28 @@ type RootTranslation = {
             content: string;
         };
     };
+    season_timer: {
+        /**
+         * S​e​z​ó​n​a​ ​k​o​n​č​í​ ​z​a
+         */
+        title: string;
+        /**
+         * d​n​ů
+         */
+        day: string;
+        /**
+         * h​o​d
+         */
+        hour: string;
+        /**
+         * m​i​n
+         */
+        minute: string;
+        /**
+         * s​e​k
+         */
+        second: string;
+    };
     season_detail: {
         /**
          * D​e​t​a​i​l​ ​S​e​z​ó​n​y
@@ -185,10 +207,14 @@ type RootTranslation = {
             third: RequiredParams<'name'>;
         };
         /**
-         * V​y​b​r​á​n​o​ ​{​r​a​i​s​e​d​|​c​u​r​r​e​n​c​y​}
+         * V​y​b​r​á​n​o
+         */
+        raised: string;
+        /**
+         * {​r​a​i​s​e​d​|​c​u​r​r​e​n​c​y​}
          * @param {number} raised
          */
-        raised: RequiredParams<'raised|currency'>;
+        raised_value: RequiredParams<'raised|currency'>;
         /**
          * C​h​a​r​i​t​a​ ​n​e​m​á​ ​ž​á​d​n​ý​ ​p​o​p​i​s​e​k
          */
@@ -1256,6 +1282,28 @@ export type TranslationFunctions = {
             content: () => LocalizedString;
         };
     };
+    season_timer: {
+        /**
+         * Sezóna končí za
+         */
+        title: () => LocalizedString;
+        /**
+         * dnů
+         */
+        day: () => LocalizedString;
+        /**
+         * hod
+         */
+        hour: () => LocalizedString;
+        /**
+         * min
+         */
+        minute: () => LocalizedString;
+        /**
+         * sek
+         */
+        second: () => LocalizedString;
+    };
     season_detail: {
         /**
          * Detail Sezóny
@@ -1280,9 +1328,13 @@ export type TranslationFunctions = {
             third: (arg: { name: string }) => LocalizedString;
         };
         /**
-         * Vybráno {raised|currency}
+         * Vybráno
          */
-        raised: (arg: { raised: number }) => LocalizedString;
+        raised: () => LocalizedString;
+        /**
+         * {raised|currency}
+         */
+        raised_value: (arg: { raised: number }) => LocalizedString;
         /**
          * Charita nemá žádný popisek
          */

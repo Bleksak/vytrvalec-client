@@ -1,73 +1,73 @@
 {
-	"$schema": "https://inlang.com/schema/inlang-message-format",
-	"forms": {
-		"activity": {
-			"errors": {
-				"min_elevation": {
-					"string": {
-						"integer": {
-							"parse": "Převýšení musí být celočíselná hodnota"
-						}
-					},
-					"negative": "Převýšení musí být kladné číslo"
-				},
-				"translations,name,cs": {
-					"min_length": "Název nesmí být prázdný"
-				},
-				"translations,name,en": {
-					"min_length": "Název nesmí být prázdný"
-				},
-				"icon": {
-					"string": {
-						"uuid": {
-							"v7": "Neplatný obrázek"
-						}
-					}
-				}
-			}
-		},
-		"faculty": {
-			"errors": {
-				"translations,name,cs": {
-					"min_length": "Název nesmí být prázdný"
-				},
-				"translations,name,en": {
-					"min_length": "Název nesmí být prázdný"
-				},
-				"shortcut": {
-					"min_length": "Zkratka nesmí být prázdná"
-				},
-				"color": {
-					"min_length": "Barva nesmí být prázdná",
-					"max_length": "Barva musí mít formát #abcdef"
-				},
-				"parent": {
-					"bad": "bad"
-				},
-				"visible": {
-					"boolean": "invalid visible"
-				}
-			}
-		},
-		"charity": {
-			"errors": {
-				"icon": {
-					"string": {
-						"uuid": {
-							"v7": "Neplatný obrázek"
-						}
-					}
-				},
-				"translations,name": {
-					"min_length": "Název nesmí být prázdný"
-				},
-				"translations,description": {
-					"min_length": "Popis nesmí být prázdný"
-				},
-				"website": {
-					"union": "Webová stránka musí být platná URL adresa"
-				}
-			}
-		}
-	}
+    "$schema": "https://inlang.com/schema/inlang-message-format",
+    "forms": {
+        "activity": {
+            "errors": {
+                "min_elevation": {
+                    "string": {
+                        "integer": {
+                            "parse": "Převýšení musí být celočíselná hodnota"
+                        }
+                    },
+                    "negative": "Převýšení musí být kladné číslo"
+                },
+                "translations,name,cs": {
+                    "min_length": "Název nesmí být prázdný"
+                },
+                "translations,name,en": {
+                    "min_length": "Název nesmí být prázdný"
+                },
+                "icon": {
+                    "string": {
+                        "uuid": {
+                            "v7": "Neplatný obrázek"
+                        }
+                    }
+                }
+            }
+        },
+        "faculty": {
+            "errors": {
+                "translations,name,cs": {
+                    "min_length": "Název nesmí být prázdný"
+                },
+                "translations,name,en": {
+                    "min_length": "Název nesmí být prázdný"
+                },
+                "shortcut": {
+                    "min_length": "Zkratka nesmí být prázdná"
+                },
+                "color": {
+                    "min_length": "Barva nesmí být prázdná",
+                    "max_length": "Barva musí mít formát #abcdef"
+                },
+                "parent": {
+                    "bad": "bad"
+                },
+                "visible": {
+                    "boolean": "invalid visible"
+                }
+            }
+        },
+        "charity": {
+            "errors": {
+                "icon": {
+                    "string": {
+                        "uuid": {
+                            "v7": "Neplatný obrázek"
+                        }
+                    }
+                },
+                "translations,name": {
+                    "min_length": "Název nesmí být prázdný"
+                },
+                "translations,description": {
+                    "min_length": "Popis nesmí být prázdný"
+                },
+                "website": {
+                    "union": "Webová stránka musí být platná URL adresa"
+                }
+            }
+        }
+    }
 }

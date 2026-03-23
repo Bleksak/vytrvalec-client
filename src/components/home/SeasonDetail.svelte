@@ -16,6 +16,7 @@
     import Heading from '$components/Heading.svelte';
     import type { Snippet } from 'svelte';
     import { getLocale } from '$paraglide/runtime';
+    import SeasonTimer from '$components/SeasonTimer.svelte';
 
     type Result = {
         faculty: FacultyDTO;
@@ -122,14 +123,28 @@
                     </div>
                 {/if}
             </article>
-            <article class="money-collected">
-                <div class="grid money-icon-container">
-                    <Coins size="1rem" />
-                </div>
-                <span>
-                    {$LL.season_detail.raised({ raised: result.total_distance / 1000 })}
-                </span>
-            </article>
+            <section class="charity-stats">
+                {#if season.is_running}
+                    <article class="money-collected">
+                        <SeasonTimer {season} />
+                    </article>
+                {/if}
+
+                <article class="money-collected">
+                    <div class="title">
+                        <div class="icon-container">
+                            <Coins size="1rem" />
+                        </div>
+
+                        <span>{$LL.season_detail.raised()}</span>
+                    </div>
+                    <strong class="money-collected-amount"
+                        >{$LL.season_detail.raised_value({
+                            raised: result.total_distance / 1000,
+                        })}</strong
+                    >
+                </article>
+            </section>
         </section>
     </div>
 </article>
@@ -167,6 +182,13 @@
         grid-template-columns: 1fr 2fr;
     }
 
+    .charity-stats {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+        gap: 0.5rem;
+        margin: 0;
+    }
+
     @media (max-width: map.get(map.get(pico.$breakpoints, 'md'), 'breakpoint')) {
         .charity-grid {
             grid-template-columns: 1fr;
@@ -199,14 +221,18 @@
     .money-collected {
         margin-bottom: 0;
         display: flex;
+        flex-direction: column;
         background-color: rgba(0, 92, 171, 0.1);
-        gap: 0.5rem;
-    }
+        gap: 0.8rem;
 
-    .money-icon-container {
-        background-color: #005cab;
-        color: white;
-        padding: 0.25rem;
-        border-radius: 100%;
+        .title {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .money-collected-amount {
+            font-size: 1.5rem;
+        }
     }
 </style>
