@@ -1,11 +1,11 @@
 <script lang="ts">
-    import Widget from '$components/Widget.svelte';
     import type { SeasonDTO } from '$lib/DTO/SeasonDTO';
     import type { SeasonStore } from '$lib/stores/SeasonStore.svelte';
     import { SeasonResult, type SeasonResultData } from '$lib/DTO/SeasonResultDTO';
     import { getContext } from 'svelte';
     import { createSeasonCache, fetchSeasonResult, getIsSeasonCached } from '$actions/Season';
     import LL from '$translations/i18n-svelte';
+    import Heading from '$components/Heading.svelte';
     import SubmissionScroller from './SubmissionScroller.svelte';
     import { fetchActivities } from '$actions/Activity';
     import { goto } from '$app/navigation';
@@ -40,6 +40,18 @@
             : seasonResultCalculator?.calculateSeasonResultRank(season, seasonResult, null, null),
     );
 
+    const top3Users = $derived.by(() => {
+        const extras = seasonResultRank?.extras ?? [];
+        const totals: Record<number, { user: number; faculty: number; points: number }> = {};
+        for (const e of extras) {
+            if (!totals[e.user]) totals[e.user] = { user: e.user, faculty: e.faculty, points: 0 };
+            totals[e.user].points += e.points;
+        }
+        return Object.values(totals)
+            .sort((a, b) => b.points - a.points)
+            .slice(0, 3);
+    });
+
     const endSeason = () => {
         createSeasonCache(api, season).then((result: boolean) => {
             seasonCacheResult = result;
@@ -69,9 +81,9 @@
 
     $effect(() => {
         Promise.all([
-            fetchSeasonResult(undefined, season),
-            fetchActivities(),
-            getIsSeasonCached(season),
+            fetchSeasonResult(api, season),
+            fetchActivities(api),
+            getIsSeasonCached(api, season),
         ]).then(([result, new_activities, isCached]) => {
             activities = createRecordFromEntityArray(new_activities);
             seasonResult = result;
@@ -80,131 +92,207 @@
     });
 </script>
 
-<h4>
-    Přehled sezóny: {season.start.toLocaleDateString('cs', { year: 'numeric', month: 'long' })}
-</h4>
+<article>
+    <Heading>
+        <h1>
+            {season.start.toLocaleDateString('cs', { year: 'numeric', month: 'long' })}
+            {#if season.is_test}<small>(testovací)</small>{/if}
+        </h1>
+    </Heading>
 
-<div class="wrapper">
-    <div class="season-wrapper">
-        <div class="season-data">
-            <Widget title="Charita">
-                <section class="charity">
-                    <h5>{charity?.name.cs}</h5>
-                    <div class="charity-description">
-                        <p>{charity?.description.cs}</p>
-                    </div>
-                </section>
-            </Widget>
+    <div class="layout">
+        <aside class="info">
+            <div class="card">
+                <h3>Sezóna</h3>
+                <dl>
+                    <dt>Začátek</dt>
+                    <dd>{season.start.toLocaleDateString('cs')}</dd>
+                    <dt>Konec</dt>
+                    <dd>{season.end.toLocaleDateString('cs')}</dd>
+                    <dt>Celková vzdálenost</dt>
+                    <dd>{seasonResultRank?.total_distance ?? '…'} km</dd>
+                </dl>
+                {#if !isSeasonCached && !isSeasonRunning}
+                    <button onclick={endSeason}>Uzavřít sezónu</button>
+                {/if}
+                {#if seasonCacheResult !== undefined}
+                    <p class="feedback">{seasonCacheResult ? 'Sezóna byla uzavřena.' : 'Chyba při uzavírání sezóny.'}</p>
+                {/if}
+            </div>
 
-            <Widget title="Sezóna">
-                <section class="season-data">
-                    <p><strong>Začátek:&nbsp;</strong>{season.start.toLocaleDateString('cs')}</p>
-                    <p><strong>Konec:&nbsp;</strong>{season.end.toLocaleDateString('cs')}</p>
-                    <p>
-                        <strong>Celková vzdálenost:&nbsp;</strong>{seasonResultRank?.total_distance} km
-                    </p>
-                    {#if !isSeasonCached && !isSeasonRunning}
-                        <button onclick={endSeason}>Uzavřít sezónu</button>
-                    {/if}
-                    {#if seasonCacheResult !== undefined}
-                        {#if seasonCacheResult}
-                            <span class="note">Sezóna byla uzavřena</span>
-                        {:else}
-                            <span class="note">Chyba při uzavírání sezóny</span>
-                        {/if}
-                    {/if}
-                </section>
-            </Widget>
+            <div class="card">
+                <h3>Charita</h3>
+                <p><strong>{charity?.name.cs}</strong></p>
+                <p>{charity?.description.cs}</p>
+            </div>
 
-            <Widget title="Extra body">
-                <section class="extra-points">
-                    {#each seasonResultRank?.extras ?? [] as extraPoint}
-                        <p>
-                            <strong>
-                                {seasonResult?.users[extraPoint.user].first_name}
-                                {seasonResult?.users[extraPoint.user].last_name}
-                            </strong>
-                            ({facultyStore.get(extraPoint.faculty)?.shortcut}):
-                        </p>
-                        <p>
-                            {$LL.extraPoints[extraPoint.name as keyof typeof $LL.extraPoints]()}
-                        </p>
-                        <p>Počet získaných bodů: {extraPoint.points}</p>
-                        <p>V aktivitě: {activities.get(extraPoint.activity)?.name.cs}</p>
-                        {#if extraPoint.name === 'weekly_distance'}
-                            <p>Za: {extraPoint.value / 1000} km</p>
-                        {:else if extraPoint.name === 'daily_distance'}
-                            <p>Za: {extraPoint.value / 1000} km</p>
-                        {:else if extraPoint.name === 'weekly_elevation'}
-                            <p>Za: {extraPoint.value} m</p>
-                        {/if}
-                    {:else}
-                        Zatím nejsou žádné
-                    {/each}
-                </section>
-            </Widget>
+            <div class="card">
+                <h3>Top 3 účastníci</h3>
+                {#if top3Users.length > 0}
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>#</th>
+                                <th>Jméno</th>
+                                <th>Fakulta</th>
+                                <th>Body</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {#each top3Users as row, i}
+                                <tr>
+                                    <td>{i + 1}</td>
+                                    <td>
+                                        {seasonResult?.users[row.user]?.first_name ?? '—'}
+                                        {seasonResult?.users[row.user]?.last_name ?? ''}
+                                    </td>
+                                    <td>{facultyStore.get(row.faculty)?.shortcut ?? '—'}</td>
+                                    <td>{row.points}</td>
+                                </tr>
+                            {/each}
+                        </tbody>
+                    </table>
+                {:else}
+                    <p>Zatím nejsou žádné výsledky.</p>
+                {/if}
+            </div>
+
+            <div class="card">
+                <h3>Extra body</h3>
+                {#if (seasonResultRank?.extras.length ?? 0) > 0}
+                    <ul>
+                        {#each seasonResultRank?.extras ?? [] as extraPoint}
+                            <li>
+                                <strong>
+                                    {seasonResult?.users[extraPoint.user].first_name}
+                                    {seasonResult?.users[extraPoint.user].last_name}
+                                </strong>
+                                ({facultyStore.get(extraPoint.faculty)?.shortcut}) —
+                                {$LL.extraPoints[extraPoint.name as keyof typeof $LL.extraPoints]()},
+                                {extraPoint.points} {extraPoint.points === 1 ? 'bod' : 'body'},
+                                {activities.get(extraPoint.activity)?.name.cs}
+                                {#if extraPoint.name === 'weekly_elevation'}
+                                    ({extraPoint.value} m)
+                                {:else}
+                                    ({extraPoint.value / 1000} km)
+                                {/if}
+                            </li>
+                        {/each}
+                    </ul>
+                {:else}
+                    <p>Zatím nejsou žádné.</p>
+                {/if}
+            </div>
 
             {#if seasonResultRank?.total_distance === 0 || season.is_test}
-                <Widget title="Odstranit sezónu">
-                    <section class="season-delete">
-                        <p>Pokud sezóna neobsahuje žádné aktivity, je možné ji odstranit.</p>
-                        <button type="button" onclick={removeSeason}>Odstranit sezónu</button>
-                        {#if seasonRemoveResult === false}
-                            <span class="note">
-                                Sezónu nelze odstranit, jelikož již obsahuje aktivity, nebo není
-                                testovací
-                            </span>
-                        {/if}
-                    </section>
-                </Widget>
+                <div class="card card--danger">
+                    <h3>Odstranit sezónu</h3>
+                    <p>Sezóna neobsahuje žádné aktivity nebo je testovací — lze ji odstranit.</p>
+                    <button type="button" onclick={removeSeason}>Odstranit sezónu</button>
+                    {#if seasonRemoveResult === false}
+                        <p class="feedback error">Sezónu nelze odstranit.</p>
+                    {/if}
+                </div>
             {/if}
-        </div>
-    </div>
+        </aside>
 
-    {#key season.id}
-        <div class="submissions">
-            <Widget title="Aktivity">
-                <section class="submissions-content">
-                    <SubmissionScroller {season} />
-                </section>
-            </Widget>
-        </div>
-    {/key}
-</div>
+        {#key season.id}
+            <section class="submissions">
+                <h2>Aktivity</h2>
+                <SubmissionScroller {season} />
+            </section>
+        {/key}
+    </div>
+</article>
 
 <style>
-    .wrapper {
+    .layout {
         display: grid;
-        grid-template-columns: 2fr 3fr;
-        gap: 20px;
+        gap: 1rem;
+        align-items: start;
     }
 
-    .charity {
+    .info {
         display: flex;
         flex-direction: column;
+        gap: 1rem;
     }
 
-    .charity h5 {
-        color: black;
+    .info h3 {
+        margin: 0 0 0.5rem;
+        font-size: 0.8rem;
+        text-transform: uppercase;
+        letter-spacing: 0.05em;
+        color: var(--pico-primary);
     }
 
-    .season-wrapper {
-        flex: 1;
+    .card {
+        background: var(--pico-card-sectioning-background-color);
+        border-radius: var(--pico-border-radius);
+        padding: 0.75rem 1rem;
     }
 
-    .season-data {
-        display: flex;
-        flex-direction: column;
-        gap: 5px;
+    .card--danger {
+        background: color-mix(in srgb, var(--pico-del-color) 8%, transparent);
     }
 
-    .submissions {
-        flex: 1;
+    dl {
+        display: grid;
+        grid-template-columns: auto 1fr;
+        column-gap: 1rem;
+        row-gap: 0.25rem;
+        margin: 0 0 0.75rem;
     }
 
-    .submissions-content {
-        display: flex;
-        flex-direction: column;
-        /* gap: 30px; */
+    dt {
+        font-weight: bold;
+    }
+
+    dd {
+        margin: 0;
+    }
+
+    table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-bottom: 0.5rem;
+    }
+
+    th,
+    td {
+        text-align: left;
+        padding: 0.25rem 0.5rem;
+        border-bottom: 1px solid var(--pico-table-border-color);
+    }
+
+    th {
+        font-size: 0.8rem;
+        font-weight: bold;
+        color: var(--pico-muted-color);
+    }
+
+    ul {
+        padding-left: 1.25rem;
+        margin: 0;
+    }
+
+    li {
+        margin-bottom: 0.25rem;
+    }
+
+    .feedback {
+        margin: 0.5rem 0 0;
+    }
+
+    .feedback.error {
+        color: var(--pico-del-color);
+    }
+
+    .submissions h2 {
+        margin: 0 0 0.75rem;
+        font-size: 0.8rem;
+        text-transform: uppercase;
+        letter-spacing: 0.05em;
+        color: var(--pico-primary);
     }
 </style>
