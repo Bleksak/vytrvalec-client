@@ -6,6 +6,7 @@
     import type { PageProps } from './$types';
     import SeasonDetail from '$components/home/SeasonDetail.svelte';
     import Heading from '$components/Heading.svelte';
+    import { UserRole } from '$lib/DTO/UserRole';
 
     import androidStoreImage from '$static/images/google-play.png';
     import appleStoreImage from '$static/images/apple-store.png';
@@ -18,6 +19,7 @@
 
     const { data }: PageProps = $props();
 
+    const isStaff = $derived(data.user?.roles.includes(UserRole.Staff) ?? false);
     const seasonResultCalculator = $derived(new SeasonResult(data.activities));
 
     const googlePlayLink = 'https://play.google.com/store/apps/details?id=cz.magnetka.mv'; // To neni citlivý, nebudu dávat do envu
@@ -94,8 +96,8 @@
     <Stats totalStatistics={data.totalStatistics} />
 {/if}
 
-{#if data.lastSeason && data.lastSeasonResult}
-    <SeasonDetail faculties={data.faculties} season={data.lastSeason} result={seasonResult} />
+{#if data.lastSeason && data.lastSeasonResult && (!data.lastSeason.is_test || isStaff)}
+    <SeasonDetail faculties={data.faculties} season={data.lastSeason!} result={seasonResult} />
 {/if}
 
 <section>

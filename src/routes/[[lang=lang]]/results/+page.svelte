@@ -11,10 +11,16 @@
     import type { ActivityDTO } from '$lib/DTO/ActivityDTO';
     import Tabs from '$components/Tabs.svelte';
     import { untrack } from 'svelte';
+    import { UserRole } from '$lib/DTO/UserRole';
 
     const { data }: PageProps = $props();
 
-    const seasons = $derived(data.seasons);
+    const isStaff = $derived(data.user?.roles.includes(UserRole.Staff) ?? false);
+    const seasons = $derived(
+        isStaff
+            ? data.seasons
+            : new Map([...data.seasons].filter(([, s]) => !s.is_test)),
+    );
     const activities = $derived(data.activities);
     const faculties = $derived(data.faculties);
 
