@@ -13,27 +13,27 @@
 
     const context = getAllContexts();
 
-    let searchText = $state('');
     let searchTimeout: ReturnType<typeof setTimeout>;
 
-    const onSearchInput = () => {
+    function onSearchInput(e: Event) {
+        const value = (e.target as HTMLInputElement).value;
         clearTimeout(searchTimeout);
         searchTimeout = setTimeout(() => {
-            userStore.loadPage(1, searchText);
+            userStore.loadPage(1, value);
         }, 300);
-    };
+    }
 
-    const prevPage = () => {
+    function prevPage() {
         if (userStore.currentPage() > 1) {
             userStore.loadPage(userStore.currentPage() - 1, userStore.currentSearch());
         }
-    };
+    }
 
-    const nextPage = () => {
+    function nextPage() {
         if (userStore.currentPage() < userStore.totalPages()) {
             userStore.loadPage(userStore.currentPage() + 1, userStore.currentSearch());
         }
-    };
+    }
 </script>
 
 <article>
@@ -45,7 +45,6 @@
         <input
             placeholder="Vyhledat uživatele (dle jména, e-mailu, či fakulty)"
             type="text"
-            bind:value={searchText}
             oninput={onSearchInput}
         />
 

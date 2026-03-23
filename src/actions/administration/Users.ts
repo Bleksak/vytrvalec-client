@@ -1,13 +1,17 @@
-import type { UserEditDTO } from '$lib/DTO/UserEditDTO';
+import { type } from 'arktype';
+import { UserResponseDto } from '$lib/DTO/UserResponse';
 import type { UserResponse, UserUpdateResponse } from '$lib/DTO/UserResponse';
+import type { UserEditDTO } from '$lib/DTO/UserEditDTO';
 import type { AxiosInstance, AxiosResponse } from 'axios';
 
-export type UserPaginatedResponse = {
-    data: UserResponse[];
-    total: number;
-    page: number;
-    limit: number;
-};
+export const UserPaginatedResponseType = type({
+    data: UserResponseDto.array(),
+    total: 'number',
+    page: 'number',
+    limit: 'number',
+});
+
+export type UserPaginatedResponse = typeof UserPaginatedResponseType.infer;
 
 export const fetchUser = async (
     api: AxiosInstance,

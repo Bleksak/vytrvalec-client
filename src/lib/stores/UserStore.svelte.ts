@@ -23,7 +23,7 @@ export const createUserStore = (api: AxiosInstance): UserStore => {
     let search = $state('');
     let loading = $state(true);
 
-    const loadPage = async (newPage: number, newSearch: string = search): Promise<void> => {
+    async function loadPage(newPage: number, newSearch: string = search): Promise<void> {
         loading = true;
         try {
             const result = await fetchUsersPaginated(api, newPage, PAGE_SIZE, newSearch);
@@ -34,7 +34,7 @@ export const createUserStore = (api: AxiosInstance): UserStore => {
         } finally {
             loading = false;
         }
-    };
+    }
 
     loadPage(1, '');
 
