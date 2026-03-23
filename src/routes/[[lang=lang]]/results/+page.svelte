@@ -27,6 +27,7 @@
     let currentActivity = $state<null | ActivityDTO>(null);
 
     const seasonResultData = $derived(await fetchSeasonResult(data.api, currentSeason));
+    const seasonUsersStatisticsData = $derived(await fetchSeasonUsersStatistics(data.api, currentSeason.id));
 
     const currentSeasonCompleteResults = $derived(
         seasonResultCalculator.calculateSeasonResultRank(
@@ -219,9 +220,9 @@
                         </section>
                     </div>
                 {/if}
-                <section>
-                    <h2>{$LL.results.by_faculty()}</h2>
-                    {#await fetchSeasonUsersStatistics(currentSeason.id) then stat}
+                {#if seasonUsersStatisticsData}
+                    <section>
+                        <h2>{$LL.results.by_faculty()}</h2>
                         <table class="striped">
                             <thead>
                                 <tr>
@@ -230,7 +231,7 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                {#each stat.users as row}
+                                {#each seasonUsersStatisticsData.users as row}
                                     {@const faculty = faculties.get(row.faculty)!}
                                     <tr>
                                         <td>{faculty?.shortcut}</td>
@@ -242,13 +243,13 @@
                                 <tr>
                                     <td>{$LL.results.total()}</td>
                                     <td class="text-right">
-                                        {stat.total}
+                                        {seasonUsersStatisticsData.total}
                                     </td>
                                 </tr>
                             </tfoot>
                         </table>
-                    {/await}
-                </section>
+                    </section>
+                {/if}
             {/if}
         </section>
     </article>
