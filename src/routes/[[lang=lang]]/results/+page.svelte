@@ -27,7 +27,6 @@
     let currentActivity = $state<null | ActivityDTO>(null);
 
     const seasonResultData = $derived(await fetchSeasonResult(data.api, currentSeason));
-    const seasonUsersStatisticsData = $derived(await fetchSeasonUsersStatistics(data.api, currentSeason.id));
 
     const currentSeasonCompleteResults = $derived(
         seasonResultCalculator.calculateSeasonResultRank(
@@ -220,9 +219,9 @@
                         </section>
                     </div>
                 {/if}
-                {#if seasonUsersStatisticsData}
-                    <section>
-                        <h2>{$LL.results.by_faculty()}</h2>
+                <section>
+                    <h2>{$LL.results.by_faculty()}</h2>
+                    {#await fetchSeasonUsersStatistics(data.api, currentSeason) then stat}
                         <table class="striped">
                             <thead>
                                 <tr>
@@ -231,7 +230,7 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                {#each seasonUsersStatisticsData.users as row}
+                                {#each stat.users as row}
                                     {@const faculty = faculties.get(row.faculty)!}
                                     <tr>
                                         <td>{faculty?.shortcut}</td>
@@ -243,13 +242,13 @@
                                 <tr>
                                     <td>{$LL.results.total()}</td>
                                     <td class="text-right">
-                                        {seasonUsersStatisticsData.total}
+                                        {stat.total}
                                     </td>
                                 </tr>
                             </tfoot>
                         </table>
-                    </section>
-                {/if}
+                    {/await}
+                </section>
             {/if}
         </section>
     </article>
