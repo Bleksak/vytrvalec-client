@@ -12,69 +12,69 @@ button,
 dialog,
 input,
 textarea {
-	all: unset;
+    all: unset;
 }
 
 * {
-	min-width: 0;
+    min-width: 0;
 }
 
 *,
 *::before,
 ::after {
-	box-sizing: border-box;
+    box-sizing: border-box;
 }
 
 a {
-	cursor: revert;
+    cursor: revert;
 }
 
 ol,
 ul,
 menu {
-	list-style-type: none;
+    list-style-type: none;
 }
 
 img {
-	max-width: 100%;
-	display: block;
+    max-width: 100%;
+    display: block;
 }
 
 table {
-	border-collapse: collapse;
+    border-collapse: collapse;
 }
 
 :where([hidden]) {
-	display: none;
+    display: none;
 }
 
 :where([contenteditable]) {
-	-moz-user-modify: read-write;
-	-webkit-user-modify: read-write;
-	overflow-wrap: break-word;
-	-webkit-line-break: after-white-space;
-	line-break: after-white-space;
+    -moz-user-modify: read-write;
+    -webkit-user-modify: read-write;
+    overflow-wrap: break-word;
+    -webkit-line-break: after-white-space;
+    line-break: after-white-space;
 }
 
 /* apply back the draggable feature - exist only in Chromium and Safari */
 :where([draggable='true']) {
-	-webkit-user-drag: element;
+    -webkit-user-drag: element;
 }
 
 * {
-	padding: 0;
-	margin: 0;
+    padding: 0;
+    margin: 0;
 }
 
 body {
-	font-size: 1rem;
+    font-size: 1rem;
 
-	font-family:
-		Roboto Condensed,
-		sans-serif;
-	line-height: 1.5;
+    font-family:
+        Roboto Condensed,
+        sans-serif;
+    line-height: 1.5;
 
-	background-color: rgb(250, 250, 250);
+    background-color: rgb(250, 250, 250);
 }
 
 body,
@@ -87,93 +87,93 @@ h6,
 p,
 ol,
 ul {
-	font-weight: normal;
+    font-weight: normal;
 }
 
 a,
 a:active,
 a:hover,
 a:visited {
-	color: inherit;
-	text-decoration: none;
+    color: inherit;
+    text-decoration: none;
 }
 
 @font-face {
-	font-family: Roboto Condensed;
-	src: url(../fonts/RobotoCondensed-Regular.ttf);
-	font-weight: normal;
+    font-family: Roboto Condensed;
+    src: url(../fonts/RobotoCondensed-Regular.ttf);
+    font-weight: normal;
 }
 
 @font-face {
-	font-family: Roboto Condensed;
-	src: url(../fonts/RobotoCondensed-Light.ttf);
-	font-weight: lighter;
+    font-family: Roboto Condensed;
+    src: url(../fonts/RobotoCondensed-Light.ttf);
+    font-weight: lighter;
 }
 
 @font-face {
-	font-family: Roboto Condensed;
-	src: url(../fonts/RobotoCondensed-Bold.ttf);
-	font-weight: bold;
+    font-family: Roboto Condensed;
+    src: url(../fonts/RobotoCondensed-Bold.ttf);
+    font-weight: bold;
 }
 
 @font-face {
-	font-family: Roboto Condensed;
-	src: url(../fonts/RobotoCondensed-Medium.ttf);
-	font-weight: 500;
+    font-family: Roboto Condensed;
+    src: url(../fonts/RobotoCondensed-Medium.ttf);
+    font-weight: 500;
 }
 
 button {
-	user-select: none;
-	-webkit-user-select: none;
+    user-select: none;
+    -webkit-user-select: none;
 }
 
 h1 {
-	font-size: 3.5rem;
-	text-transform: uppercase;
-	font-weight: bold;
-	color: #005cab;
+    font-size: 3.5rem;
+    text-transform: uppercase;
+    font-weight: bold;
+    color: #005cab;
 }
 
 .no-transform {
-	text-transform: none;
+    text-transform: none;
 }
 
 h2 {
-	font-size: 3rem;
-	text-transform: uppercase;
-	font-weight: bold;
-	color: #005cab;
+    font-size: 3rem;
+    text-transform: uppercase;
+    font-weight: bold;
+    color: #005cab;
 }
 
 h3 {
-	font-size: 2.5rem;
-	text-transform: uppercase;
-	font-weight: bold;
-	color: #005cab;
+    font-size: 2.5rem;
+    text-transform: uppercase;
+    font-weight: bold;
+    color: #005cab;
 }
 
 h4 {
-	font-size: 2rem;
-	font-weight: bold;
-	color: #005cab;
+    font-size: 2rem;
+    font-weight: bold;
+    color: #005cab;
 }
 
 h5 {
-	font-size: 1.5rem;
-	font-weight: 500;
-	color: #005cab;
+    font-size: 1.5rem;
+    font-weight: 500;
+    color: #005cab;
 }
 
 h6 {
-	font-size: 1.5rem;
-	font-weight: 500;
-	color: white;
+    font-size: 1.5rem;
+    font-weight: 500;
+    color: white;
 }
 
 p {
-	text-align: justify;
-	font-size: 1.4rem;
-	font-weight: 100;
+    text-align: justify;
+    font-size: 1.4rem;
+    font-weight: 100;
 }
 
 input[type='text'],
@@ -183,152 +183,151 @@ input[type='password'],
 input[type='date'],
 textarea,
 select {
-	display: block;
-	padding: 12px 20px;
-	margin: 8px 0;
-	border: 1px solid #ccc;
-	border-radius: 4px;
-	box-sizing: border-box;
+    display: block;
+    padding: 12px 20px;
+    margin: 8px 0;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
 }
 
 form {
-	display: flex;
-	flex-direction: column;
+    display: flex;
+    flex-direction: column;
 
-	gap: 10px;
+    gap: 10px;
 }
 
 .list-style {
-	font-size: 24px;
-	padding-left: 40px;
-	counter-reset: item;
+    font-size: 24px;
+    padding-left: 40px;
+    counter-reset: item;
 }
 
 ul.list-style {
-	list-style-type: disc;
+    list-style-type: disc;
 }
 
 ol.list-style {
-	list-style-type: decimal;
+    list-style-type: decimal;
 }
 
-ul>li {
-	counter-increment: item;
+ul > li {
+    counter-increment: item;
 }
 
-ol>li {
-	counter-increment: item;
+ol > li {
+    counter-increment: item;
 }
 
 main {
-	display: flex;
-	flex-direction: column;
+    display: flex;
+    flex-direction: column;
 }
 
 .sponzor {
-	display: flex;
-	flex-direction: column;
-	align-items: center;
-	justify-content: center;
-	padding: 2rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 2rem;
 }
 
-
 .error {
-	color: #d32f2f;
+    color: #d32f2f;
 }
 
 html {
-	scroll-behavior: smooth;
+    scroll-behavior: smooth;
 }
 
 html:has(dialog[open]) {
-	overflow: hidden;
+    overflow: hidden;
 }
 
 span.success {
-	display: flex;
-	align-items: center;
-	padding: 10px;
-	background-color: #65b741;
-	font-size: 0.9rem;
+    display: flex;
+    align-items: center;
+    padding: 10px;
+    background-color: #65b741;
+    font-size: 0.9rem;
 }
 
 .navbar-accordion {
-	position: absolute;
-	top: 0;
-	left: 50%;
-	transform: translateX(-50%);
-	background-color: rgb(235, 235, 235);
-	padding-block: 20px;
-	width: 100%;
-	display: flex;
-	flex-direction: column;
-	gap: 10px;
+    position: absolute;
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: rgb(235, 235, 235);
+    padding-block: 20px;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
 }
 
 span.note {
-	display: flex;
-	align-items: center;
-	padding: 10px;
-	background-color: rgba(255, 250, 205, 1);
-	font-size: 0.9rem;
+    display: flex;
+    align-items: center;
+    padding: 10px;
+    background-color: rgba(255, 250, 205, 1);
+    font-size: 0.9rem;
 }
 
 .icon {
-	max-width: 25px;
-	width: 100%;
-	aspect-ratio: 1/1;
+    max-width: 25px;
+    width: 100%;
+    aspect-ratio: 1/1;
 }
 
 strong {
-	font-weight: bold;
+    font-weight: bold;
 }
 
 label {
-	font-weight: bold;
+    font-weight: bold;
 }
 
 .form-field {
-	display: flex;
-	flex-direction: column;
-	gap: 5px;
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
 }
 
 w-100 {
-	width: 100%;
+    width: 100%;
 }
 
 m-0 {
-	margin: 0;
+    margin: 0;
 }
 
 f-1 {
-	flex: 1;
+    flex: 1;
 }
 
 @media screen and (max-width: 1000px) {
-	h1 {
-		font-size: 3rem;
-	}
+    h1 {
+        font-size: 3rem;
+    }
 
-	h2 {
-		font-size: 2.5rem;
-	}
+    h2 {
+        font-size: 2.5rem;
+    }
 
-	h3 {
-		font-size: 2rem;
-	}
+    h3 {
+        font-size: 2rem;
+    }
 
-	h4 {
-		font-size: 1.5rem;
-	}
+    h4 {
+        font-size: 1.5rem;
+    }
 
-	h5 {
-		font-size: 1rem;
-	}
+    h5 {
+        font-size: 1rem;
+    }
 
-	h6 {
-		font-size: 1rem;
-	}
+    h6 {
+        font-size: 1rem;
+    }
 }
