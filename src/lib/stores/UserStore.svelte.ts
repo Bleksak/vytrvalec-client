@@ -1,49 +1,56 @@
-import { fetchUsers } from '$actions/administration/Users';
+import { fetchUsersPaginated } from '$actions/administration/Users';
 import type { UserResponse } from '$lib/DTO/UserResponse';
 import type { AxiosInstance } from 'axios';
 
+const PAGE_SIZE = 25;
+
 export type UserStore = {
     get: (id: number) => UserResponse | null;
-    promise: () => Promise<Array<UserResponse>>;
     all: () => Array<UserResponse>;
     update: (user: UserResponse) => void;
+    loadPage: (page: number, newSearch?: string) => Promise<void>;
+    currentPage: () => number;
+    totalPages: () => number;
+    total: () => number;
+    currentSearch: () => string;
+    isLoading: () => boolean;
 };
 
 export const createUserStore = (api: AxiosInstance): UserStore => {
     let users = $state<Array<UserResponse>>([]);
-    const usersPromise = fetchUsers(api);
+    let page = $state(1);
+    let total = $state(0);
+    let search = $state('');
+    let loading = $state(true);
 
-    usersPromise.then((result) => {
-        users = result;
-    });
-
-    const get = (id: number): UserResponse | null => {
-        if (Number.isNaN(id)) {
-            return null;
-        }
-
-        return users.find((user) => user.id === id) ?? null;
-    };
-
-    const all = (): Array<UserResponse> => {
-        return users;
-    };
-
-    const update = (user: UserResponse) => {
-        let item = users.findIndex((c) => c.id === user.id);
-
-        if (item !== undefined) {
-            users[item] = user;
+    const loadPage = async (newPage: number, newSearch: string = search): Promise<void> => {
+        loading = true;
+        try {
+            const result = await fetchUsersPaginated(api, newPage, PAGE_SIZE, newSearch);
+            users = result.data ?? [];
+            page = result.page ?? newPage;
+            total = result.total ?? 0;
+            search = newSearch;
+        } finally {
+            loading = false;
         }
     };
 
-    const promise = () => usersPromise;
+    loadPage(1, '');
 
     return {
-        get: get,
-        promise: promise,
-        all: all,
-        update: update,
+        get: (id) => (Number.isNaN(id) ? null : (users.find((u) => u.id === id) ?? null)),
+        all: () => users,
+        update: (user) => {
+            const index = users.findIndex((u) => u.id === user.id);
+            if (index !== -1) users[index] = user;
+        },
+        loadPage,
+        currentPage: () => page,
+        totalPages: () => Math.ceil(total / PAGE_SIZE),
+        total: () => total,
+        currentSearch: () => search,
+        isLoading: () => loading,
     };
 };
 

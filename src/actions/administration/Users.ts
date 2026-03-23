@@ -2,6 +2,13 @@ import type { UserEditDTO } from '$lib/DTO/UserEditDTO';
 import type { UserResponse, UserUpdateResponse } from '$lib/DTO/UserResponse';
 import type { AxiosInstance, AxiosResponse } from 'axios';
 
+export type UserPaginatedResponse = {
+    data: UserResponse[];
+    total: number;
+    page: number;
+    limit: number;
+};
+
 export const fetchUser = async (
     api: AxiosInstance,
     user: number,
@@ -9,8 +16,20 @@ export const fetchUser = async (
     return await api.get(`/user/${user}`);
 };
 
-export const fetchUsers = async (api: AxiosInstance): Promise<Array<UserResponse>> => {
-    return (await api.get('/user'))?.data ?? [];
+export const fetchUsersPaginated = async (
+    api: AxiosInstance,
+    page: number = 1,
+    limit: number = 25,
+    search: string = '',
+): Promise<UserPaginatedResponse> => {
+    return (
+        (await api.get('/user', { params: { page, limit, search } }))?.data ?? {
+            data: [],
+            total: 0,
+            page: 1,
+            limit,
+        }
+    );
 };
 
 export const updateUser = async (
