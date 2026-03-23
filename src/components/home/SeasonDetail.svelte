@@ -233,6 +233,7 @@
 
         .money-collected-amount {
             font-size: 1.5rem;
+            padding-block: 0.25rem;
         }
     }
 </style>

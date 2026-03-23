@@ -80,15 +80,19 @@
         }
 
         .cards {
-            display: flex;
+            display: grid;
+            grid-template-columns: repeat(4, minmax(0px, 75px));
             gap: 0.8rem;
 
             .card {
                 display: flex;
+                justify-content: center;
                 gap: 0.8rem;
                 align-items: center;
                 text-transform: uppercase;
                 border-radius: 0.25rem;
+                padding: 0.25rem;
+                background-color: #005cab1f;
 
                 .card-content {
                     display: flex;
@@ -102,10 +106,6 @@
                 small {
                     color: #4c5664;
                 }
-            }
-
-            .card:not(:last-child)::after {
-                content: ':';
             }
         }
     }
