@@ -27,7 +27,11 @@
     });
 </script>
 
-<dialog bind:this={dialog} {...props} onclose={close}>
+<dialog
+    bind:this={dialog}
+    {...props}
+    onclose={close}
+>
     <article>
         <header>
             <h5>{header}</h5>
