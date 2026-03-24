@@ -10,15 +10,14 @@
     </div>
 </Dialog>
 
-<style type="scss">
-
+<style>
     .image-wrapper {
         display: flex;
+    }
 
-        img {
-            width: 100%;
-            height: auto;
-            object-fit: cover;
-        }
+    .image-wrapper img {
+        width: 100%;
+        height: auto;
+        object-fit: cover;
     }
 </style>

@@ -23,14 +23,13 @@
     }
 
     $effect(() => {
-        dialog?.showModal();
+        dialog?.show();
     });
 </script>
 
 <dialog
     bind:this={dialog}
     {...props}
-    onclick={(e) => e.target === dialog && close()}
     onclose={close}
 >
     <article>
