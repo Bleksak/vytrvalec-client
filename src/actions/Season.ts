@@ -6,6 +6,8 @@ import {
     type CreateSeasonResponse,
     type SeasonConfigDTO,
     type SeasonDTO,
+    type SeasonUpdateConfigDTO,
+    type UpdateSeasonResponse,
 } from '$lib/DTO/SeasonDTO';
 import { type SeasonResultData } from '$lib/DTO/SeasonResultDTO';
 import { ArkErrors } from 'arktype';
@@ -76,6 +78,38 @@ export const updateSeason = async (
     api: AxiosInstance,
 ): Promise<AxiosResponse<any>> => {
     return await api.patch(`/season/${season.id}`, season);
+};
+
+export const updateSeasonConfig = async (
+    api: AxiosInstance,
+    id: number,
+    data: Omit<SeasonUpdateConfigDTO, 'id'>,
+): Promise<UpdateSeasonResponse> => {
+    const response = await api.patch(`/season/${id}`, data).catch((err) => {
+        if (err.response) {
+            return err.response;
+        }
+
+        return null;
+    });
+
+    if (response === null) {
+        return {
+            type: 'error',
+            errors: {
+                auth: ['server_down'],
+            },
+        };
+    }
+
+    if (response.status !== 200) {
+        return {
+            type: 'error',
+            errors: response.data,
+        };
+    }
+
+    return { type: 'success' };
 };
 
 export const fetchSeasonResult = async (

@@ -68,6 +68,18 @@ export type CreateSeasonResponse =
           errors: CreateSeasonError;
       };
 
+export const SeasonUpdateConfigType = type({
+    id: 'string.integer.parse',
+    faculty_mapping: FacultyMappingCreateType.array(),
+    season: SeasonCreateType,
+});
+
+export type SeasonUpdateConfigDTO = typeof SeasonUpdateConfigType.infer;
+
+export type UpdateSeasonResponse =
+    | { type: 'success' }
+    | { type: 'error'; errors: CreateSeasonError };
+
 export const createSeasonDTO = (formData: FormData): CreateSeasonDTO => {
     const start = formData.get('start')?.toString() ?? '';
     const end = formData.get('end')?.toString() ?? '';
