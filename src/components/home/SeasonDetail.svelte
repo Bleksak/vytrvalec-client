@@ -17,6 +17,13 @@
     import type { Snippet } from 'svelte';
     import { getLocale } from '$paraglide/runtime';
     import SeasonTimer from '$components/SeasonTimer.svelte';
+    import Store from '$lib/enums/Stores';
+    import type { DialogStore } from '$lib/stores/DialogStore.svelte';
+    import { getAllContexts, getContext } from 'svelte';
+    import ImagePreview from '$components/ImagePreview.svelte';
+
+    const context = getAllContexts();
+    const dialogStore = getContext<DialogStore>(Store.DIALOG_STORE);
 
     type Result = {
         faculty: FacultyDTO;
@@ -91,11 +98,26 @@
     <div class="grid charity-grid">
         <div class="charity-image-container">
             {#if season.charity.image}
-                <img
-                    src={season.charity.image || '/placeholder.svg'}
-                    alt={season.charity.name[locale]}
-                    class="charity-image"
-                />
+                <button
+                    type="button"
+                    class="charity-image-button"
+                    onclick={() =>
+                        dialogStore.open(
+                            ImagePreview,
+                            {
+                                src: season.charity.image || '/placeholder.svg',
+                                title: season.charity.name[locale],
+                                alt: season.charity.name[locale],
+                            },
+                            context,
+                        )}
+                >
+                    <img
+                        src={season.charity.image || '/placeholder.svg'}
+                        alt={season.charity.name[locale]}
+                        class="charity-image"
+                    />
+                </button>
             {:else}
                 <div class="charity-placeholder-content">
                     <ImageIcon size={48} />
@@ -204,9 +226,14 @@
     }
 
     .charity-image {
-        max-height: 24rem;
         object-fit: cover;
         width: 100%;
+        height: 100%;
+    }
+
+    .charity-image-button {
+        all: unset;
+        cursor: pointer;
         height: 100%;
     }
 

@@ -23,11 +23,16 @@
     }
 
     $effect(() => {
-        dialog?.show();
+        dialog?.showModal();
     });
 </script>
 
-<dialog bind:this={dialog} {...props} onclose={close}>
+<dialog
+    bind:this={dialog}
+    {...props}
+    onclick={(e) => e.target === dialog && close()}
+    onclose={close}
+>
     <article>
         <header>
             <h5>{header}</h5>
