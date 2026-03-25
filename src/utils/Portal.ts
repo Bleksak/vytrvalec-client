@@ -39,7 +39,9 @@ export function multiPortal(selectors: Array<string | Element>): Attachment {
 
         return () => {
             observer.disconnect();
-            if (element.isConnected) element.remove();
+            if (element.isConnected) {
+                element.remove();
+            }
         };
     };
 }
