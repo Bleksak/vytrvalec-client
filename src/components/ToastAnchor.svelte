@@ -2,12 +2,13 @@
     import { fade } from 'svelte/transition';
     import Toast from './Toast.svelte';
     import type { ToastStore } from '$lib/stores/ToastStore.svelte';
+    import { multiPortal } from '$utils/Portal';
 
     const { toastStore }: { toastStore: ToastStore } = $props();
 </script>
 
 {#if toastStore.toasts().length > 0}
-    <div class="toasts-anchor" transition:fade>
+    <div {@attach multiPortal(['dialog', 'body'])} class="toasts-anchor" transition:fade>
         <div class="toasts">
             {#each toastStore.toasts() as toast}
                 <Toast {toast} />
