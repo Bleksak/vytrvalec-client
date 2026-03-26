@@ -66,7 +66,7 @@
 
             <div
                 class="progress"
-                style:width={(100 * currentStepIndex) / (steps.length - 1) + '%'}
+                style:width={((100 * currentStepIndex) / (steps.length - 1) + '%')}
             ></div>
         </div>
     </header>
@@ -112,7 +112,7 @@
 
     .progress-container::before {
         content: '';
-        background-color: #e0e0e0;
+        background-color: #005bab38;
         position: absolute;
         bottom: calc(25px);
         margin-inline: 1rem;
@@ -130,19 +130,19 @@
         height: 4px;
         z-index: 1;
         transition: 0.4s ease;
-        max-width: calc(100% - 2rem);
+        max-width: calc(100% - 3rem);
     }
 
     .circle {
-        background-color: #fff;
-        color: #999;
+        background-color: var(--pico-primary-background);
+        color: white;
         border-radius: 50%;
         height: 50px;
         width: 50px;
         display: flex;
         align-items: center;
         justify-content: center;
-        border: 3px solid #e0e0e0;
+        border: 3px solid var(--pico-primary-background);
         transition: 0.4s ease;
         cursor: pointer;
         z-index: 2;
@@ -152,9 +152,5 @@
 
     .circle.active::after {
         color: #3498db;
-    }
-
-    .circle.active {
-        border-color: #3498db;
     }
 </style>
