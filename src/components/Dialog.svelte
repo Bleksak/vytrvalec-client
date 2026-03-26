@@ -23,7 +23,7 @@
     }
 
     $effect(() => {
-        dialog?.show();
+        dialog?.showModal();
     });
 </script>
 
