@@ -55,7 +55,7 @@
 				<legend>Charita</legend>
 				<div class="grid">
 					<span>{data.season.charity.name.cs}</span>
-					<a href="/administration/charity/{data.season.charity.id}" role="button" class="outline">
+					<a href="/administration/charity/{data.season.charity.id}?season={data.season.id}" role="button" class="outline">
 						Upravit charitu
 					</a>
 				</div>

@@ -43,9 +43,6 @@
                         <a href="/administration/season">Sezóny</a>
                     </li>
                     <li>
-                        <a href="/administration/charity">Charity</a>
-                    </li>
-                    <li>
                         <a href="/administration/faculty">Fakulty</a>
                     </li>
                     <li>
