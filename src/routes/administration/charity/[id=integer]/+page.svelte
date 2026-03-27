@@ -5,7 +5,7 @@
 </script>
 
 {#if data.charity !== null}
-    <CharityUpdateForm charity={data.charity} api={data.api} />
+    <CharityUpdateForm charity={data.charity} api={data.api} seasonId={data.seasonId} />
 {:else}
     <article>
         <header>Nebylo možné najít požadovanou charitu</header>

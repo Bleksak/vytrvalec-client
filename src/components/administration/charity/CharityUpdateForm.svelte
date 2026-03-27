@@ -9,7 +9,11 @@
     import { goto } from '$app/navigation';
     import type { AxiosInstance } from 'axios';
 
-    const { charity, api }: { charity: CharityDTO; api: AxiosInstance } = $props();
+    const {
+        charity,
+        api,
+        seasonId = null,
+    }: { charity: CharityDTO; api: AxiosInstance; seasonId?: number | null } = $props();
 
     let imageUuid = $state(null);
     let errors: Record<string, string> = $state({});
@@ -36,6 +40,11 @@
 <article>
     <Heading>
         <h1>Úprava charity</h1>
+        {#if seasonId !== null}
+            <a href="/administration/season/{seasonId}/edit" role="button" class="outline">
+                Zpět na sezónu
+            </a>
+        {/if}
     </Heading>
     <section>
         <label for="image">Obrázek charity</label>
