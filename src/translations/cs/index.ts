@@ -31,6 +31,11 @@ const cs = {
         settings: 'Nastavení',
     },
 
+    form : {
+        nextStep: 'Další krok',
+        prevStep: 'Předchozí krok',
+    },
+
     homepage: {
         title: 'Měsíční Vytrvalec',
         statistics: {
@@ -58,6 +63,7 @@ const cs = {
 
     onboarding: {
         title: 'Pravidla',
+        goChallenge: 'Přejít na výzvu'
     },
 
     season_timer: {

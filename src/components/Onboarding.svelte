@@ -21,7 +21,7 @@
 </script>
 
 {#snippet submit()}
-    <button type="button" onclick={() => handleSubmit()}>Přejít na výzvu</button>
+    <button type="button" onclick={() => handleSubmit()}>{$LL.onboarding.goChallenge()}</button>
 {/snippet}
 
 {#snippet WelcomeStep()}

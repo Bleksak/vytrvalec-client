@@ -1,4 +1,5 @@
 <script lang="ts">
+    import LL from '$translations/i18n-svelte';
     import type { Snippet } from 'svelte';
 
     type Step = {
@@ -40,12 +41,12 @@
         class="secondary"
         onclick={defaultPrevButtonHandler}
     >
-        Předchozí krok
+        {$LL.form.prevStep()}
     </button>
 {/snippet}
 
 {#snippet defaultNextButton()}
-    <button type="button" onclick={defaultNextButtonHandler}>Další krok</button>
+    <button type="button" onclick={defaultNextButtonHandler}>{$LL.form.nextStep()}</button>
 {/snippet}
 
 <article>
@@ -66,7 +67,7 @@
 
             <div
                 class="progress"
-                style:width={((100 * currentStepIndex) / (steps.length - 1) + '%')}
+                style:width={(100 * currentStepIndex) / (steps.length - 1) + '%'}
             ></div>
         </div>
     </header>
@@ -91,6 +92,11 @@
 </article>
 
 <style lang="scss">
+    header {
+        padding-top: 50px;
+        overflow: hidden;
+    }
+
     .group {
         display: flex;
         gap: 1rem;
@@ -108,6 +114,7 @@
         justify-content: space-between;
         align-items: center;
         position: relative;
+        margin-inline: 1rem;
     }
 
     .progress-container::before {
@@ -115,22 +122,20 @@
         background-color: #005bab38;
         position: absolute;
         bottom: calc(25px);
-        margin-inline: 1rem;
         height: 4px;
         z-index: 1;
-        width: calc(100% - 2rem);
+        width: calc(100% - 50px);
+        margin-inline: 25px;
     }
 
     .progress {
         background-color: #3498db;
-        margin-inline: 1rem;
         position: absolute;
         bottom: calc(25px);
         left: 0;
         height: 4px;
         z-index: 1;
         transition: 0.4s ease;
-        max-width: calc(100% - 3rem);
     }
 
     .circle {
@@ -148,6 +153,13 @@
         z-index: 2;
         padding: 0;
         margin-bottom: 0;
+    }
+
+    .circle-title {
+        padding-bottom: 0.5rem;
+        position: absolute;
+        bottom: 45px;
+        text-wrap: nowrap;
     }
 
     .circle.active::after {

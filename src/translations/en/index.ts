@@ -31,6 +31,11 @@ const en = {
         settings: 'Settings',
     },
 
+    form : {
+        nextStep: 'Next step',
+        prevStep: 'Previous step',
+    },
+
     homepage: {
         title: 'Monthly Runner',
         statistics: {
@@ -58,6 +63,7 @@ const en = {
 
     onboarding: {
         title: 'Rules',
+        goChallenge: 'Go to the challenge'
     },
 
     season_timer: {
