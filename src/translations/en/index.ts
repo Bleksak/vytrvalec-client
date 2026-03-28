@@ -56,6 +56,10 @@ const en = {
         },
     },
 
+    onboarding: {
+        title: 'Rules',
+    },
+
     season_timer: {
         title: 'Season ends in',
         day: 'days',
@@ -321,22 +325,40 @@ const en = {
         title: 'Rules',
         challengeTitle: 'Challenge rules',
         intro: {
+            stepTitle: 'Welcome',
             content1:
-                'Run, walk, bike, scooter, skate! Not only will you do something for your health, but you will contribute to a good cause! The kilometres that the contestants travel will be converted into crowns and we will donate them to charity.',
+                'Run, walk, bike, scooter, skate! Not only will you do something for your health, but you will contribute to a good cause!',
             content2:
+                'The kilometres that the contestants travel will be converted into crowns and we will donate them to charity.',
+            content3:
                 'We will evaluate the continuous number of kilometers covered by faculties and non-faculty departments after each week and each faculty or department has the opportunity to get points for the overall evaluation.',
         },
         disciplines: {
-            title: 'The competition is held in two disciplines',
+            stepTitle: 'Disciplines',
+            title: 'Disciplines',
+            description: 'The competition is held in two disciplines',
         },
         progress: {
+            stepTitle: 'Competition',
             title: 'The course of the competition',
+            recommendedApps: 'Recommended applications',
+            'App/Garmin': 'Garmin Connect',
+            'App/Strava': 'Strava',
             content1:
                 'Users record their target physical activities through a mobile app on their phone and upload them to this portal. To record target activities, you can use apps like Garmin Connect or Strava.',
             content2:
-                'Each week the number of kilometres covered in the given disciplines is evaluated. The first team gets 15 points in each discipline (depending on the number of participating faculties and departments), the second 14 points, the third 13 points, etc. The overall winner of the challenge will be the team that scores the most points over the 4 weeks in the sum of both disciplines.',
+                'Each week the number of kilometres covered in the given disciplines is evaluated.',
+            content3:
+                'The first team gets 15 points in each discipline (depending on the number of participating faculties and departments), the second 14 points, the third 13 points, etc.',
+            scoring: 'Scoring',
+            firstPlace: '1. place: 15 points',
+            secondPlace: '2. place: 14 points',
+            thirdPlace: '3. place: 13 points',
+            content4:
+                'The overall winner of the challenge will be the team that scores the most points over the 4 weeks in the sum of both disciplines.',
         },
         extraPoints: {
+            stepTitle: 'Extra points',
             title: 'Extra points!',
             intro: 'Individuals can earn extra points for their faculty.',
             thirdWeek: {
@@ -355,10 +377,14 @@ const en = {
             extraPoints: 'Extra points',
         },
         target_activities: {
+            stepTitle: 'Activities',
             title: 'Target physical activity',
-            body: 'I go for a run, I start the activity and stop the activity. I go for a walk, I start the activity and stop the activity. I ride my bike, I start the activity and stop the activity.',
-            supplement:
-                'The target physical activity is NOT the total number of kilometers walked in a day. To record target activities, you can use apps like Garmin Connect or Strava.',
+            isActivity: 'What IS target physical activity',
+            notActivity: 'What is NOT target physical activity',
+            activity1: 'I go for a run, I start the activity and stop the activity.',
+            activity2: 'I go for a walk, I start the activity and stop the activity. ',
+            activity3: 'I ride my bike, I start the activity and stop the activity.',
+            activity4: 'Total number of kilometers walked in a day (for ex. from pedometer).'
         },
     },
     footer: {

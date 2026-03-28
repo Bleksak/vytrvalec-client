@@ -6,10 +6,11 @@
     import createDialogStore from '$lib/stores/DialogStore.svelte';
     import createFacultyStore from '$lib/stores/FacultyStore.svelte';
     import { createToastStore } from '$lib/stores/ToastStore.svelte';
-    import { setContext } from 'svelte';
+    import { getAllContexts, setContext } from 'svelte';
     import { locales, localizeHref } from '$paraglide/runtime';
     import { page } from '$app/state';
     import ToastAnchor from '$components/ToastAnchor.svelte';
+    import Onboarding from '$components/Onboarding.svelte';
 
     let { children, data } = $props();
 
@@ -22,10 +23,18 @@
     const activityStore = $derived(createActivityStore(data.api));
     const facultyStore = $derived(createFacultyStore(data.api));
 
+    const context = getAllContexts();
+
     setContext(Store.TOAST_STORE, toastStore);
     setContext(Store.DIALOG_STORE, dialogStore);
     setContext(Store.ACTIVITY_STORE, activityStore);
     setContext(Store.FACULTY_STORE, facultyStore);
+
+    $effect(() => {
+        if (data.user && !data.onboardingConfirmed) {
+            dialogStore.open(Onboarding, {}, context);
+        }
+    });
 </script>
 
 <ToastAnchor {toastStore} />

@@ -56,6 +56,10 @@ const cs = {
         },
     },
 
+    onboarding: {
+        title: 'Pravidla',
+    },
+
     season_timer: {
         title: 'Sezóna končí za',
         day: 'dnů',
@@ -337,22 +341,39 @@ const cs = {
         title: 'Pravidla',
         challengeTitle: 'Pravidla výzvy',
         intro: {
+            stepTitle: 'Vítejte',
             content1:
-                'Běhejte, choďte jezděte na kole, koloběžce, bruslích! Nejen, že uděláte něco pro svoje zdraví, ale přispějete na dobrou věc! Kilometry, které soutěžící urazí se přemění na koruny a přispějeme tím na charitu.',
+                'Běhejte, choďte jezděte na kole, koloběžce, bruslích! Nejen, že uděláte něco pro svoje zdraví, ale přispějete na dobrou věc!',
             content2:
+                'Kilometry, které soutěžící urazí se přemění na koruny a přispějeme tím na charitu.',
+            content3:
                 'Průběžný počet najetých a uběhnutých kilometrů fakult a mimofakultních pracovišť budeme vyhodnocovat po týdnu a každá fakulta či pracoviště mají možnost získat body do celkového hodnocení.',
         },
         disciplines: {
-            title: 'Soutěž probíhá ve dvou disciplínách',
+            stepTitle: 'Disciplíny',
+            title: 'Disciplíny',
+            description: 'Soutěž probíhá ve dvou disciplínách',
         },
         progress: {
+            stepTitle: 'Soutěž',
             title: 'Průběh soutěže',
+            recommendedApps: 'Doporučené aplikace',
+            'App/Garmin': 'Garmin Connect',
+            'App/Strava': 'Strava',
             content1:
                 'Uživatelé zaznamenávají své cílené pohybové aktivity prostřednictvím některé mobilní aplikace na svůj telefon a nahrají je na tento portál. Pro zaznamenávání cílových aktivit můžete využít např. aplikaci Garmin Connect, nebo Strava.',
-            content2:
-                'Každý týden se vyhodnocuje počet uražených kilometrů v daných disciplínách. První tým dostane v každé disciplíně např. 15 bodů (podle počtu zůčastněných fakult a pracovišť), druhý 14 bodu, třetí 13 bodů, apod. Celkovým vítězem výzvy se stane tým, který získá nejvíce bodů za 4 týdny v součtu obou disciplín.',
+            content2: 'Každý týden se vyhodnocuje počet uražených kilometrů v daných disciplínách.',
+            content3:
+                'První tým dostane v každé disciplíně např. 15 bodů (podle počtu zůčastněných fakult a pracovišť), druhý 14 bodu, třetí 13 bodů, apod.',
+            scoring: "Bodování",
+            firstPlace: '1. místo: 15 bodů',
+            secondPlace: '2. místo: 14 bodů',
+            thirdPlace: '3. místo: 13 bodů',
+            content4:
+                'Celkovým vítězem výzvy se stane tým, který získá nejvíce bodů za 4 týdny v součtu obou disciplín.',
         },
         extraPoints: {
+            stepTitle: 'Extra body',
             title: 'Extra body!',
             intro: 'Jednotlivci mohou pro svou fakultu získat extra body.',
             thirdWeek: {
@@ -371,10 +392,14 @@ const cs = {
             extraPoints: 'Extra body',
         },
         target_activities: {
+            stepTitle: 'Aktivity',
             title: 'Cílová pohybová aktivita',
-            body: 'Jdu si zaběhat, zapnu si aktivitu a vypnu si aktivitu. Jdu se projít, zapnu si aktivitu a vypnu si aktivitu. Jedu na kole, zapnu si aktivitu a vypnu si aktivitu.',
-            supplement:
-                'Cílová pohybová aktivita NENÍ součet nachozených kilometrů za den. Pro zaznamenávání cílových aktivit můžete využít např. aplikaci Garmin Connect, nebo Strava.',
+            isActivity: 'Co JE cílová aktivita',
+            notActivity: 'Co NENÍ cílová aktivita',
+            activity1: 'Jdu si zaběhat, zapnu si aktivitu a vypnu si aktivitu.',
+            activity2: 'Jdu se projít, zapnu si aktivitu a vypnu si aktivitu.',
+            activity3: 'Jedu na kole, zapnu si aktivitu a vypnu si aktivitu.',
+            activity4: 'Součet nachozených kilometrů za den (např. z krokoměru).'
         },
     },
     footer: {
