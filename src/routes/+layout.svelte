@@ -36,8 +36,8 @@
     $effect(() => {
         if (
             data.user &&
-            (data.onboardingDone?.status !== 'completed' ||
-                data.onboardingDone?.season !== data.currentSeason?.id)
+            (data.onboarding?.status !== 'completed' ||
+                data.onboarding?.season !== data.currentSeason?.id)
         ) {
             dialogStore.open(Onboarding, { currentSeason: data.currentSeason }, context);
         }

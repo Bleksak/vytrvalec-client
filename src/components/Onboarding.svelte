@@ -3,7 +3,7 @@
     import Dialog from '$components/Dialog.svelte';
     import LL from '$translations/i18n-svelte';
     import type { SeasonDTO } from '$lib/DTO/SeasonDTO';
-    import type { OnboardingDTO } from '$lib/DTO/OnboardingDTO';
+    import { ONBOARDING_COOKIE_NAME, type OnboardingDTO } from '$lib/DTO/OnboardingDTO';
     import { setCookie } from '$utils/cookies';
     let dialog = $state<Dialog>();
 
@@ -15,7 +15,7 @@
             season: onboarding.season
         });
 
-        setCookie('onboardingDone', value, 3652);
+        setCookie(ONBOARDING_COOKIE_NAME, value, 3652);
     }
 
     function handleSubmit() {
