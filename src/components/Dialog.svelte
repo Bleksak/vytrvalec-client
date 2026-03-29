@@ -54,34 +54,15 @@
         z-index: 99;
         background: inherit;
         padding-block: var(--pico-spacing);
-    }
-
-    header {
         display: flex;
         align-items: center;
         justify-content: space-between;
-
-        h5 {
-            margin: 0;
-        }
     }
 
     dialog article {
         padding-top: 0;
     }
-
-    .content {
-        position: relative;
-        display: flex;
-        padding-block: 0;
-        flex-direction: column;
-
-        section {
-            flex: 1;
-            overflow-y: auto;
-        }
-    }
-
+    
     button {
         display: flex;
         justify-content: center;
