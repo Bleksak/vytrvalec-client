@@ -116,7 +116,11 @@
                     <button onclick={endSeason}>Uzavřít sezónu</button>
                 {/if}
                 {#if seasonCacheResult !== undefined}
-                    <p class="feedback">{seasonCacheResult ? 'Sezóna byla uzavřena.' : 'Chyba při uzavírání sezóny.'}</p>
+                    <p class="feedback">
+                        {seasonCacheResult
+                            ? 'Sezóna byla uzavřena.'
+                            : 'Chyba při uzavírání sezóny.'}
+                    </p>
                 {/if}
             </div>
 
@@ -168,8 +172,11 @@
                                     {seasonResult?.users[extraPoint.user].last_name}
                                 </strong>
                                 ({facultyStore.get(extraPoint.faculty)?.shortcut}) —
-                                {$LL.extra_points[extraPoint.name as keyof typeof $LL.extra_points]()},
-                                {extraPoint.points} {extraPoint.points === 1 ? 'bod' : 'body'},
+                                {$LL.extra_points[
+                                    extraPoint.name as keyof typeof $LL.extra_points
+                                ]()},
+                                {extraPoint.points}
+                                {extraPoint.points === 1 ? 'bod' : 'body'},
                                 {activities.get(extraPoint.activity)?.name.cs}
                                 {#if extraPoint.name === 'weekly_elevation'}
                                     ({extraPoint.value} m)
@@ -184,7 +191,7 @@
                 {/if}
             </div>
 
-            {#if seasonResultRank?.total_distance === 0 || season.is_test}
+            {#if season.can_delete || season.is_test}
                 <div class="card card--danger">
                     <h3>Odstranit sezónu</h3>
                     <p>Sezóna neobsahuje žádné aktivity nebo je testovací — lze ji odstranit.</p>
