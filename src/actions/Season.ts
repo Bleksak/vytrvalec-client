@@ -132,8 +132,8 @@ export const createSeasonCache = async (
     return response.status === 201;
 };
 
-export const getIsSeasonCached = async (season: SeasonDTO): Promise<boolean> => {
-    const response = await axios.get(`/cache/season/${season.id}`).catch(() => null);
+export const getIsSeasonCached = async (api: AxiosInstance, season: SeasonDTO): Promise<boolean> => {
+    const response = await api.get(`/cache/season/${season.id}`).catch(() => null);
 
     if (response === null) {
         return false;

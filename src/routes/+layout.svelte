@@ -5,6 +5,7 @@
     import createActivityStore from '$lib/stores/ActivityStore.svelte';
     import createDialogStore from '$lib/stores/DialogStore.svelte';
     import createFacultyStore from '$lib/stores/FacultyStore.svelte';
+    import createSeasonStore from '$lib/stores/SeasonStore.svelte';
     import { createToastStore } from '$lib/stores/ToastStore.svelte';
     import { getAllContexts, setContext } from 'svelte';
     import { locales, localizeHref } from '$paraglide/runtime';
@@ -22,6 +23,7 @@
     const toastStore = createToastStore();
     const activityStore = $derived(createActivityStore(data.api));
     const facultyStore = $derived(createFacultyStore(data.api));
+    const seasonStore = $derived(createSeasonStore(data.api));
 
     const context = getAllContexts();
 
@@ -29,6 +31,7 @@
     setContext(Store.DIALOG_STORE, dialogStore);
     setContext(Store.ACTIVITY_STORE, activityStore);
     setContext(Store.FACULTY_STORE, facultyStore);
+    setContext(Store.SEASON_STORE, seasonStore);
 
     $effect(() => {
         if (

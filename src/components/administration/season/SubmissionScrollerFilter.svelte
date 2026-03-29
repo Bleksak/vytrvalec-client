@@ -9,6 +9,9 @@
     import Select from '$components/FormComponent/Select.svelte';
     import { page } from '$app/state';
     import { invalidateAll } from '$app/navigation';
+    import { getLocale } from '$paraglide/runtime';
+
+    const locale = $derived(getLocale());
 
     const facultyStore = getContext<FacultyStore>(Store.FACULTY_STORE);
     const activityStore = getContext<ActivityStore>(Store.ACTIVITY_STORE);
@@ -120,7 +123,7 @@
                                 id={`activity${activity.id}`}
                                 bind:group={activityValue}
                             />
-                            <label for={`activity${activity.id}`}>{activity.name}</label>
+                            <label for={`activity${activity.id}`}>{activity.name[locale]}</label>
                         </div>
                     {/each}
                 </div>
