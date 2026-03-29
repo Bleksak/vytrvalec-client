@@ -9,6 +9,7 @@
     import SubmissionScrollerFilter from '$components/administration/season/SubmissionScrollerFilter.svelte';
     import { fetchSubmissionsForSeason } from '$actions/Submission';
     import axios from 'axios';
+    import { getLocale } from '$paraglide/runtime';
 
     const { season }: { season: SeasonDTO } = $props();
 
@@ -17,6 +18,8 @@
     const context = getAllContexts();
     const dialogStore = getContext<DialogStore>(Store.DIALOG_STORE);
     const activityStore = getContext<ActivityStore>(Store.ACTIVITY_STORE);
+
+    const locale = $state(getLocale());
 
     let submissions = $state(page.data.submissions);
 
@@ -113,7 +116,8 @@
             <div>
                 <p style="user-select: none;">&nbsp;</p>
                 <p>
-                    <strong>Kategorie:&nbsp;</strong>{activityStore.get(submission.activity)?.name}
+                    <strong>Kategorie:&nbsp;</strong>{activityStore.get(submission.activity_id)
+                        ?.name[locale]}
                 </p>
                 <p><strong>Vzdálenost:&nbsp;</strong>{submission.distance / 1000} km</p>
                 {#if submission.elevation}

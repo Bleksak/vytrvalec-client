@@ -10,11 +10,13 @@
     import { LL } from '$translations/i18n-svelte';
     import Store from '$lib/enums/Stores';
     import type { ActivityStore } from '$lib/stores/ActivityStore.svelte';
+    import { getLocale } from '$paraglide/runtime';
 
     const { currentSubmission }: { currentSubmission: SubmissionResponseAdminDTO } = $props();
 
     const toastStore = getContext<ToastStore>(Store.TOAST_STORE);
     const activityStore = getContext<ActivityStore>(Store.ACTIVITY_STORE);
+    const locale = $state(getLocale());
 
     let dialog = $state<Dialog>();
 
@@ -66,7 +68,7 @@
         {#await activityStore.promise() then}
             <p>
                 <strong>Aktivita:&nbsp;</strong>{activityStore.get(currentSubmission.activity_id)
-                    ?.name}
+                    ?.name[locale]}
             </p>
         {/await}
         <p><strong>Vzdálenost:&nbsp;</strong>{currentSubmission.distance / 1000} km</p>
@@ -113,5 +115,9 @@
     .send-buttons {
         width: 100%;
         display: flex;
+    }
+
+    .left {
+        margin-right: 0.5rem;
     }
 </style>
