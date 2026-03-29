@@ -1,8 +1,12 @@
 import type { Component, MountOptions } from 'svelte';
 import { mount, unmount } from 'svelte';
 
+type BaseProps = {
+    onclose?: (e: Event) => void;
+};
+
 export type DialogStore = {
-    open: <Props extends Record<string, any>>(
+    open: <Props extends BaseProps & Record<string, any>>(
         component: Component<Props>,
         props: {} extends Props ? Partial<Props> : Props,
         context: Map<any, any>,
