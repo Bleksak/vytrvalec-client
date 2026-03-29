@@ -2,21 +2,31 @@
     import MultiStepForm from '$components/MultiStepForm.svelte';
     import Dialog from '$components/Dialog.svelte';
     import LL from '$translations/i18n-svelte';
+    import type { SeasonDTO } from '$lib/DTO/SeasonDTO';
+    import type { OnboardingDTO } from '$lib/DTO/OnboardingDTO';
     let dialog = $state<Dialog>();
 
-    function setOnboardingCookie() {
+    const { currentSeason }: { currentSeason: SeasonDTO | null } = $props();
+
+    function setOnboardingCookie(onboarding: OnboardingDTO) {
         const date = new Date();
         date.setTime(new Date().getTime() + 10 * 365 * 24 * 60 * 60 * 1000);
-        document.cookie = `onboarding_confirmed=true; expires=${date.toUTCString()}; path=/`;
+
+        const value = JSON.stringify({
+            status: onboarding.status,
+            season: onboarding.season
+        });
+        
+        document.cookie = `onboardingDone=${value}; expires=${date.toUTCString()}; path=/`;
     }
 
     function handleSubmit() {
-        setOnboardingCookie();
+        setOnboardingCookie({status: "completed", season: currentSeason?.id});
         dialog?.close();
     }
 
     function handleClose() {
-        setOnboardingCookie();
+        setOnboardingCookie({status: "completed", season: currentSeason?.id});
     }
 </script>
 

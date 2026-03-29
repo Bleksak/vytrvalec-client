@@ -29,13 +29,7 @@
     }
 
     $effect(() => {
-        if (!dialog) return;
         dialog?.show();
-        document.body.classList.add('no-scroll');
-
-        return () => {
-            document.body.classList.remove('no-scroll');
-        };
     });
 </script>
 
@@ -73,6 +67,10 @@
         h5 {
             margin: 0;
         }
+    }
+
+    dialog article {
+        padding-top: 0;
     }
 
     .content {

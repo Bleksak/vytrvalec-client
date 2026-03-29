@@ -40,7 +40,7 @@ export const load: LayoutLoad = async ({ data }) => {
         ws: import.meta.env.VITE_WS_BASE,
         user: data.user,
         currentSeason: data.currentSeason,
-        onboardingConfirmed: data.onboardingConfirmed,
+        onboardingDone: data.onboardingDone,
         lang: data.lang,
         jwt: data.jwt,
     };
