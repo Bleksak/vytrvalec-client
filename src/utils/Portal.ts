@@ -2,7 +2,7 @@ import type { Attachment } from 'svelte/attachments';
 
 export function multiPortal(selectors: Array<string | Element>): Attachment {
     return (element) => {
-        let currentContainer: Element = document.body;
+        let currentContainer: Element | undefined;
 
         function resolveContainer(): Element {
             for (const target of selectors) {
