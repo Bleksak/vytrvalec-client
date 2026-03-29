@@ -37,7 +37,8 @@
         if (
             data.user &&
             (data.onboarding?.status !== 'completed' ||
-                data.onboarding?.season !== data.currentSeason?.id)
+                data.onboarding?.season !== data.currentSeason?.id) &&
+            data.currentSeason
         ) {
             dialogStore.open(Onboarding, { currentSeason: data.currentSeason }, context);
         }
