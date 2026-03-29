@@ -9,18 +9,20 @@
         dialog,
         header,
         children,
+        onclose,
         ...props
     }: HTMLDialogAttributes & {
         dialog?: HTMLDialogElement;
         header: string;
         children: Snippet;
+        onclose: () => void;
     } = $props();
 
     const dialogStore = getContext<DialogStore>(Store.DIALOG_STORE);
 
     export function close() {
-        if (props.onclose) {
-            dialog?.dispatchEvent(new CustomEvent('close'));
+        if (onclose) {
+            onclose();
         }
 
         dialogStore.close();
@@ -37,8 +39,8 @@
     });
 </script>
 
-<dialog bind:this={dialog} {...props}>
-    <article class="content">
+<dialog bind:this={dialog} {...props} onclose={close}>
+    <article>
         <header>
             <div class="header-content">
                 <h5>{header}</h5>
