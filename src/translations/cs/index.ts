@@ -31,6 +31,15 @@ const cs = {
         settings: 'Nastavení',
     },
 
+    form: {
+        next_step: 'Další krok',
+        prev_step: 'Předchozí krok',
+    },
+
+    image_preview: {
+        title: 'Náhled obrázku',
+    },
+
     homepage: {
         title: 'Měsíční Vytrvalec',
         statistics: {
@@ -54,6 +63,11 @@ const cs = {
             content:
                 'Účastníci bojují čtyři týdny za svoje týmy (fakulta, VŠ ústav / rektorátní pracoviště / U3V) v počtu naběhaných a naježděných kilometrů. Ty se v rámci týmů sčítají a v závěru týdne určují počet bodů, které daný tým získá a podle toho se umístí v celkovém pořadí.',
         },
+    },
+
+    onboarding: {
+        title: 'Pravidla',
+        go_to_challenge: 'Jdu na to!',
     },
 
     season_timer: {
@@ -159,10 +173,10 @@ const cs = {
 
     submission: {
         title: 'Aktivita',
-        editingTitle: 'Upravit aktivitu',
+        editing_title: 'Upravit aktivitu',
         form: {
             image: 'Sem přetáhněte obrázek',
-            chooseImage: 'Vybrat obrázek',
+            choose_image: 'Vybrat obrázek',
             distance: 'Vzdálenost',
             elevation: 'Převýšení',
             activity: 'Aktivita',
@@ -173,11 +187,11 @@ const cs = {
             success: 'Nahrání aktivity proběhlo úspěšně',
             error: 'Při nahrávání aktivity došlo k chybě',
             delete: 'Smazat',
-            deleteConfirm: 'Opravdu chcete aktivitu smazat?',
-            deleteSuccessToast: 'Aktivita smazána',
-            deleteErrorToast: 'Při mazání aktivity došlo k chybě',
-            editSuccessToast: 'Aktivita upravena',
-            editErrorToast: 'Při úpravě aktivity došlo k chybě',
+            delete_confirm: 'Opravdu chcete aktivitu smazat?',
+            delete_success_toast: 'Aktivita smazána',
+            delete_error_toast: 'Při mazání aktivity došlo k chybě',
+            edit_success_toast: 'Aktivita upravena',
+            edit_error_toast: 'Při úpravě aktivity došlo k chybě',
             errors: {
                 image: {
                     blank: 'Nahrajte prosím obrázek.',
@@ -210,7 +224,7 @@ const cs = {
         },
     },
 
-    extraPoints: {
+    extra_points: {
         weekly_distance: 'Vzdálenost za 1 týden',
         daily_distance: 'Vzdálenost za 1 den',
         weekly_elevation: 'Převýšení za aktivitu',
@@ -295,12 +309,12 @@ const cs = {
             statistics: 'Načítání statistik...',
             submissions: 'Načítání aktivit...',
         },
-        noSubmissions: 'Zatím nemáte žádné aktivity',
+        no_submissions: 'Zatím nemáte žádné aktivity',
     },
     reset: {
         title: 'Změna hesla',
         password: 'Heslo',
-        passwordRepeat: 'Heslo znova',
+        password_repeat: 'Heslo znova',
         success: 'Heslo bylo změněno',
         error: 'Nastala chyba při změně hesla',
         submit: 'Změnit',
@@ -335,46 +349,65 @@ const cs = {
     },
     rules: {
         title: 'Pravidla',
-        challengeTitle: 'Pravidla výzvy',
+        challenge_title: 'Pravidla výzvy',
         intro: {
+            step_title: 'Vítejte',
             content1:
-                'Běhejte, choďte jezděte na kole, koloběžce, bruslích! Nejen, že uděláte něco pro svoje zdraví, ale přispějete na dobrou věc! Kilometry, které soutěžící urazí se přemění na koruny a přispějeme tím na charitu.',
+                'Běhejte, choďte jezděte na kole, koloběžce, bruslích! Nejen, že uděláte něco pro svoje zdraví, ale přispějete na dobrou věc!',
             content2:
+                'Kilometry, které soutěžící urazí se přemění na koruny a přispějeme tím na charitu.',
+            content3:
                 'Průběžný počet najetých a uběhnutých kilometrů fakult a mimofakultních pracovišť budeme vyhodnocovat po týdnu a každá fakulta či pracoviště mají možnost získat body do celkového hodnocení.',
         },
         disciplines: {
-            title: 'Soutěž probíhá ve dvou disciplínách',
+            step_title: 'Disciplíny',
+            title: 'Disciplíny',
+            description: 'Soutěž probíhá ve dvou disciplínách',
         },
         progress: {
+            step_title: 'Soutěž',
             title: 'Průběh soutěže',
+            recommended_apps: 'Doporučené aplikace',
             content1:
                 'Uživatelé zaznamenávají své cílené pohybové aktivity prostřednictvím některé mobilní aplikace na svůj telefon a nahrají je na tento portál. Pro zaznamenávání cílových aktivit můžete využít např. aplikaci Garmin Connect, nebo Strava.',
-            content2:
-                'Každý týden se vyhodnocuje počet uražených kilometrů v daných disciplínách. První tým dostane v každé disciplíně např. 15 bodů (podle počtu zůčastněných fakult a pracovišť), druhý 14 bodu, třetí 13 bodů, apod. Celkovým vítězem výzvy se stane tým, který získá nejvíce bodů za 4 týdny v součtu obou disciplín.',
+            content2: 'Každý týden se vyhodnocuje počet uražených kilometrů v daných disciplínách.',
+            content3:
+                'První tým dostane v každé disciplíně např. 15 bodů (podle počtu zůčastněných fakult a pracovišť), druhý 14 bodu, třetí 13 bodů, apod.',
+            scoring: 'Bodování',
+            first_place: '1. místo: 15 bodů',
+            second_place: '2. místo: 14 bodů',
+            third_place: '3. místo: 13 bodů',
+            content4:
+                'Celkovým vítězem výzvy se stane tým, který získá nejvíce bodů za 4 týdny v součtu obou disciplín.',
         },
-        extraPoints: {
+        extra_points: {
+            step_title: 'Extra body',
             title: 'Extra body!',
             intro: 'Jednotlivci mohou pro svou fakultu získat extra body.',
-            thirdWeek: {
+            third_week: {
                 title: 'Třetí týden',
-                extraOne:
+                extra_one:
                     'pro jednotlivce, který uběhne/ujde/ujede nejvíce kilometrů v jednom dni v dané disciplíně.',
-                extraTwo:
+                extra_two:
                     'pro jednotlivce s největším součtem kilometrů za celý týden v dané disciplíně.',
             },
-            fourthWeek: {
+            fourth_week: {
                 title: 'Čtvrtý týden',
-                extraOne:
+                extra_one:
                     'pro jednotlivce s největším převýšením v jedné aktivitě v dané disciplíně. Chůze více než 1000m a jízda více než 1500m.',
             },
-            extraPoint: 'Extra bod',
-            extraPoints: 'Extra body',
+            extra_point: 'Extra bod',
+            extra_points: 'Extra body',
         },
         target_activities: {
+            step_title: 'Aktivity',
             title: 'Cílová pohybová aktivita',
-            body: 'Jdu si zaběhat, zapnu si aktivitu a vypnu si aktivitu. Jdu se projít, zapnu si aktivitu a vypnu si aktivitu. Jedu na kole, zapnu si aktivitu a vypnu si aktivitu.',
-            supplement:
-                'Cílová pohybová aktivita NENÍ součet nachozených kilometrů za den. Pro zaznamenávání cílových aktivit můžete využít např. aplikaci Garmin Connect, nebo Strava.',
+            is_activity: 'Co JE cílová aktivita',
+            not_activity: 'Co NENÍ cílová aktivita',
+            activity1: 'Jdu si zaběhat, zapnu si aktivitu a vypnu si aktivitu.',
+            activity2: 'Jdu se projít, zapnu si aktivitu a vypnu si aktivitu.',
+            activity3: 'Jedu na kole, zapnu si aktivitu a vypnu si aktivitu.',
+            activity4: 'Součet nachozených kilometrů za den (např. z krokoměru).',
         },
     },
     footer: {

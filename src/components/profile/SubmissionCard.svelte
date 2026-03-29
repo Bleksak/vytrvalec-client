@@ -36,7 +36,7 @@
     let error = $state<(Event & { currentTarget: EventTarget & Element }) | null>(null);
 
     const handleSubmissionDelete = async () => {
-        if (!confirm($LL.submission.form.deleteConfirm())) {
+        if (!confirm($LL.submission.form.delete_confirm())) {
             return;
         }
 
@@ -45,12 +45,12 @@
         if (!result) {
             toastStore.add({
                 type: 'error',
-                message: $LL.submission.form.deleteErrorToast(),
+                message: $LL.submission.form.delete_error_toast(),
             });
         } else {
             toastStore.add({
                 type: 'success',
-                message: $LL.submission.form.deleteSuccessToast(),
+                message: $LL.submission.form.delete_success_toast(),
             });
 
             invalidateAll();

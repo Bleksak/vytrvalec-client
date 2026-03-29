@@ -15,7 +15,7 @@
         dialog?: HTMLDialogElement;
         header: string;
         children: Snippet;
-        onclose: () => void;
+        onclose?: () => void;
     } = $props();
 
     const dialogStore = getContext<DialogStore>(Store.DIALOG_STORE);
@@ -37,7 +37,6 @@
     <article>
         <header>
             <h5>{header}</h5>
-
             <button onclick={close} type="button">
                 <XIcon />
             </button>
@@ -50,11 +49,20 @@
 
 <style>
     header {
+        position: sticky;
+        top: 0;
+        z-index: 99;
+        background: inherit;
+        padding-block: var(--pico-spacing);
         display: flex;
         align-items: center;
         justify-content: space-between;
     }
 
+    dialog article {
+        padding-top: 0;
+    }
+    
     button {
         display: flex;
         justify-content: center;

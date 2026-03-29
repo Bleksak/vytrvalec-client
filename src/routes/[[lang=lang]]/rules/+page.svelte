@@ -4,14 +4,16 @@
 
 <main>
     <article>
-        <h2 class="no-transform">{$LL.rules.challengeTitle()}</h2>
+        <h2 class="no-transform">{$LL.rules.challenge_title()}</h2>
         <section>
             <p>{$LL.rules.intro.content1()}</p>
             <p>{$LL.rules.intro.content2()}</p>
+            <p>{$LL.rules.intro.content3()}</p>
         </section>
 
         <section>
             <h4>{$LL.rules.disciplines.title()}</h4>
+            <p>{$LL.rules.disciplines.description()}</p>
             <ul class="list-style">
                 <li>{$LL.activities['Běh/Chůze']()}</li>
                 <li>{$LL.activities['Kolo/Koloběžka']()}</li>
@@ -23,40 +25,48 @@
             <ul class="list-style">
                 <li>{$LL.rules.progress.content1()}</li>
                 <li>{$LL.rules.progress.content2()}</li>
+                <li>{$LL.rules.progress.content3()}</li>
+                <li>{$LL.rules.progress.content4()}</li>
             </ul>
         </section>
 
         <section>
             <h4>{$LL.rules.target_activities.title()}</h4>
+            <p><strong>{$LL.rules.target_activities.is_activity()}</strong></p>
             <ul class="list-style">
-                <li>{$LL.rules.target_activities.body()}</li>
-                <li>{$LL.rules.target_activities.supplement()}</li>
+                <li>{$LL.rules.target_activities.activity1()}</li>
+                <li>{$LL.rules.target_activities.activity2()}</li>
+                <li>{$LL.rules.target_activities.activity3()}</li>
+            </ul>
+            <p><strong>{$LL.rules.target_activities.not_activity()}</strong></p>
+            <ul>
+                <li>{$LL.rules.target_activities.activity4()}</li>
             </ul>
         </section>
 
         <section>
-            <h4>{$LL.rules.extraPoints.title()}</h4>
-            <p>{$LL.rules.extraPoints.intro()}</p>
+            <h4>{$LL.rules.extra_points.title()}</h4>
+            <p>{$LL.rules.extra_points.intro()}</p>
             <ul class="list-style">
                 <li>
-                    {$LL.rules.extraPoints.thirdWeek.title()}
+                    {$LL.rules.extra_points.third_week.title()}
                     <ul class="list-style">
                         <li>
-                            1 <strong>{$LL.rules.extraPoints.extraPoint().toUpperCase()}</strong>
-                            {$LL.rules.extraPoints.thirdWeek.extraOne()}
+                            +1 <strong>{$LL.rules.extra_points.extra_point().toUpperCase()}</strong>
+                            {$LL.rules.extra_points.third_week.extra_one()}
                         </li>
                         <li>
-                            2 <strong>{$LL.rules.extraPoints.extraPoints().toUpperCase()}</strong>
-                            {$LL.rules.extraPoints.thirdWeek.extraTwo()}
+                            +2 <strong>{$LL.rules.extra_points.extra_points().toUpperCase()}</strong>
+                            {$LL.rules.extra_points.third_week.extra_two()}
                         </li>
                     </ul>
                 </li>
                 <li>
-                    {$LL.rules.extraPoints.fourthWeek.title()}
+                    {$LL.rules.extra_points.fourth_week.title()}
                     <ul class="list-style">
                         <li>
-                            1 <strong>{$LL.rules.extraPoints.extraPoint().toUpperCase()}</strong>
-                            {$LL.rules.extraPoints.fourthWeek.extraOne()}
+                            +1 <strong>{$LL.rules.extra_points.extra_point().toUpperCase()}</strong>
+                            {$LL.rules.extra_points.fourth_week.extra_one()}
                         </li>
                     </ul>
                 </li>

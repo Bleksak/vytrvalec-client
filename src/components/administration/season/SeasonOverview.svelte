@@ -168,7 +168,7 @@
                                     {seasonResult?.users[extraPoint.user].last_name}
                                 </strong>
                                 ({facultyStore.get(extraPoint.faculty)?.shortcut}) —
-                                {$LL.extraPoints[extraPoint.name as keyof typeof $LL.extraPoints]()},
+                                {$LL.extra_points[extraPoint.name as keyof typeof $LL.extra_points]()},
                                 {extraPoint.points} {extraPoint.points === 1 ? 'bod' : 'body'},
                                 {activities.get(extraPoint.activity)?.name.cs}
                                 {#if extraPoint.name === 'weekly_elevation'}

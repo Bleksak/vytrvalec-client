@@ -1,4 +1,5 @@
 <script lang="ts">
+    import LL from '$translations/i18n-svelte';
     import type { Snippet } from 'svelte';
 
     type Step = {
@@ -40,12 +41,12 @@
         class="secondary"
         onclick={defaultPrevButtonHandler}
     >
-        Předchozí krok
+        {$LL.form.prev_step()}
     </button>
 {/snippet}
 
 {#snippet defaultNextButton()}
-    <button type="button" onclick={defaultNextButtonHandler}>Další krok</button>
+    <button type="button" onclick={defaultNextButtonHandler}>{$LL.form.next_step()}</button>
 {/snippet}
 
 <article>
@@ -91,6 +92,11 @@
 </article>
 
 <style lang="scss">
+    header {
+        padding-top: 50px;
+        overflow: hidden;
+    }
+
     .group {
         display: flex;
         gap: 1rem;
@@ -108,41 +114,40 @@
         justify-content: space-between;
         align-items: center;
         position: relative;
+        margin-inline: 1rem;
     }
 
     .progress-container::before {
         content: '';
-        background-color: #e0e0e0;
+        background-color: #005bab38;
         position: absolute;
         bottom: calc(25px);
-        margin-inline: 1rem;
         height: 4px;
         z-index: 1;
-        width: calc(100% - 2rem);
+        width: calc(100% - 50px);
+        margin-inline: 25px;
     }
 
     .progress {
         background-color: #3498db;
-        margin-inline: 1rem;
         position: absolute;
         bottom: calc(25px);
         left: 0;
         height: 4px;
         z-index: 1;
         transition: 0.4s ease;
-        max-width: calc(100% - 2rem);
     }
 
     .circle {
-        background-color: #fff;
-        color: #999;
+        background-color: var(--pico-primary-background);
+        color: white;
         border-radius: 50%;
         height: 50px;
         width: 50px;
         display: flex;
         align-items: center;
         justify-content: center;
-        border: 3px solid #e0e0e0;
+        border: 3px solid var(--pico-primary-background);
         transition: 0.4s ease;
         cursor: pointer;
         z-index: 2;
@@ -150,11 +155,14 @@
         margin-bottom: 0;
     }
 
-    .circle.active::after {
-        color: #3498db;
+    .circle-title {
+        padding-bottom: 0.5rem;
+        position: absolute;
+        bottom: 45px;
+        text-wrap: nowrap;
     }
 
-    .circle.active {
-        border-color: #3498db;
+    .circle.active::after {
+        color: #3498db;
     }
 </style>
