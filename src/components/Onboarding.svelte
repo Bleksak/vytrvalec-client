@@ -4,20 +4,18 @@
     import LL from '$translations/i18n-svelte';
     import type { SeasonDTO } from '$lib/DTO/SeasonDTO';
     import type { OnboardingDTO } from '$lib/DTO/OnboardingDTO';
+    import { setCookie } from '$utils/cookies';
     let dialog = $state<Dialog>();
 
     const { currentSeason }: { currentSeason: SeasonDTO | null } = $props();
 
     function setOnboardingCookie(onboarding: OnboardingDTO) {
-        const date = new Date();
-        date.setTime(new Date().getTime() + 10 * 365 * 24 * 60 * 60 * 1000);
-
         const value = JSON.stringify({
             status: onboarding.status,
             season: onboarding.season
         });
-        
-        document.cookie = `onboardingDone=${value}; expires=${date.toUTCString()}; path=/`;
+
+        setCookie('onboardingDone', value, 3652);
     }
 
     function handleSubmit() {

@@ -29,20 +29,17 @@
     }
 
     $effect(() => {
-        dialog?.show();
+        dialog?.showModal();
     });
 </script>
 
 <dialog bind:this={dialog} {...props} onclose={close}>
     <article>
         <header>
-            <div class="header-content">
-                <h5>{header}</h5>
-
-                <button onclick={close} type="button">
-                    <XIcon />
-                </button>
-            </div>
+            <h5>{header}</h5>
+            <button onclick={close} type="button">
+                <XIcon />
+            </button>
         </header>
         <section>
             {@render children()}
@@ -59,7 +56,7 @@
         padding-block: var(--pico-spacing);
     }
 
-    .header-content {
+    header {
         display: flex;
         align-items: center;
         justify-content: space-between;

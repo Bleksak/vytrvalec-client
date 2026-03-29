@@ -1,15 +1,7 @@
 <script lang="ts">
     import LL from '../translations/i18n-svelte';
     import { browser } from '$app/environment';
-    import { getCookie } from '$utils/cookies';
-
-    // taken from: https://www.w3schools.com/js/js_cookies.asp
-    const setCookie = (cname: string, cvalue: any, exdays: number): void => {
-        const d = new Date();
-        d.setTime(d.getTime() + exdays * 24 * 60 * 60 * 1000);
-        let expires = 'expires=' + d.toUTCString();
-        document.cookie = cname + '=' + cvalue + ';' + expires + ';path=/';
-    };
+    import { getCookie, setCookie } from '$utils/cookies';
 
     let cookiesAccepted = $state(browser ? getCookie('cookiesAccepted') === 'true' : true);
 
