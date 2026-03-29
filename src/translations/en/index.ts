@@ -31,9 +31,13 @@ const en = {
         settings: 'Settings',
     },
 
-    form : {
-        nextStep: 'Next step',
-        prevStep: 'Previous step',
+    form: {
+        next_step: 'Next step',
+        prev_step: 'Previous step',
+    },
+
+    image_preview: {
+        title: 'Image preview',
     },
 
     homepage: {
@@ -63,7 +67,7 @@ const en = {
 
     onboarding: {
         title: 'Rules',
-        goChallenge: 'Go to the challenge'
+        go_to_challenge: "Let's Go!",
     },
 
     season_timer: {
@@ -169,10 +173,10 @@ const en = {
 
     submission: {
         title: 'Submission',
-        editingTitle: 'Edit submission',
+        editing_title: 'Edit submission',
         form: {
             image: 'Drag image here',
-            chooseImage: 'Choose image',
+            choose_image: 'Choose image',
             distance: 'Distance',
             elevation: 'Elevation',
             activity: 'Activity',
@@ -183,11 +187,11 @@ const en = {
             success: 'Uploaded activity successfully',
             error: 'Error while uploading activity',
             delete: 'Delete',
-            deleteConfirm: 'Do you really want to delete this activity?',
-            deleteSuccessToast: 'Submission deleted',
-            deleteErrorToast: 'An error occured during submission deletion',
-            editSuccessToast: 'Submission edited',
-            editErrorToast: 'An error occured during submission editing',
+            delete_confirm: 'Do you really want to delete this activity?',
+            delete_success_toast: 'Submission deleted',
+            delete_error_toast: 'An error occured during submission deletion',
+            edit_success_toast: 'Submission edited',
+            edit_error_toast: 'An error occured during submission editing',
             errors: {
                 image: {
                     blank: 'Please upload an image.',
@@ -221,7 +225,7 @@ const en = {
         },
     },
 
-    extraPoints: {
+    extra_points: {
         weekly_distance: 'Distance per week',
         daily_distance: 'Distance per day',
         weekly_elevation: 'Elevation per activity',
@@ -307,12 +311,12 @@ const en = {
             statistics: 'Loading user statistics...',
             submissions: 'Loading user submissions...',
         },
-        noSubmissions: 'You have no submissions',
+        no_submissions: 'You have no submissions',
     },
     reset: {
         title: 'Change password',
         password: 'Password',
-        passwordRepeat: 'Password repeat',
+        password_repeat: 'Password repeat',
         success: 'Password has been changed',
         error: 'An error occurred when changing the password',
         submit: 'Change',
@@ -329,9 +333,9 @@ const en = {
     },
     rules: {
         title: 'Rules',
-        challengeTitle: 'Challenge rules',
+        challenge_title: 'Challenge rules',
         intro: {
-            stepTitle: 'Welcome',
+            step_title: 'Welcome',
             content1:
                 'Run, walk, bike, scooter, skate! Not only will you do something for your health, but you will contribute to a good cause!',
             content2:
@@ -340,16 +344,14 @@ const en = {
                 'We will evaluate the continuous number of kilometers covered by faculties and non-faculty departments after each week and each faculty or department has the opportunity to get points for the overall evaluation.',
         },
         disciplines: {
-            stepTitle: 'Disciplines',
+            step_title: 'Disciplines',
             title: 'Disciplines',
             description: 'The competition is held in two disciplines',
         },
         progress: {
-            stepTitle: 'Competition',
+            step_title: 'Competition',
             title: 'The course of the competition',
-            recommendedApps: 'Recommended applications',
-            'App/Garmin': 'Garmin Connect',
-            'App/Strava': 'Strava',
+            recommended_apps: 'Recommended applications',
             content1:
                 'Users record their target physical activities through a mobile app on their phone and upload them to this portal. To record target activities, you can use apps like Garmin Connect or Strava.',
             content2:
@@ -357,40 +359,40 @@ const en = {
             content3:
                 'The first team gets 15 points in each discipline (depending on the number of participating faculties and departments), the second 14 points, the third 13 points, etc.',
             scoring: 'Scoring',
-            firstPlace: '1. place: 15 points',
-            secondPlace: '2. place: 14 points',
-            thirdPlace: '3. place: 13 points',
+            first_place: '1. place: 15 points',
+            second_place: '2. place: 14 points',
+            third_place: '3. place: 13 points',
             content4:
                 'The overall winner of the challenge will be the team that scores the most points over the 4 weeks in the sum of both disciplines.',
         },
-        extraPoints: {
-            stepTitle: 'Extra points',
+        extra_points: {
+            step_title: 'Extra points',
             title: 'Extra points!',
             intro: 'Individuals can earn extra points for their faculty.',
-            thirdWeek: {
+            third_week: {
                 title: 'Week Three',
-                extraOne:
+                extra_one:
                     'for the individual who runs/walk/rides the most kilometres in one day in a given discipline.',
-                extraTwo:
+                extra_two:
                     'for the individual with the highest total kilometres for the whole week in the given discipline.',
             },
-            fourthWeek: {
+            fourth_week: {
                 title: 'Week Four',
-                extraOne:
+                extra_one:
                     'for the individual with the highest elevation gain for one activity in a given discipline. Walking more than 1000m and riding more than 1500m.',
             },
-            extraPoint: 'Extra point',
-            extraPoints: 'Extra points',
+            extra_point: 'Extra point',
+            extra_points: 'Extra points',
         },
         target_activities: {
-            stepTitle: 'Activities',
+            step_title: 'Activities',
             title: 'Target physical activity',
-            isActivity: 'What IS target physical activity',
-            notActivity: 'What is NOT target physical activity',
+            is_activity: 'What IS target physical activity',
+            not_activity: 'What is NOT target physical activity',
             activity1: 'I go for a run, I start the activity and stop the activity.',
             activity2: 'I go for a walk, I start the activity and stop the activity. ',
             activity3: 'I ride my bike, I start the activity and stop the activity.',
-            activity4: 'Total number of kilometers walked in a day (for ex. from pedometer).'
+            activity4: 'Total number of kilometers walked in a day (for ex. from pedometer).',
         },
     },
     footer: {

@@ -29,12 +29,12 @@
 </script>
 
 {#snippet submit()}
-    <button type="button" onclick={() => handleSubmit()}>{$LL.onboarding.goChallenge()}</button>
+    <button type="button" onclick={() => handleSubmit()}>{$LL.onboarding.go_to_challenge()}</button>
 {/snippet}
 
 {#snippet WelcomeStep()}
     <section>
-        <h1>{$LL.rules.challengeTitle()}</h1>
+        <h1>{$LL.rules.challenge_title()}</h1>
         <p class="important-content">{$LL.rules.intro.content1()}</p>
         <div class="card-group">
             <div class="card">
@@ -68,10 +68,10 @@
         <p>{$LL.rules.progress.content1()}</p>
         <div class="card-group">
             <div class="card">
-                <p><strong>{$LL.rules.progress.recommendedApps()}</strong></p>
+                <p><strong>{$LL.rules.progress.recommended_apps()}</strong></p>
                 <ul>
-                    <li>{$LL.rules.progress['App/Garmin']()}</li>
-                    <li>{$LL.rules.progress['App/Strava']()}</li>
+                    <li>Garmin Connect</li>
+                    <li>Strava</li>
                 </ul>
             </div>
         </div>
@@ -80,9 +80,9 @@
                 <strong>{$LL.rules.progress.scoring()}</strong>
                 <p>{$LL.rules.progress.content2()}</p>
                 <ul>
-                    <li>{$LL.rules.progress.firstPlace()}</li>
-                    <li>{$LL.rules.progress.secondPlace()}</li>
-                    <li>{$LL.rules.progress.thirdPlace()}</li>
+                    <li>{$LL.rules.progress.first_place()}</li>
+                    <li>{$LL.rules.progress.second_place()}</li>
+                    <li>{$LL.rules.progress.third_place()}</li>
                     <li>...</li>
                 </ul>
             </div>
@@ -96,7 +96,7 @@
         <h1>{$LL.rules.target_activities.title()}</h1>
         <div class="card-group">
             <div class="card">
-                <p><strong>{$LL.rules.target_activities.isActivity()}</strong></p>
+                <p><strong>{$LL.rules.target_activities.is_activity()}</strong></p>
                 <ul>
                     <li>{$LL.rules.target_activities.activity1()}</li>
                     <li>{$LL.rules.target_activities.activity2()}</li>
@@ -104,7 +104,7 @@
                 </ul>
             </div>
             <div class="card">
-                <p><strong>{$LL.rules.target_activities.notActivity()}</strong></p>
+                <p><strong>{$LL.rules.target_activities.not_activity()}</strong></p>
                 <ul>
                     <li>{$LL.rules.target_activities.activity4()}</li>
                 </ul>
@@ -115,28 +115,28 @@
 
 {#snippet ExtraPointsStep()}
     <section>
-        <h1>{$LL.rules.extraPoints.stepTitle()}</h1>
-        <p>{$LL.rules.extraPoints.intro()}</p>
+        <h1>{$LL.rules.extra_points.step_title()}</h1>
+        <p>{$LL.rules.extra_points.intro()}</p>
         <div class="card-group">
             <div class="card">
-                <p><strong>{$LL.rules.extraPoints.thirdWeek.title()}</strong></p>
+                <p><strong>{$LL.rules.extra_points.third_week.title()}</strong></p>
                 <ul>
                     <li>
-                        +1 <strong>{$LL.rules.extraPoints.extraPoint().toUpperCase()}</strong>
-                        {$LL.rules.extraPoints.thirdWeek.extraOne()}
+                        +1 <strong>{$LL.rules.extra_points.extra_points().toUpperCase()}</strong>
+                        {$LL.rules.extra_points.third_week.extra_one()}
                     </li>
                     <li>
-                        +2 <strong>{$LL.rules.extraPoints.extraPoints().toUpperCase()}</strong>
-                        {$LL.rules.extraPoints.thirdWeek.extraTwo()}
+                        +2 <strong>{$LL.rules.extra_points.extra_points().toUpperCase()}</strong>
+                        {$LL.rules.extra_points.third_week.extra_two()}
                     </li>
                 </ul>
             </div>
             <div class="card">
-                <p><strong>{$LL.rules.extraPoints.fourthWeek.title()}</strong></p>
+                <p><strong>{$LL.rules.extra_points.fourth_week.title()}</strong></p>
                 <ul>
                     <li>
-                        +1 <strong>{$LL.rules.extraPoints.extraPoint().toUpperCase()}</strong>
-                        {$LL.rules.extraPoints.fourthWeek.extraOne()}
+                        +1 <strong>{$LL.rules.extra_points.extra_point().toUpperCase()}</strong>
+                        {$LL.rules.extra_points.fourth_week.extra_one()}
                     </li>
                 </ul>
             </div>
@@ -150,23 +150,23 @@
             {submit}
             steps={[
                 {
-                    title: $LL.rules.intro.stepTitle(),
+                    title: $LL.rules.intro.step_title(),
                     content: WelcomeStep,
                 },
                 {
-                    title: $LL.rules.disciplines.stepTitle(),
+                    title: $LL.rules.disciplines.step_title(),
                     content: DisciplinesStep,
                 },
                 {
-                    title: $LL.rules.progress.stepTitle(),
+                    title: $LL.rules.progress.step_title(),
                     content: HowToStep,
                 },
                 {
-                    title: $LL.rules.target_activities.stepTitle(),
+                    title: $LL.rules.target_activities.step_title(),
                     content: ActivityStep,
                 },
                 {
-                    title: $LL.rules.extraPoints.stepTitle(),
+                    title: $LL.rules.extra_points.step_title(),
                     content: ExtraPointsStep,
                 },
             ]}

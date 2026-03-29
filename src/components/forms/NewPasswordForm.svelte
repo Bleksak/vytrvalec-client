@@ -58,7 +58,7 @@
     {/each}
 
     <label for="passwordRepeat">
-        {$LL.reset.passwordRepeat()}:
+        {$LL.reset.password_repeat()}:
     </label>
     <input type="password" name="passwordRepeat" id="passwordRepeat" />
 

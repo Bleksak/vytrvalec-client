@@ -41,12 +41,12 @@
         class="secondary"
         onclick={defaultPrevButtonHandler}
     >
-        {$LL.form.prevStep()}
+        {$LL.form.prev_step()}
     </button>
 {/snippet}
 
 {#snippet defaultNextButton()}
-    <button type="button" onclick={defaultNextButtonHandler}>{$LL.form.nextStep()}</button>
+    <button type="button" onclick={defaultNextButtonHandler}>{$LL.form.next_step()}</button>
 {/snippet}
 
 <article>

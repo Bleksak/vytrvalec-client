@@ -181,8 +181,8 @@
                                             {faculties.get(result.faculty)?.shortcut}
                                         </td>
                                         <td>
-                                            {$LL.extraPoints[
-                                                result.name as keyof typeof $LL.extraPoints
+                                            {$LL.extra_points[
+                                                result.name as keyof typeof $LL.extra_points
                                             ]()}
                                         </td>
                                         <td>

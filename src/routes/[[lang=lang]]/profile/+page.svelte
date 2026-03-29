@@ -37,7 +37,7 @@
                 {#each data.submissions as submission (submission.id)}
                     <SubmissionCard {submission} activities={data.activities} api={data.api} />
                 {:else}
-                    {$LL.profile.noSubmissions()}
+                    {$LL.profile.no_submissions()}
                 {/each}
             </section>
         </main>

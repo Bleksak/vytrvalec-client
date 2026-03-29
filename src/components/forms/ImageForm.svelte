@@ -135,7 +135,7 @@
 
         {#if !disabled}
             <button class="secondary" type="button" onclick={onUploadClick}>
-                {$LL.submission.form.chooseImage()}
+                {$LL.submission.form.choose_image()}
             </button>
         {/if}
     </div>

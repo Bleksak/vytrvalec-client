@@ -46,14 +46,14 @@
 
                 toastStore.add({
                     type: 'error',
-                    message: $LL.submission.form.editErrorToast(),
+                    message: $LL.submission.form.edit_error_toast(),
                 });
             } else if (result.type === 'success') {
                 errors = undefined;
                 dialog?.close();
                 toastStore.add({
                     type: 'success',
-                    message: $LL.submission.form.editSuccessToast(),
+                    message: $LL.submission.form.edit_success_toast(),
                 });
 
                 if (refetchSubmissions) {
@@ -68,7 +68,7 @@
     };
 </script>
 
-<Dialog bind:this={dialog} header={$LL.submission.editingTitle()} {...props}>
+<Dialog bind:this={dialog} header={$LL.submission.editing_title()} {...props}>
     <form method="POST" action="/submission?/patch" use:enhance={onSubmit}>
         <input type="hidden" name="id" value={submission.id} />
         <input type="hidden" name="updated_at" value={submission.updated_at} />

@@ -15,7 +15,7 @@
         dialog?: HTMLDialogElement;
         header: string;
         children: Snippet;
-        onclose: () => void;
+        onclose?: () => void;
     } = $props();
 
     const dialogStore = getContext<DialogStore>(Store.DIALOG_STORE);
