@@ -18,6 +18,7 @@ export const UserResponseDto = type({
     faculty: type(FacultyType),
     anonymize: 'boolean | null',
     mailing: 'boolean',
+    locale: 'string'
 });
 
 export type UserResponseDtoInfer = typeof UserResponseDto.infer;
@@ -32,6 +33,7 @@ export type UserResponse = {
     faculty: FacultyDTO;
     anonymize: boolean | null;
     mailing: boolean;
+    locale: string;
 };
 
 export type UserResponseAdmin = Omit<UserResponse, 'faculty'> & {

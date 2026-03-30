@@ -1,5 +1,5 @@
 <script lang="ts">
-    import LL, { setLocale } from '$translations/i18n-svelte';
+    import LL from '$translations/i18n-svelte';
     import { getAllContexts, getContext, onMount } from 'svelte';
     import LoginForm from './forms/LoginForm.svelte';
     import RegistrationForm from './forms/RegistrationForm.svelte';
@@ -8,35 +8,29 @@
     import SubmissionForm from './forms/SubmissionForm.svelte';
     import { enhance } from '$app/forms';
     import { MenuIcon } from '@lucide/svelte';
-    import { getLocale, setLocale as setLocaleParaglide } from '$paraglide/runtime';
     import type { SeasonDTO } from '$lib/DTO/SeasonDTO';
     import type { UserResponse } from '$lib/DTO/UserResponse';
     import { UserRole } from '$lib/DTO/UserRole';
     import { slide } from 'svelte/transition';
     import type { AxiosInstance } from 'axios';
+    import Locale from './Locale.svelte';
 
     const {
         currentSeason,
         user,
         api,
-    }: { currentSeason: SeasonDTO | null; user: UserResponse | null; api: AxiosInstance } =
+        locale,
+    }: { currentSeason: SeasonDTO | null; user: UserResponse | null; api: AxiosInstance; locale: Locale | string } =
         $props();
 
     const dialogStore = getContext<DialogStore>(Store.DIALOG_STORE);
     const context = getAllContexts();
 
-    let currentLocale = $state(getLocale());
+    let currentLocale = $derived(locale);
 
     let menuToggle = $state<HTMLButtonElement>();
     let menuOpened = $state(false);
     let innerWidth = $state(0);
-
-    function handleLocaleChange() {
-        const selectedLocale = currentLocale === 'cs' ? 'en' : 'cs';
-        setLocale(selectedLocale);
-        setLocaleParaglide(selectedLocale, { reload: true });
-        currentLocale = selectedLocale;
-    }
 
     function toggleMenuOpen() {
         menuOpened = !menuOpened;
@@ -88,15 +82,7 @@
         {#if menuOpened}
             <ul class="menu-content" transition:maybeSlide={{ duration: 500 }}>
                 <li>
-                    <button class="locale-change-btn" onclick={handleLocaleChange}>
-                        <img
-                            class="locale-flag"
-                            src={currentLocale === 'cs'
-                                ? '/images/lang/cs.svg'
-                                : '/images/lang/en.svg'}
-                            alt={currentLocale}
-                        />
-                    </button>
+                    <Locale {currentLocale} {api}/>
                 </li>
                 {#if user && user.roles.includes(UserRole.Staff)}
                     <li>

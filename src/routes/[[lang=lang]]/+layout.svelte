@@ -22,7 +22,7 @@
     <title>{$LL.homepage.title()}</title>
 </svelte:head>
 
-<Navbar currentSeason={data.currentSeason} user={data.user ?? null} api={data.api} />
+<Navbar currentSeason={data.currentSeason} user={data.user ?? null} api={data.api} locale={lang}/>
 <main>
     <svelte:boundary>
         {@render children()}

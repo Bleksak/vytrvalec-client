@@ -223,6 +223,35 @@ export const anonymizationChange = async (
     return { type: 'success' };
 };
 
+export const localeChange = async (
+    locale: string,
+    api: AxiosInstance,
+): Promise<ResetPasswordResponse> => {
+    const response = await api.patch(`/user/locale/${locale}`, { locale: locale }).catch((error) => {
+        if (error.response) {
+            return error.response;
+        }
+
+        return null;
+    });
+
+    if (response === null) {
+        return {
+            type: 'error',
+            errors: { server: ['server_down'] },
+        };
+    }
+
+    if (response.status !== 200) {
+        return {
+            type: 'error',
+            errors: response?.data ?? {},
+        };
+    }
+
+    return { type: 'success' };
+};
+
 export const emailSubscribeChange = async (value: boolean, api: AxiosInstance) => {
     const response = await api.patch(`/emailing`, { mailing: value }).catch((error) => {
         if (error.response) {

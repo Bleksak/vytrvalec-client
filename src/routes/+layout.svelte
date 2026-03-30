@@ -12,6 +12,8 @@
     import { page } from '$app/state';
     import ToastAnchor from '$components/ToastAnchor.svelte';
     import Onboarding from '$components/Onboarding.svelte';
+    import { setCookie } from '$utils/cookies.js';
+    import { LOCALE_COOKIE_NAME } from '$lib/DTO/LanguageDTO.js';
 
     let { children, data } = $props();
 
@@ -26,6 +28,10 @@
     const seasonStore = $derived(createSeasonStore(data.api));
 
     const context = getAllContexts();
+
+    $effect(() => {
+        setCookie(LOCALE_COOKIE_NAME, data.lang, 3652);
+    });
 
     setContext(Store.TOAST_STORE, toastStore);
     setContext(Store.DIALOG_STORE, dialogStore);
