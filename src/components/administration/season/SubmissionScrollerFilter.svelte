@@ -134,24 +134,6 @@
         </div>
     {/await}
 
-    <div class="col">
-        <label for="week">Týden:</label>
-        <div class="field">
-            <Select
-                bind:this={selectWeek}
-                keys={[undefined, ...weeks].map((week) =>
-                    week ? `${week + 1}. týden` : 'Nevybráno',
-                )}
-                values={[undefined, ...weeks]}
-                id="week"
-                name="week"
-            />
-            <button type="button" onclick={() => selectWeek?.select(0)}>
-                <img class="icon" src="/images/icons/x.svg" alt="Odstranit filtr" />
-            </button>
-        </div>
-    </div>
-
     {#await facultyStore.promise() then faculties}
         <div class="col">
             <label for="faculty">Fakulta:</label>
@@ -171,6 +153,24 @@
             </div>
         </div>
     {/await}
+
+    <div class="col">
+        <!-- <label for="week">Týden:</label>
+        <div class="field">
+            <Select
+                bind:this={selectWeek}
+                keys={[undefined, ...weeks].map((week) =>
+                    week ? `${week + 1}. týden` : 'Nevybráno',
+                )}
+                values={[undefined, ...weeks]}
+                id="week"
+                name="week"
+            />
+            <button type="button" onclick={() => selectWeek?.select(0)}>
+                <img class="icon" src="/images/icons/x.svg" alt="Odstranit filtr" />
+            </button>
+        </div> -->
+    </div>
 
     <button type="submit">Vyhledat</button>
 </form>
