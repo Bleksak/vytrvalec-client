@@ -190,13 +190,24 @@
     .field {
         width: 100%;
         display: grid;
-        grid-template-columns: auto 25px;
+        grid-template-columns: 1fr 32px;
         column-gap: 10px;
+    }
+    .field button {
+        width: 48px;
+        height: 48px;
+        padding: 0;
+        border: none;
+        background-color: #d32f2f;
     }
 
     button {
         cursor: pointer;
         min-width: 25px;
+    }
+    .icon {
+        width: 32px;
+        height: 32px;
     }
 
     form {
