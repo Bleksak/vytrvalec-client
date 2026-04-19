@@ -110,7 +110,7 @@
         display: flex;
         flex-direction: column;
 
-        background-color: 005cab;
+        background-color: #005cab;
         border: 5px solid #005cab;
         padding-block: 10px;
         min-width: fit-content;
