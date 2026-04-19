@@ -33,7 +33,7 @@ export type SubmissionStateReturn =
 
 export const formDataToSubmissionStateDTO = (formData: FormData): SubmissionStateReturn => {
     const updated_at = formData.get('updated_at')?.toString();
-    const state = Boolean(formData.get('state')?.toString());
+    const state = formData.get('state')?.toString() == '1';
     const message = formData.get('message')?.toString();
 
     if (updated_at === null) {
