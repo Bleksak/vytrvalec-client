@@ -8,10 +8,10 @@
     import { page } from '$app/state';
     import SubmissionScrollerFilter from '$components/administration/season/SubmissionScrollerFilter.svelte';
     import { fetchSubmissionsForSeason } from '$actions/Submission';
-    import axios from 'axios';
     import { getLocale } from '$paraglide/runtime';
+    import type { AxiosInstance } from 'axios';
 
-    const { season }: { season: SeasonDTO } = $props();
+    const { season, api }: { season: SeasonDTO; api: AxiosInstance } = $props();
 
     let filter = page.data.filter;
 
@@ -41,7 +41,7 @@
 
                         filter.page += 1;
 
-                        fetchSubmissionsForSeason(axios, season, filter).then((newSubmissions) => {
+                        fetchSubmissionsForSeason(api, season, filter).then((newSubmissions) => {
                             submissions.push(...newSubmissions);
 
                             if (newSubmissions.length === 0) {

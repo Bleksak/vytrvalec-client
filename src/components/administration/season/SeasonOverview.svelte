@@ -206,7 +206,7 @@
         {#key season.id}
             <section class="submissions">
                 <h2>Aktivity</h2>
-                <SubmissionScroller {season} />
+                <SubmissionScroller {season} {api} />
             </section>
         {/key}
     </div>
