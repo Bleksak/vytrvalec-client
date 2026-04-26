@@ -59,6 +59,9 @@
 
     const positionText = (position: number): keyof typeof $LL.season_detail.ordinal =>
         (['first', 'second', 'third'] as Array<keyof typeof $LL.season_detail.ordinal>)[position];
+
+    const seasonEnd = new Date(season.end); //tmp fix
+    seasonEnd.setDate(seasonEnd.getDate() - 1);
 </script>
 
 <article>
@@ -72,7 +75,7 @@
         <div class="grid">
             <span class="flex-align-center gap-small">
                 <CalendarRangeIcon />
-                {$LL.season_detail.date_range({ start: season.start, end: season.end })}
+                {$LL.season_detail.date_range({ start: season.start, end: seasonEnd })}
             </span>
             <div class="grid">
                 {#each winners as winner, index (winner.faculty.id)}
