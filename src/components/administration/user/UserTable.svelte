@@ -117,7 +117,8 @@
 
             <button
                 onclick={nextPage}
-                disabled={userStore.currentPage() >= userStore.totalPages() || userStore.isLoading()}
+                disabled={userStore.currentPage() >= userStore.totalPages() ||
+                    userStore.isLoading()}
                 aria-label="Následující strana"
             >
                 <ChevronRight size={18} />

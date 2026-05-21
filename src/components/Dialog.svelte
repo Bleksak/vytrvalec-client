@@ -62,7 +62,7 @@
     dialog article {
         padding-top: 0;
     }
-    
+
     button {
         display: flex;
         justify-content: center;

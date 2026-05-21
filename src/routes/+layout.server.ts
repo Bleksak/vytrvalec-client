@@ -7,7 +7,7 @@ export const load: LayoutServerLoad = ({ locals, cookies, params }) => {
     return {
         user: locals.user,
         currentSeason: locals.currentSeason,
-        onboarding: onboardingCookie ? JSON.parse(onboardingCookie) as OnboardingDTO : null,
+        onboarding: onboardingCookie ? (JSON.parse(onboardingCookie) as OnboardingDTO) : null,
         lang: params.lang ?? 'cs',
         jwt: locals.jwt,
     };

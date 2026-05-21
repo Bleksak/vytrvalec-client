@@ -56,7 +56,8 @@
                             {$LL.rules.extra_points.third_week.extra_one()}
                         </li>
                         <li>
-                            +2 <strong>{$LL.rules.extra_points.extra_points().toUpperCase()}</strong>
+                            +2 <strong>{$LL.rules.extra_points.extra_points().toUpperCase()}</strong
+                            >
                             {$LL.rules.extra_points.third_week.extra_two()}
                         </li>
                     </ul>

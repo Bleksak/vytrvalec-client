@@ -12,19 +12,19 @@
     function setOnboardingCookie(onboarding: OnboardingDTO) {
         const value = JSON.stringify({
             status: onboarding.status,
-            season: onboarding.season
+            season: onboarding.season,
         });
 
         setCookie(ONBOARDING_COOKIE_NAME, value, 3652);
     }
 
     function handleSubmit() {
-        setOnboardingCookie({status: "completed", season: currentSeason?.id});
+        setOnboardingCookie({ status: 'completed', season: currentSeason?.id });
         dialog?.close();
     }
 
     function handleClose() {
-        setOnboardingCookie({status: "completed", season: currentSeason?.id});
+        setOnboardingCookie({ status: 'completed', season: currentSeason?.id });
     }
 </script>
 
