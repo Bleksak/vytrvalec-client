@@ -36,7 +36,7 @@ export default class UnreviewedSubmissionStore {
         this.ws = new WebSocket(wsUrl);
         this.jwt = jwt;
 
-        this.ws.onopen = (_event: Event): any => {
+        this.ws.onopen = (): any => {
             this.initialize();
         };
 

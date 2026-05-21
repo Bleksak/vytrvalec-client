@@ -1,4 +1,4 @@
-import axios, { AxiosError, type AxiosInstance } from 'axios';
+import { AxiosError, type AxiosInstance } from 'axios';
 import type { UserRegisterDTO } from '$lib/DTO/UserRegisterDTO';
 import type { UserRegisterResponse } from '$lib/DTO/UserRegisterResponse';
 import type { UserLoginDTO } from '$lib/DTO/UserLoginDTO';

@@ -18,7 +18,7 @@ export const TranslationObjectPartialType = type('Record<string, string>')
         return Object.keys(data).every((key) => locales.includes(key as Locales));
     })
     .pipe((data) => {
-        return Object.fromEntries(Object.entries(data).filter(([_, v]) => v.length > 0));
+        return Object.fromEntries(Object.entries(data).filter(([, v]) => v.length > 0));
     });
 
 export type TranslationObject = typeof TranslationObjectType.infer;

@@ -2,7 +2,6 @@ import { type AxiosInstance, type AxiosResponse } from 'axios';
 import axios from 'axios';
 import {
     SeasonType,
-    type CreateSeasonDTO,
     type CreateSeasonResponse,
     type SeasonConfigDTO,
     type SeasonDTO,

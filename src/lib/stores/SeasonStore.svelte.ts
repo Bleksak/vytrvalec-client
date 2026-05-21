@@ -1,5 +1,4 @@
 import type { AxiosInstance } from 'axios';
-import axios from 'axios';
 import { deleteSeason, fetchSeasons } from '$actions/Season';
 import { type SeasonDTO } from '$lib/DTO/SeasonDTO';
 

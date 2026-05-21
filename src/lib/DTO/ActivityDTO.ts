@@ -2,7 +2,7 @@ import { TranslationObjectPartialType, TranslationObjectType } from './Translati
 import type { ResponseError, ResponseErrorMap } from '$lib/ResponseErrors';
 import { type } from 'arktype';
 
-const ActivityType = type({
+export const ActivityType = type({
     id: 'number.integer > 0',
     name: TranslationObjectType,
     visible: 'boolean',

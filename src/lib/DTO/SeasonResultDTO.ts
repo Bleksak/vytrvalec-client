@@ -114,7 +114,7 @@ export class SeasonResult {
         const extras: Array<ExtraPoints> = [];
 
         if (week === null) {
-            for (const [_, weeklyResult] of Object.entries(data.results)) {
+            for (const [, weeklyResult] of Object.entries(data.results)) {
                 this.populateRankingArray(facultySet, weeklyResult, ranking, extras, activity);
             }
         } else {
