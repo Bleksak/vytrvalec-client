@@ -7,8 +7,13 @@ import qs from 'qs';
 const createAction: Action = async ({ request, locals }) => {
     const formData = await request.formData();
 
-    const value = qs.parse(new URLSearchParams(formData as any).toString());
-    const data = SeasonConfigType(value);
+    const params = new URLSearchParams();
+    for (const [key, value] of formData.entries()) {
+        params.append(key, value.toString());
+    }
+
+    const parsed = qs.parse(params.toString());
+    const data = SeasonConfigType(parsed);
 
     if (data instanceof ArkErrors) {
         const errors = Object.fromEntries(data.map((err) => [err.path.toString(), err.message]));
@@ -32,8 +37,12 @@ const createAction: Action = async ({ request, locals }) => {
 const updateAction: Action = async ({ request, locals }) => {
     const formData = await request.formData();
 
-    const value = qs.parse(new URLSearchParams(formData as any).toString());
-    const data = SeasonUpdateConfigType(value);
+    const params = new URLSearchParams();
+    for (const [key, value] of formData.entries()) {
+        params.append(key, value.toString());
+    }
+    const parsed = qs.parse(params.toString());
+    const data = SeasonUpdateConfigType(parsed);
 
     if (data instanceof ArkErrors) {
         const errors = Object.fromEntries(data.map((err) => [err.path.toString(), err.message]));
