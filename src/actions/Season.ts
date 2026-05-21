@@ -75,7 +75,7 @@ export const createSeason = async (
 export const updateSeason = async (
     season: SeasonDTO,
     api: AxiosInstance,
-): Promise<AxiosResponse<any>> => {
+): Promise<AxiosResponse<void>> => {
     return await api.patch(`/season/${season.id}`, season);
 };
 
