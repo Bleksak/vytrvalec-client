@@ -43,7 +43,7 @@ export const createSeasonStore = (api: AxiosInstance): SeasonStore => {
     };
 
     const updateOrCreate = (season: SeasonDTO) => {
-        let index = seasons.findIndex((c) => c.id === season.id);
+        const index = seasons.findIndex((c) => c.id === season.id);
 
         if (index !== -1) {
             seasons[index] = season;

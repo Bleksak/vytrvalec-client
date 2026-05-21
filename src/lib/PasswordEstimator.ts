@@ -13,9 +13,9 @@ export class PasswordEstimator {
             return PasswordStrength.STRENGTH_VERY_WEAK;
         }
 
-        let passwordChars = new Map<number, number>();
-        for (let char of password) {
-            let charCode = char.charCodeAt(0);
+        const passwordChars = new Map<number, number>();
+        for (const char of password) {
+            const charCode = char.charCodeAt(0);
             passwordChars.set(charCode, (passwordChars.get(charCode) || 0) + 1);
         }
 
@@ -25,7 +25,7 @@ export class PasswordEstimator {
             lower = 0,
             symbol = 0,
             other = 0;
-        for (let [char] of passwordChars) {
+        for (const [char] of passwordChars) {
             switch (true) {
                 case char < 32 || char === 127:
                     control = 33;
@@ -47,8 +47,8 @@ export class PasswordEstimator {
             }
         }
 
-        let pool = lower + upper + digit + symbol + control + other;
-        let entropy =
+        const pool = lower + upper + digit + symbol + control + other;
+        const entropy =
             passwordChars.size * Math.log2(pool) +
             (password.length - passwordChars.size) * Math.log2(passwordChars.size);
 

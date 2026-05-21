@@ -35,7 +35,7 @@ export const formDataToResetPasswordDTO = (formData: FormData): ResetPasswordRet
     const passwordRepeat = formData.get('passwordRepeat')?.toString();
     const passwordResetToken = formData.get('passwordResetToken')?.toString();
 
-    let errors: ResetError = {};
+    const errors: ResetError = {};
 
     if (password !== passwordRepeat) {
         errors.password = ['password_mismatch'];

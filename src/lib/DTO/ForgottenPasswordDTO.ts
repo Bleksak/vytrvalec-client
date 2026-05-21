@@ -30,7 +30,7 @@ export type ForgottenPasswordReturn =
 export const formDataToForgottenPasswordDTO = (formData: FormData): ForgottenPasswordReturn => {
     const email = formData.get('email')?.toString();
 
-    let errors: ForgottenPasswordError = {};
+    const errors: ForgottenPasswordError = {};
 
     if (email === undefined || email === '') {
         errors.email = ['blank'];

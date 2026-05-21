@@ -71,7 +71,7 @@ export const formDataToSubmissionDTO = (formData: FormData): SubmissionReturn =>
     const updated_at = formData.get('updated_at')?.toString();
 
     let valid = true;
-    let errors: SubmissionErrors = {
+    const errors: SubmissionErrors = {
         distance: [],
         elevation: [],
         activity_id: [],

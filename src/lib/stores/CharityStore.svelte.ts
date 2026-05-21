@@ -12,7 +12,7 @@ export type CharityStore = {
 export const createCharityStore = (): CharityStore => {
     let charities = $state<Array<CharityDTO>>([]);
 
-    let charitiesPromise: Promise<Array<CharityDTO>> = fetchCharities();
+    const charitiesPromise: Promise<Array<CharityDTO>> = fetchCharities();
 
     charitiesPromise.then((result) => {
         charities = result;
@@ -31,7 +31,7 @@ export const createCharityStore = (): CharityStore => {
     };
 
     const updateOrCreate = (charity: CharityDTO) => {
-        let index = charities.findIndex((c) => c.id === charity.id);
+        const index = charities.findIndex((c) => c.id === charity.id);
 
         if (index !== -1) {
             charities[index] = charity;

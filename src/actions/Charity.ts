@@ -8,7 +8,7 @@ import type {
 import axios, { type AxiosInstance } from 'axios';
 
 export const fetchCharities = async (api: AxiosInstance = axios): Promise<Array<CharityDTO>> => {
-    let response = await api.get('/charity').catch(() => null);
+    const response = await api.get('/charity').catch(() => null);
 
     if (response === null) {
         return [];

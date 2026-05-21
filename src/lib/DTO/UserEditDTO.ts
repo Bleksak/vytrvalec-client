@@ -25,7 +25,7 @@ export type UserEditReturn =
       };
 
 export const formDataToUserEditDTO = (formData: FormData): UserEditReturn => {
-    let errors: UserError = {};
+    const errors: UserError = {};
 
     const email = formData.get('email')?.toString();
     const firstName = formData.get('first_name')?.toString();

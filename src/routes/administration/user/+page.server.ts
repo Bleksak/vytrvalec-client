@@ -10,7 +10,7 @@ const updateAction: RequestHandler = async ({ request, locals }): Promise<any> =
         return fail(400, { errors: userDTO.errors });
     }
 
-    let response = await updateUser(
+    const response = await updateUser(
         locals.axios,
         Number(formData.get('id')?.toString()),
         userDTO.data,

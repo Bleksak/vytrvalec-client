@@ -21,7 +21,7 @@ export const formDataToUserLoginDTO = (formData: FormData): UserLoginReturn => {
     const email = formData.get('email')?.toString();
     const password = formData.get('password')?.toString();
 
-    let errors: LoginError = {};
+    const errors: LoginError = {};
 
     if (email === undefined || email === '') {
         errors.email = ['blank'];

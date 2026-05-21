@@ -19,7 +19,7 @@ export type ConsentChangeReturn =
       };
 
 export const formDataToConsentChangeDTO = (formData: FormData): ConsentChangeReturn => {
-    let errors: ConsentError = {};
+    const errors: ConsentError = {};
 
     const anonymize = formData.get('anonymize')?.toString();
 
@@ -34,7 +34,7 @@ export const formDataToConsentChangeDTO = (formData: FormData): ConsentChangeRet
     return {
         type: 'dto',
         value: {
-            anonymize: !Boolean(anonymize),
+            anonymize: !anonymize,
         },
     };
 };

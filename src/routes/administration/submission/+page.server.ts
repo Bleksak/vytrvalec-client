@@ -11,7 +11,7 @@ export const load: PageServerLoad = async ({ locals }) => {
         });
     }
 
-    let activitiesMap = new Map<number, ActivityDTO>();
+    const activitiesMap = new Map<number, ActivityDTO>();
     for (const activity of activitiesResponse.data) {
         activitiesMap.set(activity.id, activity);
     }

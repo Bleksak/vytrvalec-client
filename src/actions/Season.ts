@@ -13,13 +13,13 @@ import { type SeasonResultData } from '$lib/DTO/SeasonResultDTO';
 import { ArkErrors } from 'arktype';
 
 export const fetchSeasons = async (api: AxiosInstance = axios): Promise<Array<SeasonDTO>> => {
-    let response = await api.get('/season').catch(() => null);
+    const response = await api.get('/season').catch(() => null);
 
     if (response === null) {
         return [];
     }
 
-    let data = [];
+    const data = [];
 
     for (const seasonRaw of response.data) {
         const season = SeasonType(seasonRaw);

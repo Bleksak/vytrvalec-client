@@ -24,10 +24,10 @@ export type SubmissionStore = {
 
 export const createSubmissionStore = (season: SeasonDTO): SubmissionStore => {
     let submissions = $state<Array<SubmissionResponseAdminDTO>>([]);
-    let filters = $state<object>({});
+    const filters = $state<object>({});
 
     let currentPage = 1;
-    let submissionsPromise: Promise<Array<SubmissionResponseAdminDTO>> = fetchSubmissionsForSeason(
+    const submissionsPromise: Promise<Array<SubmissionResponseAdminDTO>> = fetchSubmissionsForSeason(
         axios,
         season,
         { page: currentPage, ...filters },
@@ -66,7 +66,7 @@ export const createSubmissionStore = (season: SeasonDTO): SubmissionStore => {
     };
 
     const update = (submission: SubmissionResponseAdminDTO) => {
-        let index = submissions.findIndex((s) => s.id === submission.id);
+        const index = submissions.findIndex((s) => s.id === submission.id);
 
         if (index !== -1) {
             submissions[index] = submission;

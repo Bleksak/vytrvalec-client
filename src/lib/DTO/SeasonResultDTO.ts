@@ -58,7 +58,7 @@ export type SeasonResultRankRow = {
 };
 
 function createFacultySet(results: SeasonResultData): Set<number> {
-    let faculties: Set<number> = new Set<number>();
+    const faculties: Set<number> = new Set<number>();
 
     for (const week of Object.values(results.results)) {
         for (const activity of Object.values(week.activities)) {
@@ -110,8 +110,8 @@ export class SeasonResult {
 
         const facultySet = createFacultySet(data);
 
-        let ranking: Record<number, SeasonResultRankRow> = {};
-        let extras: Array<ExtraPoints> = [];
+        const ranking: Record<number, SeasonResultRankRow> = {};
+        const extras: Array<ExtraPoints> = [];
 
         if (week === null) {
             for (const [_, weeklyResult] of Object.entries(data.results)) {
@@ -131,7 +131,7 @@ export class SeasonResult {
             this.populateRankingArray(facultySet, weeklyResult, ranking, extras, activity);
         }
 
-        let result = [];
+        const result = [];
         let totalDistance = 0;
         let totalPoints = 0;
 
@@ -177,7 +177,7 @@ export class SeasonResult {
                 continue;
             }
 
-            let facultyResults = [...Object.values(activityResult.results)];
+            const facultyResults = [...Object.values(activityResult.results)];
             facultyResults.sort((a, b) => b.distance - a.distance);
 
             for (let i = 0; i < facultyResults.length; i++) {

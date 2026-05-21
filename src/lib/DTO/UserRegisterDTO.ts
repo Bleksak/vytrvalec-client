@@ -22,7 +22,7 @@ export type UserRegisterReturn =
 
 export const formDataToUserRegisterDTO = (formData: FormData): UserRegisterReturn => {
     const email = formData.get('email')?.toString();
-    let errors: RegistrationError = {};
+    const errors: RegistrationError = {};
 
     if (email === undefined || email === '') {
         errors['email'] = ['blank'];
@@ -65,7 +65,7 @@ export const formDataToUserRegisterDTO = (formData: FormData): UserRegisterRetur
     }
 
     const gdpr = formData.get('gdpr');
-    if (gdpr === null || (!Boolean(Number(gdpr)) && gdpr !== 'on')) {
+    if (gdpr === null || (!Number(gdpr) && gdpr !== 'on')) {
         errors['gdpr'] = ['blank'];
     }
 
