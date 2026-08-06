@@ -1,14 +1,10 @@
 import type { Component, MountOptions } from 'svelte';
 import { mount, unmount } from 'svelte';
 
-type BaseProps = {
-    onclose?: (e: Event) => void;
-};
-
 export type DialogStore = {
-    open: <Props extends BaseProps & Record<string, unknown>>(
+    open: <Props extends object>(
         component: Component<Props>,
-        props: object extends Props ? Partial<Props> : Props,
+        props: Props,
         context: Map<unknown, unknown>,
     ) => void;
     close: () => void;
@@ -17,9 +13,9 @@ export type DialogStore = {
 const createDialogStore = (): DialogStore => {
     let currentDialog: Record<string, unknown> | undefined = undefined;
 
-    const open = <Props extends Record<string, unknown>>(
+    const open = <Props extends object>(
         component: Component<Props>,
-        props: object extends Props ? Partial<Props> : Props,
+        props: Props,
         context: Map<unknown, unknown> = new Map(),
     ) => {
         if (currentDialog) {

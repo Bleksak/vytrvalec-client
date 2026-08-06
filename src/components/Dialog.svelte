@@ -3,7 +3,7 @@
     import type { DialogStore } from '$lib/stores/DialogStore.svelte';
     import { XIcon } from '@lucide/svelte';
     import { getContext, type Snippet } from 'svelte';
-    import type { HTMLDialogAttributes } from 'svelte/elements';
+    import type { EventHandler, HTMLDialogAttributes } from 'svelte/elements';
 
     let {
         dialog,
@@ -15,14 +15,14 @@
         dialog?: HTMLDialogElement;
         header: string;
         children: Snippet;
-        onclose?: () => void;
+        onclose?: EventHandler<Event, HTMLDialogElement> | null;
     } = $props();
 
     const dialogStore = getContext<DialogStore>(Store.DIALOG_STORE);
 
-    export function close() {
+    export function close(event?: Event) {
         if (onclose) {
-            onclose();
+            onclose(event as Event & { currentTarget: EventTarget & HTMLDialogElement });
         }
 
         dialogStore.close();
