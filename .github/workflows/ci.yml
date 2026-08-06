@@ -25,5 +25,11 @@ jobs:
             - name: Run linter
               run: npm run lint
 
+            - name: Generate paraglide messages
+              run: npx paraglide-js compile --project ./project.inlang --outdir ./src/paraglide --strategy url preferredLanguage baseLocale
+
+            - name: Generate typesafe-i18n files
+              run: npx typesafe-i18n --no-watch
+
             - name: Run svelte-check
               run: npm run check
