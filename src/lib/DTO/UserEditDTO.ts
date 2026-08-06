@@ -45,7 +45,7 @@ export const formDataToUserEditDTO = (formData: FormData): UserEditReturn => {
     if (!lastName || lastName === '') {
         errors['last_name'] = ['blank'];
     }
-    if (faculty_id === Number.NaN || !Number.isInteger(faculty_id)) {
+    if (Number.isNaN(faculty_id) || !Number.isInteger(faculty_id)) {
         errors['faculty_id'] = ['invalid'];
     }
     if (Object.keys(errors).length !== 0) {

@@ -60,7 +60,7 @@ export const formDataToUserRegisterDTO = (formData: FormData): UserRegisterRetur
 
     const faculty = Number(formData.get('faculty')?.toString());
 
-    if (faculty === Number.NaN || !Number.isInteger(faculty)) {
+    if (Number.isNaN(faculty) || !Number.isInteger(faculty)) {
         errors['faculty'] = ['invalid'];
     }
 
