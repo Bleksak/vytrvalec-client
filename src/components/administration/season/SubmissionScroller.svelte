@@ -17,7 +17,7 @@
 
     const context = getAllContexts();
     const dialogStore = getContext<DialogStore>(Store.DIALOG_STORE);
-    const activityStore = getContext<ActivityStore>(Store.ACTIVITY_STORE);
+    const activityStoreHandler = getContext<() => ActivityStore>(Store.ACTIVITY_STORE);
 
     const locale = $state(getLocale());
 
@@ -62,7 +62,7 @@
 
 <SubmissionScrollerFilter />
 
-{#await Promise.all([activityStore.promise()])}
+{#await Promise.all([activityStoreHandler().promise()])}
     Načítání...
 {:then}
     {#each submissions as submission, i}
@@ -116,8 +116,9 @@
             <div>
                 <p style="user-select: none;">&nbsp;</p>
                 <p>
-                    <strong>Kategorie:&nbsp;</strong>{activityStore.get(submission.activity_id)
-                        ?.name[locale]}
+                    <strong>Kategorie:&nbsp;</strong>{activityStoreHandler().get(
+                        submission.activity_id,
+                    )?.name[locale]}
                 </p>
                 <p><strong>Vzdálenost:&nbsp;</strong>{submission.distance / 1000} km</p>
                 {#if submission.elevation}

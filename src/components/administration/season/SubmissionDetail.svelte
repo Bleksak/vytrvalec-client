@@ -15,7 +15,7 @@
     const { currentSubmission }: { currentSubmission: SubmissionResponseAdminDTO } = $props();
 
     const toastStore = getContext<ToastStore>(Store.TOAST_STORE);
-    const activityStore = getContext<ActivityStore>(Store.ACTIVITY_STORE);
+    const activityStoreHandler = getContext<() => ActivityStore>(Store.ACTIVITY_STORE);
     const locale = $state(getLocale());
 
     let dialog = $state<Dialog>();
@@ -65,10 +65,11 @@
             </span>
         {/each}
 
-        {#await activityStore.promise() then}
+        {#await activityStoreHandler().promise() then}
             <p>
-                <strong>Aktivita:&nbsp;</strong>{activityStore.get(currentSubmission.activity_id)
-                    ?.name[locale]}
+                <strong>Aktivita:&nbsp;</strong>{activityStoreHandler().get(
+                    currentSubmission.activity_id,
+                )?.name[locale]}
             </p>
         {/await}
         <p><strong>Vzdálenost:&nbsp;</strong>{currentSubmission.distance / 1000} km</p>

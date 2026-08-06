@@ -21,7 +21,7 @@
     const userStore = $derived(createUserStore(data.api));
     const toastStore = createToastStore();
 
-    setContext(Store.USER_STORE, userStore);
+    setContext(Store.USER_STORE, () => userStore);
     setContext(Store.TOAST_STORE, toastStore);
 </script>
 

@@ -7,9 +7,9 @@
 
     const { data } = $props();
 
-    const seasonStore = getContext<SeasonStore>(Store.SEASON_STORE);
+    const seasonStoreHandler = getContext<() => SeasonStore>(Store.SEASON_STORE);
 
-    let season = $derived(seasonStore.get(Number(page.params.id)) ?? undefined);
+    let season = $derived(seasonStoreHandler().get(Number(page.params.id)) ?? undefined);
 </script>
 
 <div>

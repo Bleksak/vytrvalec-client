@@ -20,7 +20,7 @@
     let dialog = $state<Dialog>();
     let strength = $state<number>(0);
 
-    const facultyStore = getContext<FacultyStore>(Store.FACULTY_STORE);
+    const facultyStoreHandler = getContext<() => FacultyStore>(Store.FACULTY_STORE);
 
     let errors = $state<RegistrationError>();
 
@@ -54,7 +54,7 @@
             <label for="faculty">
                 {$LL.registration.faculty()}:<Required />
             </label>
-            {#await facultyStore.promise() then faculties}
+            {#await facultyStoreHandler().promise() then faculties}
                 {@const registrationFaculties = faculties.filter((faculty) => faculty.visible)}
                 <select name="faculty" id="faculty">
                     {#each registrationFaculties as faculty}

@@ -29,9 +29,9 @@
 
     setContext(Store.TOAST_STORE, toastStore);
     setContext(Store.DIALOG_STORE, dialogStore);
-    setContext(Store.ACTIVITY_STORE, activityStore);
-    setContext(Store.FACULTY_STORE, facultyStore);
-    setContext(Store.SEASON_STORE, seasonStore);
+    setContext(Store.ACTIVITY_STORE, () => activityStore);
+    setContext(Store.FACULTY_STORE, () => facultyStore);
+    setContext(Store.SEASON_STORE, () => seasonStore);
 
     $effect(() => {
         if (

@@ -18,8 +18,8 @@
 
     let editedUser = $state(untrack(() => ({ ...user })));
 
-    const facultyStore = getContext<FacultyStore>(Store.FACULTY_STORE);
-    const userStore = getContext<UserStore>(Store.USER_STORE);
+    const facultyStoreHandler = getContext<() => FacultyStore>(Store.FACULTY_STORE);
+    const userStoreHandler = getContext<() => UserStore>(Store.USER_STORE);
     const toastStore = getContext<ToastStore>(Store.TOAST_STORE);
 
     let adminChecked = $state<boolean>(editedUser.roles.includes(UserRole.Staff));
@@ -34,10 +34,10 @@
                 dialog?.close();
 
                 editedUser.roles = adminChecked ? [UserRole.User, UserRole.Staff] : [UserRole.User];
-                editedUser.faculty = facultyStore.get(facultyId)!;
+                editedUser.faculty = facultyStoreHandler().get(facultyId)!;
                 editedUser.banned = banned;
 
-                userStore.update(editedUser);
+                userStoreHandler().update(editedUser);
 
                 toastStore.add({
                     type: 'success',
@@ -106,7 +106,7 @@
             </span>
         {/each}
 
-        {#await facultyStore.promise() then faculties}
+        {#await facultyStoreHandler().promise() then faculties}
             <select bind:value={facultyId} name="faculty_id" id="faculty_id">
                 {#each faculties as faculty}
                     <option value={faculty.id}>{faculty.name.cs}</option>

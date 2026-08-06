@@ -24,7 +24,7 @@
     let imageUuid = $state<string | null>(null);
 
     const toastStore = getContext<ToastStore>(Store.TOAST_STORE);
-    const activityStore = getContext<ActivityStore>(Store.ACTIVITY_STORE);
+    const activityStoreHandler = getContext<() => ActivityStore>(Store.ACTIVITY_STORE);
 
     const onSubmit: SubmitFunction = ({ submitter, formData }) => {
         submitter?.setAttribute('disabled', 'disabled');
@@ -96,7 +96,7 @@
         <label for="activity">
             {$LL.submission.form.activity()}:
         </label>
-        {#await activityStore.promise()}
+        {#await activityStoreHandler().promise()}
             <span>Načítání</span>
         {:then activities}
             <select name="activity" id="activity">

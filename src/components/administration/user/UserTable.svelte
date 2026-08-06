@@ -8,7 +8,7 @@
     import { ChevronLeft, ChevronRight, Pencil } from '@lucide/svelte';
     import Heading from '$components/Heading.svelte';
 
-    const userStore = getContext<UserStore>(Store.USER_STORE);
+    const userStoreHandler = getContext<() => UserStore>(Store.USER_STORE);
     const dialogStore = getContext<DialogStore>(Store.DIALOG_STORE);
 
     const context = getAllContexts();
@@ -19,19 +19,25 @@
         const value = (e.target as HTMLInputElement).value;
         clearTimeout(searchTimeout);
         searchTimeout = setTimeout(() => {
-            userStore.loadPage(1, value);
+            userStoreHandler().loadPage(1, value);
         }, 300);
     }
 
     function prevPage() {
-        if (userStore.currentPage() > 1) {
-            userStore.loadPage(userStore.currentPage() - 1, userStore.currentSearch());
+        if (userStoreHandler().currentPage() > 1) {
+            userStoreHandler().loadPage(
+                userStoreHandler().currentPage() - 1,
+                userStoreHandler().currentSearch(),
+            );
         }
     }
 
     function nextPage() {
-        if (userStore.currentPage() < userStore.totalPages()) {
-            userStore.loadPage(userStore.currentPage() + 1, userStore.currentSearch());
+        if (userStoreHandler().currentPage() < userStoreHandler().totalPages()) {
+            userStoreHandler().loadPage(
+                userStoreHandler().currentPage() + 1,
+                userStoreHandler().currentSearch(),
+            );
         }
     }
 </script>
@@ -63,12 +69,12 @@
                 </thead>
 
                 <tbody>
-                    {#if userStore.isLoading()}
+                    {#if userStoreHandler().isLoading()}
                         <tr>
                             <td colspan="7">Načítání...</td>
                         </tr>
                     {:else}
-                        {#each userStore.all() as user}
+                        {#each userStoreHandler().all() as user}
                             <tr>
                                 <td>{user.first_name}</td>
                                 <td>{user.last_name}</td>
@@ -103,22 +109,22 @@
         <div class="pagination">
             <button
                 onclick={prevPage}
-                disabled={userStore.currentPage() <= 1 || userStore.isLoading()}
+                disabled={userStoreHandler().currentPage() <= 1 || userStoreHandler().isLoading()}
                 aria-label="Předchozí strana"
             >
                 <ChevronLeft size={18} />
             </button>
 
             <span>
-                Strana <strong>{userStore.currentPage()}</strong> z
-                <strong>{userStore.totalPages()}</strong>
-                <span class="pagination-total"> - {userStore.total()} uživatelů</span>
+                Strana <strong>{userStoreHandler().currentPage()}</strong> z
+                <strong>{userStoreHandler().totalPages()}</strong>
+                <span class="pagination-total"> - {userStoreHandler().total()} uživatelů</span>
             </span>
 
             <button
                 onclick={nextPage}
-                disabled={userStore.currentPage() >= userStore.totalPages() ||
-                    userStore.isLoading()}
+                disabled={userStoreHandler().currentPage() >= userStoreHandler().totalPages() ||
+                    userStoreHandler().isLoading()}
                 aria-label="Následující strana"
             >
                 <ChevronRight size={18} />

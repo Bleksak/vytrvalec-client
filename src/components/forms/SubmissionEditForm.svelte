@@ -25,7 +25,7 @@
         api: AxiosInstance;
     } & HTMLDialogAttributes = $props();
 
-    const activityStore = getContext<ActivityStore>(Store.ACTIVITY_STORE);
+    const activityStoreHandler = getContext<() => ActivityStore>(Store.ACTIVITY_STORE);
     const refetchSubmissions = getGlobalContext<() => void>('refetchSubmissions');
 
     let errors = $state<SubmissionCreateError>();
@@ -125,7 +125,7 @@
         <label for="activity">
             {$LL.submission.form.activity()}:
         </label>
-        {#await activityStore.promise()}
+        {#await activityStoreHandler().promise()}
             <span>Načítání</span>
         {:then activities}
             <select name="activity" id="activity">

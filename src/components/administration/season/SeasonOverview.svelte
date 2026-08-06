@@ -25,9 +25,9 @@
     const seasonResultCalculator = $derived(new SeasonResult(activities));
     const isSeasonRunning = $derived(season.is_running);
 
-    const seasonStore = getContext<SeasonStore>(Store.SEASON_STORE);
+    const seasonStoreHandler = getContext<() => SeasonStore>(Store.SEASON_STORE);
     const toastStore = getContext<ToastStore>(Store.TOAST_STORE);
-    const facultyStore = getContext<FacultyStore>(Store.FACULTY_STORE);
+    const facultyStoreHandler = getContext<() => FacultyStore>(Store.FACULTY_STORE);
     const charity = $derived(season.charity);
 
     let seasonCacheResult = $state<boolean>();
@@ -61,21 +61,23 @@
 
     const removeSeason = () => {
         if (confirm('Opravdu chcete odstranit tuto sezónu? Akce je nevratná!')) {
-            seasonStore.remove(season).then((result) => {
-                if (result) {
-                    toastStore.add({
-                        type: 'success',
-                        message: 'Sezóna odstraněna',
-                    });
-                    goto('/administration/season');
-                } else {
-                    toastStore.add({
-                        type: 'error',
-                        message: 'Nastala chyba při odstranění sezóny',
-                    });
-                    seasonRemoveResult = false;
-                }
-            });
+            seasonStoreHandler()
+                .remove(season)
+                .then((result) => {
+                    if (result) {
+                        toastStore.add({
+                            type: 'success',
+                            message: 'Sezóna odstraněna',
+                        });
+                        goto('/administration/season');
+                    } else {
+                        toastStore.add({
+                            type: 'error',
+                            message: 'Nastala chyba při odstranění sezóny',
+                        });
+                        seasonRemoveResult = false;
+                    }
+                });
         }
     };
 
@@ -150,7 +152,10 @@
                                         {seasonResult?.users[row.user]?.first_name ?? '—'}
                                         {seasonResult?.users[row.user]?.last_name ?? ''}
                                     </td>
-                                    <td>{facultyStore.get(row.faculty)?.shortcut ?? '—'}</td>
+                                    <td
+                                        >{facultyStoreHandler().get(row.faculty)?.shortcut ??
+                                            '—'}</td
+                                    >
                                     <td>{row.points}</td>
                                 </tr>
                             {/each}
@@ -171,7 +176,7 @@
                                     {seasonResult?.users[extraPoint.user].first_name}
                                     {seasonResult?.users[extraPoint.user].last_name}
                                 </strong>
-                                ({facultyStore.get(extraPoint.faculty)?.shortcut}) —
+                                ({facultyStoreHandler().get(extraPoint.faculty)?.shortcut}) —
                                 {$LL.extra_points[
                                     extraPoint.name as keyof typeof $LL.extra_points
                                 ]()},

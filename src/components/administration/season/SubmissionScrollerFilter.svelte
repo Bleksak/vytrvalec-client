@@ -13,8 +13,8 @@
 
     const locale = $derived(getLocale());
 
-    const facultyStore = getContext<FacultyStore>(Store.FACULTY_STORE);
-    const activityStore = getContext<ActivityStore>(Store.ACTIVITY_STORE);
+    const facultyStoreHandler = getContext<() => FacultyStore>(Store.FACULTY_STORE);
+    const activityStoreHandler = getContext<() => ActivityStore>(Store.ACTIVITY_STORE);
 
     const states: Array<SubmissionState> = ['accepted', 'rejected', 'pending'];
     const weeks = [0, 1, 2, 3];
@@ -101,7 +101,7 @@
         </div>
     </div>
 
-    {#await activityStore.promise() then activities}
+    {#await activityStoreHandler().promise() then activities}
         <div class="col">
             <label for="activity">Aktivita:</label>
             <div class="field">
@@ -127,7 +127,7 @@
         </div>
     {/await}
 
-    {#await facultyStore.promise() then faculties}
+    {#await facultyStoreHandler().promise() then faculties}
         <div class="col">
             <label for="faculty">Fakulta:</label>
             <div class="field">
