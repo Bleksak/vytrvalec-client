@@ -22,7 +22,7 @@ const isPathname = (current: string, wanted: string): boolean => {
     return false;
 };
 
-export const handle: Handle = async ({ event, resolve }): Promise<any> => {
+export const handle: Handle = async ({ event, resolve }) => {
     // NOTE: When developing with https (server), axios will reject all requests unless we set this environment variable
 
     if (dev) {
