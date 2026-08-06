@@ -7,7 +7,9 @@ import qs from 'qs';
 const createAction: Action = async ({ request, locals }) => {
     const formData = await request.formData();
 
-    const value = qs.parse(new URLSearchParams(formData as any).toString());
+    const value = qs.parse(
+        new URLSearchParams(Array.from(formData, ([key, val]) => [key, String(val)])).toString(),
+    );
     const data = FacultyCreateType(value);
 
     if (data instanceof ArkErrors) {
@@ -32,7 +34,9 @@ const createAction: Action = async ({ request, locals }) => {
 const updateAction: Action = async ({ request, locals }) => {
     const formData = await request.formData();
 
-    const value = qs.parse(new URLSearchParams(formData as any).toString());
+    const value = qs.parse(
+        new URLSearchParams(Array.from(formData, ([key, val]) => [key, String(val)])).toString(),
+    );
     const data = FacultyUpdateType(value);
 
     if (data instanceof ArkErrors) {
