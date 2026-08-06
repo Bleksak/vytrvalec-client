@@ -36,7 +36,7 @@ export default class UnreviewedSubmissionStore {
         this.ws = new WebSocket(wsUrl);
         this.jwt = jwt;
 
-        this.ws.onopen = (): any => {
+        this.ws.onopen = () => {
             this.initialize();
         };
 
@@ -49,7 +49,7 @@ export default class UnreviewedSubmissionStore {
         this.ws.onerror = UnreviewedSubmissionStore.onWsError;
     }
 
-    private initialize(): any {
+    private initialize() {
         this.send({
             type: WebsocketMessageType.InitializeRequest,
             payload: {
@@ -58,12 +58,12 @@ export default class UnreviewedSubmissionStore {
         });
     }
 
-    private static onWsClose(this: WebSocket, event: Event): any {
+    private static onWsClose(this: WebSocket, event: Event) {
         console.log('WS closed');
         console.log(event);
     }
 
-    private onWsMessage(event: MessageEvent): any {
+    private onWsMessage(event: MessageEvent) {
         console.log('Got message');
         console.log(event);
 
@@ -120,7 +120,7 @@ export default class UnreviewedSubmissionStore {
         }
     }
 
-    private static onWsError(this: WebSocket, event: Event): any {
+    private static onWsError(this: WebSocket, event: Event) {
         console.error('WS Error');
         console.error(event);
     }
