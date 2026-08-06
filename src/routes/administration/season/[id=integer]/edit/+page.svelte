@@ -6,14 +6,18 @@
     import type { SubmitFunction } from '@sveltejs/kit';
     import { SvelteMap } from 'svelte/reactivity';
     import { getLocale } from '$paraglide/runtime';
+    import { page } from '$app/state';
+    import { untrack } from 'svelte';
 
-    const { data } = $props();
+    let { data } = $props();
 
     let errors: Record<string, string> = $state({});
 
-    let startDateValue = $state(data.season?.start ?? new Date());
-    let endDateValue = $state(data.season?.end ?? new Date());
-    let isTestSeason = $state(data.season?.is_test ?? false);
+    let snapshot = $state.snapshot(untrack(() => data.season));
+
+    let startDateValue = $state(snapshot?.start ?? new Date());
+    let endDateValue = $state(snapshot?.end ?? new Date());
+    let isTestSeason = $state(snapshot?.is_test ?? false);
 
     const existingFacultyMapping = $derived.by(() => {
         const result = new SvelteMap<number, number | null>();
