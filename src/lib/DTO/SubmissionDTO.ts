@@ -1,4 +1,5 @@
 import type { ResponseErrorMap } from '$lib/ResponseErrors';
+import type { SubmissionState } from '$lib/enums/SubmissionState';
 import type { UserResponseAdmin } from './UserResponse';
 
 import { type } from 'arktype';
@@ -17,13 +18,13 @@ export const SubmissionResponseDto = type({
     'elevation?': 'number',
     image: 'string',
     activity_id: 'number',
-    accepted: 'boolean',
-    reviewed: 'boolean',
+    state: "'accepted' | 'rejected' | 'pending'",
     user_id: 'number',
     date: type('string.date').pipe((s) => new Date(s)),
     updated_at: 'string',
     week: 'number',
     season_id: 'number',
+    'image_uuid?': 'string',
     message: 'string',
 });
 
@@ -35,13 +36,13 @@ export type SubmissionResponseDTO = {
     elevation?: number;
     image: string;
     activity_id: number;
-    accepted: boolean;
-    reviewed: boolean;
+    state: SubmissionState;
     user_id: number;
     date: Date;
     updated_at: string;
     week: number;
     season_id: number;
+    image_uuid?: string;
     message: string;
 };
 

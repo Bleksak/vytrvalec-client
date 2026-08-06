@@ -26,8 +26,8 @@
     const enhancer: SubmitFunction<{ updated_at: string }> = ({ formData }) => {
         return async ({ update, result }) => {
             if (result.type === 'success') {
-                currentSubmission!.reviewed! = true;
-                currentSubmission!.accepted! = formData.get('state')?.toString() === '1';
+                currentSubmission!.state =
+                    formData.get('state')?.toString() === '1' ? 'accepted' : 'rejected';
                 currentSubmission!.updated_at! = result!.data!.updated_at!;
 
                 submissionStore?.update(currentSubmission!);
@@ -76,7 +76,7 @@
             <p><strong>Převýšení:&nbsp;</strong>{currentSubmission.elevation} m</p>
         {/if}
 
-        {#if currentSubmission.reviewed}
+        {#if currentSubmission.state !== 'pending'}
             <span class="note">
                 <strong>Poznámka:&nbsp;</strong>
                 aktivita již byla dříve zkontrolována
@@ -86,7 +86,7 @@
             <textarea name="message" id="message">{currentSubmission.message}</textarea>
 
             <div class="send-buttons">
-                {#if currentSubmission.accepted}
+                {#if currentSubmission.state === 'accepted'}
                     <button class="left danger" name="state" value="0" type="submit"
                         >Zamítnout</button
                     >

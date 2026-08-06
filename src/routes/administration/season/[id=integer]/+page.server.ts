@@ -1,5 +1,6 @@
 import type { PageServerLoad } from './$types';
 import { fetchSubmissionsForSeason } from '$actions/Submission';
+import type { SubmissionState } from '$lib/enums/SubmissionState';
 import type { SelectedFilter } from '$lib/DTO/SelectedFilter';
 
 export const load: PageServerLoad = async ({ params, url, locals }) => {
@@ -13,15 +14,10 @@ export const load: PageServerLoad = async ({ params, url, locals }) => {
     const faculty = url.searchParams.get('faculty');
     const page = url.searchParams.get('page');
 
-    const accepted = state === 'accepted' ? '1' : state === 'rejected' ? '0' : undefined;
-    const reviewed =
-        state === 'pending' ? '0' : state === 'accepted' || state === 'rejected' ? '1' : undefined;
-
     const filter: SelectedFilter = {
         user: user && user !== '' ? user : undefined,
         date: date && date !== '' ? date : undefined,
-        accepted,
-        reviewed,
+        state: state && state !== '' ? (state as SubmissionState) : undefined,
         activity: activity && activity !== '' ? activity : undefined,
         week: week && week !== '' ? week : undefined,
         faculty: faculty && faculty !== '' ? faculty : undefined,

@@ -5,9 +5,7 @@
 
     let { submission }: { submission: SubmissionResponseDTO } = $props();
 
-    const state = $derived(
-        submission.reviewed ? (submission.accepted ? 'accepted' : 'rejected') : 'pending',
-    );
+    const state = $derived(submission.state);
 </script>
 
 <div

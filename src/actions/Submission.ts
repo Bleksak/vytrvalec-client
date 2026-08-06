@@ -104,7 +104,7 @@ export const acceptSubmission = async (
 ): Promise<AxiosResponse> => {
     return await api.patch(`/submission/${submission.id}/state`, {
         updated_at: submission.updated_at,
-        state: true,
+        state: 'accepted',
         message,
     });
 };
@@ -116,7 +116,7 @@ export const rejectSubmission = async (
 ): Promise<AxiosResponse> => {
     return await api.patch(`/submission/${submission.id}/state`, {
         updated_at: submission.updated_at,
-        state: false,
+        state: 'rejected',
         message,
     });
 };

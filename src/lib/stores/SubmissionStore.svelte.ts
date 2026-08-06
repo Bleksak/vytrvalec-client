@@ -1,11 +1,11 @@
 import { fetchSubmissionsForSeason } from '$actions/Submission';
 import type { SeasonDTO } from '$lib/DTO/SeasonDTO';
 import type { SubmissionResponseAdminDTO } from '$lib/DTO/SubmissionDTO';
+import type { SubmissionState } from '$lib/enums/SubmissionState';
 import axios from 'axios';
 
 export type SubmissionFilter = {
-    reviewed?: number;
-    accepted?: number;
+    state?: SubmissionState;
     activity?: number;
     faculty?: number;
     user?: string;
@@ -27,11 +27,8 @@ export const createSubmissionStore = (season: SeasonDTO): SubmissionStore => {
     const filters = $state<object>({});
 
     let currentPage = 1;
-    const submissionsPromise: Promise<Array<SubmissionResponseAdminDTO>> = fetchSubmissionsForSeason(
-        axios,
-        season,
-        { page: currentPage, ...filters },
-    );
+    const submissionsPromise: Promise<Array<SubmissionResponseAdminDTO>> =
+        fetchSubmissionsForSeason(axios, season, { page: currentPage, ...filters });
 
     let canLoadMore = true;
 

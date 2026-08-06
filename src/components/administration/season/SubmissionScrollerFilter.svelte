@@ -32,14 +32,7 @@
     onMount(() => {
         email = filter.user;
         date = filter.date ? new Date(filter.date) : undefined;
-        _state =
-            filter.accepted === '1'
-                ? 'accepted'
-                : filter.accepted === '0'
-                  ? 'rejected'
-                  : filter.reviewed === undefined
-                    ? undefined
-                    : 'pending';
+        _state = filter.state;
         activityValue = Number(filter.activity);
     });
 

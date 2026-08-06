@@ -95,7 +95,7 @@
                             id="accepted-view"
                             name="accepted-view"
                             disabled
-                            checked={submission.accepted}
+                            checked={submission.state === 'accepted'}
                         />
                         <strong>Schválená</strong>
                     </label>
@@ -107,7 +107,7 @@
                             id="reviewed-view"
                             name="reviewed-view"
                             disabled
-                            checked={submission.reviewed}
+                            checked={submission.state !== 'pending'}
                         />
                         <strong>Zkontrolovaná</strong>
                     </label>

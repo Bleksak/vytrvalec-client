@@ -141,7 +141,7 @@ export default class UnreviewedSubmissionStore {
         this.send({
             type: WebsocketMessageType.SubmissionReviewRequest,
             payload: {
-                accepted: true,
+                state: 'accepted',
                 message,
             },
         });
@@ -151,7 +151,7 @@ export default class UnreviewedSubmissionStore {
         this.send({
             type: WebsocketMessageType.SubmissionReviewRequest,
             payload: {
-                accepted: false,
+                state: 'rejected',
                 message,
             },
         });

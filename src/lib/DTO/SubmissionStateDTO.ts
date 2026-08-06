@@ -1,8 +1,9 @@
 import type { ResponseError, ResponseErrorMap } from '$lib/ResponseErrors';
+import type { SubmissionState } from '$lib/enums/SubmissionState';
 
 export type SubmissionStateDTO = {
     updated_at: string;
-    state: boolean;
+    state: SubmissionState;
     message?: string;
 };
 
@@ -33,7 +34,7 @@ export type SubmissionStateReturn =
 
 export const formDataToSubmissionStateDTO = (formData: FormData): SubmissionStateReturn => {
     const updated_at = formData.get('updated_at')?.toString();
-    const state = formData.get('state')?.toString() == '1';
+    const state = formData.get('state')?.toString() === '1' ? 'accepted' : 'rejected';
     const message = formData.get('message')?.toString();
 
     if (updated_at === null) {
@@ -41,15 +42,6 @@ export const formDataToSubmissionStateDTO = (formData: FormData): SubmissionStat
             type: 'error',
             errors: {
                 updated_at: ['blank'],
-            },
-        };
-    }
-
-    if (state === null) {
-        return {
-            type: 'error',
-            errors: {
-                state: ['blank'],
             },
         };
     }

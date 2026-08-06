@@ -31,7 +31,7 @@
     const dialogStore = getContext<DialogStore>(Store.DIALOG_STORE);
     const toastStore = getContext<ToastStore>(Store.TOAST_STORE);
 
-    const isEditable = $derived(!submission.reviewed || !submission.accepted);
+    const isEditable = $derived(submission.state === 'pending');
 
     let error = $state<(Event & { currentTarget: EventTarget & Element }) | null>(null);
 
