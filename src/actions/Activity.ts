@@ -7,6 +7,12 @@ import type {
 } from '$lib/DTO/ActivityDTO';
 import axios, { type AxiosInstance } from 'axios';
 
+export async function deleteActivity(id: number, api: AxiosInstance = axios): Promise<boolean> {
+    const response = await api.delete(`/activity/${id}`).catch(() => null);
+
+    return response !== null && response.status === 200;
+}
+
 export async function fetchActivities(api: AxiosInstance = axios): Promise<Array<ActivityDTO>> {
     return (await api.get('/activity').catch(() => null))?.data ?? [];
 }
