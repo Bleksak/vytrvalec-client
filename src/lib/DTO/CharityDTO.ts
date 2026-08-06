@@ -65,8 +65,6 @@ export type CharityError = ResponseErrorMap<CharityDTO> & {
     auth?: Array<ResponseError>;
 };
 
-export type CharityCreate = {};
-
 export type CharityCreateReturn =
     | {
           type: 'dto';

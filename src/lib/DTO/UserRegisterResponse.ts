@@ -1,8 +1,6 @@
 import type { ResponseError, ResponseErrorMap } from '$lib/ResponseErrors';
 import type { UserRegisterDTO } from './UserRegisterDTO';
 
-export type RegistrationResponseSuccess = {};
-
 export type RegistrationError = ResponseErrorMap<UserRegisterDTO & { password_repeat: string }> & {
     auth?: Array<ResponseError>;
     gdpr?: Array<ResponseError>;

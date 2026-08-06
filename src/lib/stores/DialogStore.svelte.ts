@@ -8,7 +8,7 @@ type BaseProps = {
 export type DialogStore = {
     open: <Props extends BaseProps & Record<string, any>>(
         component: Component<Props>,
-        props: {} extends Props ? Partial<Props> : Props,
+        props: object extends Props ? Partial<Props> : Props,
         context: Map<any, any>,
     ) => void;
     close: () => void;
@@ -19,7 +19,7 @@ const createDialogStore = (): DialogStore => {
 
     const open = <Props extends Record<string, any>>(
         component: Component<Props>,
-        props: {} extends Props ? Partial<Props> : Props,
+        props: object extends Props ? Partial<Props> : Props,
         context: Map<any, any> = new Map(),
     ) => {
         if (currentDialog) {
