@@ -5,7 +5,6 @@ import type {
     FacultyDTO,
     FacultyUpdateDTO,
     FacultyUpdateResponse,
-    // FacultyEditResponse
 } from '$lib/DTO/FacultyDTO';
 
 export const fetchFaculties = async (api: AxiosInstance = axios): Promise<Array<FacultyDTO>> => {
@@ -79,30 +78,8 @@ export const updateFaculty = async (
     };
 };
 
-// export const deleteFaculty = async (id: number): Promise<FacultyEditResponse> => {
-// 	const response = await axios.delete(`/faculty/${id}`).catch((error) => {
-// 		if (error.response) {
-// 			return error.response;
-// 		}
+export const deleteFaculty = async (api: AxiosInstance = axios, id: number): Promise<boolean> => {
+    const response = await api.delete(`/faculty/${id}`).catch(() => null);
 
-// 		return null;
-// 	});
-
-// 	if (response === null) {
-// 		return {
-// 			type: 'error',
-// 			errors: { auth: ['server_down'] }
-// 		};
-// 	}
-
-// 	if (response.status !== 200) {
-// 		return {
-// 			type: 'error',
-// 			errors: response.data
-// 		};
-// 	}
-
-// 	return {
-// 		type: 'success'
-// 	};
-// };
+    return response !== null && response.status === 200;
+};

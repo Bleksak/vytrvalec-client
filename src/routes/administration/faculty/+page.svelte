@@ -1,8 +1,39 @@
 <script lang="ts">
+    import { deleteFaculty } from '$actions/Faculty';
     import Heading from '$components/Heading.svelte';
-    import { Edit } from '@lucide/svelte';
+    import type { FacultyDTO } from '$lib/DTO/FacultyDTO';
+    import Store from '$lib/enums/Stores';
+    import type { ToastStore } from '$lib/stores/ToastStore.svelte';
+    import { Delete, Edit } from '@lucide/svelte';
+    import { getContext } from 'svelte';
 
     const { data } = $props();
+
+    const toastStore = getContext<ToastStore>(Store.TOAST_STORE);
+
+    async function deleteButtonClick(faculty: FacultyDTO): Promise<void> {
+        if (!confirm('Opravdu chcete pracoviště smazat?')) {
+            return;
+        }
+
+        const result = await deleteFaculty(data.api, faculty.id);
+
+        if (!result) {
+            toastStore.add({
+                type: 'error',
+                message: 'Pracoviště se nepodařilo odstranit',
+            });
+
+            return;
+        }
+
+        data.faculties.delete(faculty.id);
+
+        toastStore.add({
+            type: 'success',
+            message: 'Pracoviště bylo úspěšně odstraněno',
+        });
+    }
 </script>
 
 <article>
@@ -35,6 +66,13 @@
                         </td>
                         <td>
                             <a href="/administration/faculty/{faculty.id}"><Edit /></a>
+                            <button
+                                class="btn-no-style"
+                                data-tooltip="Pracoviště s uživateli nelze odstranit"
+                                onclick={() => deleteButtonClick(faculty)}
+                            >
+                                <Delete class="selection-color" />
+                            </button>
                         </td>
                     </tr>
                 {/each}
