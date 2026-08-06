@@ -5,11 +5,7 @@ import tseslint from 'typescript-eslint';
 
 export default defineConfig([
     {
-        ignores: [
-            '.svelte-kit/**',
-            'src/paraglide/**',
-            'src/translations/**',
-        ],
+        ignores: ['.svelte-kit/**', 'src/paraglide/**', 'src/translations/**'],
     },
     { files: ['src/**/*.{js,mjs,cjs,ts}'] },
     { files: ['src/**/*.{js,mjs,cjs,ts}'], languageOptions: { globals: globals.browser } },
