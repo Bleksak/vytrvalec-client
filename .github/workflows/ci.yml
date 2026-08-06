@@ -24,3 +24,6 @@ jobs:
 
             - name: Run linter
               run: npm run lint
+
+            - name: Run svelte-check
+              run: npm run check
