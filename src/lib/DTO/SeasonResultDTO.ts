@@ -57,12 +57,22 @@ export type SeasonResultRankRow = {
     points: number;
 };
 
-function createFacultySet(results: SeasonResultData): Set<number> {
+function createFacultySet(results: SeasonResultData | null): Set<number> {
     const faculties: Set<number> = new Set<number>();
 
-    for (const week of Object.values(results.results)) {
-        for (const activity of Object.values(week.activities)) {
-            for (const result of Object.values(activity.results)) {
+    if (results === undefined || results === null) {
+        return faculties;
+    }
+
+    const weeks = results.results;
+
+    if (weeks === undefined || weeks === null) {
+        return faculties;
+    }
+
+    for (const week of Object.values(weeks)) {
+        for (const activity of Object.values(week?.activities ?? {})) {
+            for (const result of Object.values(activity?.results ?? {})) {
                 faculties.add(result.faculty);
             }
         }
@@ -71,7 +81,7 @@ function createFacultySet(results: SeasonResultData): Set<number> {
     return faculties;
 }
 
-function getWeekCount(season: SeasonDTO): number {
+export function getWeekCount(season: SeasonDTO): number {
     const diff_ms = season.end.getTime() - season.start.getTime();
     const diff_days = Math.floor(diff_ms / (1000 * 60 * 60 * 24));
     const weeks = Math.floor((diff_days + 1) / 7);
@@ -86,9 +96,18 @@ export class SeasonResult {
         this.activities = activities;
     }
 
+    private emptyRank(): SeasonResultRank {
+        return {
+            total_distance: 0,
+            total_points: 0,
+            rows: [],
+            extras: [],
+        };
+    }
+
     calculateSeasonResultRank(
         season: SeasonDTO,
-        data: SeasonResultData,
+        data: SeasonResultData | null,
         week: null | number = null,
         activity: null | number = null,
     ): SeasonResultRank {
@@ -113,21 +132,27 @@ export class SeasonResult {
         const ranking: Record<number, SeasonResultRankRow> = {};
         const extras: Array<ExtraPoints> = [];
 
+        const weeks = data?.results;
+
+        if (weeks === undefined || weeks === null) {
+            return this.emptyRank();
+        }
+
         if (week === null) {
-            for (const [, weeklyResult] of Object.entries(data.results)) {
+            for (const weeklyResult of Object.values(weeks)) {
                 this.populateRankingArray(facultySet, weeklyResult, ranking, extras, activity);
             }
         } else {
-            if (week < 0 || week > getWeekCount(season)) {
-                return {
-                    total_distance: 0,
-                    total_points: 0,
-                    rows: [],
-                    extras: [],
-                };
+            if (week < 0 || week >= getWeekCount(season)) {
+                return this.emptyRank();
             }
 
-            const weeklyResult = data.results[week];
+            const weeklyResult = weeks[week];
+
+            if (weeklyResult === undefined) {
+                return this.emptyRank();
+            }
+
             this.populateRankingArray(facultySet, weeklyResult, ranking, extras, activity);
         }
 
@@ -170,14 +195,16 @@ export class SeasonResult {
         extras: Array<ExtraPoints>,
         allowedActivity: number | null = null,
     ): void {
-        for (const [activityIdStr, activityResult] of Object.entries(weeklyResult.activities)) {
+        for (const [activityIdStr, activityResult] of Object.entries(
+            weeklyResult?.activities ?? {},
+        )) {
             const activityId = Number(activityIdStr);
 
             if (allowedActivity !== null && activityId !== allowedActivity) {
                 continue;
             }
 
-            const facultyResults = [...Object.values(activityResult.results)];
+            const facultyResults = [...Object.values(activityResult?.results ?? [])];
             facultyResults.sort((a, b) => b.distance - a.distance);
 
             for (let i = 0; i < facultyResults.length; i++) {
@@ -198,7 +225,15 @@ export class SeasonResult {
                 ranking[facultyId].points += points;
             }
 
-            for (const extra of activityResult.extras) {
+            for (const extra of activityResult?.extras ?? []) {
+                if (ranking[extra.faculty] === undefined) {
+                    ranking[extra.faculty] = {
+                        distance: 0,
+                        points: 0,
+                        faculty: extra.faculty,
+                    };
+                }
+
                 ranking[extra.faculty].points += extra.points;
                 extras.push(extra);
             }

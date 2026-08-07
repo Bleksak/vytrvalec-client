@@ -113,9 +113,15 @@ export const updateSeasonConfig = async (
 
 export const fetchSeasonResult = async (
     api: AxiosInstance = axios,
-    season: SeasonDTO,
-): Promise<SeasonResultData> => {
-    return (await api.get(`/season/${season.id}/results`).catch(() => null))?.data ?? [];
+    season: SeasonDTO | null,
+): Promise<SeasonResultData | null> => {
+    if (season === null) {
+        return null;
+    }
+
+    const response = await api.get(`/season/${season.id}/results`).catch(() => null);
+
+    return Array.isArray(response?.data) ? null : (response?.data ?? null);
 };
 
 export const createSeasonCache = async (

@@ -36,7 +36,7 @@
                 {@const faculty = faculties.get(outlier.faculty_id)}
                 {@const user = users[outlier.user]}
                 <tr>
-                    <td>{user.first_name} {user.last_name}</td>
+                    <td>{user?.first_name} {user?.last_name}</td>
                     <td>{faculty?.shortcut}</td>
                     <td class="text-right">{(outlier.value / 1000).toFixed(1)} km</td>
                 </tr>

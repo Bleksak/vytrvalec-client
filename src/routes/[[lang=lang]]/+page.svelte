@@ -32,7 +32,7 @@
     });
 
     const seasonResult = $derived.by(() => {
-        if (data.lastSeason === null) {
+        if (data.lastSeason === null || data.lastSeasonResult === null) {
             return {
                 total_distance: 0,
                 total_points: 0,
