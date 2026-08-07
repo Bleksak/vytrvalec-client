@@ -10,10 +10,9 @@
     import { fetchSubmissionsForSeason } from '$actions/Submission';
     import { getLocale } from '$paraglide/runtime';
     import type { AxiosInstance } from 'axios';
+    import { loadNext } from '$utils/loadNext';
 
     const { season, api }: { season: SeasonDTO; api: AxiosInstance } = $props();
-
-    let filter = page.data.filter;
 
     const context = getAllContexts();
     const dialogStore = getContext<DialogStore>(Store.DIALOG_STORE);
@@ -21,42 +20,36 @@
 
     const locale = $state(getLocale());
 
+    let filter = $state(page.data.filter);
     let submissions = $state(page.data.submissions);
+    let isLoading = $state(false);
+    let canLoadNext = $state(true);
 
     $effect(() => {
         filter = page.data.filter;
         submissions = page.data.submissions;
+        isLoading = false;
+        canLoadNext = true;
     });
 
-    let canLoadNext = true;
+    const loadNextPage = async () => {
+        if (isLoading || !canLoadNext) return;
 
-    const loadNext = (element: Element) => {
-        const observer = new IntersectionObserver((entries) => {
-            if (canLoadNext) {
-                entries.forEach((entry) => {
-                    if (entry.isIntersecting) {
-                        if (!filter.page) {
-                            filter.page = 1;
-                        }
+        isLoading = true;
 
-                        filter.page += 1;
-
-                        fetchSubmissionsForSeason(api, season, filter).then((newSubmissions) => {
-                            submissions.push(...newSubmissions);
-
-                            if (newSubmissions.length === 0) {
-                                canLoadNext = false;
-                            }
-                        });
-                    }
-                });
-            }
+        const nextPage = (filter.page ?? 1) + 1;
+        const newSubmissions = await fetchSubmissionsForSeason(api, season, {
+            ...filter,
+            page: nextPage,
         });
-        observer.observe(element);
 
-        return {
-            destroy: () => observer.disconnect(),
-        };
+        submissions = [...submissions, ...newSubmissions];
+
+        if (newSubmissions.length === 0) {
+            canLoadNext = false;
+        }
+
+        isLoading = false;
     };
 </script>
 
@@ -127,7 +120,7 @@
             </div>
         </div>
     {/each}
-    <div use:loadNext></div>
+    <div {@attach loadNext(loadNextPage)}></div>
 {/await}
 
 <style>
