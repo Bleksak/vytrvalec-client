@@ -79,7 +79,7 @@
                         <div class="stat-label">Aktivita</div>
                         <div class="stat-value">
                             <Activity class="submission-review-icon" />
-                            <span class="badge">{activity.name.cs}</span>
+                            <span>{activity.name.cs}</span>
                         </div>
                     </div>
 
@@ -87,9 +87,7 @@
                         <div class="stat-label">Vzdálenost</div>
                         <div class="stat-value">
                             <Ruler class="submission-review-icon" />
-                            <span class="metric"
-                                >{(currentSubmission.distance / 1000).toFixed(2)}</span
-                            > km
+                            <span>{(currentSubmission.distance / 1000).toFixed(2)}</span> km
                         </div>
                     </div>
 
@@ -97,7 +95,7 @@
                         <div class="stat-label">Převýšení</div>
                         <div class="stat-value">
                             <TrendingUp class="submission-review-icon" />
-                            <span class="metric">{currentSubmission.elevation ?? 0}</span> m
+                            <span>{currentSubmission.elevation ?? 0}</span> m
                         </div>
                     </div>
                 </div>
@@ -239,20 +237,6 @@
         align-items: center;
         gap: 0.5rem;
         font-weight: 500;
-    }
-
-    .badge {
-        background-color: #005cab;
-        color: white;
-        padding: 0.25rem 0.5rem;
-        border-radius: 9999px;
-        font-size: 0.75rem;
-        font-weight: 500;
-    }
-
-    .metric {
-        color: #005cab;
-        font-weight: 700;
     }
 
     .separator {
