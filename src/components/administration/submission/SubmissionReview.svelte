@@ -57,7 +57,7 @@
                     </div>
                     <div class="date">
                         <Calendar class="submission-review-icon" />
-                        <span class="date-text">
+                        <span>
                             {new Date(currentSubmission.updated_at).toLocaleString('cs', {
                                 year: 'numeric',
                                 month: '2-digit',
@@ -195,12 +195,6 @@
 
     .name {
         font-weight: 500;
-    }
-
-    .date-text {
-        font-size: 0.875rem;
-        color: #1b2230;
-        font-weight: bold;
     }
 
     /* Details styling */
