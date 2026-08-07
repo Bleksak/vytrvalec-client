@@ -1,6 +1,7 @@
 <script lang="ts">
     import type { ActivityDTO } from '$lib/DTO/ActivityDTO';
     import type UnreviewedSubmissionStore from '$lib/stores/UnreviewedSubmissionStore.svelte';
+    import FacultyTag from '$components/profile/FacultyTag.svelte';
     import { Activity, Calendar, Ruler, TrendingUp, User } from '@lucide/svelte';
 
     const {
@@ -54,6 +55,7 @@
                             {currentUser.first_name}
                             {currentUser.last_name}
                         </span>
+                        <FacultyTag facultyShortcut={currentUser.faculty.shortcut} />
                     </div>
                     <div class="date">
                         <Calendar class="submission-review-icon" />
