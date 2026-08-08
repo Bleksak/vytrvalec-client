@@ -2,11 +2,10 @@
     import Store from '$lib/enums/Stores';
     import type { ActivityStore } from '$lib/stores/ActivityStore.svelte';
     import type { FacultyStore } from '$lib/stores/FacultyStore.svelte';
-    import { getContext, onMount, untrack } from 'svelte';
+    import { getContext, onMount } from 'svelte';
     import { LL } from '$translations/i18n-svelte';
     import DateInput from '$components/FormComponent/DateInput.svelte';
     import type { SubmissionState } from '$lib/enums/SubmissionState';
-    import Select from '$components/FormComponent/Select.svelte';
     import { page } from '$app/state';
     import { invalidateAll } from '$app/navigation';
     import { getLocale } from '$paraglide/runtime';
@@ -19,8 +18,7 @@
     const states: Array<SubmissionState> = ['accepted', 'rejected', 'pending'];
     const weeks = [0, 1, 2, 3];
 
-    let selectFaculty = $state<Select>();
-    let selectWeek = $state<Select>();
+    let facultyValue = $state<number | string>('');
 
     let filter = $derived(page.data.filter);
 
@@ -34,16 +32,7 @@
         date = filter.date ? new Date(filter.date) : undefined;
         _state = filter.state;
         activityValue = Number(filter.activity);
-    });
-
-    $effect(() => {
-        selectFaculty;
-        selectWeek;
-
-        untrack(() => {
-            selectFaculty?.selectValue(Number(filter.faculty));
-            selectWeek?.selectValue(Number(filter.week));
-        });
+        facultyValue = filter.faculty ? Number(filter.faculty) : '';
     });
 </script>
 
@@ -131,16 +120,17 @@
         <div class="col">
             <label for="faculty">Fakulta:</label>
             <div class="field">
-                <Select
-                    bind:this={selectFaculty}
-                    keys={[undefined, ...faculties].map((f) =>
-                        f ? $LL.faculties[f.shortcut as keyof typeof $LL.faculties]() : 'Nevybráno',
-                    )}
-                    values={[undefined, ...faculties].map((f) => (f ? f.id : undefined))}
-                    id="faculty"
-                    name="faculty"
-                />
-                <button type="button" onclick={() => selectFaculty?.select(0)}>
+                {#await facultyStoreHandler().promise() then faculties}
+                    <select bind:value={facultyValue} name="faculty" id="faculty">
+                        <option value={''}>Nevybráno</option>
+                        {#each faculties as faculty}
+                            <option value={faculty.id}>
+                                {$LL.faculties[faculty.shortcut as keyof typeof $LL.faculties]()}
+                            </option>
+                        {/each}
+                    </select>
+                {/await}
+                <button type="button" onclick={() => (facultyValue = '')}>
                     <img class="icon" src="/images/icons/x.svg" alt="Odstranit filtr" />
                 </button>
             </div>
